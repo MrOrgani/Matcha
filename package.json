@@ -1,0 +1,24 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "random-profile-generator": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"neo4j start\" ",
+    "db": "neo4j start"
+  },
+  "author": "Morgani",
+  "license": "MIT"
+}
