@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "build": "^0.1.4",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",

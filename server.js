@@ -8,30 +8,30 @@ let profile = "";
 //   profile.push(randomProfile.profile());
 // }
 
-let text = "";
-for (let i = 0; i < 50; i++) {
-  profile = randomProfile.profile();
-  //   console.log(profile);
-  text += `CREATE (${profile["firstName"]}${
-    profile["lastName"]
-  }:Person {firstName: '${profile["firstName"]}', lastName: '${
-    profile["lastName"]
-  }', gender: '${profile["gender"]}', born: '${profile["birthday"].substr(
-    -4
-  )}', age: '${profile["age"]}', avatar: '${profile["avatar"]}', address: '${
-    profile["address"]
-  }', zip: '${profile["zip"]}', state: '${profile["state"]}', phone: '${
-    profile["phone"]
-  }', email: '${profile["email"]}'})\n`;
-}
+// let text = "";
+// for (let i = 0; i < 50; i++) {
+//   profile = randomProfile.profile();
+//   //   console.log(profile);
+//   text += `CREATE (${profile["firstName"]}${
+//     profile["lastName"]
+//   }:Person {firstName: '${profile["firstName"]}', lastName: '${
+//     profile["lastName"]
+//   }', gender: '${profile["gender"]}', born: '${profile["birthday"].substr(
+//     -4
+//   )}', age: '${profile["age"]}', avatar: '${profile["avatar"]}', address: '${
+//     profile["address"]
+//   }', zip: '${profile["zip"]}', state: '${profile["state"]}', phone: '${
+//     profile["phone"]
+//   }', email: '${profile["email"]}'})\n`;
+// }
 
-console.log(text);
+// console.log(text);
 
 const app = express();
 
 app.use(cors());
 
-app.get("/api", (req, res) => {
+app.get("https://randomuser.me/api/?results=500", (req, res) => {
   //   const customers = profile;
   res.json(text);
 });
