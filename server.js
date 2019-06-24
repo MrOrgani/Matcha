@@ -14,13 +14,15 @@ const getData = async url => {
     const json = await response.json();
     let hobbiesExample = hobby.hobbiesExample();
 
-    json.results.forEach(element => {
+    json.results.forEach((element, index) => {
       let hobbyUser = [];
       for (let y = 0; y < 6; y++) {
         hobbyUser.push(
           hobbiesExample[Math.floor(Math.random() * (50 - 0 + 1))]
         );
       }
+      console.log(index);
+      element.index = index;
       element.hobbies = hobbyUser;
     });
 
