@@ -1,41 +1,37 @@
 const express = require("express");
-const randomProfile = require("random-profile-generator");
-var cors = require("cors");
-
-let profile = "";
-
-// for (let i = 0; i < 50; i++) {
-//   profile.push(randomProfile.profile());
-// }
-
-// let text = "";
-// for (let i = 0; i < 50; i++) {
-//   profile = randomProfile.profile();
-//   //   console.log(profile);
-//   text += `CREATE (${profile["firstName"]}${
-//     profile["lastName"]
-//   }:Person {firstName: '${profile["firstName"]}', lastName: '${
-//     profile["lastName"]
-//   }', gender: '${profile["gender"]}', born: '${profile["birthday"].substr(
-//     -4
-//   )}', age: '${profile["age"]}', avatar: '${profile["avatar"]}', address: '${
-//     profile["address"]
-//   }', zip: '${profile["zip"]}', state: '${profile["state"]}', phone: '${
-//     profile["phone"]
-//   }', email: '${profile["email"]}'})\n`;
-// }
-
-// console.log(text);
+const hobby = require("./hobbies");
+const cors = require("cors");
+const fetch = require("node-fetch");
 
 const app = express();
 
 app.use(cors());
 
-app.get("https://randomuser.me/api/?results=500", (req, res) => {
-  //   const customers = profile;
-  res.json(text);
-});
+const url = "https://randomuser.me/api/?results=50&nat=FR";
+const getData = async url => {
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    let hobbiesExample = hobby.hobbiesExample();
+
+    json.results.forEach(element => {
+      let hobbyUser = [];
+      for (let y = 0; y < 6; y++) {
+        hobbyUser.push(
+          hobbiesExample[Math.floor(Math.random() * (50 - 0 + 1))]
+        );
+      }
+      element.hobbies = hobbyUser;
+    });
+
+    app.get("/", (req, res) => {
+      res.send(json);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+getData(url);
 
 const port = 5000;
-
 app.listen(port, () => console.log(`Connect on port ${port}`));
