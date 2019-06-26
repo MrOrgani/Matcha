@@ -1,15 +1,20 @@
 import React from "react";
-// import logo from "./logo.svg";
-import "./App.css";
 // import Form from "./form/FormContainer";
 // import SignInInside from "./signinExample";
-import HomeHeader from "./header/HomeHeader";
+import Home from "./Scenes/Home/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./Scenes/Login/login";
+import Register from "./Scenes/Register/Register";
 
 function App() {
   return (
-    <div className="App">
-      <HomeHeader />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+      </Switch>
+    </Router>
   );
 }
 
