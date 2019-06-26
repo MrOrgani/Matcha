@@ -26,9 +26,9 @@ function HomeHeader() {
   const classes = useStyles();
 
   return (
-    <div class="wrapper">
+    <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <NavBar />
+        <NavBar colorStyle="transparent" />
         <h1 className={classes.back}>
           Qui allez vous rencontrer aujourd'hui ?
         </h1>
