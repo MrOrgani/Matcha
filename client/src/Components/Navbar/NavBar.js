@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +14,8 @@ const useStyles = makeStyles(theme => ({
   },
   bar: {
     background: "transparent",
-    boxShadow: "none"
+    boxShadow: "none",
+    textAlign: "center"
   },
   menuButton: {
     marginRight: theme.spacing(2)
