@@ -1,0 +1,19 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "start": "npm start --prefix API",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\" \"neo4j start\" "
+  },
+  "author": "Morgani & Vlecoq-v",
+  "license": "MIT"
+}
