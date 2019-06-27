@@ -16,7 +16,7 @@ const styles = {};
 
 const contactFormEndpoint = process.env.REACT_APP_CONTACT_ENDPOINT;
 
-function Contact(props) {
+function Login(props) {
   const { classes } = props;
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
@@ -48,7 +48,7 @@ function Contact(props) {
       .string()
       .required()
       .matches(
-        /[a-z]+[A-Z]+[0-9]+[@#\$&]*/,
+        /[a-z]+[A-Z]+[0-9]+[@#$&]*/,
         "Password must contain at least one capital and one non-capital letter, one chiffre"
       )
       .max(13)
@@ -188,4 +188,4 @@ function Contact(props) {
   );
 }
 
-export default withStyles(styles)(Contact);
+export default withStyles(styles)(Login);

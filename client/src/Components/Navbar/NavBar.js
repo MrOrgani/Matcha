@@ -7,11 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
+import "./NavBar.css";
+import MenuItem from "@material-ui/core/MenuItem";
+// import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
   bar: {
     background: "transparent",
     boxShadow: "none",
@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
     color: "black"
   },
   text: {
-    color: "black"
+    color: "black",
+    display: "flex"
   }
 }));
 
@@ -33,7 +34,7 @@ function NavBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
           <IconButton
@@ -46,9 +47,11 @@ function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Matcha
           </Typography>
-          <Link to="/login">
-            <p className={classes.text}>Login</p>
-          </Link>
+          <MenuItem>
+            <Link to="/signIn">
+              <p className={classes.text}>Sign In</p>
+            </Link>
+          </MenuItem>
           {/* <Button>Login</Button> */}
         </Toolbar>
       </AppBar>

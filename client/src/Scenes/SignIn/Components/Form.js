@@ -21,7 +21,7 @@ const userSchema = yup.object().shape({
     .string()
     .required()
     .max(13)
-    .min(8)
+    .min(4)
 });
 
 function Form(props) {
