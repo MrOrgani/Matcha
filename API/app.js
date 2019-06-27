@@ -5,6 +5,7 @@ var logger = require("morgan");
 var indexRoute = require("./routes/index");
 var testAPIRouter = require("./routes/testAPI");
 var cors = require("cors");
+const bodyParser = require("body-parser");
 
 var express = require("express");
 var app = express();
@@ -30,6 +31,9 @@ const driver = neo4j.driver(
   neo4j.auth.basic("neo4j", "2j54A%")
 );
 const session = driver.session();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/user", authRoute);
 

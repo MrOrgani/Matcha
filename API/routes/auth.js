@@ -9,17 +9,27 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-router.post("/register", (req, res) => {
-  console.log(req.body);
+router.post("/register", async (req, res) => {
+  //check if email already exists
+  const emailExist = await User.findOne({ email: req.body.email });
+  if (emailExist) return res.status(400).send("Email already exists");
+
   try {
     session
       .run(
-        `CREATE (u:User {
-         firstName: {first},
-           lastName: {last},
-         `,
-        { first: req.body.name.first, last: req.body.name.last }
+        `CREATE(u:User {
+        login:{login}
+        password:{password},
+        email:{email}
+        }) 
+        RETURN u`,
+        {
+          login: req.body.login,
+          password: req.body.password,
+          email: req.body.email
+        }
       )
+      .then(data => res.send(data))
       .catch(err => console.log(err));
   } catch (error) {
     console.log(error);
