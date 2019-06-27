@@ -1,10 +1,10 @@
 const createError = require("http-errors");
 const express = require("express");
+require("dotenv").config(); //STORE PASSWORD AND LOGIN IN .ENV
 const path = require("path");
 const cookieParser = require("cookie-parser");
 // const logger = require("morgan");
 const cors = require("cors");
-const router = require("./router");
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -14,6 +14,9 @@ app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
+
+// IMPORT ROUTES
+const router = require("./router");
 app.use("/", router);
 
 // ==================== MAXIME'S CODE TO AUTH USER =============================
