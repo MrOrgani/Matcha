@@ -9,5 +9,6 @@ const app = express();
 router.use("/", require("./routes/index"));
 router.use("/testAPI", require("./routes/testAPI"));
 router.use("/register", require("./routes/register"));
+router.use("/api/user", require("./routes/auth"));
 
 module.exports = router;

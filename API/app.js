@@ -6,10 +6,11 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const router = require("./router");
 const app = express();
+const bodyParser = require("body-parser");
 
 // app.use(logger("dev"));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
@@ -17,23 +18,24 @@ app.use("/", router);
 
 // ==================== MAXIME'S CODE TO AUTH USER =============================
 
-const authRoute = require("./routes/auth");
+// const authRoute = require("./router/routes/auth");
+// CONTACT DB
+// const neo4j = require("neo4j-driver").v1;
+// const driver = neo4j.driver(
+//   "bolt://localhost",
+//   neo4j.auth.basic("neo4j", "2j54A%")
+// );
+// USELESS
+// const session = driver.session();
 
-const neo4j = require("neo4j-driver").v1;
-const driver = neo4j.driver(
-  "bolt://localhost",
-  neo4j.auth.basic("neo4j", "2j54A%")
-);
-const session = driver.session();
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use("/api/user", authRoute);
 
-app.use("/api/user", authRoute);
-
-app.use("/", function(req, res) {
-  res.send("API is working properly");
-});
+// app.use("/", function(req, res) {
+//   res.send("API is working properly");
+// });
 
 // ============================================================================
 
@@ -58,7 +60,7 @@ app.use("/", function(req, res) {
 //   res.render("error");
 // });
 
-const port = 5000;
-app.listen(port, () => console.log(`Connect on port ${port}`));
+// const port = 5000;
+// app.listen(port, () => console.log(`Connect on port ${port}`));
 
-// module.exports = app;
+module.exports = app;

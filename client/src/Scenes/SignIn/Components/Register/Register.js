@@ -79,7 +79,7 @@ function Register(props) {
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
                   axios
-                    .post("http://localhost:9000/register", values, {
+                    .post("http://localhost:9000/api/user", values, {
                       headers: {
                         // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json"

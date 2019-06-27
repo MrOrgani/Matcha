@@ -3,32 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon ./bin/www"
-=======
-    "server": "node ./bin/www",
-    "node": "nodemon ./bin/www",
-    "start": "concurrently \"npm run node\" "
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.1"
->>>>>>> origin/morgani
   },
   "dependencies": {
+    "body-parser": "*",
+    "concurrently": "^4.1.0",
     "cookie-parser": "~1.4.4",
+    "cors": "*",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "cors": "*",
-    "body-parser": "*",
     "neo4j-driver": "*",
-<<<<<<< HEAD
+    "node-fetch": "^2.6.0",
     "nodemon": "*"
-=======
-    "concurrently": "^4.1.0",
-    "node-fetch": "^2.6.0"
->>>>>>> origin/morgani
   }
 }

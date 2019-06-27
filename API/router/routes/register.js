@@ -9,7 +9,6 @@ router
   })
   .post("/", function(req, res) {
     console.log(req);
-
     res.writeHead(200);
     res.end("We received a post request");
   });
