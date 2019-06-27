@@ -1,17 +1,19 @@
 import React from "react";
 import NavBar from "../../Components/Navbar/NavBar";
-import Contact from "../../Components/Contact/contact";
+import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
 // import Form from "./Components/Form";
 
-function Register() {
+function SignIn() {
   return (
     <div>
       <NavBar />
       <h1>Register page</h1>
-      <Contact />
+      <Register />
+      <Login />
       {/* <Form /> */}
     </div>
   );
 }
 
-export default Register;
+export default SignIn;
