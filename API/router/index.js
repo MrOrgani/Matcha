@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const app = express();
+// const app = express();
 
 // router.use("/users", require("./routes/userRoutes"));
 // router.use("/auth", require("./routes/authRoutes"));
@@ -9,6 +9,6 @@ const app = express();
 router.use("/", require("./routes/index"));
 router.use("/testAPI", require("./routes/testAPI"));
 router.use("/register", require("./routes/register"));
-router.use("/api/user", require("./routes/auth"));
+router.use("/api/user", require("./routes/user"));
 
 module.exports = router;
