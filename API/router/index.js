@@ -1,6 +1,4 @@
-const express = require("express");
-const router = express.Router();
-const app = express();
+const router = require("express").Router();
 
 // router.use("/users", require("./routes/userRoutes"));
 // router.use("/auth", require("./routes/authRoutes"));
