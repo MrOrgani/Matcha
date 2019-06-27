@@ -11,15 +11,19 @@ const session = driver.session();
 
 router.post("/register", (req, res) => {
   console.log(req.body);
-  session
-    .run(
-      `CREATE (u:User {
+  try {
+    session
+      .run(
+        `CREATE (u:User {
          firstName: {first},
            lastName: {last},
          `,
-      { first: req.body.name.first, last: req.body.name.last }
-    )
-    .catch(err => console.log(err));
+        { first: req.body.name.first, last: req.body.name.last }
+      )
+      .catch(err => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const url = "https://randomuser.me/api/?results=100&nat=FR";
