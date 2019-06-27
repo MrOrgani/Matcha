@@ -3,7 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+<<<<<<< HEAD
     "start": "nodemon ./bin/www"
+=======
+    "server": "node ./bin/www",
+    "node": "nodemon ./bin/www",
+    "start": "concurrently \"npm run node\" "
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+>>>>>>> origin/morgani
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,6 +24,11 @@
     "cors": "*",
     "body-parser": "*",
     "neo4j-driver": "*",
+<<<<<<< HEAD
     "nodemon": "*"
+=======
+    "concurrently": "^4.1.0",
+    "node-fetch": "^2.6.0"
+>>>>>>> origin/morgani
   }
 }

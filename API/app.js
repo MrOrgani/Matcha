@@ -15,6 +15,33 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use("/", router);
 
+// ==================== MAXIME'S CODE TO AUTH USER =============================
+
+const authRoute = require("./routes/auth");
+
+const neo4j = require("neo4j-driver").v1;
+const driver = neo4j.driver(
+  "bolt://localhost",
+  neo4j.auth.basic("neo4j", "2j54A%")
+);
+const session = driver.session();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/api/user", authRoute);
+
+app.use("/", function(req, res) {
+  res.send("API is working properly");
+});
+
+// ============================================================================
+
+// app.use("/", indexRoute);
+// app.use("/users", usersRoute);
+// app.use("/testAPI", testAPIRouter);
+// // app.use(express.cookieParser());
+
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
@@ -31,4 +58,7 @@ app.use("/", router);
 //   res.render("error");
 // });
 
-module.exports = app;
+const port = 5000;
+app.listen(port, () => console.log(`Connect on port ${port}`));
+
+// module.exports = app;
