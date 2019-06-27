@@ -2,37 +2,10 @@ const router = require("express").Router();
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
 // const cors = require("cors");
-const neo4j = require("neo4j-driver").v1;
-const driver = neo4j.driver(
-  "bolt://localhost",
-  neo4j.auth.basic("neo4j", "2j54A%")
-);
-const session = driver.session();
+const { createUser } = require("../../controlers/User");
 
-router.route("/").post(async (req, res) => {
-  //check if email already exists
-  // const emailExist = await User.findOne({ email: req.body.email });
-  // if (emailExist) return res.status(400).send("Email already exists");
-  try {
-    session
-      .run(
-        `CREATE(u:User {
-        login:{login},
-        password:{password},
-        email:{email}
-        }) 
-        RETURN u`,
-        {
-          login: req.body.login,
-          password: req.body.password,
-          email: req.body.email
-        }
-      )
-      .then(data => res.send(data))
-      .catch(err => console.log(err));
-  } catch (error) {
-    console.log(error);
-  }
+router.route("/").post((req, res) => {
+  createUser(req, res);
 });
 
 const url = "https://randomuser.me/api/?results=100&nat=FR";
