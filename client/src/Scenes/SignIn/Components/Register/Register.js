@@ -175,7 +175,10 @@ function Register(props) {
           <React.Fragment>
             <DialogTitle id="form-dialog-title">Thanks!</DialogTitle>
             <DialogContent>
-              <DialogContentText>Thanks</DialogContentText>
+              <DialogContentText>
+                Your registration is almost complete! <br />
+                You received a confirmation email
+              </DialogContentText>
               <DialogActions>
                 <Button type="button" className="outline" onClick={handleClose}>
                   Back to app

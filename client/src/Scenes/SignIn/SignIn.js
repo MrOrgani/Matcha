@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../../Components/Navbar/NavBar";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
+import "./signin.css";
 // import Form from "./Components/Form";
 
 function SignIn() {
@@ -9,8 +10,10 @@ function SignIn() {
     <div>
       <NavBar />
       <h1>Register page</h1>
-      <Register />
-      <Login />
+      <div className="container">
+        <Register />
+        <Login />
+      </div>
       {/* <Form /> */}
     </div>
   );
