@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 const router = require("express").Router();
-=======
-const express = require("express");
-const router = express.Router();
-// const app = express();
->>>>>>> routing
 
 // router.use("/users", require("./routes/userRoutes"));
 // router.use("/auth", require("./routes/authRoutes"));
