@@ -7,7 +7,7 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 async function createUser(req, res) {
-  console.log(req);
+  // console.log(req);
   try {
     session
       .run(
@@ -19,7 +19,7 @@ async function createUser(req, res) {
               RETURN u`,
         req
       )
-      .then(data => res.send(data))
+      .then(data => res.status.send(data))
       .catch(err => console.log(err));
   } catch (err) {
     res.status(400).send(err);

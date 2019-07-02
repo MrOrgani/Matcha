@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import * as yup from "yup";
+import UserValidation from "./UserValidation";
 // const { userSchema } = require("../../../../Schemas");
 // import { DisplayFormikState } from './formikHelper';
 
@@ -19,6 +19,8 @@ function Register(props) {
   const { classes } = props;
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
+  const [isValid, setValid] = useState(true);
+  const [textError, setTextError] = useState("");
 
   function handleClose() {
     setOpen(false);
@@ -35,29 +37,6 @@ function Register(props) {
     password: ""
   };
 
-  const userSchema = yup.object().shape({
-    login: yup.string().required(),
-    email: yup
-      .string()
-      .email()
-      .required(),
-    password: yup
-      .string()
-      .required()
-      .matches(
-        /[a-z]+/,
-        "Password must contain at least one non-capital letter."
-      )
-      .matches(/[A-Z]+/, "Password must contain at least one capital letter.")
-      .matches(/[0-9]+/, "Password must contain at least one digit.")
-      .matches(
-        /[!@#$%^&*()]+/,
-        "Password must contain at least one special character among : !@#$%^&*()."
-      )
-      .max(13)
-      .min(4)
-  });
-
   return (
     <React.Fragment>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -70,7 +49,7 @@ function Register(props) {
       >
         {!isSubmitionCompleted && (
           <React.Fragment>
-            <DialogTitle id="form-dialog-title">Reister</DialogTitle>
+            <DialogTitle id="form-dialog-title">Register</DialogTitle>
             <DialogContent>
               <DialogContentText>
                 Please complete the form to meet new people
@@ -87,13 +66,19 @@ function Register(props) {
                       }
                     })
                     .then(res => {
-                      console.log(res);
-                    })
-                    .then(res => {
-                      setSubmitionCompleted(true);
+                      if (res.status === 200) setSubmitionCompleted(true);
+                      else {
+                        let errorStr = "";
+                        setSubmitionCompleted(true);
+                        setValid(false);
+                        for (let strKey in res.data) {
+                          errorStr += res.data[strKey] + " ";
+                        }
+                        setTextError(errorStr.trim());
+                      }
                     });
                 }}
-                validationSchema={userSchema}
+                validate={UserValidation}
               >
                 {props => {
                   const {
@@ -107,6 +92,8 @@ function Register(props) {
                     handleSubmit,
                     handleReset
                   } = props;
+
+                  // console.log(errors.login, touched.login);
                   return (
                     <form onSubmit={handleSubmit}>
                       <TextField
@@ -172,7 +159,7 @@ function Register(props) {
             </DialogContent>
           </React.Fragment>
         )}
-        {isSubmitionCompleted && (
+        {isSubmitionCompleted && isValid && (
           <React.Fragment>
             <DialogTitle id="form-dialog-title">Thanks!</DialogTitle>
             <DialogContent>
@@ -180,6 +167,20 @@ function Register(props) {
                 Your registration is almost complete! <br />
                 You received a confirmation email
               </DialogContentText>
+              <DialogActions>
+                <Button type="button" className="outline" onClick={handleClose}>
+                  Back to app
+                </Button>
+                {/* <DisplayFormikState {...props} /> */}
+              </DialogActions>
+            </DialogContent>
+          </React.Fragment>
+        )}
+        {isSubmitionCompleted && !isValid && (
+          <React.Fragment>
+            <DialogTitle id="form-dialog-title">Oupsy!</DialogTitle>
+            <DialogContent>
+              <DialogContentText>{textError}</DialogContentText>
               <DialogActions>
                 <Button type="button" className="outline" onClick={handleClose}>
                   Back to app
