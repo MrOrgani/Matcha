@@ -15,7 +15,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "neo4j-driver": "*",
+    "neo4j-driver": "^1.7",
     "node-fetch": "^2.6.0",
     "nodemon": "*",
     "yup": "^0.27.0"
