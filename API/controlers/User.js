@@ -11,8 +11,7 @@ async function createUser(req, res) {
   let errors = {};
   // Check if we can create user
   errors = await Validation.User(reqData);
-  // console.log(errors);
-  if (!errors || errors.length === 0) {
+  if (!errors.length) {
     ModelUser.createUser(reqData, res);
   } else {
     res.status(201).send(errors);
