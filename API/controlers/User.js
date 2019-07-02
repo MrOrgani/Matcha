@@ -1,20 +1,27 @@
 const ModelUser = require("../models/User");
 const Validation = require("./Validation");
 
-async function createUser(req, res) {
-  const reqData = {
-    login: req.body.login,
-    password: req.body.password,
-    email: req.body.email
-  };
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+  return true;
+}
 
-  let errors = {};
+async function createUser(req, res) {
   // Check if we can create user
-  errors = await Validation.User(reqData);
-  if (!errors.length) {
-    ModelUser.createUser(reqData, res);
-  } else {
-    res.status(201).send(errors);
+  let errors = await Validation.User(req.body);
+  if (!isEmpty(errors)) return res.status(206).send(errors);
+
+  const EmailExists = await ModelUser.findOne(req.body, "email");
+  console.log(EmailExists);
+  if (EmailExists) return res.status(206).send("Email Already exists");
+
+  // Eventually create the damn user
+  try {
+    ModelUser.createUser(req.body, res);
+  } catch (err) {
+    res.status(206).send(err);
   }
 }
 
