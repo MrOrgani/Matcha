@@ -17,6 +17,7 @@
     "morgan": "~1.9.1",
     "neo4j-driver": "*",
     "node-fetch": "^2.6.0",
-    "nodemon": "*"
+    "nodemon": "*",
+    "yup": "^0.27.0"
   }
 }

@@ -17,11 +17,7 @@ async function createUser(req, res) {
               email:{email}
               }) 
               RETURN u`,
-        {
-          login: req.body.login,
-          password: req.body.password,
-          email: req.body.email
-        }
+        req
       )
       .then(data => res.send(data))
       .catch(err => console.log(err));
