@@ -7,6 +7,21 @@ async function createUser(req, res) {
   ModelUser.createUser(req, res);
 }
 
+async function gUsers(req, res) {
+  ModelUser.gUsers(req, res);
+}
+
+async function delUsers(req, res) {
+  ModelUser.delUsers(req, res);
+}
+
+async function getUsers(req, res) {
+  ModelUser.getUsers(req, res);
+}
+
 module.exports = {
-  createUser
+  createUser,
+  gUsers,
+  delUsers,
+  getUsers
 };
