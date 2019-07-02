@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "neo4j": "^2.0.0-RC2"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
