@@ -19,7 +19,9 @@ async function createUser(req, res) {
               RETURN u`,
         req
       )
-      .then(data => res.status.send(data))
+      .then(data => {
+        res.status(200).send(data);
+      })
       .catch(err => console.log(err));
   } catch (err) {
     res.status(400).send(err);

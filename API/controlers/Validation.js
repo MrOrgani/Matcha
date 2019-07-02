@@ -1,5 +1,5 @@
 exports.User = async function(values) {
-  console.log(values);
+  // console.log(values);
   let errors = {};
   if (!values.login) {
     errors.login = "A login is required";
