@@ -7,28 +7,40 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 async function createUser(req, res) {
-  // console.log(req);
-  try {
-    session
-      .run(
-        `CREATE(u:User {
+  session
+    .run(
+      `CREATE(u:User {
               login:{login},
               password:{password},
               email:{email}
               }) 
               RETURN u`,
-        req
-      )
-      .then(data => {
-        res.status(200).send(data);
-      })
-      .catch(err => console.log(err));
-  } catch (err) {
-    res.status(400).send(err);
-    console.log(err);
-  }
+      req
+    )
+    .then(data => {
+      res.status(200).send(data);
+    });
+}
+
+function findOne(req, category) {
+  console.log("here1", req);
+  console.log("here2", category);
+  session
+    .run(
+      `MATCH(u:User)
+        WHERE u.email = {email}
+        RETURN u`,
+      {
+        email: req.email
+      }
+    )
+    .then(data => {
+      // console.log(data.records);
+      return data.records;
+    });
 }
 
 module.exports = {
-  createUser
+  createUser,
+  findOne
 };
