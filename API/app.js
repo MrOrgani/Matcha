@@ -15,7 +15,7 @@ app.use(cors());
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 
-// IMPORT ROUTES
+// MAKE YOUR OWN ROUTES
 const router = require("./router");
 app.use("/", router);
 

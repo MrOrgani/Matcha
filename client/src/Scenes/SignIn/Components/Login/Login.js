@@ -9,17 +9,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import * as yup from "yup";
+import UserValidation from "../UserValidation";
+// const { userSchema } = require("../../../../Schemas");
 // import { DisplayFormikState } from './formikHelper';
 
 const styles = {};
 
-const contactFormEndpoint = process.env.REACT_APP_CONTACT_ENDPOINT;
-
-function Login(props) {
+function Register(props) {
   const { classes } = props;
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
+  const [isValid, setValid] = useState(true);
+  const [textError, setTextError] = useState("");
 
   function handleClose() {
     setOpen(false);
@@ -31,34 +32,14 @@ function Login(props) {
   }
 
   const initialState = {
-    // flogin: "",
-    // llogin: "",
     login: "",
-    email: "",
     password: ""
   };
-
-  const userSchema = yup.object().shape({
-    login: yup.string().required(),
-    email: yup
-      .string()
-      .email()
-      .required(),
-    password: yup
-      .string()
-      .required()
-      .matches(
-        /[a-z]+[A-Z]+[0-9]+[@#$&]*/,
-        "Password must contain at least one capital and one non-capital letter, one chiffre"
-      )
-      .max(13)
-      .min(8)
-  });
 
   return (
     <React.Fragment>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Contact us!
+        Login
       </Button>
       <Dialog
         open={open}
@@ -67,30 +48,40 @@ function Login(props) {
       >
         {!isSubmitionCompleted && (
           <React.Fragment>
-            <DialogTitle id="form-dialog-title">Reister</DialogTitle>
+            <DialogTitle id="form-dialog-title">Login</DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                Please complete the form to meet new people
-              </DialogContentText>
+              <DialogContentText>Hello there,</DialogContentText>
               <Formik
                 initialValues={initialState}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
                   axios
-                    .post(contactFormEndpoint, values, {
+                    .post("http://localhost:9000/api/user/login", values, {
                       headers: {
                         // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json"
                       }
                     })
                     .then(res => {
-                      console.log(res.data);
-                    })
-                    .then(res => {
-                      setSubmitionCompleted(true);
+                      console.log("response de l'API", res);
+                      if (res.status === 200) setSubmitionCompleted(true);
+                      else {
+                        let errorStr = "";
+                        setSubmitionCompleted(true);
+                        setValid(false);
+                        console.log(typeof res.data);
+                        if (typeof res.data !== "string") {
+                          for (let strKey in res.data) {
+                            errorStr += res.data[strKey] + "\n";
+                          }
+                        } else {
+                          errorStr = res.data;
+                        }
+                        setTextError(errorStr.trim());
+                      }
                     });
                 }}
-                validationSchema={userSchema}
+                validate={UserValidation}
               >
                 {props => {
                   const {
@@ -104,6 +95,8 @@ function Login(props) {
                     handleSubmit,
                     handleReset
                   } = props;
+
+                  // console.log(errors.login, touched.login);
                   return (
                     <form onSubmit={handleSubmit}>
                       <TextField
@@ -115,20 +108,6 @@ function Login(props) {
                         onBlur={handleBlur}
                         helperText={
                           errors.login && touched.login && errors.login
-                        }
-                        margin="normal"
-                      />
-
-                      <TextField
-                        error={errors.email && touched.email}
-                        label="email"
-                        name="email"
-                        className={classes.textField}
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        helperText={
-                          errors.email && touched.email && errors.email
                         }
                         margin="normal"
                       />
@@ -169,11 +148,25 @@ function Login(props) {
             </DialogContent>
           </React.Fragment>
         )}
-        {isSubmitionCompleted && (
+        {isSubmitionCompleted && isValid && (
           <React.Fragment>
-            <DialogTitle id="form-dialog-title">Thanks!</DialogTitle>
+            <DialogTitle id="form-dialog-title">Logged In!</DialogTitle>
             <DialogContent>
-              <DialogContentText>Thanks</DialogContentText>
+              <DialogContentText>You successfully logged in</DialogContentText>
+              <DialogActions>
+                <Button type="button" className="outline" onClick={handleClose}>
+                  Back to app
+                </Button>
+                {/* <DisplayFormikState {...props} /> */}
+              </DialogActions>
+            </DialogContent>
+          </React.Fragment>
+        )}
+        {isSubmitionCompleted && !isValid && (
+          <React.Fragment>
+            <DialogTitle id="form-dialog-title">Oupsy!</DialogTitle>
+            <DialogContent>
+              <DialogContentText>{textError}</DialogContentText>
               <DialogActions>
                 <Button type="button" className="outline" onClick={handleClose}>
                   Back to app
@@ -188,4 +181,4 @@ function Login(props) {
   );
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Register);

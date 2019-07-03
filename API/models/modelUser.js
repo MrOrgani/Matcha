@@ -6,20 +6,32 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-function createUser(req, res) {
-  session
-    .run(
-      `CREATE(u:User {
+async function createUser(req, res) {
+  const data = await session.run(
+    `CREATE(u:User {
               login:{login},
               password:{password},
               email:{email}
               }) 
               RETURN u`,
-      req
-    )
-    .then(data => {
-      res.status(200).send(data);
-    });
+    req
+  );
+  return data;
+  // .then(data => {
+  //   res.status(200).send(data);
+  // });
+}
+
+async function connect(req) {
+  console.log(req);
+  const data = await session.run(
+    `MATCH(u:User)
+      WHERE u.login = $login 
+        AND u.password = $password
+      RETURN u`,
+    req
+  );
+  return data;
 }
 
 function findOne(req, category) {
@@ -41,5 +53,6 @@ function findOne(req, category) {
 
 module.exports = {
   createUser,
+  connect,
   findOne
 };
