@@ -10,12 +10,12 @@ function isEmpty(obj) {
 
 async function createUser(req, res) {
   // Check if we can create user
+  const PropNode = "login";
+  const PropNodeExists = await ModelUser.findOne(req.body.login, PropNode);
+  if (PropNodeExists) return res.status(206).send(`${PropNode} already exists`);
+
   let errors = await Validation.User(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
-
-  const EmailExists = await ModelUser.findOne(req.body, "email");
-  console.log(EmailExists);
-  if (EmailExists) return res.status(206).send("Email Already exists");
 
   // Eventually create the damn user
   try {
