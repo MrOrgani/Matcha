@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import UserValidation from "./UserValidation";
+import RegisterValidation from "../UserValidation";
 // const { userSchema } = require("../../../../Schemas");
 // import { DisplayFormikState } from './formikHelper';
 
@@ -59,7 +59,7 @@ function Register(props) {
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
                   axios
-                    .post("http://localhost:9000/api/user", values, {
+                    .post("http://localhost:9000/api/user/register", values, {
                       headers: {
                         // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json"
@@ -72,14 +72,18 @@ function Register(props) {
                         let errorStr = "";
                         setSubmitionCompleted(true);
                         setValid(false);
-                        for (let strKey in res.data) {
-                          errorStr += res.data[strKey] + "\n";
+                        if (typeof res.data !== "string") {
+                          for (let strKey in res.data) {
+                            errorStr += res.data[strKey] + "\n";
+                          }
+                        } else {
+                          errorStr = res.data;
                         }
                         setTextError(errorStr.trim());
                       }
                     });
                 }}
-                validate={UserValidation}
+                validate={RegisterValidation}
               >
                 {props => {
                   const {

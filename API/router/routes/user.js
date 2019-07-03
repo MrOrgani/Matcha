@@ -2,10 +2,13 @@ const router = require("express").Router();
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
 // const cors = require("cors");
-const { createUser } = require("../../controlers/User");
+const { CreateUser, LoginUser } = require("../../controlers/User");
 
-router.route("/").post((req, res) => {
-  createUser(req, res);
+router.route("/register").post((req, res) => {
+  CreateUser(req, res);
+});
+router.route("/login").post((req, res) => {
+  LoginUser(req, res);
 });
 
 const url = "https://randomuser.me/api/?results=100&nat=FR";
