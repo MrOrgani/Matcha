@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import UserList from "./Components/UserList";
 import { UsersProvider } from "./Components/UsersContext";
+import "./public/stylesheet/style.css";
 
 const Search = () => {
   return (
-    <div>
-      <UsersProvider>
+    <UsersProvider>
+      <div className="app">
         <UserList />
-      </UsersProvider>
-    </div>
+      </div>
+    </UsersProvider>
   );
 };
 

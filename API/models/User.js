@@ -51,6 +51,7 @@ async function gUsers(req, res) {
               u.location = [user.location.coordinates.latitude, user.location.coordinates.longitude],
               u.cell = user.cell,
               u.picMedium = user.picture.medium,
+              u.picLarge = user.picture.large,
               u.email = user.email
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
@@ -76,10 +77,7 @@ async function delUsers(req, res) {
 async function getUsers(req, res) {
   try {
     session
-      .run(
-        `MATCH (n)
-        RETURN n`
-      )
+      .run(`MATCH (n:User) RETURN n`)
       .then(data => res.send(data))
       .catch(err => console.log(err));
   } catch (err) {
