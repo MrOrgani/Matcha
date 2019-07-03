@@ -6,7 +6,7 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-async function createUser(req, res) {
+function createUser(req, res) {
   session
     .run(
       `CREATE(u:User {
@@ -23,19 +23,18 @@ async function createUser(req, res) {
 }
 
 function findOne(req, category) {
-  console.log("here1", req);
-  console.log("here2", category);
-  session
+  return session
     .run(
-      `MATCH(u:User)
-        WHERE u.email = {email}
+      `WITH {category} AS propname
+        MATCH(u:User)
+        WHERE u[toLower(propname)] = $value
         RETURN u`,
       {
-        email: req.email
+        value: req,
+        category: category
       }
     )
     .then(data => {
-      // console.log(data.records);
       return data.records;
     });
 }

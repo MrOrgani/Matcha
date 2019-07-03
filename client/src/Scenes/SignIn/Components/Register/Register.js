@@ -66,13 +66,14 @@ function Register(props) {
                       }
                     })
                     .then(res => {
+                      // console.log("response de l'API", res);
                       if (res.status === 200) setSubmitionCompleted(true);
                       else {
                         let errorStr = "";
                         setSubmitionCompleted(true);
                         setValid(false);
                         for (let strKey in res.data) {
-                          errorStr += res.data[strKey] + " ";
+                          errorStr += res.data[strKey] + "\n";
                         }
                         setTextError(errorStr.trim());
                       }
