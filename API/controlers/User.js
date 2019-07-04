@@ -3,7 +3,7 @@ const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-async function CreateUser(req, res) {
+async function createUser(req, res) {
   // Check if we can create user
   const PropNode = "login";
   const PropNodeExists = await modelUser.findOne(req.body.login, PropNode);
@@ -20,7 +20,7 @@ async function CreateUser(req, res) {
   }
 }
 
-async function LoginUser(req, res) {
+async function loginUser(req, res) {
   const user = await cryptAndObjectify(req);
   let errors = await Validation.LoginValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
@@ -62,7 +62,22 @@ function isEmpty(obj) {
   return true;
 }
 
+function gUsers(req, res) {
+  ModelUser.gUsers(req, res);
+}
+
+function delUsers(req, res) {
+  ModelUser.delUsers(req, res);
+}
+
+function getUsers(req, res) {
+  ModelUser.getUsers(req, res);
+}
+
 module.exports = {
-  CreateUser,
-  LoginUser
+  createUser,
+  loginUser,
+  gUsers,
+  delUsers,
+  getUsers
 };
