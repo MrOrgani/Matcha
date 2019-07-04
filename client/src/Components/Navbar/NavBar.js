@@ -37,14 +37,14 @@ function NavBar() {
     <div>
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          > */}
+          {/* <MenuIcon /> */}
+          {/* </IconButton> */}
+          {/* <Typography variant="h6" className={classes.title}>
             Matcha
           </Typography>
           <MenuItem>
