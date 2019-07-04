@@ -1,9 +1,11 @@
-import NavBar from "../../Components/Navbar/NavBar";
+// import NavBar from "../../Components/Navbar/NavBar";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Home.css";
 import background from "./img/header.jpg";
 import Button from "@material-ui/core/Button";
+
+import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 
 function HomeHeader() {
   const useStyles = makeStyles(theme => ({
@@ -28,7 +30,7 @@ function HomeHeader() {
   return (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <NavBar colorStyle="transparent" />
+        <DrawerNavigator />
         <h1 className={classes.back}>
           Qui allez vous rencontrer aujourd'hui ?
         </h1>
