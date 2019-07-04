@@ -1,0 +1,19 @@
+.container {
+  background: lightcoral;
+  /* display: flex; */
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.profile {
+  /* height: 150px; */
+  /* width: 150px; */
+  background: lightblue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* flex-flow: row wrap; */
+  margin: 5px;
+}
