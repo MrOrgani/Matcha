@@ -1,13 +1,13 @@
 const modelUser = require("../models/modelUser");
 const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 async function CreateUser(req, res) {
   // Check if we can create user
   const PropNode = "login";
   const PropNodeExists = await modelUser.findOne(req.body.login, PropNode);
-  if (PropNodeExists.length)
-    return res.status(206).send(`${PropNode} is taken`);
+  if (PropNodeExists) return res.status(206).send(`${PropNode} is taken`);
   let errors = await Validation.RegisterValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
 
@@ -25,18 +25,25 @@ async function LoginUser(req, res) {
   let errors = await Validation.LoginValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
 
-  try {
-    const userData = await modelUser.connect(user);
-    if (isEmpty(userData)) return res.status(206).send("Invalid credentials");
-    res.status(200).send(userData);
-  } catch (err) {
-    res.status(206).send(err);
-  }
+  const rawData = await modelUser.findOne(user.login, "login");
+  if (isEmpty(rawData)) return res.status(206).send("Invalid username");
+  const userData = rawData._fields[0].properties;
+  // console.log("User connect result: ", userData);
+  const isValidPwd = await bcrypt.compare(req.body.password, userData.password);
+  if (!isValidPwd) return res.status(206).send("Invalid password");
+
+  // JWT auth token
+  const token = jwt.sign({ _login: user.login }, process.env.TOKEN_SECRET);
+  res
+    .header("auth-token", token)
+    .status(200)
+    .send(userData);
 }
 
 // Crypts pwd and returns a well rounded user object from req.body
 async function cryptAndObjectify(req) {
   const salt = await bcrypt.genSalt(10);
+  // console.log("salt: ", salt);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
 
   const user = {
