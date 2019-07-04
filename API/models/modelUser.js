@@ -17,13 +17,9 @@ async function createUser(req, res) {
     req
   );
   return data;
-  // .then(data => {
-  //   res.status(200).send(data);
-  // });
 }
 
 async function connect(req) {
-  console.log(req);
   const data = await session.run(
     `MATCH(u:User)
       WHERE u.login = $login 
@@ -31,24 +27,21 @@ async function connect(req) {
       RETURN u`,
     req
   );
-  return data;
+  return data.records;
 }
 
-function findOne(req, category) {
-  return session
-    .run(
-      `WITH {category} AS propname
+async function findOne(req, category) {
+  const data = await session.run(
+    `WITH {category} AS propname
         MATCH(u:User)
         WHERE u[toLower(propname)] = $value
         RETURN u`,
-      {
-        value: req,
-        category: category
-      }
-    )
-    .then(data => {
-      return data.records;
-    });
+    {
+      value: req,
+      category: category
+    }
+  );
+  return data.records[0];
 }
 
 module.exports = {
