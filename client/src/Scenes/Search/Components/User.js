@@ -32,22 +32,21 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 150,
-    margin: 10,
-    height: 150
+    margin: 2,
+    height: 200,
+    borderRadius: 15
   },
   media: {
     height: 0,
     paddingTop: "150%" // 16:9
   },
   root: {
-    // height: 0,
-    // paddingTop: "150%", // 16:9,
-    marginTop: 100
+    marginTop: 150
   },
-  button1: {
+  isNotLiked: {
     color: "white"
   },
-  button2: {
+  isLiked: {
     color: "red"
   },
   expand: {
@@ -82,7 +81,7 @@ const User = props => {
     <CardMedia className={classes.card} image={props.value.picLarge}>
       <div className={classes.root}>
         <IconButton
-          className={colored ? classes.button2 : classes.button1}
+          className={!colored ? classes.isNotLiked : classes.isLiked}
           aria-label="Add to favorites"
           onClick={handleColor}
         >
