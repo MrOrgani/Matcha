@@ -4,13 +4,6 @@ const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
 // const cors = require("cors");
 
-router.route("/register").post((req, res) => {
-  CreateUser(req, res);
-});
-router.route("/login").post((req, res) => {
-  LoginUser(req, res);
-});
-
 const {
   createUser,
   loginUser,
