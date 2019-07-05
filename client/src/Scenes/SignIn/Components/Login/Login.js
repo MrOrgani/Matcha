@@ -10,7 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import UserValidation from "../UserValidation";
-// const { userSchema } = require("../../../../Schemas");
+import { useCookies } from "react-cookie";
 // import { DisplayFormikState } from './formikHelper';
 
 const styles = {};
@@ -21,6 +21,7 @@ function Register(props) {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
 
   function handleClose() {
     setOpen(false);
@@ -64,12 +65,20 @@ function Register(props) {
                     })
                     .then(res => {
                       console.log("response de l'API", res);
-                      if (res.status === 200) setSubmitionCompleted(true);
-                      else {
+                      // CONNECTION SUCCESS
+                      if (res.status === 200) {
+                        setSubmitionCompleted(true);
+                        setCookie("auth", res.data.uuid, {
+                          httpOnly: true,
+                          secure: true,
+                          path: "/"
+                        });
+                        console.log(cookies.auth);
+                      } else {
+                        // CONNECTION FAILURE
                         let errorStr = "";
                         setSubmitionCompleted(true);
                         setValid(false);
-                        console.log(typeof res.data);
                         if (typeof res.data !== "string") {
                           for (let strKey in res.data) {
                             errorStr += res.data[strKey] + "\n";

@@ -2,6 +2,7 @@ const modelUser = require("../models/modelUser");
 const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const uuid = require("uuid/v4");
 
 async function createUser(req, res) {
   // Check if we can create user
@@ -11,7 +12,10 @@ async function createUser(req, res) {
   let errors = await Validation.RegisterValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
 
+  //create db ready userinfo with uuid for jwt
   const user = await cryptAndObjectify(req);
+  user.uuid = await uuid();
+
   try {
     const data = await modelUser.createUser(user, res);
     res.status(200).send(data);
@@ -25,15 +29,20 @@ async function loginUser(req, res) {
   let errors = await Validation.LoginValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
 
-  const rawData = await modelUser.findOne(user.login, "login");
-  if (isEmpty(rawData)) return res.status(206).send("Invalid username");
-  const userData = rawData._fields[0].properties;
-  // console.log("User connect result: ", userData);
+  const { login, password, uuid, email } = await modelUser.connect(
+    user.login,
+    "login"
+  );
+  const userData = { login, password, uuid, email };
+  if (isEmpty(userData)) return res.status(206).send("Invalid username");
   const isValidPwd = await bcrypt.compare(req.body.password, userData.password);
   if (!isValidPwd) return res.status(206).send("Invalid password");
+  delete userData.password;
 
   // JWT auth token
-  const token = jwt.sign({ _login: user.login }, process.env.TOKEN_SECRET);
+  // console.log("return from connection", userData);
+  const token = jwt.sign({ uuid: userData.uuid }, process.env.TOKEN_SECRET);
+  userData.uuid = token;
   res
     .header("auth-token", token)
     .status(200)
