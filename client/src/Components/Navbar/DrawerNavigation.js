@@ -15,9 +15,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 
+import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
 import MenuButton from "./Components/MenuButton";
 import RangeSlider from "./Components/RangeSlider";
-import { grey } from "@material-ui/core/colors";
+// import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   list: {
@@ -48,6 +49,9 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false
   });
+  const [values, setValues] = React.useState([30, 40]);
+  const range = [18, 100];
+  const path = window.location.pathname;
 
   const toggleDrawer = (side, open) => event => {
     if (
@@ -59,7 +63,9 @@ export default function TemporaryDrawer() {
 
     setState({ ...state, [side]: open });
   };
-  const path = window.location.pathname;
+  const handleChange = (event, newValue) => {
+    setValues(newValue);
+  };
 
   const sideList = side => (
     <div
@@ -118,7 +124,13 @@ export default function TemporaryDrawer() {
       {path === "/Search" && (
         <div>
           <ListItemText>Age</ListItemText>
-          <RangeSlider />
+          <RangeSlider
+            value={values}
+            onChange={handleChange}
+            min={range[0]}
+            max={range[1]}
+          />
+          <FiltersProvider value={values} />
           <ListItemText>Gender</ListItemText>
           <ListItemText>Distance</ListItemText>
           <Divider />
