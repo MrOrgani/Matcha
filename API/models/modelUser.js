@@ -11,7 +11,8 @@ async function createUser(req, res) {
     `CREATE(u:User {
               login:{login},
               password:{password},
-              email:{email}
+              email:{email},
+              uuid:{uuid}
               }) 
               RETURN u`,
     req
@@ -19,15 +20,16 @@ async function createUser(req, res) {
   return data;
 }
 
-async function connect(req) {
+async function connect(value) {
   const data = await session.run(
     `MATCH(u:User)
-      WHERE u.login = $login 
-        AND u.password = $password
-      RETURN u`,
-    req
+    WHERE u.login = $value
+    RETURN u`,
+    {
+      value
+    }
   );
-  return data.records;
+  return data.records[0]._fields[0].properties;
 }
 
 async function findOne(req, category) {
