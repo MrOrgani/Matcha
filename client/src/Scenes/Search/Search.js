@@ -1,24 +1,38 @@
 import React, { useState } from "react";
 import UserList from "./Components/UserList";
-import { UsersProvider } from "./Components/UsersContext";
 import "./public/stylesheet/style.css";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import NavBar from "../../Components/Navbar/NavBar";
 import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 
-const Search = () => {
-  return (
-    <div>
-      <DrawerNavigator />
+import { UsersProvider } from "./Components/UsersContext";
+import { FiltersProvider } from "./Components/FiltersContext"
+import Filters from "./Components/Filters"
+import { TablePagination } from "@material-ui/core";
 
+const Search = () => {
+  const [gender, setGender] = useState('both')
+  const [age, setAge] = useState([18, 100])
+
+  function handleChangeFilters(event) {
+    // setGender(event.target.value);
+    console.log('change', event.target)
+  }
+
+  // const handleChange = (event, newValue) => {
+  //   setAge(newValue);
+  // };
+
+  return (
       <UsersProvider>
-        {/* <NavBar colorStyle="transparent" /> */}
+        {/* <FiltersProvider> */}
         <div className="app">
-          <UserList />
+          <Filters onChange={handleChangeFilters} value={[gender, age]}/>
+          <UserList filters={[gender, age]}/>
         </div>
+        {/* </FiltersProvider> */}
       </UsersProvider>
-    </div>
   );
 };
 

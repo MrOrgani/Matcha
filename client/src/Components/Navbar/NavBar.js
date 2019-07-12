@@ -10,10 +10,14 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuItem from "@material-ui/core/MenuItem";
 // import { flexbox } from "@material-ui/system";
+import DrawerNavigator from "./../Navbar/DrawerNavigation";
+import Fab from "@material-ui/core/Fab";
+
+
 
 const useStyles = makeStyles(theme => ({
   bar: {
-    background: "transparent",
+    // background: "transparent",
     boxShadow: "none",
     textAlign: "center"
   },
@@ -37,6 +41,7 @@ function NavBar() {
     <div>
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
+          <DrawerNavigator />
           {/* <IconButton
             edge="start"
             className={classes.menuButton}
@@ -44,7 +49,7 @@ function NavBar() {
           > */}
           {/* <MenuIcon /> */}
           {/* </IconButton> */}
-          {/* <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
             Matcha
           </Typography>
           <MenuItem>
@@ -55,6 +60,7 @@ function NavBar() {
           {/* <Button>Login</Button> */}
         </Toolbar>
       </AppBar>
+
     </div>
   );
 }

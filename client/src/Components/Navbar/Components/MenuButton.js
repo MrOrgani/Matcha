@@ -17,9 +17,9 @@ const MenuButton = () => {
   const classes = useStyles();
   return (
     <div>
-      <Fab color="primary" aria-label="Menu" className={classes.fab}>
+      {/* <Fab color="primary" aria-label="Menu" className={classes.fab}> */}
         <MenuIcon />
-      </Fab>
+      {/* </Fab> */}
     </div>
   );
 };
