@@ -8,7 +8,7 @@ import "./signin.css";
 function SignIn() {
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
       <h1>Register page</h1>
       <div className="container">
         <Register />

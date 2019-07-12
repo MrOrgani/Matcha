@@ -30,7 +30,7 @@ function HomeHeader() {
   return (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <DrawerNavigator />
+        {/* <DrawerNavigator /> */}
         <h1 className={classes.back}>
           Qui allez vous rencontrer aujourd'hui ?
         </h1>

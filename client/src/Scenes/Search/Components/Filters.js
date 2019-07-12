@@ -1,0 +1,60 @@
+import React, { useContext }  from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+// import { FiltersContext } from "./FiltersContext";
+import Slider from '@material-ui/core/Slider';
+
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
+  group: {
+    margin: theme.spacing(1, 0),
+  },
+  slider: {
+    width: 300,
+  }
+}));
+
+export default function Filters(props) {
+  const classes = useStyles();
+
+//   console.log(props.value[0])
+  return (
+    <div className={classes.root}>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Gender</FormLabel>
+        <RadioGroup
+          aria-label="Gender"
+          name="gender"
+          className={classes.group}
+          value={props.value[0]}
+          onChange={props.onChange}
+        >
+          <FormControlLabel value="female" control={<Radio />} label="Female" />
+          <FormControlLabel value="male" control={<Radio />} label="Male" />
+          <FormControlLabel value="both" control={<Radio />} label="Both" />
+        </RadioGroup>
+      </FormControl>
+      <Slider
+        style={classes.slider}
+        value={props.value[1]}
+        onChange={props.onChange}
+        valueLabelDisplay="auto"
+        aria-labelledby="range-slider" 
+        name='age'
+      />
+      
+    </div>
+  );
+}
