@@ -21,7 +21,7 @@ function Register(props) {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
+  const [cookies, setCookie] = useCookies(["auth"]);
 
   function handleClose() {
     setOpen(false);
@@ -64,16 +64,15 @@ function Register(props) {
                       }
                     })
                     .then(res => {
-                      console.log("response de l'API", res);
+                      // console.log("response de l'API", res);
                       // CONNECTION SUCCESS
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
                         setCookie("auth", res.data.uuid, {
-                          httpOnly: true,
-                          secure: true,
+                          // httpOnly: true,
+                          // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)
                           path: "/"
                         });
-                        console.log(cookies.auth);
                       } else {
                         // CONNECTION FAILURE
                         let errorStr = "";
