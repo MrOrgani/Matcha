@@ -12,7 +12,7 @@ const Search = () => {
   return (
     <div>
       <DrawerNavigator />
-      {/* <Filters /> */}
+      {/* <Filter   s /> */}
       <UsersProvider>
         {/* <FiltersProvider> */}
         <div className="app">
