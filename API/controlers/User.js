@@ -44,7 +44,7 @@ async function loginUser(req, res) {
   const token = jwt.sign({ uuid: userData.uuid }, process.env.TOKEN_SECRET);
   userData.uuid = token;
   res
-    .header("auth-token", token)
+    // .header("auth-token", token)
     .status(200)
     .send(userData);
 }
