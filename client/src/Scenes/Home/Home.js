@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Register from "../Home/Components/Register/Register";
 import Login from "../Home/Components/Login/Login";
 
-import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
+// import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 
 function HomeHeader() {
   const useStyles = makeStyles(theme => ({
@@ -29,6 +29,7 @@ function HomeHeader() {
   return (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
+<<<<<<< HEAD
         <DrawerNavigator />
         <h1 className={classes.back}>Are you ready for Love?</h1>
         <p>
@@ -38,6 +39,12 @@ function HomeHeader() {
           <Register />
           <Login />
         </div>
+=======
+        {/* <DrawerNavigator /> */}
+        <h1 className={classes.back}>
+          Qui allez vous rencontrer aujourd'hui ?
+        </h1>
+>>>>>>> morgani2
       </div>
     </div>
   );

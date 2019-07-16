@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import UserList from "./Components/UserList";
 import { UsersProvider } from "./Components/UsersContext";
+// import { FiltersProvider } from "./Components/FiltersContext";
 import "./public/stylesheet/style.css";
 // import Container from "@material-ui/core/Container";
 // import Typography from "@material-ui/core/Typography";
 // import NavBar from "../../Components/Navbar/NavBar";
+<<<<<<< HEAD
 import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
+=======
+// import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
+import Filters from "./Components/Filters";
+>>>>>>> morgani2
 
 const Search = () => {
+  const [gender, setGender] = useState("both");
+  const [age, setAge] = useState([18, 100]);
+
+  const handleChange = (event, newValue) => {
+    if (event.target.name === "gender") setGender(event.target.value);
+    else {
+      setAge(newValue);
+    }
+    // console.log(event);
+  };
+
   return (
     <div>
-      <DrawerNavigator />
-
       <UsersProvider>
-        {/* <NavBar colorStyle="transparent" /> */}
         <div className="app">
-          <UserList />
+          <Filters onChange={handleChange} value={[gender, age]} />
+          <UserList filters={[gender, age]} />
         </div>
       </UsersProvider>
     </div>

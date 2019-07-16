@@ -7,19 +7,18 @@ const driver = neo4j.driver(
   neo4j.auth.basic("neo4j", "2j54A%")
 );
 const session = driver.session();
-
 /* GET home page. */
 router.get("/", function(req, res, next) {
   const nodes = [];
   session
-    .run("MATCH (n:Person) RETURN n")
+    .run("MATCH (n:User) RETURN n")
     .then(function(result) {
       result.records.forEach(function(record) {
         nodes.push(record._fields[0].properties);
       });
     })
     .then(function() {
-      console.log(nodes);
+      // console.log(nodes);
       res.send(nodes);
     })
     .catch(function(err) {

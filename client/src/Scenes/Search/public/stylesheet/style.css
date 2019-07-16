@@ -1,5 +1,5 @@
 .container {
-  background: lightcoral;
+  /* background: lightcoral; */
   /* display: flex; */
   justify-content: space-around;
   flex-flow: row wrap;
