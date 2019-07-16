@@ -7,9 +7,13 @@ import SignIn from "./Scenes/SignIn/SignIn";
 import Search from "./Scenes/Search/Search";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
 
+import Navbar from "./Components/Navbar/NavBar"
+
+
 function App() {
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/SignIn" component={SignIn} />
