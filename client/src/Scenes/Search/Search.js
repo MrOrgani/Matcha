@@ -1,48 +1,35 @@
-import React, { useState, 
-  // createContext, useEffect 
-} from "react";
-
+import React, { useState } from "react";
 import UserList from "./Components/UserList";
+import { UsersProvider } from "./Components/UsersContext";
+// import { FiltersProvider } from "./Components/FiltersContext";
 import "./public/stylesheet/style.css";
 // import Container from "@material-ui/core/Container";
 // import Typography from "@material-ui/core/Typography";
 // import NavBar from "../../Components/Navbar/NavBar";
 // import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
-
-import { UsersProvider } from "./Components/UsersContext";
-import Filters from "./Components/Filters"
-// import { TablePagination } from "@material-ui/core";
+import Filters from "./Components/Filters";
 
 const Search = () => {
-  const [gender, setGender] = useState('both')
-  const [age, setAge] = useState([18, 100])
+  const [gender, setGender] = useState("both");
+  const [age, setAge] = useState([18, 100]);
 
-  function handleChangeFilters(event, newValue) {
-      // console.log('event', event.target)
-
-    if (event.target.name === 'gender')
-      setGender(event.target.value)
-    // if (event.target.name === 'age'
+  const handleChange = (event, newValue) => {
+    if (event.target.name === "gender") setGender(event.target.value);
     else {
-    // aria-labelledby="range-slider"
-    // ){
-      // console.log('new value is ', newValue)
-      setAge(newValue)
-      // console.log(age)
+      setAge(newValue);
     }
-  }
-
-  // const handleChange = (event, newValue) => {
-  //   setAge(newValue);
-  // };
+    // console.log(event);
+  };
 
   return (
+    <div>
       <UsersProvider>
         <div className="app">
-          <Filters onChange={handleChangeFilters} value={[gender, age]}/>
-          <UserList filters={[gender, age]}/>
+          <Filters onChange={handleChange} value={[gender, age]} />
+          <UserList filters={[gender, age]} />
         </div>
       </UsersProvider>
+    </div>
   );
 };
 
