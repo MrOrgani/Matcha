@@ -1,4 +1,4 @@
-const ModelUser = require("../models/User");
+const modelUser = require("../models/modelUser");
 const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -72,15 +72,15 @@ function isEmpty(obj) {
 }
 
 function gUsers(req, res) {
-  ModelUser.gUsers(req, res);
+  modelUser.gUsers(req, res);
 }
 
 function delUsers(req, res) {
-  ModelUser.delUsers(req, res);
+  modelUser.delUsers(req, res);
 }
 
 function getUsers(req, res) {
-  ModelUser.getUsers(req, res);
+  modelUser.getUsers(req, res);
 }
 
 module.exports = {

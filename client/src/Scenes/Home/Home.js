@@ -1,13 +1,10 @@
-// import NavBar from "../../Components/Navbar/NavBar";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Home.css";
 import background from "./img/couple.jpeg";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Register from "../Home/Components/Register/Register";
 import Login from "../Home/Components/Login/Login";
-
-import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 
 function HomeHeader() {
   const useStyles = makeStyles(theme => ({
