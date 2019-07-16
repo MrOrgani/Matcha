@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../Components/Navbar/NavBar";
-import Register from "./Components/Register/Register";
-import Login from "./Components/Login/Login";
+import Register from "../Home/Components/Register/Register";
+import Login from "../Home/Components/Login/Login";
 import "./signin.css";
 // import Form from "./Components/Form";
 import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
