@@ -29,7 +29,8 @@ async function connect(value) {
       value
     }
   );
-  return data.records[0]._fields[0].properties;
+  console.log(data);
+  if (data.records[0]) return data.records[0]._fields[0].properties;
 }
 
 async function findOne(req, category) {

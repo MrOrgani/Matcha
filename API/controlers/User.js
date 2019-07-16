@@ -28,11 +28,15 @@ async function loginUser(req, res) {
   let errors = await Validation.LoginValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
 
-  const { login, password, uuid, email } = await modelUser.connect(
-    user.login,
-    "login"
-  );
-  const userData = { login, password, uuid, email };
+  const PropNodeExists = await modelUser.findOne(req.body.login, "login");
+  if (PropNodeExists) {
+    const { login, password, uuid, email } = await modelUser.connect(
+      user.login,
+      "login"
+    );
+    consolue.log("user data in users controller", userData);
+    const userData = { login, password, uuid, email };
+  } else return res.status(206).send("Invalid username");
   if (isEmpty(userData)) return res.status(206).send("Invalid username");
   const isValidPwd = await bcrypt.compare(req.body.password, userData.password);
   if (!isValidPwd) return res.status(206).send("Invalid password");
