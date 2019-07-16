@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Scenes/Home/Home";
 import SignIn from "./Scenes/SignIn/SignIn";
 import Search from "./Scenes/Search/Search";
+import Profile from "./Scenes/Profile/Profile";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
 
-import Navbar from "./Components/Navbar/NavBar"
-
+import Navbar from "./Components/Navbar/NavBar";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/Search" component={Search} />
+        <Route path="/Profile" component={Profile} />
         <Route path="/handleUsers" component={handleUsers} />
       </Switch>
     </Router>
