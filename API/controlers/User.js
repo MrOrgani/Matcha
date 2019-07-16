@@ -6,8 +6,7 @@ const uuid = require("uuid/v4");
 
 async function createUser(req, res) {
   // Check if we can create user
-  const PropNode = "login";
-  const PropNodeExists = await modelUser.findOne(req.body.login, PropNode);
+  const PropNodeExists = await modelUser.findOne(req.body.login, "login");
   if (PropNodeExists) return res.status(206).send(`${PropNode} is taken`);
   let errors = await Validation.RegisterValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);

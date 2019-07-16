@@ -4,7 +4,6 @@ import { UsersContext } from "./UsersContext";
 // import { FiltersContext } from "./FiltersContext";
 import { makeStyles } from "@material-ui/core/styles";
 
-// import "../public/stylesheet/style.css";
 const useStyles = makeStyles({
   container: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
@@ -19,9 +18,8 @@ const UserList = props => {
     users
     // setUsers
   ] = useContext(UsersContext);
-  // console.log(props.filters[0]);
-  // console.log("users", users);
   const classes = useStyles();
+  console.log("users", users);
   const filtered =
     !props.filters[0] || props.filters[0] === "both"
       ? users
