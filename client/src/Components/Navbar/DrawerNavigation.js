@@ -58,25 +58,25 @@ export default function TemporaryDrawer() {
     const { text, link } = param;
     return (
       <ListItem button key={text}>
-        <ListItemIcon>
-          {text === "Home" && <HomeIcon />}
-          {text === "Search" && <SearchIcon />}
-          {text === "Disconnect" && <ClearIcon />}
-          {(text === "Connect" || text === "My Account") && (
-            <AccountCircleIcon />
-          )}
-        </ListItemIcon>
-        <ListItemText>
-          <Link
-            to={link}
-            className={classes.link}
-            onClick={() => {
-              text === "Disconnect" && removeCookies("auth");
-            }}
-          >
-            {text}
-          </Link>
-        </ListItemText>
+        <Link
+          to={link}
+          className={classes.link}
+          onClick={() => {
+            text === "Disconnect" && removeCookies("auth");
+          }}
+        >
+          <div className="containesr">
+            <ListItemIcon>
+              {text === "Home" && <HomeIcon />}
+              {text === "Search" && <SearchIcon />}
+              {text === "Disconnect" && <ClearIcon />}
+              {(text === "Connect" || text === "My Account") && (
+                <AccountCircleIcon />
+              )}
+              <ListItemText>{text}</ListItemText>
+            </ListItemIcon>
+          </div>
+        </Link>
       </ListItem>
     );
   };

@@ -39,9 +39,7 @@ function Register(props) {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Login
-      </Button>
+      <Button onClick={handleClickOpen}>Login</Button>
       <Dialog
         open={open}
         onClose={handleClose}
