@@ -1,22 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-// import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import MenuIcon from "@material-ui/icons/Menu";
-// import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-// import InboxIcon from "@material-ui/icons/MoveToInbox";
-// import MailIcon from "@material-ui/icons/Mail";
 import IconsAndLinks from "./Components/IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
-// import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
 import { useCookies } from "react-cookie";
-// import RangeSlider from "./Components/RangeSlider";
-// import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   list: {
@@ -48,9 +41,6 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false
   });
-  // const [values, setValues] = React.useState([30, 40]);
-  // const range = [18, 100];
-  // const path = window.location.pathname;
 
   const toggleDrawer = (side, open) => event => {
     if (
@@ -59,12 +49,8 @@ export default function TemporaryDrawer() {
     ) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
-  // const handleChange = (event, newValue) => {
-  //   setValues(newValue);
-  // };
 
   // CHECKS IF USER IS AUTH IN COOKIES
   const menuItems = [{ text: "Home", link: "/" }];
@@ -98,11 +84,9 @@ export default function TemporaryDrawer() {
         </div>
         <List>
           {menuItems.map(menuItem => (
-            <IconsAndLinks param={menuItem} />
+            <IconsAndLinks key={menuItem.text} param={menuItem} />
           ))}
-        </List>
-        <Divider />
-        <List>
+          <Divider />
           {["About us"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemText primary={text} />

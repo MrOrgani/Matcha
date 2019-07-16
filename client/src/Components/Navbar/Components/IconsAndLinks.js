@@ -20,10 +20,10 @@ const useStyles = makeStyles({
 
 // DISPLAYS DRAWERS LINK AND ICONS
 function InconsAndLinks({ param }) {
-  const [removeCookies] = useCookies(["auth"]);
+  const [, removeCookies] = useCookies(["auth"]);
   const classes = useStyles();
   const { text, link } = param;
-  // console.log(text);
+
   return (
     <Link
       to={link}
@@ -31,7 +31,6 @@ function InconsAndLinks({ param }) {
       onClick={() => {
         text === "Disconnect" && removeCookies("auth");
       }}
-      key={text}
     >
       <ListItem button>
         {text === "Home" && (
