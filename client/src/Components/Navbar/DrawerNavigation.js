@@ -3,21 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 // import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
+import MenuIcon from "@material-ui/icons/Menu";
 // import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 // import InboxIcon from "@material-ui/icons/MoveToInbox";
 // import MailIcon from "@material-ui/icons/Mail";
-import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
-import ClearIcon from "@material-ui/icons/Clear";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { Link } from "react-router-dom";
+import IconsAndLinks from "./Components/IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
 // import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
-import MenuButton from "./Components/MenuButton";
 import { useCookies } from "react-cookie";
 // import RangeSlider from "./Components/RangeSlider";
 // import { grey } from "@material-ui/core/colors";
@@ -47,7 +43,7 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
-  const [cookies, removeCookies] = useCookies(["auth"]);
+  const [cookies] = useCookies(["auth"]);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -69,33 +65,6 @@ export default function TemporaryDrawer() {
   // const handleChange = (event, newValue) => {
   //   setValues(newValue);
   // };
-
-  // DISPLAYS DRAWERS LINK AND ICONS
-  const iconsAndLinks = param => {
-    const { text, link } = param;
-    return (
-      <Link
-        to={link}
-        className={classes.link}
-        onClick={() => {
-          text === "Disconnect" && removeCookies("auth");
-        }}
-        key={text}
-      >
-        <ListItem button>
-          <ListItemIcon>
-            {text === "Home" && <HomeIcon />}
-            {text === "Search" && <SearchIcon />}
-            {text === "Disconnect" && <ClearIcon />}
-            {(text === "Connect" || text === "My Account") && (
-              <AccountCircleIcon />
-            )}
-            <ListItemText>{text}</ListItemText>
-          </ListItemIcon>
-        </ListItem>
-      </Link>
-    );
-  };
 
   // CHECKS IF USER IS AUTH IN COOKIES
   const menuItems = [{ text: "Home", link: "/" }];
@@ -127,7 +96,11 @@ export default function TemporaryDrawer() {
             </ListItem>
           </List>
         </div>
-        <List>{menuItems.map(iconsAndLinks)}</List>
+        <List>
+          {menuItems.map(menuItem => (
+            <IconsAndLinks param={menuItem} />
+          ))}
+        </List>
         <Divider />
         <List>
           {["About us"].map((text, index) => (
@@ -143,7 +116,7 @@ export default function TemporaryDrawer() {
   return (
     <div>
       <div onClick={toggleDrawer("left", true)} className={classes.icon}>
-        <MenuButton />
+        <MenuIcon />
       </div>
       <Drawer
         open={state.left}
