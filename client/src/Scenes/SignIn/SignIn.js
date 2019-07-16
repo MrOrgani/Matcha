@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../Components/Navbar/NavBar";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import "./signin.css";
@@ -8,7 +7,6 @@ import "./signin.css";
 function SignIn() {
   return (
     <div>
-      <NavBar />
       <h1>Register page</h1>
       <div className="container">
         <Register />

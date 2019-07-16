@@ -7,9 +7,13 @@ import SignIn from "./Scenes/SignIn/SignIn";
 import Search from "./Scenes/Search/Search";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
 
+import Navbar from "./Components/Navbar/NavBar"
+
+
 function App() {
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/SignIn" component={SignIn} />
@@ -19,31 +23,5 @@ function App() {
     </Router>
   );
 }
-
-// class App extends React.Component {
-//   constructor() {
-//     super();
-//   }
-//   //   this.state = {
-//   //     apiResponse: ""
-//   //   };
-//   // }
-
-//   // // callAPI() {
-//   // //   fetch("http://localhost:9000/testAPI")
-//   // //     // .then(res => console.log(res))
-//   // //     .then(res => res.text())
-//   // //     .then(res => this.setState({ apiResponse: res }))
-//   // //     .then(err => err);
-//   // // }
-
-//   // // componentDidMount() {
-//   // //   this.callAPI();
-//   // // }
-
-//   render() {
-// ;
-//   }
-// }
 
 export default App;
