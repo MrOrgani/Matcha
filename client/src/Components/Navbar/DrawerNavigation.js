@@ -15,15 +15,12 @@ import ClearIcon from "@material-ui/icons/Clear";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
-
+import Divider from "@material-ui/core/Divider";
 // import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
 import MenuButton from "./Components/MenuButton";
-<<<<<<< HEAD
 import { useCookies } from "react-cookie";
-=======
 // import RangeSlider from "./Components/RangeSlider";
 // import { grey } from "@material-ui/core/colors";
->>>>>>> morgani2
 
 const useStyles = makeStyles({
   list: {
@@ -73,32 +70,30 @@ export default function TemporaryDrawer() {
   //   setValues(newValue);
   // };
 
-<<<<<<< HEAD
   // DISPLAYS DRAWERS LINK AND ICONS
   const iconsAndLinks = param => {
     const { text, link } = param;
     return (
-      <ListItem button key={text}>
-        <Link
-          to={link}
-          className={classes.link}
-          onClick={() => {
-            text === "Disconnect" && removeCookies("auth");
-          }}
-        >
-          <div className="containesr">
-            <ListItemIcon>
-              {text === "Home" && <HomeIcon />}
-              {text === "Search" && <SearchIcon />}
-              {text === "Disconnect" && <ClearIcon />}
-              {(text === "Connect" || text === "My Account") && (
-                <AccountCircleIcon />
-              )}
-              <ListItemText>{text}</ListItemText>
-            </ListItemIcon>
-          </div>
-        </Link>
-      </ListItem>
+      <Link
+        to={link}
+        className={classes.link}
+        onClick={() => {
+          text === "Disconnect" && removeCookies("auth");
+        }}
+        key={text}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            {text === "Home" && <HomeIcon />}
+            {text === "Search" && <SearchIcon />}
+            {text === "Disconnect" && <ClearIcon />}
+            {(text === "Connect" || text === "My Account") && (
+              <AccountCircleIcon />
+            )}
+            <ListItemText>{text}</ListItemText>
+          </ListItemIcon>
+        </ListItem>
+      </Link>
     );
   };
 
@@ -122,6 +117,16 @@ export default function TemporaryDrawer() {
         onClick={toggleDrawer(side, false)}
         onKeyDown={toggleDrawer(side, false)}
       >
+        <div className={classes.top}>
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <CloseIcon onClick={toggleDrawer(side, false)} />
+              </ListItemIcon>{" "}
+              <ListItemText>Menu</ListItemText>
+            </ListItem>
+          </List>
+        </div>
         <List>{menuItems.map(iconsAndLinks)}</List>
         <Divider />
         <List>
@@ -134,86 +139,6 @@ export default function TemporaryDrawer() {
       </div>
     );
   };
-=======
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role="presentation"
-      // onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <div className={classes.top}>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CloseIcon onClick={toggleDrawer(side, false)} />
-            </ListItemIcon>{" "}
-            <ListItemText>Menu</ListItemText>
-          </ListItem>
-        </List>
-      </div>
-      <List>
-        {["Home", "Connect", "Search"].map(text => (
-          <div key={text}>
-            {text === "Home" && (
-              <Link to="/" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-            {text === "Search" && (
-              <Link to="/Search" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <SearchIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-            {text === "Connect" && (
-              <Link to="/signIn" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <AccountCircleIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-          </div>
-        ))}
-      </List>
-      {/* <Divider />
-      {path === "/Search" && (
-        <div>
-          <ListItemText>Age</ListItemText>
-          <RangeSlider
-            value={values}
-            onChange={handleChange}
-            min={range[0]}
-            max={range[1]}
-          />
-          <FiltersProvider value={values} />
-          <ListItemText>Gender</ListItemText>
-          <ListItemText>Distance</ListItemText>
-          <Divider />
-        </div>
-      )}*/}
-      <List>
-        {["About us"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
->>>>>>> morgani2
 
   return (
     <div>
