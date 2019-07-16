@@ -11,12 +11,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 // import MailIcon from "@material-ui/icons/Mail";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
-
+import Divider from "@material-ui/core/Divider";
 // import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
 import MenuButton from "./Components/MenuButton";
+import { useCookies } from "react-cookie";
 // import RangeSlider from "./Components/RangeSlider";
 // import { grey } from "@material-ui/core/colors";
 
@@ -45,6 +47,7 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
+  const [cookies, removeCookies] = useCookies(["auth"]);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -67,84 +70,75 @@ export default function TemporaryDrawer() {
   //   setValues(newValue);
   // };
 
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role="presentation"
-      // onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <div className={classes.top}>
+  // DISPLAYS DRAWERS LINK AND ICONS
+  const iconsAndLinks = param => {
+    const { text, link } = param;
+    return (
+      <Link
+        to={link}
+        className={classes.link}
+        onClick={() => {
+          text === "Disconnect" && removeCookies("auth");
+        }}
+        key={text}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            {text === "Home" && <HomeIcon />}
+            {text === "Search" && <SearchIcon />}
+            {text === "Disconnect" && <ClearIcon />}
+            {(text === "Connect" || text === "My Account") && (
+              <AccountCircleIcon />
+            )}
+            <ListItemText>{text}</ListItemText>
+          </ListItemIcon>
+        </ListItem>
+      </Link>
+    );
+  };
+
+  // CHECKS IF USER IS AUTH IN COOKIES
+  const menuItems = [{ text: "Home", link: "/" }];
+  if (cookies.auth !== "undefined") {
+    menuItems.push(
+      { text: "My Account", link: "/signIn" },
+      { text: "Search", link: "/Search" },
+      { text: "Disconnect", link: "/" }
+    );
+  } else {
+    menuItems.push({ text: "Connect", link: "/signIn" });
+  }
+
+  const sideList = side => {
+    return (
+      <div
+        className={classes.list}
+        role="presentation"
+        onClick={toggleDrawer(side, false)}
+        onKeyDown={toggleDrawer(side, false)}
+      >
+        <div className={classes.top}>
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <CloseIcon onClick={toggleDrawer(side, false)} />
+              </ListItemIcon>{" "}
+              <ListItemText>Menu</ListItemText>
+            </ListItem>
+          </List>
+        </div>
+        <List>{menuItems.map(iconsAndLinks)}</List>
+        <Divider />
         <List>
-          <ListItem>
-            <ListItemIcon>
-              <CloseIcon onClick={toggleDrawer(side, false)} />
-            </ListItemIcon>{" "}
-            <ListItemText>Menu</ListItemText>
-          </ListItem>
+          {["About us"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
         </List>
       </div>
-      <List>
-        {["Home", "Connect", "Search"].map(text => (
-          <div key={text}>
-            {text === "Home" && (
-              <Link to="/" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-            {text === "Search" && (
-              <Link to="/Search" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <SearchIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-            {text === "Connect" && (
-              <Link to="/signIn" className={classes.link}>
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <AccountCircleIcon />
-                  </ListItemIcon>
-                  <ListItemText>{text}</ListItemText>{" "}
-                </ListItem>
-              </Link>
-            )}
-          </div>
-        ))}
-      </List>
-      {/* <Divider />
-      {path === "/Search" && (
-        <div>
-          <ListItemText>Age</ListItemText>
-          <RangeSlider
-            value={values}
-            onChange={handleChange}
-            min={range[0]}
-            max={range[1]}
-          />
-          <FiltersProvider value={values} />
-          <ListItemText>Gender</ListItemText>
-          <ListItemText>Distance</ListItemText>
-          <Divider />
-        </div>
-      )}*/}
-      <List>
-        {["About us"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+    );
+  };
 
   return (
     <div>
