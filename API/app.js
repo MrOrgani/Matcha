@@ -8,39 +8,17 @@ const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 
-// app.use(logger("dev"));
+//MIDDLEWARE
 app.use(express.json());
 app.use(cors());
-// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(express.urlencoded({ extended: false }));
+// app.use(logger("dev"));
 // app.use(express.static(path.join(__dirname, "public")));
 
-// IMPORT ROUTES
+// DIRIGE VERS LE ROUTER CENTRAL
 const router = require("./router");
 app.use("/", router);
-
-// ==================== MAXIME'S CODE TO AUTH USER =============================
-
-// const authRoute = require("./router/routes/auth");
-// CONTACT DB
-// const neo4j = require("neo4j-driver").v1;
-// const driver = neo4j.driver(
-//   "bolt://localhost",
-//   neo4j.auth.basic("neo4j", "2j54A%")
-// );
-// USELESS
-// const session = driver.session();
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.use("/api/user", authRoute);
-
-// app.use("/", function(req, res) {
-//   res.send("API is working properly");
-// });
-
-// ============================================================================
 
 // app.use("/", indexRoute);
 // app.use("/users", usersRoute);

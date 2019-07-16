@@ -80,7 +80,7 @@ export default function TemporaryDrawer() {
             <ListItemIcon>
               <CloseIcon onClick={toggleDrawer(side, false)} />
             </ListItemIcon>{" "}
-            <ListItemText>Matcha</ListItemText>
+            <ListItemText>Menu</ListItemText>
           </ListItem>
         </List>
       </div>
@@ -120,7 +120,7 @@ export default function TemporaryDrawer() {
           </div>
         ))}
       </List>
-      <Divider />
+      {/* <Divider />
       {path === "/Search" && (
         <div>
           <ListItemText>Age</ListItemText>
@@ -135,7 +135,7 @@ export default function TemporaryDrawer() {
           <ListItemText>Distance</ListItemText>
           <Divider />
         </div>
-      )}
+      )}*/}
       <List>
         {["About us"].map((text, index) => (
           <ListItem button key={text}>

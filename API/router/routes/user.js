@@ -2,23 +2,28 @@ const router = require("express").Router();
 // const cors = require("cors");
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
+// const cors = require("cors");
 
 const {
   createUser,
+  loginUser,
   gUsers,
   delUsers,
   getUsers
 } = require("../../controlers/User");
 
 router
-  .route("/")
+  .route("/register")
   .post((req, res) => {
     createUser(req, res);
   })
   .get((req, res) => {
-    // console.log(req, res);
     getUsers(req, res);
   });
+
+router.route("/login").post((req, res) => {
+  loginUser(req, res);
+});
 
 router
   .route("/generate")
