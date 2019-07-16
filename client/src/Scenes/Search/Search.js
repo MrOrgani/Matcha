@@ -6,12 +6,8 @@ import "./public/stylesheet/style.css";
 // import Container from "@material-ui/core/Container";
 // import Typography from "@material-ui/core/Typography";
 // import NavBar from "../../Components/Navbar/NavBar";
-<<<<<<< HEAD
-import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
-=======
 // import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 import Filters from "./Components/Filters";
->>>>>>> morgani2
 
 const Search = () => {
   const [gender, setGender] = useState("both");

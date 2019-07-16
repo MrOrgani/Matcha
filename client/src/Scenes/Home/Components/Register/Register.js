@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -15,8 +15,14 @@ import RegisterValidation from "../UserValidation";
 
 const styles = {};
 
-function Register(props) {
-  const { classes } = props;
+const useStyle = makeStyles({
+  div: {
+    color: "white"
+  }
+});
+
+function Register() {
+  // const { classes } = props;
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
@@ -37,10 +43,12 @@ function Register(props) {
     password: ""
   };
 
+  const classes = useStyle();
+
   return (
     <React.Fragment>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Create an Account
+      <Button onClick={handleClickOpen}>
+        <div className={classes.div}>Create an Account</div>
       </Button>
       <Dialog
         open={open}
@@ -97,14 +105,12 @@ function Register(props) {
                     handleSubmit,
                     handleReset
                   } = props;
-
-                  // console.log(errors.login, touched.login);
                   return (
                     <form onSubmit={handleSubmit}>
                       <TextField
                         label="login"
                         name="login"
-                        className={classes.textField}
+                        // className={textField}
                         value={values.login}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -118,7 +124,7 @@ function Register(props) {
                         error={errors.email && touched.email}
                         label="email"
                         name="email"
-                        className={classes.textField}
+                        // className={classes.textField}
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -133,7 +139,7 @@ function Register(props) {
                         error={errors.password && touched.password}
                         label="password"
                         name="password"
-                        className={classes.textField}
+                        // className={classes.textField}
                         value={values.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
