@@ -98,10 +98,13 @@ export default function TemporaryDrawer() {
   };
 
   // CHECKS IF USER IS AUTH IN COOKIES
-  const menuItems = [{ text: "Home", link: "/" }];
+  const menuItems = [
+    { text: "Home", link: "/" },
+    { text: "Profile", link: "/Profile" }
+  ];
   if (cookies.auth !== "undefined") {
     menuItems.push(
-      { text: "My Account", link: "/signIn" },
+      { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
       { text: "Disconnect", link: "/" }
     );

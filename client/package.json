@@ -12,6 +12,8 @@
     "react": "^16.8.6",
     "react-cookie": "^4.0.1",
     "react-dom": "^16.8.6",
+    "react-gesture-responder": "^2.1.0",
+    "react-image-gallery": "^0.8.18",
     "react-native": "^0.60.0",
     "react-navigation": "^3.11.0",
     "react-router-dom": "^5.0.1",
