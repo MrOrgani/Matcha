@@ -8,8 +8,10 @@ export const UsersProvider = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:9000/api/user");
-      await setUsers(result.data.records);
+      const result = await axios("http://localhost:9000/");
+      // console.log("results users", result.data.records);
+
+      await setUsers(result.data);
     };
     fetchData();
   }, []);

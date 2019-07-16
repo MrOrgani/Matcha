@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 // import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
+// import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -15,9 +15,9 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 
-import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
+// import { FiltersProvider } from "./../../Scenes/Search/Components/FiltersContext";
 import MenuButton from "./Components/MenuButton";
-import RangeSlider from "./Components/RangeSlider";
+// import RangeSlider from "./Components/RangeSlider";
 // import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
@@ -49,9 +49,9 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false
   });
-  const [values, setValues] = React.useState([30, 40]);
-  const range = [18, 100];
-  const path = window.location.pathname;
+  // const [values, setValues] = React.useState([30, 40]);
+  // const range = [18, 100];
+  // const path = window.location.pathname;
 
   const toggleDrawer = (side, open) => event => {
     if (
@@ -63,9 +63,9 @@ export default function TemporaryDrawer() {
 
     setState({ ...state, [side]: open });
   };
-  const handleChange = (event, newValue) => {
-    setValues(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValues(newValue);
+  // };
 
   const sideList = side => (
     <div
