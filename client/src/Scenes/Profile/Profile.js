@@ -56,16 +56,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Profile() {
   const classes = useStyles();
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const [values, setValues] = useState({
     sexualOrientation: "",
     name: "hai",
-    email: "hello@gmail.com"
+    email: data.email,
+    login: data.login
   });
-
-  // const [labelWidth, setLabelWidth] = useState(0);
-  // React.useEffect(() => {
-  //   setLabelWidth(inputLabel.current.offsetWidth);
-  // }, []);
 
   const handleChange = name => event => {
     setValues({
@@ -117,6 +114,16 @@ export default function Profile() {
               variant="outlined"
               value={values.email}
               onChange={handleChange("email")}
+            />
+            <TextField
+              id="outlined-name"
+              label="Login"
+              className={classes.textField}
+              value={values.login}
+              onChange={handleChange("login")}
+              margin="normal"
+              variant="outlined"
+              name="login"
             />
             <TextField
               variant="outlined"
