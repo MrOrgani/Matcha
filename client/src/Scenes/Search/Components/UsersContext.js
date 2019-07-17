@@ -9,14 +9,11 @@ export const UsersProvider = props => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:9000/");
-      console.log("results users", result.data.records);
-
       await setUsers(result.data);
     };
     fetchData();
   }, []);
 
-  console.log("data in users context", users);
   return (
     <UsersContext.Provider value={[users, setUsers]}>
       {props.children}

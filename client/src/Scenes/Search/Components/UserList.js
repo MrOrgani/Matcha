@@ -31,15 +31,12 @@ const filterUsers = (props, users) => {
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
 // fait qu'on attende la reponse de l'api dans UsersContext;
 const UserList = props => {
-  const [
-    users
-    // setUsers
-  ] = useContext(UsersContext);
+  const [users] = useContext(UsersContext);
   const classes = useStyles();
-  console.log("users", users);
+  // console.log("users", users);
 
   const filteredUserList = filterUsers(props, users);
-
+  console.log(filteredUserList);
   return (
     <div className={classes.container}>
       {filteredUserList.map((user, index) => (

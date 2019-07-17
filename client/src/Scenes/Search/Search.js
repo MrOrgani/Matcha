@@ -22,8 +22,6 @@ const Search = () => {
     // console.log(event);
   };
 
-  console.log(axios("http://localhost:9000/"));
-
   return (
     <div>
       <UsersProvider>

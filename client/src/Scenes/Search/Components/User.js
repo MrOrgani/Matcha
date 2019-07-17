@@ -11,9 +11,14 @@
 
 // export default User;
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 // import Card from "@material-ui/core/Card";
 // import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -28,13 +33,14 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 // import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import MoreVertIcon from "@material-ui/icons/MoreVert";
+import UserCard from "../../../Components/UserCard/UserCard";
 
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 150,
     margin: 2,
     height: 200,
-    borderRadius: 15,
+    borderRadius: 15
     // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   },
   media: {
@@ -70,9 +76,15 @@ const User = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [colored, setColored] = React.useState(false);
+  const [openCard, setOpenCard] = useState(false);
 
   function handleClick() {
     setExpanded(!expanded);
+    setOpenCard(true);
+  }
+
+  function handleCloseCard() {
+    setOpenCard(false);
   }
 
   function handleColor() {
@@ -80,33 +92,38 @@ const User = props => {
   }
 
   return (
-    <CardMedia className={classes.card} image={props.value.picLarge}>
-      <div className={classes.root}>
-        <IconButton
-          className={!colored ? classes.isNotLiked : classes.isLiked}
-          aria-label="Add to favorites"
-          onClick={handleColor}
-        >
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </div>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography>{props.value.firstName}</Typography>
-          <Typography paragraph>{props.value.bio}</Typography>
-        </CardContent>
-      </Collapse>
-    </CardMedia>
+    <React.Fragment>
+      <CardMedia className={classes.card} image={props.value.picLarge}>
+        <div className={classes.root}>
+          <IconButton
+            className={!colored ? classes.isNotLiked : classes.isLiked}
+            aria-label="Add to favorites"
+            onClick={handleColor}
+          >
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded
+            })}
+            onClick={handleClick}
+            aria-expanded={expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </div>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography>{props.value.firstName}</Typography>
+            <Typography paragraph>{props.value.bio}</Typography>
+          </CardContent>
+        </Collapse>
+      </CardMedia>
+      <Dialog open={openCard} onClose={handleCloseCard}>
+        <UserCard />
+      </Dialog>
+    </React.Fragment>
   );
 };
 
