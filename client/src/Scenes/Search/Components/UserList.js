@@ -13,6 +13,23 @@ const useStyles = makeStyles({
   }
 });
 
+const filterUsers = (props, users) => {
+  // console.log("users", users);
+  const genderFiltered =
+    !props.filters[0] || props.filters[0] === "both"
+      ? users
+      : users.filter(user => user.gender === props.filters[0]);
+  // console.log("filter", filtered);
+
+  const ageFiltered = genderFiltered.filter(
+    user =>
+      user.age.low >= props.filters[1][0] && user.age.low <= props.filters[1][1]
+  );
+  return ageFiltered;
+};
+
+// ICI quand on passe en async opur filterUsers on a un bug etrange lie au
+// fait qu'on attende la reponse de l'api dans UsersContext;
 const UserList = props => {
   const [
     users
@@ -20,20 +37,12 @@ const UserList = props => {
   ] = useContext(UsersContext);
   const classes = useStyles();
   console.log("users", users);
-  const filtered =
-    !props.filters[0] || props.filters[0] === "both"
-      ? users
-      : users.filter(user => user.gender === props.filters[0]);
-  // console.log("filter", filtered);
 
-  const filtered2 = filtered.filter(
-    user =>
-      user.age.low >= props.filters[1][0] && user.age.low <= props.filters[1][1]
-  );
+  const filteredUserList = filterUsers(props, users);
 
   return (
     <div className={classes.container}>
-      {filtered2.map((user, index) => (
+      {filteredUserList.map((user, index) => (
         <User key={index} value={user} />
       ))}
     </div>
