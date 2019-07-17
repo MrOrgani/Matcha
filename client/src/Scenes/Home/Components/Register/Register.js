@@ -18,6 +18,9 @@ function Register() {
   const [textError, setTextError] = useState("");
 
   function handleClose() {
+    // console.log("handleclose", isValid, textError);
+    setValid(true);
+    setTextError("");
     setOpen(false);
   }
 

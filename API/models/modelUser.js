@@ -29,7 +29,7 @@ async function connect(value) {
       value
     }
   );
-  console.log(data);
+  // console.log(data);
   if (data.records[0]) return data.records[0]._fields[0].properties;
 }
 
@@ -44,7 +44,7 @@ async function findOne(req, category) {
       category: category
     }
   );
-  return data.records[0];
+  if (data.records[0]) return data.records[0]._fields[0].properties;
 }
 
 async function gUsers(req, res) {
