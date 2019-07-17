@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Photos from "./Components/Photos";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -11,9 +11,11 @@ import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import Select from "@material-ui/core/Select";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -45,15 +47,36 @@ const useStyles = makeStyles(theme => ({
   gallery: {
     display: "inline",
     width: "50%"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   }
 }));
 
 export default function Profile() {
   const classes = useStyles();
+  const [values, setValues] = useState({
+    sexualOrientation: "",
+    name: "hai",
+    email: "hello@gmail.com"
+  });
+  const inputLabel = React.useRef(null);
 
+  // const [labelWidth, setLabelWidth] = useState(0);
+  // React.useEffect(() => {
+  //   setLabelWidth(inputLabel.current.offsetWidth);
+  // }, []);
+
+  const handleChange = name => event => {
+    setValues({
+      ...values,
+      [name]: event.target.value
+    });
+  };
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       {/* <Grid item xs={6}> */}
       <div className={classes.gallery}>
         <Photos />
@@ -68,48 +91,76 @@ export default function Profile() {
       >
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AccountCircleIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            My Profile
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
-              variant="outlined"
+              id="outlined-name"
+              label="Name"
+              className={classes.textField}
+              value={values.name}
+              onChange={handleChange("name")}
               margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
+              variant="outlined"
+              name="name"
+            />
+            <TextField
+              id="outlined-email-input"
+              label="Email"
+              // className={classes.textField}
+              type="email"
               name="email"
               autoComplete="email"
-              autoFocus
+              margin="normal"
+              variant="outlined"
+              value={values.email}
+              onChange={handleChange("email")}
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
+              multiline
+              rows="4"
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              id="bio"
+              label="Biography"
+              name="bio"
+              autoComplete="email"
+              autoFocus
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
+            <Typography component="h1">Sexual Orientation</Typography>
+            <Select
+              native
+              className={classes.textField}
+              value={values.sexualOrientation}
+              onChange={handleChange("sexualOrientation")}
+              input={
+                <OutlinedInput
+                  name="sexualOrientation"
+                  // labelWidth={labelWidth}
+                  id="outlined-age-native-simple"
+                />
+              }
+            >
+              {/* <option value="" /> */}
+              <option value={10}>Bi</option>
+              <option value={20}>Straight</option>
+              <option value={30}>Gay</option>
+            </Select>
             <Button
               type="submit"
-              fullWidth
+              // fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Change my information
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -121,7 +172,7 @@ export default function Profile() {
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>{/* <MadeWithLove /> */}</Box>
+            <Box mt={5}>{/* <MadeWithLove /> </Box> */}
           </form>
         </div>
       </Grid>

@@ -70,7 +70,7 @@ function Register() {
                       }
                     })
                     .then(res => {
-                      // console.log("response de l'API", res);
+                      console.log("response de l'API", res);
                       // CONNECTION SUCCESS
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
