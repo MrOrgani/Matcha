@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 150,
     margin: 2,
     height: 200,
-    borderRadius: 15,
+    borderRadius: 15
     // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   },
   media: {
@@ -80,7 +80,7 @@ const User = props => {
   }
 
   return (
-    <CardMedia className={classes.card} image={props.value.picLarge}>
+    <CardMedia className={classes.card} image={props.value.pics[0]}>
       <div className={classes.root}>
         <IconButton
           className={!colored ? classes.isNotLiked : classes.isLiked}
