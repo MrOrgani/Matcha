@@ -58,7 +58,7 @@ function Login() {
                       }
                     })
                     .then(res => {
-                      // console.log("response de l'API", res);
+                      console.log("response de l'API", res);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
                         console.log(res.data);
