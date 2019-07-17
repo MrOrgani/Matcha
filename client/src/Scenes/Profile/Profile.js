@@ -61,7 +61,6 @@ export default function Profile() {
     name: "hai",
     email: "hello@gmail.com"
   });
-  const inputLabel = React.useRef(null);
 
   // const [labelWidth, setLabelWidth] = useState(0);
   // React.useEffect(() => {
