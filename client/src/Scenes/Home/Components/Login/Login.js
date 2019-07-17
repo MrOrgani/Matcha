@@ -20,6 +20,9 @@ function Login() {
   const [, setCookie] = useCookies();
 
   function handleClose() {
+    // console.log("handleclose", isValid, textError);
+    setValid(true);
+    setTextError("");
     setOpen(false);
   }
 
