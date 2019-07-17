@@ -1,23 +1,23 @@
-const ModelUser = require("../models/User");
+const modelUser = require("../models/modelUser");
 const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid/v4");
 
 async function createUser(req, res) {
-  // Check if we can create user
-  const PropNode = "login";
-  const PropNodeExists = await modelUser.findOne(req.body.login, PropNode);
-  if (PropNodeExists) return res.status(206).send(`${PropNode} is taken`);
-  let errors = await Validation.RegisterValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
-
-  //create db ready userinfo with uuid for jwt
-  const user = await cryptAndObjectify(req);
-  user.uuid = await uuid();
-
   try {
+    if (await modelUser.findOne(req.body.login, "login"))
+      return res.status(206).send(`login is taken`);
+
+    let errors = await Validation.RegisterValidation(req.body);
+    if (!isEmpty(errors)) return res.status(206).send(errors);
+
+    //create db ready userinfo with uuid for jwt
+    const user = await cryptAndObjectify(req);
+    user.uuid = await uuid();
+
     const data = await modelUser.createUser(user, res);
+    // console.log("data", data);
     res.status(200).send(data);
   } catch (err) {
     res.status(206).send(err);
@@ -25,28 +25,38 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
-  const user = await cryptAndObjectify(req);
-  let errors = await Validation.LoginValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
+  try {
+    const user = await cryptAndObjectify(req);
+    let errors = await Validation.LoginValidation(req.body);
+    if (!isEmpty(errors)) return res.status(206).send(errors);
 
-  const { login, password, uuid, email } = await modelUser.connect(
-    user.login,
-    "login"
-  );
-  const userData = { login, password, uuid, email };
-  if (isEmpty(userData)) return res.status(206).send("Invalid username");
-  const isValidPwd = await bcrypt.compare(req.body.password, userData.password);
-  if (!isValidPwd) return res.status(206).send("Invalid password");
-  delete userData.password;
+    const PropNodeExists = await modelUser.findOne(req.body.login, "login");
+    if (!PropNodeExists) return res.status(206).send("Invalid username");
+    const { login, password, uuid, email } = await modelUser.connect(
+      user.login,
+      "login"
+    );
+    const userData = { login, password, uuid, email };
+    // console.log("user data in users controller", userData);
+    if (isEmpty(userData)) return res.status(206).send("Invalid username");
+    const isValidPwd = await bcrypt.compare(
+      req.body.password,
+      userData.password
+    );
+    if (isValidPwd == false) return res.status(206).send("Invalid password");
+    delete userData.password;
 
-  // JWT auth token
-  // console.log("return from connection", userData);
-  const token = jwt.sign({ uuid: userData.uuid }, process.env.TOKEN_SECRET);
-  userData.uuid = token;
-  res
-    // .header("auth-token", token)
-    .status(200)
-    .send(userData);
+    // JWT auth token
+    // console.log("return from connection", userData);
+    const token = jwt.sign({ uuid: userData.uuid }, process.env.TOKEN_SECRET);
+    userData.uuid = token;
+    res
+      .header("auth-token", token)
+      .status(200)
+      .send(userData);
+  } catch (err) {
+    res.status(206).send(err);
+  }
 }
 
 // Crypts pwd and returns a well rounded user object from req.body
@@ -72,15 +82,15 @@ function isEmpty(obj) {
 }
 
 function gUsers(req, res) {
-  ModelUser.gUsers(req, res);
+  modelUser.gUsers(req, res);
 }
 
 function delUsers(req, res) {
-  ModelUser.delUsers(req, res);
+  modelUser.delUsers(req, res);
 }
 
 function getUsers(req, res) {
-  ModelUser.getUsers(req, res);
+  modelUser.getUsers(req, res);
 }
 
 module.exports = {

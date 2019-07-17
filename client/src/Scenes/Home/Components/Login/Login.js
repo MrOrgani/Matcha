@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,21 +12,17 @@ import UserValidation from "../UserValidation";
 import { useCookies } from "react-cookie";
 // import { DisplayFormikState } from './formikHelper';
 
-const styles = {};
-const useStyle = makeStyles({
-  div: {
-    color: "white"
-  }
-});
-function Register() {
-  // const { classes } = props;
+function Login() {
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-  const [cookies, setCookie] = useCookies(["auth"]);
+  const [, setCookie] = useCookies();
 
   function handleClose() {
+    // console.log("handleclose", isValid, textError);
+    setValid(true);
+    setTextError("");
     setOpen(false);
   }
 
@@ -41,18 +36,12 @@ function Register() {
     password: ""
   };
 
-  const classes = useStyle();
-
   return (
     <React.Fragment>
       <Button onClick={handleClickOpen}>
-        <div className={classes.div}>Login</div>
+        <div style={{ color: "white" }}>Login</div>
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        // aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={handleClose}>
         {!isSubmitionCompleted && (
           <React.Fragment>
             <DialogTitle id="form-dialog-title">Login</DialogTitle>
@@ -65,13 +54,11 @@ function Register() {
                   axios
                     .post("http://localhost:9000/api/user/login", values, {
                       headers: {
-                        // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json"
                       }
                     })
                     .then(res => {
-                      console.log("response de l'API", res);
-                      // CONNECTION SUCCESS
+                      // console.log("response de l'API", res);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
                         setCookie("auth", res.data.uuid, {
@@ -80,7 +67,6 @@ function Register() {
                           path: "/"
                         });
                       } else {
-                        // CONNECTION FAILURE
                         let errorStr = "";
                         setSubmitionCompleted(true);
                         setValid(false);
@@ -109,7 +95,6 @@ function Register() {
                     handleSubmit,
                     handleReset
                   } = props;
-
                   // console.log(errors.login, touched.login);
                   return (
                     <form onSubmit={handleSubmit}>
@@ -195,4 +180,4 @@ function Register() {
   );
 }
 
-export default withStyles(styles)(Register);
+export default Login;

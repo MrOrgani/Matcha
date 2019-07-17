@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,25 +9,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import RegisterValidation from "../UserValidation";
-// const { userSchema } = require("../../../../Schemas");
 // import { DisplayFormikState } from './formikHelper';
 
-const styles = {};
-
-const useStyle = makeStyles({
-  div: {
-    color: "white"
-  }
-});
-
 function Register() {
-  // const { classes } = props;
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
 
   function handleClose() {
+    // console.log("handleclose", isValid, textError);
+    setValid(true);
+    setTextError("");
     setOpen(false);
   }
 
@@ -43,12 +35,10 @@ function Register() {
     password: ""
   };
 
-  const classes = useStyle();
-
   return (
     <React.Fragment>
       <Button onClick={handleClickOpen}>
-        <div className={classes.div}>Create an Account</div>
+        <div style={{ color: "white" }}>Create an Account</div>
       </Button>
       <Dialog
         open={open}
@@ -206,4 +196,4 @@ function Register() {
   );
 }
 
-export default withStyles(styles)(Register);
+export default Register;
