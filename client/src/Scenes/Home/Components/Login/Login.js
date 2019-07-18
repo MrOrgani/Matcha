@@ -61,15 +61,15 @@ function Login() {
                       // console.log("response de l'API", res);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
-                        console.log(res.data);
+                        // console.log(res.data);
                         sessionStorage.setItem(
                           "data",
                           JSON.stringify(res.data)
                         );
-                        console.log(
-                          "sessionStorage",
-                          sessionStorage.getItem("data")
-                        );
+                        // console.log(
+                        //   "sessionStorage",
+                        //   sessionStorage.getItem("data")
+                        // );
                         setCookie("auth", res.data.uuid, {
                           // httpOnly: true,
                           // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)

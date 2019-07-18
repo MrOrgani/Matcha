@@ -53,10 +53,7 @@ export default function TemporaryDrawer() {
   };
 
   // CHECKS IF USER IS AUTH IN COOKIES
-  const menuItems = [
-    { text: "Home", link: "/" },
-    { text: "Profile", link: "/Profile" }
-  ];
+  const menuItems = [{ text: "Home", link: "/" }];
   if (cookies.auth !== "undefined") {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
