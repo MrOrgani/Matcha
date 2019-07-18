@@ -8,23 +8,23 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 // import { Images } from "./images";
 
-const tutorialSteps = [
-  {
-    imgPath: "https://pmcdeadline2.files.wordpress.com/2016/02/nicolas-cage.jpg"
-  },
-  {
-    imgPath:
-      "https://timedotcom.files.wordpress.com/2015/07/nicolas-cage1.jpg?quality=85"
-  },
-  {
-    imgPath:
-      "http://images5.fanpop.com/image/photos/26900000/Nicolas-Cage-nicolas-cage-26969966-1941-1300.jpg"
-  },
-  {
-    imgPath:
-      "http://image.tmdb.org/t/p/original/gbmePhMPICKgHJcT4mLtFCKSFB1.jpg"
-  }
-];
+// const tutorialSteps = [
+//   {
+//     imgPath: "https://pmcdeadline2.files.wordpress.com/2016/02/nicolas-cage.jpg"
+//   },
+//   {
+//     imgPath:
+//       "https://timedotcom.files.wordpress.com/2015/07/nicolas-cage1.jpg?quality=85"
+//   },
+//   {
+//     imgPath:
+//       "http://images5.fanpop.com/image/photos/26900000/Nicolas-Cage-nicolas-cage-26969966-1941-1300.jpg"
+//   },
+//   {
+//     imgPath:
+//       "http://image.tmdb.org/t/p/original/gbmePhMPICKgHJcT4mLtFCKSFB1.jpg"
+//   }
+// ];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,11 +47,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Photos() {
+export default function Photos(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+  const maxSteps = props.photos.length;
 
   function handleNext() {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -68,8 +68,8 @@ export default function Photos() {
       {/* </Paper> */}
       <img
         className={classes.img}
-        src={tutorialSteps[activeStep].imgPath}
-        alt={tutorialSteps[activeStep].label}
+        src={props.photos[activeStep]}
+        alt={props.photos[activeStep]}
       />
       <MobileStepper
         steps={maxSteps}

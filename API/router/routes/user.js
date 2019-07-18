@@ -9,8 +9,13 @@ const {
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  updateProfile
 } = require("../../controlers/User");
+
+router.route("/").post((req, res) => {
+  updateProfile(req, res);
+});
 
 router
   .route("/register")
