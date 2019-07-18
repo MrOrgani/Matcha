@@ -22,8 +22,9 @@ async function createUser(req, res) {
               sexualPref:'bi',
               location:['', ''],
               phone:'',
-              pics:{pics}
-              }) 
+              pics:{pics},
+              bio:''  
+            }) 
               RETURN u`,
     req
   );

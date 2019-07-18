@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import UserValidation from "../UserValidation";
+import { LoginValidation } from "../UserValidation";
 import { useCookies } from "react-cookie";
 // import { DisplayFormikState } from './formikHelper';
 
@@ -90,7 +90,7 @@ function Login() {
                       }
                     });
                 }}
-                validate={UserValidation}
+                validate={LoginValidation}
               >
                 {props => {
                   const {
