@@ -51,7 +51,8 @@ export default function Photos(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = props.photos.length;
+  const data = JSON.parse(sessionStorage.getItem("data"));
+  const maxSteps = data.pics.length;
 
   function handleNext() {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -63,13 +64,10 @@ export default function Photos(props) {
   //   const [index, setIndex] = React.useState(0);
   return (
     <div className={classes.root}>
-      {/* <Paper square elevation={0} className={classes.header}> */}
-      {/* <Typography>{tutorialSteps[activeStep].label}</Typography> */}
-      {/* </Paper> */}
       <img
         className={classes.img}
-        src={props.photos[activeStep]}
-        alt={props.photos[activeStep]}
+        src={data.pics[activeStep]}
+        alt={data.pics[activeStep]}
       />
       <MobileStepper
         steps={maxSteps}

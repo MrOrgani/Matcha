@@ -20,7 +20,6 @@ function Login() {
   const [, setCookie] = useCookies();
 
   function handleClose() {
-    // console.log("handleclose", isValid, textError);
     setValid(true);
     setTextError("");
     setOpen(false);
@@ -58,18 +57,12 @@ function Login() {
                       }
                     })
                     .then(res => {
-                      console.log("response de l'API", res);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
-                        // console.log(res.data);
                         sessionStorage.setItem(
                           "data",
                           JSON.stringify(res.data)
                         );
-                        // console.log(
-                        //   "sessionStorage",
-                        //   sessionStorage.getItem("data")
-                        // );
                         setCookie("auth", res.data.uuid, {
                           // httpOnly: true,
                           // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)
@@ -110,7 +103,6 @@ function Login() {
                       <TextField
                         label="login"
                         name="login"
-                        // className={textField}
                         value={values.login}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -125,7 +117,6 @@ function Login() {
                         error={errors.password && touched.password}
                         label="password"
                         name="password"
-                        // className={classes.textField}
                         value={values.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
