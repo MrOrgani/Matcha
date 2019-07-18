@@ -52,7 +52,8 @@ async function gUsers(req, res) {
               u.cell = user.cell,
               u.picMedium = user.picture.medium,
               u.picLarge = user.picture.large,
-              u.email = user.email
+              u.email = user.email,
+              u.isComplete = 1
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))`
