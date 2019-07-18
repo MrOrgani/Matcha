@@ -91,7 +91,33 @@ async function getUsers(req, res) {
       .then(data => res.send(data))
       .catch(err => console.log(err));
   } catch (err) {
-    res.status(400).send(err);
+    res.status(206).send(err);
+    console.log(err);
+  }
+}
+
+async function updateUser(values, res) {
+  // console.log("value in MODEL USER", values);
+  try {
+    // MODIFICATIO DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
+    session
+      .run(
+        `MATCH (u:User {login: {loginRef}})
+        SET u.firstName = {firstName},
+            u.lastName = {lastName},
+              u.age = {age},
+              u.gender = {gender},
+              u.sexualPref = {sexualOrientation},
+              u.login = {login},
+              u.email = {email},
+              u.bio = {bio}
+              RETURN u
+           `,
+        values
+      )
+      .catch(err => console.log(err));
+  } catch (err) {
+    res.status(206).send(err);
     console.log(err);
   }
 }
@@ -101,5 +127,6 @@ module.exports = {
   gUsers,
   delUsers,
   getUsers,
-  findOne
+  findOne,
+  updateUser
 };

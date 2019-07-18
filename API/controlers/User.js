@@ -38,9 +38,6 @@ async function loginUser(req, res) {
   }
 
   const userData = await modelUser.findOne(user.login, "login");
-  // console.log("userdata", userData);
-  // const userData = { login, password, uuid, email };
-  // console.log("user data in users controller", userData);
   if (isEmpty(userData)) return res.status(206).send("Invalid username");
   if (!(await bcrypt.compare(req.body.password, userData.password)))
     return res.status(206).send("Invalid password");
@@ -56,21 +53,20 @@ async function loginUser(req, res) {
 }
 
 async function updateProfile(req, res) {
-  console.log(req.body);
   let errors = await Validation.ProfileValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
+  if (!isEmpty(errors)) return res.status(208).send(errors);
 
   try {
     if (!(await modelUser.findOne(req.body.loginRef, "login")))
       return res.status(206).send("You don't exist in the database");
   } catch (err) {
-    res.status(206).send(err);
+    res.status(209).send(err);
   }
   try {
-    const data = await modelUser.updateUser(req.body);
-    res.status(200).send("EVERY THING WENT ALRIGHT");
+    const data = await modelUser.updateUser(req.body, res);
+    res.status(200).send(data);
   } catch (err) {
-    res.status(206).send(err);
+    res.status(210).send(err);
   }
 }
 
