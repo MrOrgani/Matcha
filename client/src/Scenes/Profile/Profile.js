@@ -104,7 +104,10 @@ export default function Profile() {
             initialValues={values}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              console.log("values", values);
+              values.loginRef = JSON.parse(
+                sessionStorage.getItem("data")
+              ).login;
+              // console.log("values", values);
               axios
                 .post("http://localhost:9000/api/user/", values, {
                   headers: {
@@ -219,7 +222,7 @@ export default function Profile() {
                     label="Biography"
                     name="bio"
                     autoComplete="email"
-                    autoFocus
+                    // autoFocus
                     value={values.bio}
                     onChange={handleChange("bio")}
                   />
