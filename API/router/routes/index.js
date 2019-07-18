@@ -11,7 +11,7 @@ const session = driver.session();
 router.get("/", function(req, res, next) {
   const nodes = [];
   session
-    .run("MATCH (n:User) RETURN n")
+    .run("MATCH (u:User) WHERE (u.isComplete = 1) RETURN u")
     .then(function(result) {
       result.records.forEach(function(record) {
         nodes.push(record._fields[0].properties);
