@@ -20,7 +20,7 @@ exports.RegisterValidation = function(values) {
 };
 
 exports.LoginValidation = function(values) {
-  let errors = {};
+  const errors = {};
   if (!values.login) {
     errors.login = "A login is required";
   }

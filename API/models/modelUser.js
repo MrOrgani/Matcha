@@ -31,19 +31,6 @@ async function createUser(req, res) {
   return data;
 }
 
-async function connect(value) {
-  const data = await session.run(
-    `MATCH(u:User)
-    WHERE u.login = $value
-    RETURN u`,
-    {
-      value
-    }
-  );
-  // console.log(data);
-  if (data.records[0]) return data.records[0]._fields[0].properties;
-}
-
 async function findOne(req, category) {
   const data = await session.run(
     `WITH {category} AS propname
@@ -111,7 +98,6 @@ async function getUsers(req, res) {
 
 module.exports = {
   createUser,
-  connect,
   gUsers,
   delUsers,
   getUsers,
