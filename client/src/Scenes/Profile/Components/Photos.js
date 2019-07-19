@@ -1,49 +1,24 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+// import Paper from "@material-ui/core/Paper";
+// import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-// import { Images } from "./images";
-
-// const tutorialSteps = [
-//   {
-//     imgPath: "https://pmcdeadline2.files.wordpress.com/2016/02/nicolas-cage.jpg"
-//   },
-//   {
-//     imgPath:
-//       "https://timedotcom.files.wordpress.com/2015/07/nicolas-cage1.jpg?quality=85"
-//   },
-//   {
-//     imgPath:
-//       "http://images5.fanpop.com/image/photos/26900000/Nicolas-Cage-nicolas-cage-26969966-1941-1300.jpg"
-//   },
-//   {
-//     imgPath:
-//       "http://image.tmdb.org/t/p/original/gbmePhMPICKgHJcT4mLtFCKSFB1.jpg"
-//   }
-// ];
+import OptionIcon from "./Components/OptionIcon";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // maxWidth: "50%",
-    flexGrow: 1
-  },
-  header: {
+    flexGrow: 1,
     display: "flex",
-    alignItems: "center",
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default
+    flexDirection: "column"
   },
+
   img: {
-    // height: "100%",
     maxWidth: "auto",
-    // overflow: "hidden",
-    display: "block",
-    width: "100%"
+    width: "100%",
+    marginTop: -50 + "px"
   }
 }));
 
@@ -64,6 +39,8 @@ export default function Photos(props) {
   //   const [index, setIndex] = React.useState(0);
   return (
     <div className={classes.root}>
+      <OptionIcon className={classes.icon} />
+
       <img
         className={classes.img}
         src={data.pics[activeStep]}
