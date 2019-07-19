@@ -44,6 +44,10 @@ export default function OptionIcon() {
     setOpen(false);
   }
 
+  function handleChange(selectorFiles) {
+    console.log(selectorFiles);
+  }
+
   function handleClose(event) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
@@ -103,6 +107,7 @@ export default function OptionIcon() {
                           id="outlined-button-file"
                           multiple
                           type="file"
+                          onChange={e => handleChange(e.target.files)}
                         />
                         <label htmlFor="outlined-button-file">{option}</label>
                       </MenuItem>
