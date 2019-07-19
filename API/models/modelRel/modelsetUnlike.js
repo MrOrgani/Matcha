@@ -1,6 +1,3 @@
-const fetch = require("node-fetch");
-const express = require("express");
-const router = express.Router();
 const neo4j = require("neo4j-driver").v1;
 const driver = neo4j.driver(
   "bolt://localhost",
@@ -8,3 +5,16 @@ const driver = neo4j.driver(
   () => console.log("connected to db")
 );
 const session = driver.session();
+
+async function modelSetUnlike(req) {
+  const data = await session.run(
+    `MATCH (s:User {login:{source}})-[r:LIKES]->(t:User {login:{target}})
+    DELETE r`,
+    req
+  );
+  return data;
+}
+
+module.exports = {
+  modelSetUnlike
+};

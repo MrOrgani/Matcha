@@ -8,7 +8,9 @@ export const UsersProvider = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:9000/");
+      const result = await axios(
+        "http://localhost:9000/api/getusers/withhobbies"
+      );
       await setUsers(result.data);
     };
     fetchData();

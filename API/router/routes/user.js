@@ -1,8 +1,6 @@
 const router = require("express").Router();
-// const cors = require("cors");
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
-// const cors = require("cors");
 
 const {
   createUser,
@@ -31,7 +29,7 @@ router
     req.body.value ? gUsers(req, res) : delUsers(req, res);
   })
   .get(async (req, res) => {
-    const url = "https://randomuser.me/api/?results=100&nat=FR";
+    const url = "https://randomuser.me/api/?results=10&nat=FR";
     try {
       const response = await fetch(url);
       const json = await response.json();

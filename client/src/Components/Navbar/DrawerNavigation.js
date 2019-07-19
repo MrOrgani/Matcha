@@ -30,8 +30,6 @@ const useStyles = makeStyles({
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     textDecoration: "none",
     color: "white"
-    // opacity: 0.54
-    // color: "black"
   }
 });
 
