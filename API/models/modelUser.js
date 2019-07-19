@@ -7,12 +7,22 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 async function createUser(req, res) {
+  if (!req.pics)
+    req.pics = ["http://image.flaticon.com/icons/svg/53/53142.svg"];
   const data = await session.run(
     `CREATE(u:User {
               login:{login},
               password:{password},
               email:{email},
-              uuid:{uuid}
+              uuid:{uuid},
+              firstName:'',
+              lastName:'',
+              age:'',
+              gender:'',
+              sexualPref:'bi',
+              location:['', ''],
+              phone:'',
+              pics:{pics}
               }) 
               RETURN u`,
     req
