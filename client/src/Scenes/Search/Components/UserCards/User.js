@@ -1,39 +1,17 @@
-// import React from "react";
-// import "../public/stylesheet/style.css";
-
-// const User = props => {
-//   return (
-//     <div className="profile">
-//       <img src={props.value.picMedium} />
-//     </div>
-//   );
-// };
-
-// export default User;
-
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-// import Card from "@material-ui/core/Card";
-// import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-// import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 // import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-// import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import MoreVertIcon from "@material-ui/icons/MoreVert";
-import UserCard from "../../../Components/UserCard/UserCard";
+import UserCard from "./UserCard";
+import { UserCardContext } from "./UserCardContext";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -50,10 +28,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 150
   },
-  isNotLiked: {
+  isNotColored: {
     color: "white"
   },
-  isLiked: {
+  isColored: {
     color: "red"
   },
   expand: {
@@ -75,8 +53,8 @@ const useStyles = makeStyles(theme => ({
 const User = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [colored, setColored] = React.useState(false);
   const [openCard, setOpenCard] = useState(false);
+  const [isLiked, setLiked, userInfo] = useContext(UserCardContext);
 
   function handleClick() {
     setExpanded(!expanded);
@@ -88,15 +66,15 @@ const User = props => {
   }
 
   function handleColor() {
-    setColored(!colored);
+    setLiked(!isLiked);
   }
 
   return (
     <React.Fragment>
-      <CardMedia className={classes.card} image={props.value.picLarge}>
+      <CardMedia className={classes.card} image={userInfo.picLarge}>
         <div className={classes.root}>
           <IconButton
-            className={!colored ? classes.isNotLiked : classes.isLiked}
+            className={!isLiked ? classes.isNotColored : classes.isColored}
             aria-label="Add to favorites"
             onClick={handleColor}
           >
@@ -113,12 +91,6 @@ const User = props => {
             <ExpandMoreIcon />
           </IconButton>
         </div>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography>{props.value.firstName}</Typography>
-            <Typography paragraph>{props.value.bio}</Typography>
-          </CardContent>
-        </Collapse>
       </CardMedia>
       <Dialog open={openCard} onClose={handleCloseCard}>
         <UserCard />

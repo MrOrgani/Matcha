@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import User from "./User";
+import User from "./UserCards/User";
 import { UsersContext } from "./UsersContext";
 // import { FiltersContext } from "./FiltersContext";
 import { makeStyles } from "@material-ui/core/styles";
+import { UserCardProvider } from "./UserCards/UserCardContext";
 
 const useStyles = makeStyles({
   container: {
@@ -33,14 +34,14 @@ const filterUsers = (props, users) => {
 const UserList = props => {
   const [users] = useContext(UsersContext);
   const classes = useStyles();
-  // console.log("users", users);
 
   const filteredUserList = filterUsers(props, users);
-  console.log(filteredUserList);
   return (
     <div className={classes.container}>
       {filteredUserList.map((user, index) => (
-        <User key={index} value={user} />
+        <UserCardProvider key={`Card${index}`} user={user}>
+          <User />
+        </UserCardProvider>
       ))}
     </div>
   );

@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import UserList from "./Components/UserList";
 import { UsersProvider } from "./Components/UsersContext";
-import axios from "axios";
-// import { FiltersProvider } from "./Components/FiltersContext";
 import "./public/stylesheet/style.css";
-// import Container from "@material-ui/core/Container";
-// import Typography from "@material-ui/core/Typography";
-// import NavBar from "../../Components/Navbar/NavBar";
-// import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
 import Filters from "./Components/Filters";
 
 const Search = () => {
@@ -19,7 +13,6 @@ const Search = () => {
     else {
       setAge(newAge);
     }
-    // console.log(event);
   };
 
   return (
