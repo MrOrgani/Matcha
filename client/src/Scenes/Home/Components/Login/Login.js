@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import UserValidation from "../UserValidation";
+import { LoginValidation } from "../UserValidation";
 import { useCookies } from "react-cookie";
 // import { DisplayFormikState } from './formikHelper';
 
@@ -20,7 +20,6 @@ function Login() {
   const [, setCookie] = useCookies();
 
   function handleClose() {
-    // console.log("handleclose", isValid, textError);
     setValid(true);
     setTextError("");
     setOpen(false);
@@ -65,10 +64,6 @@ function Login() {
                           "data",
                           JSON.stringify(res.data)
                         );
-                        console.log(
-                          "sessionStorage",
-                          sessionStorage.getItem("data")
-                        );
                         setCookie("auth", res.data.uuid, {
                           // httpOnly: true,
                           // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)
@@ -89,7 +84,7 @@ function Login() {
                       }
                     });
                 }}
-                validate={UserValidation}
+                validate={LoginValidation}
               >
                 {props => {
                   const {
@@ -109,7 +104,6 @@ function Login() {
                       <TextField
                         label="login"
                         name="login"
-                        // className={textField}
                         value={values.login}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -124,7 +118,6 @@ function Login() {
                         error={errors.password && touched.password}
                         label="password"
                         name="password"
-                        // className={classes.textField}
                         value={values.password}
                         onChange={handleChange}
                         onBlur={handleBlur}

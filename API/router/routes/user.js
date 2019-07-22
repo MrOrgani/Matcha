@@ -7,8 +7,13 @@ const {
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  updateProfile
 } = require("../../controlers/User");
+
+router.route("/").post((req, res) => {
+  updateProfile(req, res);
+});
 
 router
   .route("/register")
@@ -51,5 +56,9 @@ router
       console.log(error);
     }
   });
+
+router.route("/image").post((req, res) => {
+  console.log(req.body);
+});
 
 module.exports = router;

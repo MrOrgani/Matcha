@@ -24,12 +24,17 @@ function InconsAndLinks({ param }) {
   const classes = useStyles();
   const { text, link } = param;
 
+  function disconnected() {
+    removeCookies("auth");
+    sessionStorage.removeItem("data");
+  }
+
   return (
     <Link
       to={link}
       className={classes.link}
       onClick={() => {
-        text === "Disconnect" && removeCookies("auth");
+        text === "Disconnect" && disconnected();
       }}
     >
       <ListItem button>
