@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import RegisterValidation from "../UserValidation";
+import { RegisterValidation } from "../UserValidation";
 // import { DisplayFormikState } from './formikHelper';
 
 function Register() {

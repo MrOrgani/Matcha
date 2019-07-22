@@ -1,4 +1,4 @@
-const RegisterValidation = function(values) {
+export const RegisterValidation = function(values) {
   let errors = {};
   if (!values.login) {
     errors.login = "A login is required";
@@ -19,7 +19,7 @@ const RegisterValidation = function(values) {
   return errors;
 };
 
-const LoginValidation = function(values) {
+export const LoginValidation = function(values) {
   let errors = {};
   if (!values.login) {
     errors.login = "A login is required";
@@ -35,4 +35,4 @@ const LoginValidation = function(values) {
   return errors;
 };
 
-export default { RegisterValidation, LoginValidation };
+// export default { RegisterValidation, LoginValidation };

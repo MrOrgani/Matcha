@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import Photos from "./Components/Photos";
-
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
+// import CssBaseline from "@material-ui/core/CssBaseline";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Checkbox from "@material-ui/core/Checkbox";
+// import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
+// import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Select from "@material-ui/core/Select";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+import FormProfile from "./Components/FormProfile";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,7 +41,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   },
   gallery: {
-    display: "inline",
     width: "50%"
   },
   textField: {
@@ -56,20 +51,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Profile() {
   const classes = useStyles();
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const [values, setValues] = useState({
-    sexualOrientation: "",
-    name: "hai",
-    email: data.email,
-    login: data.login
-  });
-
-  const handleChange = name => event => {
-    setValues({
-      ...values,
-      [name]: event.target.value
-    });
-  };
+  // console.log(data);
+  // const handleChange = name => event => {
+  //   setValues({
+  //     ...values,
+  //     [name]: event.target.value
+  //   });
+  // };
   return (
     <Grid container component="main" className={classes.root}>
       {/* <CssBaseline /> */}
@@ -77,14 +65,7 @@ export default function Profile() {
       <div className={classes.gallery}>
         <Photos />
       </div>
-      <Grid
-        item
-        xs={6}
-        //   sm={8} md={5}
-        component={Paper}
-        elevation={6}
-        square
-      >
+      <Grid item xs={6} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <AccountCircleIcon />
@@ -92,94 +73,7 @@ export default function Profile() {
           <Typography component="h1" variant="h5">
             My Profile
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              id="outlined-name"
-              label="Name"
-              className={classes.textField}
-              value={values.name}
-              onChange={handleChange("name")}
-              margin="normal"
-              variant="outlined"
-              name="name"
-            />
-            <TextField
-              id="outlined-email-input"
-              label="Email"
-              // className={classes.textField}
-              type="email"
-              name="email"
-              autoComplete="email"
-              margin="normal"
-              variant="outlined"
-              value={values.email}
-              onChange={handleChange("email")}
-            />
-            <TextField
-              id="outlined-name"
-              label="Login"
-              className={classes.textField}
-              value={values.login}
-              onChange={handleChange("login")}
-              margin="normal"
-              variant="outlined"
-              name="login"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              multiline
-              rows="4"
-              fullWidth
-              id="bio"
-              label="Biography"
-              name="bio"
-              autoComplete="email"
-              autoFocus
-            />
-
-            <Typography component="h1">Sexual Orientation</Typography>
-            <Select
-              native
-              className={classes.textField}
-              value={values.sexualOrientation}
-              onChange={handleChange("sexualOrientation")}
-              input={
-                <OutlinedInput
-                  name="sexualOrientation"
-                  // labelWidth={labelWidth}
-                  id="outlined-age-native-simple"
-                />
-              }
-            >
-              {/* <option value="" /> */}
-              <option value={10}>Bi</option>
-              <option value={20}>Straight</option>
-              <option value={30}>Gay</option>
-            </Select>
-            <Button
-              type="submit"
-              // fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Change my information
-            </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>{/* <MadeWithLove /> </Box> */}
-          </form>
+          <FormProfile />
         </div>
       </Grid>
     </Grid>
