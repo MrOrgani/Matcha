@@ -1,10 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-// after you loggin you have a token, we verify the token with this middleware
-// function every time we want a page to be authentificated
-// https://www.youtube.com/watch?v=2jqok-WgelI&t=3386s at 1h03m
-// testable with postman
-
 module.exports = function(req, res, next) {
   // console.log(req.header("auth-token"));
   const token = req.header("auth-token");

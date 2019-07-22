@@ -6,7 +6,8 @@ export const UserCardContext = createContext();
 
 export const UserCardProvider = props => {
   const [isLiked, setLiked] = useState(false);
-  const [userInfo, setUserInfo] = useState([props.user][0]);
+  const [isBlocked, setBlocked] = useState(false);
+  const [userInfo] = useState([props.user][0]);
   // console.log(props.user);
 
   const handleLike = () => {
@@ -28,6 +29,25 @@ export const UserCardProvider = props => {
       });
   };
 
+  const handleBlock = () => {
+    Axios.post("http://localhost:9000/api/rel/block", {
+      userSource: props.session.login,
+      target: userInfo.login,
+      jwt: props.session.uuid,
+      blocked: isBlocked
+    })
+      .then(res => {
+        if (res.status === 200) {
+          setBlocked(true);
+        } else if (res.status === 201) {
+          setBlocked(false);
+        } else alert("JWT eror, it looks like you are trying to fuck us :)");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     const getLike = async () => {
       const result = await axios.get(
@@ -38,12 +58,23 @@ export const UserCardProvider = props => {
       // console.log(result.data);
       if (result.data.length > 0) setLiked(true);
     };
+    const getBlock = async () => {
+      const result = await axios.get(
+        `http://localhost:9000/api/rel/block?userSource=${
+          props.session.login
+        }&target=${userInfo.login}&jwt=${props.session.uuid}`
+      );
+      // console.log(result.data);
+      if (result.data.length > 0) setBlocked(true);
+    };
+
+    getBlock();
     getLike();
   });
 
   return (
     <UserCardContext.Provider
-      value={[isLiked, handleLike, userInfo, setUserInfo]}
+      value={[isLiked, handleLike, isBlocked, handleBlock, userInfo]}
     >
       {props.children}
     </UserCardContext.Provider>

@@ -15,7 +15,10 @@ import Button from "@material-ui/core/Button";
 
 export default function UserCard() {
   const classes = useStyles();
-  const [isLiked, setLiked, userInfo] = useContext(UserCardContext);
+  const [isLiked, setLiked, isBlocked, setBlocked, userInfo] = useContext(
+    UserCardContext
+  );
+  // console.log(userInfo);s
 
   return (
     <React.Fragment>
@@ -25,11 +28,7 @@ export default function UserCard() {
           console.log(userInfo);
         }}
       >
-        <CardMedia
-          className={classes.media}
-          image={userInfo.picLarge}
-          title="Paella dish"
-        />
+        <CardMedia className={classes.media} image={userInfo.picLarge} />
         <CardHeader
           avatar={
             <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />
@@ -59,14 +58,14 @@ export default function UserCard() {
             <FavoriteIcon />
           </IconButton>
           <IconButton
-            //   onClick={handleLike}
-            className={classes.isNotBlockedColor}
+            onClick={setBlocked}
+            className={
+              !isBlocked ? classes.isNotBlockedColor : classes.isBlockedColor
+            }
           >
             <HighlightOffIcon />
           </IconButton>
-          <Button color="" onHover="red" className={classes.button}>
-            FAKE ACCOUNT
-          </Button>
+          <Button className={classes.button}>FAKE ACCOUNT</Button>
         </CardActions>
       </Card>
     </React.Fragment>
