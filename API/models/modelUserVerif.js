@@ -1,3 +1,8 @@
+// after you loggin you have a token, we verify the token with this middleware
+// function every time we want a page to be authentificated
+// https://www.youtube.com/watch?v=2jqok-WgelI&t=3386s at 1h03m
+// testable with postman
+
 const neo4j = require("neo4j-driver").v1;
 const driver = neo4j.driver(
   "bolt://localhost",

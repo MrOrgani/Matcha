@@ -50,7 +50,7 @@ const User = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [openCard, setOpenCard] = useState(false);
-  const [isLiked, handleLike, userInfo] = useContext(UserCardContext);
+  const [isLiked, handleLike, , , userInfo] = useContext(UserCardContext);
 
   function handleClick() {
     setExpanded(!expanded);
