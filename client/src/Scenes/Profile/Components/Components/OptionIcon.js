@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import axios from "axios";
+import ImageUpload from "./Components/ImageUpload";
 
 const useStyles = makeStyles({
   margin: {
@@ -45,19 +45,6 @@ export default function OptionIcon() {
     setOpen(false);
   }
 
-  function handleChange(selectorFiles) {
-    let reader = new FileReader();
-    reader.readAsDataURL(selectorFiles[0]);
-    reader.onload = e => {
-      console.log(e.target.result);
-      const url = "http://localhost:9000/api/user/image";
-      const formData = { file: e.target.result };
-      return axios
-        .post(url, formData)
-        .then(response => console.log("result", response));
-    };
-  }
-
   function handleClose(event) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
@@ -92,37 +79,22 @@ export default function OptionIcon() {
             <Paper id="menu-list-grow">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList>
-                  {options.map((option, index) =>
-                    index === 1 ? (
-                      <MenuItem
-                        key={option}
-                        //   disabled={index === 2}
-                        //   selected={index === selectedIndex}
-                        onClick={event => handleMenuItemClick(event, index)}
-                        className={classes.menuItem}
-                      >
-                        {option}
-                      </MenuItem>
-                    ) : (
-                      <MenuItem
-                        key={option}
-                        //   disabled={index === 2}
-                        //   selected={index === selectedIndex}
-                        onClick={event => handleMenuItemClick(event, index)}
-                        className={classes.menuItem}
-                      >
-                        <input
-                          accept="image/*"
-                          className={classes.input}
-                          id="outlined-button-file"
-                          multiple
-                          type="file"
-                          onChange={e => handleChange(e.target.files)}
-                        />
-                        <label htmlFor="outlined-button-file">{option}</label>
-                      </MenuItem>
-                    )
-                  )}
+                  <MenuItem
+                    key="ImageUpload"
+                    //   disabled={index === 2}
+                    //   selected={index === selectedIndex}
+                    onClick={event => handleMenuItemClick(event, "0")}
+                    className={classes.menuItem}
+                  >
+                    <ImageUpload />
+                  </MenuItem>
+                  <MenuItem
+                    key="ImageDelete"
+                    //   disabled={index === 2}
+                    //   selected={index === selectedIndex}
+                    onClick={event => handleMenuItemClick(event, "1")}
+                    className={classes.menuItem}
+                  />
                 </MenuList>
               </ClickAwayListener>
             </Paper>
