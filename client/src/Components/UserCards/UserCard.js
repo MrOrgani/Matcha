@@ -4,55 +4,18 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { UserCardContext } from "./UserCardContext";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import axios from "axios";
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 345
-  },
-  isNotColored: {
-    color: "darkgrey"
-  },
-  isColored: {
-    color: "red"
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
-  },
-  avatarPicture: {
-    // margin: 10,
-    width: 60,
-    height: 60
-  }
-  // avatar: {
-  //   backgroundColor: red[500]
-  // }
-}));
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import Button from "@material-ui/core/Button";
 
 export default function UserCard() {
   const classes = useStyles();
   const [isLiked, setLiked, userInfo] = useContext(UserCardContext);
-
-  function handleLike() {
-    setLiked(!isLiked);
-    // try {
-    //   const result = axios.post("http://localhost:9000/api/rel/like", {
-    //     source: MediaStreamEvent,
-    //     target: userInfo.login
-    //   });
-    //   console.log(result);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  }
 
   return (
     <React.Fragment>
@@ -72,7 +35,9 @@ export default function UserCard() {
             <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />
           }
           title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
-          subheader={`Last connection: ${userInfo.lastConnection}`}
+          subheader={`Last connection: ${userInfo.lastConnection}\n ${
+            userInfo.firstName
+          } did not notice you yet `}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -80,20 +45,74 @@ export default function UserCard() {
           </Typography>
           <ul>
             {userInfo.hobbies.map(hobby => (
-              <li>{hobby}</li>
+              <li key={hobby}>{hobby}</li>
             ))}
           </ul>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton
-            aria-label="Add to favorites"
-            onClick={handleLike}
-            className={!isLiked ? classes.isNotColored : classes.isColored}
+            onClick={setLiked}
+            className={
+              !isLiked ? classes.isNotLikedColor : classes.isLikedColor
+            }
           >
             <FavoriteIcon />
           </IconButton>
+          <IconButton
+            //   onClick={handleLike}
+            className={classes.isNotBlockedColor}
+          >
+            <HighlightOffIcon />
+          </IconButton>
+          <Button color="" onHover="red" className={classes.button}>
+            FAKE ACCOUNT
+          </Button>
         </CardActions>
       </Card>
     </React.Fragment>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  card: {
+    maxWidth: 345
+  },
+  isNotLikedColor: {
+    color: "DarkGrey",
+    "&:hover": {
+      backgroundColor: "HotPink",
+      color: "white"
+    }
+  },
+  isLikedColor: {
+    color: "HotPink"
+  },
+  isNotBlockedColor: {
+    color: "darkGrey",
+    "&:hover": {
+      backgroundColor: "red",
+      color: "white"
+    }
+  },
+  isBlockedColor: {
+    color: "red"
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%" // 16:9
+  },
+  avatarPicture: {
+    // margin: 10,
+    width: 60,
+    height: 60
+  },
+  button: {
+    background: "transparent",
+    boxShadow: "0px 0px 0px 0px",
+    color: "primary",
+    "&:hover": {
+      backgroundColor: "red",
+      color: "white"
+    }
+  }
+}));

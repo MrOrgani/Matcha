@@ -1,33 +1,14 @@
-// import React from "react";
-// import "../public/stylesheet/style.css";
-
-// const User = props => {
-//   return (
-//     <div className="profile">
-//       <img src={props.value.picMedium} />
-//     </div>
-//   );
-// };
-
-// export default User;
-
-import React from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-// import Card from "@material-ui/core/Card";
-// import CardHeader from "@material-ui/core/CardHeader";
+import Dialog from "@material-ui/core/Dialog";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-// import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-// import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-// import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import MoreVertIcon from "@material-ui/icons/MoreVert";
+import UserCard from "../../../Components/UserCards/UserCard";
+import { UserCardContext } from "../../../Components/UserCards/UserCardContext";
+import Axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -35,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     margin: 2,
     height: 200,
     borderRadius: 15
-    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   },
   media: {
     height: 0,
@@ -44,11 +24,15 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 150
   },
-  isNotLiked: {
-    color: "white"
+  isNotLikedColor: {
+    color: "white",
+    "&:hover": {
+      backgroundColor: "HotPink",
+      color: "white"
+    }
   },
-  isLiked: {
-    color: "red"
+  isLikedColor: {
+    color: "HotPink"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -59,54 +43,53 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
-  },
-  avatar: {
-    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    // backgroundColor: red[500]
   }
 }));
 
 const User = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [colored, setColored] = React.useState(false);
+  const [openCard, setOpenCard] = useState(false);
+  const [isLiked, handleLike, userInfo] = useContext(UserCardContext);
 
   function handleClick() {
     setExpanded(!expanded);
+    setOpenCard(true);
   }
 
-  function handleColor() {
-    setColored(!colored);
+  function handleCloseCard() {
+    setOpenCard(false);
   }
 
   return (
-    <CardMedia className={classes.card} image={props.value.pics[0]}>
-      <div className={classes.root}>
-        <IconButton
-          className={!colored ? classes.isNotLiked : classes.isLiked}
-          aria-label="Add to favorites"
-          onClick={handleColor}
-        >
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </div>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography>{props.value.firstName}</Typography>
-          <Typography paragraph>{props.value.bio}</Typography>
-        </CardContent>
-      </Collapse>
-    </CardMedia>
+    <React.Fragment>
+      <CardMedia className={classes.card} image={userInfo.picLarge}>
+        <div className={classes.root}>
+          <IconButton
+            className={
+              !isLiked ? classes.isNotLikedColor : classes.isLikedColor
+            }
+            aria-label="Add to favorites"
+            onClick={handleLike}
+          >
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded
+            })}
+            onClick={handleClick}
+            aria-expanded={expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </div>
+      </CardMedia>
+      <Dialog open={openCard} onClose={handleCloseCard}>
+        <UserCard />
+      </Dialog>
+    </React.Fragment>
   );
 };
 

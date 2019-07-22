@@ -8,7 +8,7 @@ const session = driver.session();
 
 async function modelSetUnlike(req) {
   const data = await session.run(
-    `MATCH (s:User {login:{source}})-[r:LIKES]->(t:User {login:{target}})
+    `MATCH (s:User {login:{userSource}})-[r:LIKES]->(t:User {login:{target}})
     DELETE r`,
     req
   );
