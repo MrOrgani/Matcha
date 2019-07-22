@@ -59,4 +59,8 @@ router
     }
   });
 
+router.route("/image").post((req, res) => {
+  console.log(req.body);
+});
+
 module.exports = router;

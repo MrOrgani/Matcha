@@ -19,7 +19,7 @@ const UserList = props => {
     // setUsers
   ] = useContext(UsersContext);
   const classes = useStyles();
-  console.log("users", users);
+  // console.log("users", users);
   const filtered =
     !props.filters[0] || props.filters[0] === "both"
       ? users
