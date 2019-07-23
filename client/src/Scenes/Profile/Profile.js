@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from // { useState }
+"react";
 import Photos from "./Components/Photos";
 import Avatar from "@material-ui/core/Avatar";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +13,6 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import FormProfile from "./Components/FormProfile";
-import TestPhotos from "./Components/TestPhotos";
 
 const useStyles = makeStyles(theme => ({
   root: {

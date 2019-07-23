@@ -46,11 +46,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FormProfile(props) {
-  const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
-  const [isValid, setValid] = useState(true);
-  const [textError, setTextError] = useState("");
+  const [
+    ,
+    // isSubmitionCompleted
+    setSubmitionCompleted
+  ] = useState(false);
+  const [
+    ,
+    // isValid
+    setValid
+  ] = useState(true);
+  const [
+    // textError,
+    setTextError
+  ] = useState("");
   const data = JSON.parse(sessionStorage.getItem("data"));
-  const [values, setValues] = useState({
+  const [
+    values
+    // setValues
+  ] = useState({
     firstName: data.firstName,
     lastName: data.lastName,
     gender: data.gender,
@@ -96,14 +110,14 @@ export default function FormProfile(props) {
       {props => {
         const {
           values,
-          touched,
-          errors,
-          dirty,
-          isSubmitting,
+          // touched,
+          // errors,
+          // dirty,
+          // isSubmitting,
           handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset
+          // handleBlur,
+          handleSubmit
+          // handleReset
         } = props;
         return (
           <form className={classes.form} onSubmit={handleSubmit}>
