@@ -77,7 +77,7 @@ export default function Profile() {
           <FormProfile />
         </div>
       </Grid>
-      <TestPhotos />
+      {/* <TestPhotos /> */}
     </Grid>
   );
 }

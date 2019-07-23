@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Spinner from "./CompTestPhotos/Spinner";
 import Images from "./CompTestPhotos/Images";
 import Buttons from "./CompTestPhotos/Buttons";
 import { API_URL } from "./CompTestPhotos/config";
@@ -45,8 +44,8 @@ export default class App extends Component {
 
     const content = () => {
       switch (true) {
-        case uploading:
-          return <Spinner />;
+        // case uploading:
+        //   return <Spinner />;
         case images.length > 0:
           return <Images images={images} removeImage={this.removeImage} />;
         default:
