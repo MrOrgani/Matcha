@@ -85,25 +85,27 @@ export default function FormProfile(props) {
         values.loginRef = JSON.parse(sessionStorage.getItem("data")).login;
         // values.pics = {data.pics}
         console.log("values are", values);
-        axios.post("http://localhost:9000/api/user/", values).then(res => {
-          console.log("response de l'API", res);
-          sessionStorage.setItem("data", res.config.data);
-          if (res.status === 200) {
-            setSubmitionCompleted(true);
-          } else {
-            let errorStr = "";
-            setSubmitionCompleted(true);
-            setValid(false);
-            if (typeof res.data !== "string") {
-              for (let strKey in res.data) {
-                errorStr += res.data[strKey] + "\n";
-              }
+        axios
+          .patch("http://localhost:9000/api/user/profile", values)
+          .then(res => {
+            console.log("response de l'API", res);
+            sessionStorage.setItem("data", res.config.data);
+            if (res.status === 200) {
+              setSubmitionCompleted(true);
             } else {
-              errorStr = res.data;
+              let errorStr = "";
+              setSubmitionCompleted(true);
+              setValid(false);
+              if (typeof res.data !== "string") {
+                for (let strKey in res.data) {
+                  errorStr += res.data[strKey] + "\n";
+                }
+              } else {
+                errorStr = res.data;
+              }
+              setTextError(errorStr.trim());
             }
-            setTextError(errorStr.trim());
-          }
-        });
+          });
       }}
       // validate={UserValidation}
     >

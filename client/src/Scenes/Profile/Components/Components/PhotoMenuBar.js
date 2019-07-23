@@ -31,30 +31,21 @@ const useStyles = makeStyles(theme => ({
 const PhotoMenuBar = props => {
   const classes = useStyles();
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const maxSteps = data.pics.length;
+  // const data = JSON.parse(sessionStorage.getItem("data"));
 
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-  }
-
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  }
   return (
     <div className={classes.menu}>
       <MobileStepper
-        steps={maxSteps}
+        steps={props.maxSteps}
         position="static"
         variant="text"
-        activeStep={activeStep}
+        activeStep={props.activeStep}
         className={classes.deb}
         nextButton={
           <Button
             size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+            onClick={props.backNext[1]}
+            disabled={props.activeStep === props.maxSteps - 1}
           >
             Next
             {theme.direction === "rtl" ? (
@@ -65,7 +56,11 @@ const PhotoMenuBar = props => {
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button
+            size="small"
+            onClick={props.backNext[0]}
+            disabled={props.activeStep === 0}
+          >
             {theme.direction === "rtl" ? (
               <KeyboardArrowRight />
             ) : (
