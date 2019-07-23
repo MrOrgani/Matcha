@@ -34,7 +34,6 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
-  const [cookies] = useCookies(["auth"]);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -50,9 +49,10 @@ export default function TemporaryDrawer() {
     setState({ ...state, [side]: open });
   };
 
-  // CHECKS IF USER IS AUTH IN COOKIES
+  // CHECKS IF USER IS AUTH
   const menuItems = [{ text: "Home", link: "/" }];
-  if (cookies.auth !== "undefined") {
+  // console.log(sessionStorage.data);
+  if (sessionStorage.data) {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
