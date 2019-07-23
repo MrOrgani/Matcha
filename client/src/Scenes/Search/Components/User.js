@@ -8,7 +8,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UserCard from "../../../Components/UserCards/UserCard";
 import { UserCardContext } from "../../../Components/UserCards/UserCardContext";
-import Axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   card: {
