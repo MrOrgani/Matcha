@@ -11,6 +11,7 @@ export const UsersProvider = props => {
       const result = await axios(
         "http://localhost:9000/api/getusers/withhobbies"
       );
+      console.log(result);
       await setUsers(result.data);
     };
     fetchData();

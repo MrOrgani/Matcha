@@ -19,7 +19,6 @@ const filterUsers = (props, users) => {
     !props.filters[0] || props.filters[0] === "both"
       ? users
       : users.filter(user => user.gender === props.filters[0]);
-  // console.log("filter", filtered);
 
   const ageFiltered = genderFiltered.filter(
     user =>
