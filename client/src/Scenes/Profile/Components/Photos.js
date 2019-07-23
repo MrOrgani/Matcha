@@ -25,13 +25,11 @@ const useStyles = makeStyles(theme => ({
 export default function Photos(props) {
   const classes = useStyles();
   // const theme = useTheme();
-  const [
-    activeStep
-    //  setActiveStep
-  ] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(0);
   const data = JSON.parse(sessionStorage.getItem("data"));
   // const maxSteps = data.pics.length;
   const [images, setImages] = useState([]);
+  const maxSteps = data.pics.length;
 
   const onChange = async e => {
     const files = Array.from(e.target.files);
@@ -43,21 +41,37 @@ export default function Photos(props) {
       formData.append(i, file);
     });
 
-    await fetch(`http://localhost:9000/image-upload`, {
-      method: "POST",
-      body: formData
-    })
+    await axios
+      .post(`http://localhost:9000/api/user/profile`, {
+        body: formData
+      })
       .then(res => res.json())
-      .then(images => {
-        axios.post("http://localhost:9000/api/user/", {
-          imageAdd: images,
-          uuid: data.uuid
-        });
+      .then(async images => {
+        await axios
+          .patch("http://localhost:9000/api/user/profile", {
+            imageAdd: images,
+            userSource: data.login,
+            jwt: data.uuid
+          })
+          .then(res => {
+            console.log("response de l'API", res.data[0]._fields[0].properties);
+            sessionStorage.setItem(
+              "data",
+              JSON.stringify(res.data[0]._fields[0].properties)
+            );
+          });
         setImages(images);
       });
-    console.log("images", images);
+    // console.log("images", images);
   };
   //   const [index, setIndex] = React.useState(0);
+  function handleNext() {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
+
+  function handleBack() {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  }
   return (
     <div className={classes.root}>
       <img
@@ -65,7 +79,12 @@ export default function Photos(props) {
         src={data.pics[activeStep]}
         alt={data.pics[activeStep]}
       />
-      <PhotoMenuBar onChange={onChange} />
+      <PhotoMenuBar
+        onChange={onChange}
+        backNext={[handleBack, handleNext]}
+        activeStep={activeStep}
+        maxSteps={maxSteps}
+      />
     </div>
   );
 }

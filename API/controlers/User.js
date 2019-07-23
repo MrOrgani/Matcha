@@ -52,24 +52,28 @@ async function loginUser(req, res) {
     .send(userData);
 }
 
-async function updateProfile(req, res) {
-  console.log("udpate profile", req.body);
-  // let errors = await Validation.ProfileValidation(req.body);
-  // if (!isEmpty(errors)) return res.status(208).send(errors);
+// // UPDATE INFOS  FROM PROFILE PAGE
+// async function updateProfile(req, res) {
+//   console.log("udpate profile", req.body);
+//   // CHECK INFOS INFOS SENT ARE ABOUT IMAGE PROFILE
+//   if (req.body.imageAdd || req.body.imageDel)
+//     modelUser.updateUserImage(req.body);
+//   let errors = await Validation.ProfileValidation(req.body);
+//   if (!isEmpty(errors)) return res.status(208).send(errors);
 
-  // try {
-  //   if (!(await modelUser.findOne(req.body.loginRef, "login")))
-  //     return res.status(206).send("You don't exist in the database");
-  // } catch (err) {
-  //   res.status(209).send(err);
-  // }
-  // try {
-  //   const data = await modelUser.updateUser(req.body, res);
-  //   res.status(200).send(data);
-  // } catch (err) {
-  //   res.status(210).send(err);
-  // }
-}
+//   try {
+//     if (!(await modelUser.findOne(req.body.loginRef, "login")))
+//       return res.status(206).send("You don't exist in the database");
+//   } catch (err) {
+//     res.status(209).send(err);
+//   }
+//   try {
+//     const data = await modelUser.updateUser(req.body, res);
+//     res.status(200).send(data);
+//   } catch (err) {
+//     res.status(210).send(err);
+//   }
+// }
 
 // Crypts pwd and returns a well rounded user object from req.body
 async function cryptAndObjectify(req) {
@@ -109,6 +113,6 @@ module.exports = {
   loginUser,
   gUsers,
   delUsers,
-  getUsers,
-  updateProfile
+  getUsers
+  // updateProfile
 };

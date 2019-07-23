@@ -1,8 +1,11 @@
 const router = require("express").Router();
-const fetch = require("node-fetch");
-const hobby = require("../../public/includes/hobbies");
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const {
+  updateProfile,
+  addPicture
+} = require("../../controlers/profile/updateProfile");
+const { addHobbies } = require("../../controlers/other/addHobbies");
 
 const app = express();
 app.use(fileUpload());
@@ -12,14 +15,50 @@ const {
   loginUser,
   gUsers,
   delUsers,
-  getUsers,
-  updateProfile
+  getUsers
 } = require("../../controlers/User");
 
-router.route("/").post((req, res) => {
-  updateProfile(req, res);
-});
+router
+  .route("/")
+  .delete((req, res) => {
+    delUsers(req, res);
+  })
+  .head((req, res) => {
+    gUsers(req, res);
+  })
+  .get((req, res) => {
+    addHobbies(req, res);
+  });
 
+router
+  .route("/profile")
+  .patch((req, res) => {
+    updateProfile(req, res);
+  })
+  .post((req, res) => {
+    addPicture(req, res);
+  });
+
+//=========================================================
+// const cloudinary = require("cloudinary");
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.API_KEY,
+//   api_secret: process.env.API_SECRET
+// });
+
+// router.route("/image-upload").post((req, res) => {
+//   console.log("values", req.files);
+//   const values = Object.values(req.files);
+//   const promises = values.map(image => cloudinary.uploader.upload(image.path));
+//   console.log("promises", promises);
+
+//   Promise.all(promises).then(results => {
+//     res.json(results);
+//     console.log("res", results);
+//   });
+// });
+//=========================================================
 router
   .route("/register")
   .post((req, res) => {
@@ -33,33 +72,9 @@ router.route("/login").post((req, res) => {
   loginUser(req, res);
 });
 
-router
-  .route("/generate")
-  .post((req, res) => {
-    req.body.value ? gUsers(req, res) : delUsers(req, res);
-  })
-  .get(async (req, res) => {
-    const url = "https://randomuser.me/api/?results=10&nat=FR";
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-
-      let hobbiesExample = hobby.hobbiesExample();
-
-      json.results.forEach((element, index) => {
-        let hobbyUser = [];
-        for (let y = 0; y < 6; y++) {
-          hobbyUser.push(
-            hobbiesExample[Math.floor(Math.random() * (49 - 0 + 1))]
-          );
-        }
-        element.hobbies = hobbyUser;
-        element.index = index;
-      });
-      res.send(json);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+// router.route("/generate");
+// .post((req, res) => {
+//   req.body.value ? gUsers(req, res) : delUsers(req, res);
+// })
 
 module.exports = router;
