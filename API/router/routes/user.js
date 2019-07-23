@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
+const express = require("express");
+const fileUpload = require("express-fileupload");
+
+const app = express();
+app.use(fileUpload());
 
 const {
   createUser,
@@ -56,9 +61,5 @@ router
       console.log(error);
     }
   });
-
-router.route("/image").post((req, res) => {
-  console.log(req.body);
-});
 
 module.exports = router;
