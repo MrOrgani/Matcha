@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 // DISPLAYS DRAWERS LINK AND ICONS
-function InconsAndLinks({ param }) {
+const InconsAndLinks = ({ param }) => {
   const [, removeCookies] = useCookies(["auth"]);
   const classes = useStyles();
   const { text, link } = param;
@@ -62,6 +62,6 @@ function InconsAndLinks({ param }) {
       </ListItem>
     </Link>
   );
-}
+};
 
 export default InconsAndLinks;

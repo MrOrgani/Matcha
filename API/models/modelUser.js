@@ -45,7 +45,7 @@ async function findOne(req, category) {
   if (data.records[0]) return data.records[0]._fields[0].properties;
 }
 
-async function gUsers(req, res) {
+async function gUsers() {
   session
     .run(
       `CALL apoc.load.json('http://localhost:9000/api/user/generate')
