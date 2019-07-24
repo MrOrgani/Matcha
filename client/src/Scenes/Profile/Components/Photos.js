@@ -57,6 +57,7 @@ export default function Photos(props) {
           .catch(err =>
             console.log(`Error when transfering url of picture : ${err}`)
           );
+        props.onChange("pics", urlAddedPic);
       }
       // res.json()
     );
