@@ -25,33 +25,34 @@ app.use("/", router);
 const connectedUsrs = {};
 
 io.sockets.on("connection", socket => {
-  // io.sockets.emit("connectedUsr", connectedUsrs);
   const actualUsr = [];
 
-  console.log(
-    "new user connection :",
-    actualUsr,
-    "connected User:",
-    connectedUsrs
-  );
+  socket.emit("refreshingData"); // informs the front that a refresh occured to try and get user auth NOTE SECURED
+
+  // console.log(
+  //   "new user connection :",
+  //   actualUsr,
+  //   "connected User:",
+  //   connectedUsrs
+  // );
   const disconnectUser = _ => {
-    console.log(actualUsr);
+    // console.log(actualUsr);
     if (connectedUsrs[actualUsr]) {
       delete connectedUsrs[actualUsr];
-      console.log("a user is deleted from logout", actualUsr);
+      // console.log("a user is deleted from logout", actualUsr);
     }
     // actualUsr.length = 0;
-    console.log(
-      "A user disconnected, Connected users are: ",
-      connectedUsrs,
-      "actualUser = ",
-      actualUsr
-    );
+    // console.log(
+    //   "A user disconnected, Connected users are: ",
+    //   connectedUsrs,
+    //   "actualUser = ",
+    //   actualUsr
+    // );
   };
 
   socket
     .on("chat message", msg => {
-      console.log(actualUsr);
+      // console.log(actualUsr);
       msg.user = actualUsr;
       date = new Date();
       msg.h = date.getHours();
@@ -60,20 +61,29 @@ io.sockets.on("connection", socket => {
       console.log("Message from id: " + socket.id, "with msg: ", msg.user);
     })
     .on("login", login => {
+      actualUsr.length = 0;
       actualUsr.push(login);
       connectedUsrs[login] = true;
       io.sockets.emit("newUsr");
-      console.log("connected Users are: ", connectedUsrs);
+      // console.log(
+      //   "connected Users are: ",
+      //   connectedUsrs,
+      //   "current Usr = ",
+      //   actualUsr
+      // );
     })
     .on("logOut", disconnectUser)
     .on("disconnect", () => {
-      // disconnectUser();
-      console.log(
-        "A user disconnected from socket disconnect, Connected users are: ",
-        connectedUsrs,
-        "actualUser = ",
-        actualUsr
-      );
+      disconnectUser();
+      // if (connectedUsrs[actualUsr]) {
+      //   delete connectedUsrs[actualUsr];
+      //   console.log(
+      //     "A user disconnected from socket disconnect, Connected users are: ",
+      //     connectedUsrs,
+      //     "actualUser = ",
+      //     actualUsr
+      //   );
+      // }
     });
 });
 // // catch 404 and forward to error handler
