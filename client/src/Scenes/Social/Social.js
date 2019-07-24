@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { socket } from "../../App";
+import { socket } from "../../Components/Navbar/NavBar";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -10,10 +10,17 @@ const Social = () => {
     msg: ""
   };
 
-  socket.on("chat message", msg => {
-    console.log("new messages pushed: ", msg);
-    setOldMessages([...oldMessages, msg]);
-  });
+  socket
+    .on("chat message", msg => {
+      console.log("new messages pushed: ", msg);
+      setOldMessages([...oldMessages, msg]);
+    })
+    .on("newUsr", () => {
+      console.log("mamen");
+    })
+    .on("deleteUsr", () => {
+      console.log("deleteUsr");
+    });
 
   return (
     <div>
@@ -26,8 +33,8 @@ const Social = () => {
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
-          //   console.log(values);
           socket.emit("chat message", values.msg);
+          values.msg = "";
         }}
       >
         {props => {

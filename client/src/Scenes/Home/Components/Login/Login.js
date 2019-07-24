@@ -9,8 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
-import { socket } from "../../../../App";
-// import { DisplayFormikState } from './formikHelper';
+import { socket } from "../../../../Components/Navbar/NavBar";
 
 function Login() {
   const [open, setOpen] = useState(false);
