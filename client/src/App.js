@@ -1,19 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Form from "./form/FormContainer";
-// import SignInInside from "./signinExample";
 import Home from "./Scenes/Home/Home";
 import SignIn from "./Scenes/SignIn/SignIn";
 import Search from "./Scenes/Search/Search";
 import Profile from "./Scenes/Profile/Profile";
 import Social from "./Scenes/Social/Social";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
-import socketIOClient from "socket.io-client";
 import Navbar from "./Components/Navbar/NavBar";
-
-const endpoint = "http://localhost:9000";
-
-export const socket = socketIOClient.connect(endpoint);
 
 export function App() {
   return (
