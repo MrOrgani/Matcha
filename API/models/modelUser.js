@@ -48,7 +48,7 @@ async function findOne(req, category) {
 async function gUsers() {
   session
     .run(
-      `CALL apoc.load.json('http://localhost:9000/api/user/generate')
+      `CALL apoc.load.json('http://localhost:9000/api/user/')
           YIELD value AS data
           UNWIND data.results AS user
           MERGE (u:User {user_id: user.id.value})

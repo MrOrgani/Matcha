@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react"; // , { useState }
 import { Formik } from "formik";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,64 +46,68 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FormProfile(props) {
-  const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
-  const [isValid, setValid] = useState(true);
-  const [textError, setTextError] = useState("");
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const [values, setValues] = useState({
-    firstName: data.firstName,
-    lastName: data.lastName,
-    gender: data.gender,
-    email: data.email,
-    login: data.login,
-    age: data.age,
-    sexualOrientation: data.sexualOrientation,
-    bio: data.bio,
-    pics: data.pics
-  });
+  // const [
+  //   ,
+  //   // isSubmitionCompleted
+  //   setSubmitionCompleted
+  // ] = useState(false);
+  // const [
+  //   ,
+  //   // isValid
+  //   setValid
+  // ] = useState(true);
+  // const [
+  //   // textError,
+  //   setTextError
+  // ] = useState("");
 
   const classes = useStyles();
   return (
     <Formik
-      initialValues={values}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        values.loginRef = JSON.parse(sessionStorage.getItem("data")).login;
+      initialValues={props.values}
+      onSubmit={(
+        values
+        // , { setSubmitting }
+      ) => {
+        // setSubmitting(true);
+        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
+        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
         // values.pics = {data.pics}
-        console.log("values are", values);
-        axios.post("http://localhost:9000/api/user/", values).then(res => {
-          console.log("response de l'API", res);
-          sessionStorage.setItem("data", res.config.data);
-          if (res.status === 200) {
-            setSubmitionCompleted(true);
-          } else {
-            let errorStr = "";
-            setSubmitionCompleted(true);
-            setValid(false);
-            if (typeof res.data !== "string") {
-              for (let strKey in res.data) {
-                errorStr += res.data[strKey] + "\n";
-              }
-            } else {
-              errorStr = res.data;
-            }
-            setTextError(errorStr.trim());
-          }
-        });
+        axios
+          .patch("http://localhost:9000/api/user/profile", values)
+          .then(res => {
+            console.log("response de l'API", res);
+            sessionStorage.setItem("data", res.config.data);
+            // if (res.status === 200) {
+            //   setSubmitionCompleted(true);
+            // } else {
+            //   let errorStr = "";
+            //   setSubmitionCompleted(true);
+            //   setValid(false);
+            //   if (typeof res.data !== "string") {
+            //     for (let strKey in res.data) {
+            //       errorStr += res.data[strKey] + "\n";
+            //     }
+            //   } else {
+            //     errorStr = res.data;
+            //   }
+            //   setTextError(errorStr.trim());
+            // }
+          });
       }}
       // validate={UserValidation}
     >
       {props => {
         const {
-          values,
-          touched,
-          errors,
-          dirty,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset
+          // values,
+          // touched,
+          // errors,
+          // dirty,
+          // isSubmitting,
+          // handleChange,
+          // handleBlur,
+          handleSubmit
+          // handleReset
         } = props;
         return (
           <form className={classes.form} onSubmit={handleSubmit}>
@@ -111,8 +115,8 @@ export default function FormProfile(props) {
               id="outlined-name"
               label="First Name"
               className={classes.textField}
-              value={values.firstName}
-              onChange={handleChange("firstName")}
+              value={props.values.firstName}
+              onChange={props.handleChange("firstName")}
               margin="normal"
               variant="outlined"
               name="firstName"
@@ -121,8 +125,8 @@ export default function FormProfile(props) {
               id="outlined-name"
               label="Last Name"
               className={classes.textField}
-              value={values.lastName}
-              onChange={handleChange("lastName")}
+              value={props.values.lastName}
+              onChange={props.handleChange("lastName")}
               margin="normal"
               variant="outlined"
               name="lastName"
@@ -130,8 +134,8 @@ export default function FormProfile(props) {
             <Select
               native
               className={classes.textField}
-              value={values.gender}
-              onChange={handleChange("gender")}
+              value={props.values.gender}
+              onChange={props.handleChange("gender")}
               input={
                 <OutlinedInput name="gender" id="outlined-age-native-simple" />
               }
@@ -145,8 +149,8 @@ export default function FormProfile(props) {
               id="outlined-name"
               label="Login"
               className={classes.textField}
-              value={values.login}
-              onChange={handleChange("login")}
+              value={props.values.login}
+              onChange={props.handleChange("login")}
               margin="normal"
               variant="outlined"
               name="login"
@@ -160,8 +164,8 @@ export default function FormProfile(props) {
               autoComplete="email"
               margin="normal"
               variant="outlined"
-              value={values.email}
-              onChange={handleChange("email")}
+              value={props.values.email}
+              onChange={props.handleChange("email")}
             />
 
             <TextField
@@ -175,16 +179,16 @@ export default function FormProfile(props) {
               name="bio"
               autoComplete="email"
               // autoFocus
-              value={values.bio}
-              onChange={handleChange("bio")}
+              value={props.values.bio}
+              onChange={props.handleChange("bio")}
             />
 
             <Typography component="h1">Sexual Orientation</Typography>
             <Select
               native
               className={classes.textField}
-              value={values.sexualOrientation}
-              onChange={handleChange("sexualOrientation")}
+              value={props.values.sexualOrientation}
+              onChange={props.handleChange("sexualOrientation")}
               input={
                 <OutlinedInput
                   name="sexualOrientation"
