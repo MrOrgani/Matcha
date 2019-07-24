@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React from "react";
+import {
+  makeStyles
+  // , useTheme
+} from "@material-ui/core/styles";
 // import MobileStepper from "@material-ui/core/MobileStepper";
 // import Button from "@material-ui/core/Button";
 // import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
@@ -8,7 +11,6 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 // import DeleteIcon from "@material-ui/icons/Delete";
 // import Avatar from "@material-ui/core/Avatar";
 import PhotoMenuBar from "./Components/PhotoMenuBar";
-import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from "constants";
 // import { API_URL } from "./CompTestPhotos/config";
 import axios from "axios";
 
@@ -25,42 +27,62 @@ export default function Photos(props) {
   // const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const data = JSON.parse(sessionStorage.getItem("data"));
+  // const maxSteps = data.pics.length;
+  // const [images, setImages] = useState([]);
   const maxSteps = data.pics.length;
-  const [images, setImages] = useState([]);
 
-  const onChange = async e => {
-    const files = Array.from(e.target.files);
-    // this.setState({ uploading: true });
+  console.log(props);
+
+  async function onChange(e) {
+    const file = e.target.files[0];
 
     const formData = new FormData();
 
-    files.forEach((file, i) => {
-      formData.append(i, file);
-    });
+    formData.append("0", file);
+    console.log("formData", formData);
 
-    await fetch(`http://localhost:9000/image-upload`, {
+    await fetch(`http://localhost:9000/api/user/profile`, {
       method: "POST",
       body: formData
-    })
-      .then(res => res.json())
-      .then(images => {
-        axios.post("http://localhost:9000/api/user/", {
-          imageAdd: images,
-          uuid: data.uuid
-        });
-        setImages(images);
-      });
-    console.log("images", images);
-  };
+    }).then(
+      async res => {
+        const urlAddedPic = await res.json();
+        const data2Profile = {
+          login: data.login,
+          jwt: data.uuid,
+          addPic: urlAddedPic
+        };
+        await axios
+          .patch(`http://localhost:9000/api/user/profile`, data2Profile)
+          .catch(err =>
+            console.log(`Error when transfering url of picture : ${err}`)
+          );
+      }
+      // res.json()
+    );
+    // .then(images => setImages(images));
+  }
   //   const [index, setIndex] = React.useState(0);
+  function handleNext() {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
+
+  function handleBack() {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  }
   return (
     <div className={classes.root}>
       <img
         className={classes.img}
-        src={data.pics[activeStep]}
-        alt={data.pics[activeStep]}
+        src={props.pics[activeStep]}
+        alt={props.pics[activeStep]}
       />
-      <PhotoMenuBar onChange={onChange} />
+      <PhotoMenuBar
+        onChange={onChange}
+        backNext={[handleBack, handleNext]}
+        activeStep={activeStep}
+        maxSteps={maxSteps}
+      />
     </div>
   );
 }
