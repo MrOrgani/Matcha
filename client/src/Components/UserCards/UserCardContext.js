@@ -14,7 +14,7 @@ export const UserCardProvider = props => {
     Axios.post("http://localhost:9000/api/rel/like", {
       userSource: props.session.login,
       target: userInfo.login,
-      jwt: props.session.uuid,
+      jwt: props.session.jwt,
       liked: isLiked
     })
       .then(res => {
@@ -33,7 +33,7 @@ export const UserCardProvider = props => {
     Axios.post("http://localhost:9000/api/rel/block", {
       userSource: props.session.login,
       target: userInfo.login,
-      jwt: props.session.uuid,
+      jwt: props.session.jwt,
       blocked: isBlocked
     })
       .then(res => {
@@ -53,16 +53,18 @@ export const UserCardProvider = props => {
       const result = await axios.get(
         `http://localhost:9000/api/rel/like?userSource=${
           props.session.login
-        }&target=${userInfo.login}&jwt=${props.session.uuid}`
+        }&target=${userInfo.login}&jwt=${props.session.jwt}`
       );
+      // console.log(props.session.jwt);
       // console.log(result.data);
       if (result.data.length > 0) setLiked(true);
     };
+
     const getBlock = async () => {
       const result = await axios.get(
         `http://localhost:9000/api/rel/block?userSource=${
           props.session.login
-        }&target=${userInfo.login}&jwt=${props.session.uuid}`
+        }&target=${userInfo.login}&jwt=${props.session.jwt}`
       );
       // console.log(result.data);
       if (result.data.length > 0) setBlocked(true);
