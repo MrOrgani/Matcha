@@ -72,12 +72,18 @@ export default function Profile() {
       [name]: event.target.value
     });
   };
+  const handlePics = (pics, url) => {
+    setValues({
+      ...values,
+      [pics]: url
+    });
+  };
   return (
     <Grid container component="main" className={classes.root}>
       {/* <CssBaseline /> */}
       {/* <Grid item xs={6}> */}
       <div className={classes.gallery}>
-        <Photos pics={values.pics} />
+        <Photos pics={values.pics} onChange={handlePics} />
       </div>
       <Grid item xs={6} component={Paper} elevation={6} square>
         <div className={classes.paper}>
