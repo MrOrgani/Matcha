@@ -9,32 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconsAndLinks from "./Components/IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
-import { useCookies } from "react-cookie";
-
-const useStyles = makeStyles({
-  list: {
-    width: 250
-  },
-  fullList: {
-    width: "auto"
-  },
-  icon: {
-    display: "flex"
-  },
-  link: {
-    textDecoration: "none",
-    opacity: 0.54,
-    color: "black"
-  },
-  top: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    textDecoration: "none",
-    color: "white"
-  }
-});
 
 export default function TemporaryDrawer() {
-  const [cookies] = useCookies(["auth"]);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -50,13 +26,13 @@ export default function TemporaryDrawer() {
     setState({ ...state, [side]: open });
   };
 
-  // CHECKS IF USER IS AUTH IN COOKIES
+  // CHECKS IF USER IS AUTH
   const menuItems = [{ text: "Home", link: "/" }];
-  if (cookies.auth !== "undefined") {
+  if (sessionStorage.data) {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
-      { text: "Disconnect", link: "/" }
+      { text: "Disconnect", link: "/" } // Disconnect process happens in Icons and Links
     );
   } else {
     menuItems.push({ text: "Connect", link: "/signIn" });
@@ -109,3 +85,25 @@ export default function TemporaryDrawer() {
     </div>
   );
 }
+
+const useStyles = makeStyles({
+  list: {
+    width: 250
+  },
+  fullList: {
+    width: "auto"
+  },
+  icon: {
+    display: "flex"
+  },
+  link: {
+    textDecoration: "none",
+    opacity: 0.54,
+    color: "black"
+  },
+  top: {
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    textDecoration: "none",
+    color: "white"
+  }
+});

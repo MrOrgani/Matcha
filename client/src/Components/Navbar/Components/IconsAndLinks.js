@@ -8,7 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { socket } from "../../../Components/Navbar/NavBar";
 
 const useStyles = makeStyles({
   link: {
@@ -19,14 +19,14 @@ const useStyles = makeStyles({
 });
 
 // DISPLAYS DRAWERS LINK AND ICONS
-const InconsAndLinks = ({ param }) => {
-  const [, removeCookies] = useCookies(["auth"]);
+function InconsAndLinks({ param }) {
   const classes = useStyles();
   const { text, link } = param;
 
-  function disconnected() {
-    removeCookies("auth");
+  function disconnect() {
     sessionStorage.removeItem("data");
+    socket.emit("logOut");
+    // socket.disconnect();
   }
 
   return (
@@ -34,7 +34,7 @@ const InconsAndLinks = ({ param }) => {
       to={link}
       className={classes.link}
       onClick={() => {
-        text === "Disconnect" && disconnected();
+        text === "Disconnect" && disconnect();
       }}
     >
       <ListItem button>
@@ -62,6 +62,6 @@ const InconsAndLinks = ({ param }) => {
       </ListItem>
     </Link>
   );
-};
+}
 
 export default InconsAndLinks;

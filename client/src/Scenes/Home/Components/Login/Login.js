@@ -9,15 +9,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
-import { useCookies } from "react-cookie";
-// import { DisplayFormikState } from './formikHelper';
+import { socket } from "../../../../Components/Navbar/NavBar";
 
 function Login() {
   const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-  const [, setCookie] = useCookies();
 
   function handleClose() {
     setValid(true);
@@ -60,15 +58,9 @@ function Login() {
                       // console.log("response de l'API", res);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
-                        sessionStorage.setItem(
-                          "data",
-                          JSON.stringify(res.data)
-                        );
-                        setCookie("auth", res.data.uuid, {
-                          // httpOnly: true,
-                          // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)
-                          path: "/"
-                        });
+                        const data = res.data;
+                        sessionStorage.setItem("data", JSON.stringify(data));
+                        socket.emit("login", data.login);
                       } else {
                         let errorStr = "";
                         setSubmitionCompleted(true);
