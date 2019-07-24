@@ -57,14 +57,14 @@ function Login() {
                       }
                     })
                     .then(res => {
-                      // console.log("response de l'API", res);
+                      console.log("response de l'API", res.data);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
                         sessionStorage.setItem(
                           "data",
                           JSON.stringify(res.data)
                         );
-                        setCookie("auth", res.data.uuid, {
+                        setCookie("auth", res.data.jwt, {
                           // httpOnly: true,
                           // HERE SECURITY QUESTION, WITHOUT HTTPONLY, COOKIES ARE POTENTIALLY VULNERABLE (NOT IN CHROME)
                           path: "/"

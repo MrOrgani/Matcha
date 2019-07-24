@@ -5,32 +5,27 @@ const { modelUserVerif } = require("../../models/modelUserVerif");
 const {
   modelUpdateProfileImage
 } = require("../../models/modelProfile/modelUpdateProfileImage");
+const Validation = require("../Validation");
+const modelUser = require("../../models/modelUser");
 
 // UPDATE INFOS  FROM PROFILE PAGE
 async function updateProfile(req, res) {
-  console.log("udpate profile", req.body);
+  // console.log("IN HERe");
+  console.log("BODY REQ", req.body);
   if (!(await modelUserVerif(req.body))) {
-    res.status(206).send("");
+    res.status(206).send("Error on user");
     return;
   }
-  // UPDATE IMAGES
-  if (req.body.imageAdd || req.body.imageDel) {
-    try {
-      const data = await modelUpdateProfileImage(req.body);
-      res.status(200).send(data);
-    } catch (err) {
-      res.status(210).send(err);
-    }
-  }
+  if (req.body.addPic || req.body.delPic) modelUpdateProfileImage(req);
   //   // UPDATE INFOS ENTERED IN FORM PROFILE
   let errors = await Validation.ProfileValidation(req.body);
   if (!isEmpty(errors)) return res.status(208).send(errors);
 
   try {
-    if (!(await modelUser.findOne(req.body.loginRef, "login")))
+    if (!(await modelUser.findOne(req.body.userSource, "login")))
       return res.status(206).send("You don't exist in the database");
   } catch (err) {
-    res.status(206).send(err);
+    res.status(206).send("Error with find one ?");
   }
   try {
     const data = await modelUpdateProfile(req.body, res);
@@ -40,26 +35,13 @@ async function updateProfile(req, res) {
   }
 }
 
-const cloudinary = require("cloudinary");
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-});
-
-async function addPicture(req, res) {
-  console.log("values", req);
-  const values = Object.values(req.files);
-  const promises = values.map(image => cloudinary.uploader.upload(image.path));
-  console.log("promises", promises);
-
-  Promise.all(promises).then(results => {
-    res.json(results);
-    console.log("res", results);
-  });
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+  return true;
 }
 
 module.exports = {
-  updateProfile,
-  addPicture
+  updateProfile
 };

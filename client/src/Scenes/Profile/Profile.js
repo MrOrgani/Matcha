@@ -1,5 +1,4 @@
-import React from // { useState }
-"react";
+import React, { useState } from "react"; // { useState }
 import Photos from "./Components/Photos";
 import Avatar from "@material-ui/core/Avatar";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -52,19 +51,33 @@ const useStyles = makeStyles(theme => ({
 
 export default function Profile() {
   const classes = useStyles();
+
+  const data = JSON.parse(sessionStorage.getItem("data"));
+
+  const [values, setValues] = useState({
+    firstName: data.firstName,
+    lastName: data.lastName,
+    gender: data.gender,
+    email: data.email,
+    login: data.login,
+    age: data.age,
+    sexualOrientation: data.sexualOrientation,
+    bio: data.bio,
+    pics: data.pics
+  });
   // console.log(data);
-  // const handleChange = name => event => {
-  //   setValues({
-  //     ...values,
-  //     [name]: event.target.value
-  //   });
-  // };
+  const handleChange = name => event => {
+    setValues({
+      ...values,
+      [name]: event.target.value
+    });
+  };
   return (
     <Grid container component="main" className={classes.root}>
       {/* <CssBaseline /> */}
       {/* <Grid item xs={6}> */}
       <div className={classes.gallery}>
-        <Photos />
+        <Photos pics={values.pics} />
       </div>
       <Grid item xs={6} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -74,7 +87,7 @@ export default function Profile() {
           <Typography component="h1" variant="h5">
             My Profile
           </Typography>
-          <FormProfile />
+          <FormProfile values={values} onChange={handleChange} />
         </div>
       </Grid>
       {/* <TestPhotos /> */}

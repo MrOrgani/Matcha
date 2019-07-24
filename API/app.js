@@ -17,24 +17,22 @@ app.use("/", router);
 
 //===========================================================================
 
-const cloudinary = require("cloudinary");
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-});
+// const cloudinary = require("cloudinary");
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.API_KEY,
+//   api_secret: process.env.API_SECRET
+// });
 
-app.post("/image-upload", (req, res) => {
-  console.log("values", req.files);
-  const values = Object.values(req.files);
-  const promises = values.map(image => cloudinary.uploader.upload(image.path));
-  console.log("promises", promises);
+// app.post("/image-upload", (req, res) => {
+//   console.log("in here");
+//   const values = Object.values(req.files);
+//   const promises = values.map(image => cloudinary.uploader.upload(image.path));
 
-  Promise.all(promises).then(results => {
-    res.json(results);
-    console.log("res", results);
-  });
-});
+//   Promise.all(promises)
+//     .then(results => res.json(results))
+//     .catch(err => res.status(400).json(err));
+// });
 
 //================================================================================
 module.exports = app;

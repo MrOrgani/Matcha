@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
-function Generate() {
+const Generate = () => {
   function createUsers() {
     axios.head("http://localhost:9000/api/user/");
   }
@@ -11,6 +11,6 @@ function Generate() {
       Generate
     </Button>
   );
-}
+};
 
 export default Generate;
