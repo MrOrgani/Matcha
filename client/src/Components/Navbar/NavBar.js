@@ -13,10 +13,11 @@ const endpoint = "http://localhost:9000";
 
 export const socket = socketIOClient.connect(endpoint);
 
-socket.on("connection", _ => {
+socket.on("refreshingData", _ => {
   console.log("connection on frontend");
-  if (sessionStorage.data.login)
-    socket.emit("login", sessionStorage.data.login);
+  const login = JSON.parse(sessionStorage.data).login;
+  // console.log(login);
+  if (login) socket.emit("login", login);
 });
 
 const useStyles = makeStyles(theme => ({
