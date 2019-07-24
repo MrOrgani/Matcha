@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   makeStyles
   // , useTheme
@@ -28,42 +28,40 @@ export default function Photos(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const data = JSON.parse(sessionStorage.getItem("data"));
   // const maxSteps = data.pics.length;
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const maxSteps = data.pics.length;
 
-  const onChange = async e => {
-    const files = Array.from(e.target.files);
-    // this.setState({ uploading: true });
+  console.log(props);
+
+  async function onChange(e) {
+    const file = e.target.files[0];
 
     const formData = new FormData();
 
-    files.forEach((file, i) => {
-      formData.append(i, file);
-    });
+    formData.append("0", file);
+    console.log("formData", formData);
 
-    await axios
-      .post(`http://localhost:9000/api/user/profile`, {
-        body: formData
-      })
-      .then(res => res.json())
-      .then(async images => {
+    await fetch(`http://localhost:9000/api/user/profile`, {
+      method: "POST",
+      body: formData
+    }).then(
+      async res => {
+        const urlAddedPic = await res.json();
+        const data2Profile = {
+          login: data.login,
+          jwt: data.uuid,
+          addPic: urlAddedPic
+        };
         await axios
-          .patch("http://localhost:9000/api/user/profile", {
-            imageAdd: images,
-            userSource: data.login,
-            jwt: data.uuid
-          })
-          .then(res => {
-            console.log("response de l'API", res.data[0]._fields[0].properties);
-            sessionStorage.setItem(
-              "data",
-              JSON.stringify(res.data[0]._fields[0].properties)
-            );
-          });
-        setImages(images);
-      });
-    // console.log("images", images);
-  };
+          .patch(`http://localhost:9000/api/user/profile`, data2Profile)
+          .catch(err =>
+            console.log(`Error when transfering url of picture : ${err}`)
+          );
+      }
+      // res.json()
+    );
+    // .then(images => setImages(images));
+  }
   //   const [index, setIndex] = React.useState(0);
   function handleNext() {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -76,8 +74,8 @@ export default function Photos(props) {
     <div className={classes.root}>
       <img
         className={classes.img}
-        src={data.pics[activeStep]}
-        alt={data.pics[activeStep]}
+        src={props.pics[activeStep]}
+        alt={props.pics[activeStep]}
       />
       <PhotoMenuBar
         onChange={onChange}

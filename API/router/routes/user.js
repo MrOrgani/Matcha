@@ -1,10 +1,8 @@
 const router = require("express").Router();
 const express = require("express");
 const fileUpload = require("express-fileupload");
-const {
-  updateProfile,
-  addPicture
-} = require("../../controlers/profile/updateProfile");
+const { updateProfile } = require("../../controlers/profile/updateProfile");
+const { addPicture } = require("../../controlers/profile/handlePictures");
 const { addHobbies } = require("../../controlers/other/addHobbies");
 
 const app = express();
