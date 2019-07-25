@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 });
 
 const filterUsers = (props, users) => {
-  // console.log("users", users);
   const genderFiltered =
     !props.filters[0] || props.filters[0] === "both"
       ? users
