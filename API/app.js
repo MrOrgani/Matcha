@@ -34,17 +34,6 @@ app.use("/", router);
 //     .catch(err => res.status(400).json(err));
 // });
 
-<<<<<<< Updated upstream
-//================================================================================
-module.exports = app;
-
-// const createError = require("http-errors");
-// const server = require("http").Server(app);
-// const path = require("path");
-// const logger = require("morgan");
-// const socket = require("socket.io").listen(httpServer);
-
-=======
 io.sockets.on("connection", socket => {
   const actualUsr = [];
 
@@ -107,7 +96,6 @@ io.sockets.on("connection", socket => {
       // }
     });
 });
->>>>>>> Stashed changes
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
