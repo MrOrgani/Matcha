@@ -11,7 +11,18 @@ import "./NavBar.css";
 import MenuItem from "@material-ui/core/MenuItem";
 // import { flexbox } from "@material-ui/system";
 import DrawerNavigator from "./../Navbar/DrawerNavigation";
-// import Fab from "@material-ui/core/Fab";
+
+import socketIOClient from "socket.io-client";
+const endpoint = "http://localhost:9000";
+
+export const socket = socketIOClient.connect(endpoint);
+
+socket.on("refreshingData", _ => {
+  console.log("connection on frontend");
+  const login = JSON.parse(sessionStorage.data).login;
+  // console.log(login);
+  if (login) socket.emit("login", login);
+});
 
 const useStyles = makeStyles(theme => ({
   bar: {

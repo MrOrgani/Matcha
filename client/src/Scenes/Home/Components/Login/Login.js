@@ -57,7 +57,7 @@ function Login() {
                       }
                     })
                     .then(res => {
-                      console.log("response de l'API", res.data);
+                      // console.log("response de l'API", res.data);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
                         sessionStorage.setItem(
