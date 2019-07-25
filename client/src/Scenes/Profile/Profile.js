@@ -12,6 +12,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import FormProfile from "./Components/FormProfile";
+import { ProfileFormProvider } from "./Components/ProfileFormContext";
+import { Upload } from "antd";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,45 +54,34 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
   const classes = useStyles();
 
-  const data = JSON.parse(sessionStorage.getItem("data"));
-
-  const [values, setValues] = useState({
-    firstName: data.firstName,
-    lastName: data.lastName,
-    gender: data.gender,
-    email: data.email,
-    login: data.login,
-    age: data.age,
-    sexualOrientation: data.sexualOrientation,
-    bio: data.bio,
-    pics: data.pics
-  });
   // console.log(data);
-  const handleChange = name => event => {
-    setValues({
-      ...values,
-      [name]: event.target.value
-    });
-  };
+
+  // const handlePics = (pics, url) => {
+  //   setValues({
+  //     ...values,
+  //     [pics]: url
+  //   });
+  // };
   return (
-    <Grid container component="main" className={classes.root}>
-      {/* <CssBaseline /> */}
-      {/* <Grid item xs={6}> */}
-      <div className={classes.gallery}>
-        <Photos pics={values.pics} />
-      </div>
-      <Grid item xs={6} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <AccountCircleIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            My Profile
-          </Typography>
-          <FormProfile values={values} onChange={handleChange} />
+    <ProfileFormProvider>
+      <Grid container component="main" className={classes.root}>
+        <div className={classes.gallery}>
+          <Photos />
+          {/* <Upload /> */}
         </div>
+        <Grid item xs={6} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <AccountCircleIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              My Profile
+            </Typography>
+            <FormProfile />
+          </div>
+        </Grid>
+        {/* <TestPhotos /> */}
       </Grid>
-      {/* <TestPhotos /> */}
-    </Grid>
+    </ProfileFormProvider>
   );
 }

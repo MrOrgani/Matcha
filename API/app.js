@@ -1,13 +1,19 @@
 const express = require("express");
+const app = express();
+const server = require("http").Server(app);
 require("dotenv").config(); //STORE PASSWORD AND LOGIN IN .ENV
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const app = express();
 const formData = require("express-form-data");
+
+const io = require("socket.io")(server);
+
+// SERVER LISTENS
+server.listen(9000, () => console.log("listening on 9000"));
 
 //MIDDLEWARE
 app.use(express.json());
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
 app.use(formData.parse());
 
@@ -15,24 +21,8 @@ app.use(formData.parse());
 const router = require("./router");
 app.use("/", router);
 
-//===========================================================================
-
-// const cloudinary = require("cloudinary");
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET
-// });
-
-// app.post("/image-upload", (req, res) => {
-//   console.log("in here");
-//   const values = Object.values(req.files);
-//   const promises = values.map(image => cloudinary.uploader.upload(image.path));
-
-//   Promise.all(promises)
-//     .then(results => res.json(results))
-//     .catch(err => res.status(400).json(err));
-// });
+// SOCKET MANAGEMENT FOR RT CHAT
+const connectedUsrs = {};
 
 io.sockets.on("connection", socket => {
   const actualUsr = [];
