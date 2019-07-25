@@ -1,88 +1,115 @@
-import React from "react";
-import {
-  makeStyles
-  // , useTheme
-} from "@material-ui/core/styles";
-// import MobileStepper from "@material-ui/core/MobileStepper";
-// import Button from "@material-ui/core/Button";
-// import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-// import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-// import AddIcon from "@material-ui/icons/Add";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import Avatar from "@material-ui/core/Avatar";
-import PhotoMenuBar from "./Components/PhotoMenuBar";
-// import { API_URL } from "./CompTestPhotos/config";
-import axios from "axios";
+import React, { useContext } from "react";
+// import { makeStyles } from "@material-ui/core/styles";
+// import PhotoMenuBar from "./Components/PhotoMenuBar";
+// import axios from "axios";
+// import { ProfileFormContext } from "./ProfileFormContext";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    display: "flex",
-    flexDirection: "column"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//     display: "flex",
+//     flexDirection: "column"
+//   }
+// }));
 
-export default function Photos(props) {
-  const classes = useStyles();
-  // const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  // const maxSteps = data.pics.length;
-  // const [images, setImages] = useState([]);
-  const maxSteps = data.pics.length;
+// export default function Photos(props) {
+//   const [state, setState] = useContext(ProfileFormContext);
+//   const classes = useStyles();
+//   const [activeStep, setActiveStep] = React.useState(0);
+//   const data = JSON.parse(sessionStorage.getItem("data"));
+//   const maxSteps = data.pics.length;
 
-  console.log(props);
+//   // console.log(props);
 
-  async function onChange(e) {
-    const file = e.target.files[0];
+//   function handleNext() {
+//     setActiveStep(prevActiveStep => prevActiveStep + 1);
+//   }
 
-    const formData = new FormData();
+//   function handleBack() {
+//     setActiveStep(prevActiveStep => prevActiveStep - 1);
+//   }
+//   return (
+//     <div className={classes.root}>
+//       <img
+//         className={classes.img}
+//         src={state.pics}
+//         // {props.pics[activeStep]
+//         alt={
+//           state.pics[activeStep]
+//           // props.pics[activeStep]
+//         }
+//       />
+//       <PhotoMenuBar
+//         backNext={[handleBack, handleNext]}
+//         activeStep={activeStep}
+//         maxSteps={maxSteps}
+//       />
+//     </div>
+//   );
+// }
 
-    formData.append("0", file);
-    console.log("formData", formData);
+import { Upload, Icon, Modal } from "antd";
 
-    await fetch(`http://localhost:9000/api/user/profile`, {
-      method: "POST",
-      body: formData
-    }).then(
-      async res => {
-        const urlAddedPic = await res.json();
-        const data2Profile = {
-          login: data.login,
-          jwt: data.uuid,
-          addPic: urlAddedPic
-        };
-        await axios
-          .patch(`http://localhost:9000/api/user/profile`, data2Profile)
-          .catch(err =>
-            console.log(`Error when transfering url of picture : ${err}`)
-          );
-      }
-      // res.json()
-    );
-    // .then(images => setImages(images));
-  }
-  //   const [index, setIndex] = React.useState(0);
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-  }
-
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  }
-  return (
-    <div className={classes.root}>
-      <img
-        className={classes.img}
-        src={props.pics[activeStep]}
-        alt={props.pics[activeStep]}
-      />
-      <PhotoMenuBar
-        onChange={onChange}
-        backNext={[handleBack, handleNext]}
-        activeStep={activeStep}
-        maxSteps={maxSteps}
-      />
-    </div>
-  );
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 }
+
+class PicturesWall extends React.Component {
+  state = {
+    previewVisible: false,
+    previewImage: "",
+    fileList: []
+  };
+
+  handleCancel = () => this.setState({ previewVisible: false });
+
+  handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true
+    });
+  };
+
+  handleChange = ({ fileList }) => this.setState({ fileList });
+
+  render() {
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+    return (
+      <div className="clearfix">
+        <Upload
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+        >
+          {fileList.length >= 8 ? null : uploadButton}
+        </Upload>
+        <Modal
+          visible={previewVisible}
+          footer={null}
+          onCancel={this.handleCancel}
+        >
+          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        </Modal>
+      </div>
+    );
+  }
+}
+
+export default PicturesWall;
