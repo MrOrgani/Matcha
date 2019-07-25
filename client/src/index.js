@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import { MuiThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 import { CookiesProvider } from "react-cookie";
+import "antd/dist/antd.css";
 
 // console.log(theme);
 
