@@ -8,7 +8,6 @@ export const UserCardProvider = props => {
   const [isLiked, setLiked] = useState(false);
   const [isBlocked, setBlocked] = useState(false);
   const [userInfo] = useState([props.user][0]);
-  // console.log(props.user);
 
   const handleLike = () => {
     Axios.post("http://localhost:9000/api/rel/like", {
@@ -55,7 +54,6 @@ export const UserCardProvider = props => {
           props.session.login
         }&target=${userInfo.login}&jwt=${props.session.uuid}`
       );
-      // console.log(result.data);
       if (result.data.length > 0) setLiked(true);
     };
     const getBlock = async () => {
@@ -64,7 +62,6 @@ export const UserCardProvider = props => {
           props.session.login
         }&target=${userInfo.login}&jwt=${props.session.uuid}`
       );
-      // console.log(result.data);
       if (result.data.length > 0) setBlocked(true);
     };
 

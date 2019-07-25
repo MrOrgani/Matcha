@@ -34,6 +34,7 @@ app.use("/", router);
 //     .catch(err => res.status(400).json(err));
 // });
 
+<<<<<<< Updated upstream
 //================================================================================
 module.exports = app;
 
@@ -43,6 +44,70 @@ module.exports = app;
 // const logger = require("morgan");
 // const socket = require("socket.io").listen(httpServer);
 
+=======
+io.sockets.on("connection", socket => {
+  const actualUsr = [];
+
+  socket.emit("refreshingData"); // informs the front that a refresh occured to try and get user auth NOTE SECURED
+
+  // console.log(
+  //   "new user connection :",
+  //   actualUsr,
+  //   "connected User:",
+  //   connectedUsrs
+  // );
+  const disconnectUser = _ => {
+    // console.log(actualUsr);
+    if (connectedUsrs[actualUsr]) {
+      delete connectedUsrs[actualUsr];
+      // console.log("a user is deleted from logout", actualUsr);
+    }
+    // actualUsr.length = 0;
+    // console.log(
+    //   "A user disconnected, Connected users are: ",
+    //   connectedUsrs,
+    //   "actualUser = ",
+    //   actualUsr
+    // );
+  };
+
+  socket
+    .on("chat message", msg => {
+      // console.log(actualUsr);
+      msg.user = actualUsr;
+      date = new Date();
+      msg.h = date.getHours();
+      msg.m = date.getMinutes();
+      io.sockets.emit("chat message", msg);
+      console.log("Message from id: " + socket.id, "with msg: ", msg.user);
+    })
+    .on("login", login => {
+      actualUsr.length = 0;
+      actualUsr.push(login);
+      connectedUsrs[login] = true;
+      io.sockets.emit("newUsr");
+      // console.log(
+      //   "connected Users are: ",
+      //   connectedUsrs,
+      //   "current Usr = ",
+      //   actualUsr
+      // );
+    })
+    .on("logOut", disconnectUser)
+    .on("disconnect", () => {
+      disconnectUser();
+      // if (connectedUsrs[actualUsr]) {
+      //   delete connectedUsrs[actualUsr];
+      //   console.log(
+      //     "A user disconnected from socket disconnect, Connected users are: ",
+      //     connectedUsrs,
+      //     "actualUser = ",
+      //     actualUsr
+      //   );
+      // }
+    });
+});
+>>>>>>> Stashed changes
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
