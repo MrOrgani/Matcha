@@ -36,7 +36,8 @@ const useProfileForm = () => {
     handleChange,
     handleSubmit,
     handlePicture,
-    values: state
+    values: state,
+    setState
   };
 };
 
