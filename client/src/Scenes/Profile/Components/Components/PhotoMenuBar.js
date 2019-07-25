@@ -7,6 +7,8 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useFormControl } from "@material-ui/core/FormControl";
+import useProfileForm from "./../useProfileForm";
 
 const useStyles = makeStyles(theme => ({
   menu: {
@@ -32,6 +34,7 @@ const PhotoMenuBar = props => {
   const classes = useStyles();
   const theme = useTheme();
   // const data = JSON.parse(sessionStorage.getItem("data"));
+  const { handlePicture } = useProfileForm();
 
   return (
     <div className={classes.menu}>
@@ -79,9 +82,9 @@ const PhotoMenuBar = props => {
           accept="image/*"
           className={classes.input}
           id="single"
-          multiple
           type="file"
-          onChange={props.onChange}
+          name="add"
+          onChange={handlePicture}
         />
       </label>
 

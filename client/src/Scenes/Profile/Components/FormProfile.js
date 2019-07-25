@@ -1,12 +1,26 @@
-import React from "react"; // , { useState }
+import React, { useContext } from "react"; // , { useState }
 import { Formik } from "formik";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+
+import useProfileForm from "./useProfileForm";
+import { ProfileFormContext } from "./ProfileFormContext";
+
+import {
+  FirstName,
+  LastName,
+  Email,
+  Login,
+  Bio,
+  Gender,
+  SexualOrient,
+  Age,
+  Submit
+} from "./Components/FieldsForm";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,173 +59,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function FormProfile(props) {
-  // const [
-  //   ,
-  //   // isSubmitionCompleted
-  //   setSubmitionCompleted
-  // ] = useState(false);
-  // const [
-  //   ,
-  //   // isValid
-  //   setValid
-  // ] = useState(true);
-  // const [
-  //   // textError,
-  //   setTextError
-  // ] = useState("");
-
+function FormProfile() {
+  const { handleSubmit, values } = useProfileForm();
   const classes = useStyles();
   return (
-    <Formik
-      initialValues={props.values}
-      onSubmit={(
-        values
-        // , { setSubmitting }
-      ) => {
-        // setSubmitting(true);
-        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
-        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
-        // values.pics = {data.pics}
-        axios
-          .patch("http://localhost:9000/api/user/profile", values)
-          .then(res => {
-            console.log("response de l'API", res);
-            sessionStorage.setItem("data", res.config.data);
-            // if (res.status === 200) {
-            //   setSubmitionCompleted(true);
-            // } else {
-            //   let errorStr = "";
-            //   setSubmitionCompleted(true);
-            //   setValid(false);
-            //   if (typeof res.data !== "string") {
-            //     for (let strKey in res.data) {
-            //       errorStr += res.data[strKey] + "\n";
-            //     }
-            //   } else {
-            //     errorStr = res.data;
-            //   }
-            //   setTextError(errorStr.trim());
-            // }
-          });
-      }}
-      // validate={UserValidation}
-    >
-      {props => {
-        const {
-          // values,
-          // touched,
-          // errors,
-          // dirty,
-          // isSubmitting,
-          // handleChange,
-          // handleBlur,
-          handleSubmit
-          // handleReset
-        } = props;
-        return (
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              id="outlined-name"
-              label="First Name"
-              className={classes.textField}
-              value={props.values.firstName}
-              onChange={props.handleChange("firstName")}
-              margin="normal"
-              variant="outlined"
-              name="firstName"
-            />
-            <TextField
-              id="outlined-name"
-              label="Last Name"
-              className={classes.textField}
-              value={props.values.lastName}
-              onChange={props.handleChange("lastName")}
-              margin="normal"
-              variant="outlined"
-              name="lastName"
-            />
-            <Select
-              native
-              className={classes.textField}
-              value={props.values.gender}
-              onChange={props.handleChange("gender")}
-              input={
-                <OutlinedInput name="gender" id="outlined-age-native-simple" />
-              }
-            >
-              <option value="" />
-              <option value={"male"}>Male</option>
-              <option value={"female"}>Female</option>
-              <option value={"other"}>Other</option>
-            </Select>
-            <TextField
-              id="outlined-name"
-              label="Login"
-              className={classes.textField}
-              value={props.values.login}
-              onChange={props.handleChange("login")}
-              margin="normal"
-              variant="outlined"
-              name="login"
-            />
-            <TextField
-              id="outlined-email-input"
-              label="Email"
-              // className={classes.textField}
-              type="email"
-              name="email"
-              autoComplete="email"
-              margin="normal"
-              variant="outlined"
-              value={props.values.email}
-              onChange={props.handleChange("email")}
-            />
-
-            <TextField
-              variant="outlined"
-              margin="normal"
-              multiline
-              rows="4"
-              fullWidth
-              id="bio"
-              label="Biography"
-              name="bio"
-              autoComplete="email"
-              // autoFocus
-              value={props.values.bio}
-              onChange={props.handleChange("bio")}
-            />
-
-            <Typography component="h1">Sexual Orientation</Typography>
-            <Select
-              native
-              className={classes.textField}
-              value={props.values.sexualOrientation}
-              onChange={props.handleChange("sexualOrientation")}
-              input={
-                <OutlinedInput
-                  name="sexualOrientation"
-                  id="outlined-age-native-simple"
-                />
-              }
-            >
-              <option value="" />
-              <option value={"bi"}>Bi</option>
-              <option value={"straight"}>Straight</option>
-              <option value={"gay"}>Gay</option>
-            </Select>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Change my information
-            </Button>
-          </form>
-        );
-      }}
-    </Formik>
+    <form onSubmit={handleSubmit}>
+      <FirstName />
+      <LastName />
+      <Gender />
+      <Login />
+      <Email />
+      <Bio />
+      <SexualOrient />
+      <Age />
+      <Submit />
+    </form>
   );
 }
+
+export default FormProfile;
