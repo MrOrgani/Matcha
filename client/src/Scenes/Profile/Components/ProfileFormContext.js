@@ -13,7 +13,10 @@ const ProfileFormProvider = props => {
     age: data.age,
     sexualOrientation: data.sexualOrientation,
     bio: data.bio,
-    pics: data.pics
+    pics: data.pics,
+    previewVisible: false,
+    previewImage: "",
+    fileList: []
   });
 
   return (
