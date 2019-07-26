@@ -13,6 +13,23 @@ const useProfileForm = () => {
     });
   }
 
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+  const handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+  };
+
+  const handleChangePics = ({ fileList }) => setState({ fileList });
+  const handleCancel = () => this.setState({ previewVisible: false });
+
   const handlePicture = event => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -36,6 +53,9 @@ const useProfileForm = () => {
     handleChange,
     handleSubmit,
     handlePicture,
+    handleCancel,
+    handleChangePics,
+    handlePreview,
     values: state,
     setState
   };
