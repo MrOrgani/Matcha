@@ -25,9 +25,13 @@ const Social = () => {
   return (
     <div>
       <ul>
-        {oldMessages.map(msg => (
-          <li key={msg}>{msg}</li>
-        ))}
+        {oldMessages.map(msg => {
+          return (
+            <li key={msg.content}>
+              {msg.content} {msg.h}:{msg.m}
+            </li>
+          );
+        })}
       </ul>
       <Formik
         initialValues={initialValues}
