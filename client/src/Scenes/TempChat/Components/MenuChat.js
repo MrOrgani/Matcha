@@ -1,36 +1,43 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 import { Menu, Icon } from "antd";
+import {TempChatContext} from './TempChatContext'
+import './MenuChat.css'
+import UserInMenu from "./Components/UserInMenu"
 
-const { SubMenu } = Menu;
+const { SubMenu, Item } = Menu;
 
-class MenuChat extends React.Component {
+const MenuChat =  () => {
+  const [iMatched, likedMe, iLiked, visitedMe, iVisited, iBlocked] = useContext(TempChatContext)
   // submenu keys of first level
-  rootSubmenuKeys = ["sub1", "sub2", "sub4"];
+  const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
-  state = {
+  const [state,setState] = useState({
     openKeys: [""]
-  };
+  });
 
-  onOpenChange = openKeys => {
+
+
+  const onOpenChange = openKeys => {
     const latestOpenKey = openKeys.find(
-      key => this.state.openKeys.indexOf(key) === -1
+      key => state.openKeys.indexOf(key) === -1
     );
-    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      this.setState({ openKeys });
+    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      setState({ openKeys });
     } else {
-      this.setState({
+      setState({
         openKeys: latestOpenKey ? [latestOpenKey] : []
       });
     }
   };
 
-  render() {
+    
+
     return (
       <Menu
         mode="inline"
-        openKeys={this.state.openKeys}
-        onOpenChange={this.onOpenChange}
-        style={{ width: 256 }}
+        openKeys={state.openKeys}
+        onOpenChange={onOpenChange}
+        style={{ width: 256, height: '100vh' }}
       >
         <SubMenu
           key="sub1"
@@ -40,11 +47,8 @@ class MenuChat extends React.Component {
               <span>Matched</span>
             </span>
           }
-        >
-          <Menu.Item key="1">FUTURE LISTE USER</Menu.Item>
-          <Menu.Item key="2">Option 2</Menu.Item>
-          <Menu.Item key="3">Option 3</Menu.Item>
-          <Menu.Item key="4">Option 4</Menu.Item>
+          >
+        {iMatched.map((el) => {return <Menu.Item key={el.user_id}><UserInMenu data={el}/></Menu.Item>})}
         </SubMenu>
         <SubMenu
           key="sub2"
@@ -54,17 +58,15 @@ class MenuChat extends React.Component {
               <span>Likes</span>
             </span>
           }
-        >
-          <SubMenu key="sub3" title="I LIKED">
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+          >
+          <SubMenu key="sub20" title="I LIKED">
+          {iLiked.map((el) => {return <Menu.Item style={{paddingLeft: '0px'}}key={el.user_id}><UserInMenu data={el}/></Menu.Item>})}
           </SubMenu>
-          <SubMenu key="sub3" title="LIKED ME">
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+          <SubMenu key="sub21" title="LIKED ME" >
+          {likedMe.map((el) => {return <Item className='Item' style={{paddingLeft: '0px'}} key={el.user_id}><UserInMenu className='Item' data={el}/></Item>})}
           </SubMenu>
         </SubMenu>
-        <SubMenu
+        <SubMenu 
           key="sub4"
           title={
             <span>
@@ -72,11 +74,13 @@ class MenuChat extends React.Component {
               <span>Visited</span>
             </span>
           }
-        >
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
+          >
+          <SubMenu key="sub40" title="VISITED ME">
+          {visitedMe.map((el) => {return <Menu.Item key={el.user_id}><UserInMenu data={el}/></Menu.Item>})}
+          </SubMenu>
+          <SubMenu key="sub41" title="VISITED">
+          {iVisited.map((el) => {return <Menu.Item key={el.user_id}><UserInMenu data={el}/></Menu.Item>})}
+          </SubMenu>
         </SubMenu>
         <SubMenu
           key="sub5"
@@ -86,15 +90,12 @@ class MenuChat extends React.Component {
               <span>Blocked</span>
             </span>
           }
-        >
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
+          >
+          {iBlocked.map((el) => {return <Menu.Item key={el.user_id}><UserInMenu data={el}/></Menu.Item>})}
         </SubMenu>
       </Menu>
     );
   }
-}
+
 
 export default MenuChat;
