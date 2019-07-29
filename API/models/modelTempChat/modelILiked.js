@@ -9,7 +9,7 @@ const session = driver.session();
 async function modelILiked(req) {
   // console.log('req is', req)
   const data = await session.run(
-    `MATCH (u:User {login:{userSource}})-[r:LIKES]->(n:User) RETURN n`,
+    `MATCH (u:User {login:{userSource}})-[r:LIKED]->(n:User) RETURN n`,
     req
   );
   // console.log('data is', data.records)

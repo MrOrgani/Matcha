@@ -1,5 +1,4 @@
-import React from // , { useContext }
-"react";
+import React from "react"; // , { useContext }
 // import { makeStyles } from "@material-ui/core/styles";
 // import PhotoMenuBar from "./Components/PhotoMenuBar";
 // import axios from "axios";
@@ -118,7 +117,7 @@ const PicturesWall = () => {
   const {
     values,
     handlePreview,
-    handleChangePics,
+    handlePictures,
     handleCancel
   } = useProfileForm();
   const uploadButton = (
@@ -134,12 +133,12 @@ const PicturesWall = () => {
         listType="picture-card"
         fileList={values.fileList}
         onPreview={handlePreview}
-        onChange={handleChangePics}
+        onChange={handlePictures}
       >
         {values.fileList.length >= 8 ? null : uploadButton}
       </Upload>
       <Modal
-        visible={values.previewVisible}
+        // visible={values.previewVisible}
         footer={null}
         onCancel={handleCancel}
       >

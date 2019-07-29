@@ -1,27 +1,34 @@
 import React from "react";
 import useProfileForm from "./../useProfileForm";
+import TextField from "@material-ui/core/TextField";
 
-export const FirstName = () => {
-  const { handleChange, values } = useProfileForm();
+export const FirstName = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
-    <div className="field">
-      <label className="label">First Name</label>
-      <div className="control">
-        <input
-          className="input"
-          type="text"
-          name="firstName"
-          onChange={handleChange}
-          value={values.firstName}
-        />
-      </div>
-    </div>
+    // <div className="field">
+    // <label className="label">First Name</label>
+    // <div className="control">
+    <TextField
+      className="input"
+      type="text"
+      name="firstName"
+      onChange={props.props[2]}
+      value={props.props[0].firstName}
+      onBlur={props.props[1]}
+      helperText={
+        props.props[3].firstName &&
+        props.props[4].firstName &&
+        props.props[3].firstName
+      }
+    />
+    // </div>
+    // </div>
   );
 };
 
-export const LastName = () => {
-  const { handleChange, values } = useProfileForm();
+export const LastName = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -31,16 +38,17 @@ export const LastName = () => {
           className="input"
           type="text"
           name="lastName"
-          onChange={handleChange}
-          value={values.lastName}
+          onChange={props.props[2]}
+          value={props.props[0].lastName}
+          onBlur={props.props[1]}
         />
       </div>
     </div>
   );
 };
 
-export const Email = () => {
-  const { handleChange, values } = useProfileForm();
+export const Email = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -50,16 +58,17 @@ export const Email = () => {
           className="input"
           type="text"
           name="lastName"
-          onChange={handleChange}
-          value={values.email}
+          onChange={props.props[2]}
+          value={props.props[0].email}
+          onBlur={props.props[1]}
         />
       </div>
     </div>
   );
 };
 
-export const Login = () => {
-  const { handleChange, values } = useProfileForm();
+export const Login = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -69,16 +78,17 @@ export const Login = () => {
           className="input"
           type="text"
           name="login"
-          onChange={handleChange}
-          value={values.login}
+          onChange={props.props[2]}
+          value={props.props[0].login}
+          onBlur={props.props[1]}
         />
       </div>
     </div>
   );
 };
 
-export const Bio = () => {
-  const { handleChange, values } = useProfileForm();
+export const Bio = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -87,22 +97,28 @@ export const Bio = () => {
         <textarea
           className="input"
           name="bio"
-          onChange={handleChange}
-          value={values.bio}
+          onChange={props.props[2]}
+          value={props.props[0].bio}
+          onBlur={props.props[1]}
         />
       </div>
     </div>
   );
 };
 
-export const Gender = () => {
-  const { handleChange, values } = useProfileForm();
+export const Gender = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
       <label className="label">Gender</label>
       <div className="control">
-        <select name="gender" onChange={handleChange} value={values.gender}>
+        <select
+          name="gender"
+          onChange={props.props[2]}
+          value={props.props[0].gender}
+          onBlur={props.props[1]}
+        >
           <option value="" />
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -112,8 +128,8 @@ export const Gender = () => {
   );
 };
 
-export const SexualOrient = () => {
-  const { handleChange, values } = useProfileForm();
+export const SexualOrient = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -121,8 +137,9 @@ export const SexualOrient = () => {
       <div className="control">
         <select
           name="sexualOrientation"
-          onChange={handleChange}
-          value={values.sexualOrientation}
+          onChange={props.props[2]}
+          value={props.props[0].sexualOrient}
+          onBlur={props.props[1]}
         >
           <option value="" />
           <option value="bi">Bi</option>
@@ -134,8 +151,8 @@ export const SexualOrient = () => {
   );
 };
 
-export const Age = () => {
-  const { handleChange, values } = useProfileForm();
+export const Age = props => {
+  // const { handleChange, values } = useProfileForm();
 
   return (
     <div className="field">
@@ -145,8 +162,9 @@ export const Age = () => {
           className="input"
           type="number"
           name="age"
-          onChange={handleChange}
-          value={values.age}
+          onChange={props.props[2]}
+          value={props.props[0].age}
+          onBlur={props.props[1]}
         />
       </div>
     </div>

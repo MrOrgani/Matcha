@@ -6,7 +6,7 @@ const useProfileForm = () => {
 
   function handleChange(event) {
     event.persist();
-    console.log("NAME", event.target.name, "value", event.target.value);
+    // console.log("NAME", event.target.name, "value", event.target.value);
     setState({
       ...state,
       [event.target.name]: event.target.value
@@ -25,36 +25,28 @@ const useProfileForm = () => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
+    setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true
+    });
   };
 
-  const handleChangePics = ({ fileList }) => setState({ fileList });
-  const handleCancel = () => this.setState({ previewVisible: false });
+  const handleCancel = () => setState({ previewVisible: false });
 
-  const handlePicture = event => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = e => {
-        console.log("event", e);
-        state.pics.push(e.target.result);
+  const handlePictures = ({ fileList }) =>
+    setState({ ...state, fileList: fileList });
 
-        // this.setState({ state });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-    console.log("state", state);
-  };
-
-  const handleSubmit = event => {
+  const trigerSubmit = event => {
     event.preventDefault();
     console.log("event", state);
   };
 
   return {
     handleChange,
-    handleSubmit,
-    handlePicture,
+    trigerSubmit,
+    handlePictures,
     handleCancel,
-    handleChangePics,
+    // handleChangePics,
     handlePreview,
     values: state,
     setState
