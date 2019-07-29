@@ -19,7 +19,7 @@ async function createUser(req, res) {
               lastName:'',
               age:'',
               gender:'',
-              sexualPref:'bi',
+              sexualOrientation:'bi',
               location:['', ''],
               phone:'',
               pics:{pics},

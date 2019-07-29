@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormProfile from "./Components/FormProfile";
 import { ProfileFormProvider } from "./Components/ProfileFormContext";
 import { Upload } from "antd";
+import Notifications from "./Components/Notifications";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,6 +66,7 @@ export default function Profile() {
   return (
     <ProfileFormProvider>
       <Grid container component="main" className={classes.root}>
+        {/* <Notifications /> */}
         <div className={classes.gallery}>
           <Photos />
           {/* <Upload /> */}
