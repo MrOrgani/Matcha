@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
@@ -8,7 +8,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
-import { socket } from "../../../Components/Navbar/NavBar";
+import { AuthContext } from "../../../AuthContext";
+// import { socket } from "../../../Components/Navbar/NavBar";
 
 const useStyles = makeStyles({
   link: {
@@ -20,12 +21,15 @@ const useStyles = makeStyles({
 
 // DISPLAYS DRAWERS LINK AND ICONS
 function InconsAndLinks({ param }) {
+  const authContext = useContext(AuthContext);
   const classes = useStyles();
   const { text, link } = param;
 
   function disconnect() {
-    sessionStorage.removeItem("data");
-    socket.emit("logOut");
+    // sessionStorage.removeItem("data");
+    authContext.setData(null);
+    authContext.setIsAuth(0);
+    // socket.emit("logOut");
     // socket.disconnect();
   }
 

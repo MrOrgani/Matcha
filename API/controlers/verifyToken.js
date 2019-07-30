@@ -1,17 +1,9 @@
-const jwt = require("jsonwebtoken");
+const { modelUserVerif } = require("../models/modelUserVerif");
 
-module.exports = function(req, res, next) {
-  // console.log(req.header("auth-token"));
-  const token = req.header("auth-token");
-  if (!token)
-    return res
-      .status(401)
-      .send("auth (JWT) access denied, you don't even have token lul");
-  try {
-    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-    req.user = verified;
-    next();
-  } catch {
-    res.status(400).send("Invalid Token");
-  }
+module.exports = async function userVerif(req, res) {
+  console.log(await modelUserVerif(req.body, res));
+  if (!(await modelUserVerif(req.body, res))) {
+    res.status(206).send("");
+    return false;
+  } else res.status(200).send(true);
 };

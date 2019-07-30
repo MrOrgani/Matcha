@@ -4,6 +4,7 @@ const fileUpload = require("express-fileupload");
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const { addPicture } = require("../../controlers/profile/handlePictures");
 const { addHobbies } = require("../../controlers/other/addHobbies");
+const verifyToken = require("../../controlers/verifyToken");
 
 const app = express();
 app.use(fileUpload());
@@ -37,6 +38,22 @@ router
     addPicture(req, res);
   });
 
+router.route("/verify").post((req, res) => {
+  verifyToken(req, res);
+});
+
+router
+  .route("/register")
+  .post((req, res) => {
+    createUser(req, res);
+  })
+  .get((req, res) => {
+    getUsers(req, res);
+  });
+
+router.route("/login").post((req, res) => {
+  loginUser(req, res);
+});
 //=========================================================
 // const cloudinary = require("cloudinary");
 // cloudinary.config({
@@ -57,18 +74,6 @@ router
 //   });
 // });
 //=========================================================
-router
-  .route("/register")
-  .post((req, res) => {
-    createUser(req, res);
-  })
-  .get((req, res) => {
-    getUsers(req, res);
-  });
-
-router.route("/login").post((req, res) => {
-  loginUser(req, res);
-});
 
 // router.route("/generate");
 // .post((req, res) => {

@@ -3,6 +3,9 @@ const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid/v4");
+const express = require("express");
+// const app = express();
+// const isConnectedToChat = require("../app");
 
 async function createUser(req, res) {
   try {
@@ -29,13 +32,6 @@ async function loginUser(req, res) {
   const user = await cryptAndObjectify(req);
   let errors = await Validation.LoginValidation(req.body);
   if (!isEmpty(errors)) return res.status(206).send(errors);
-
-  try {
-    if (!(await modelUser.findOne(req.body.login, "login")))
-      return res.status(206).send("Invalid username");
-  } catch (err) {
-    res.status(206).send(err);
-  }
   const userData = await modelUser.findOne(user.login, "login");
   if (isEmpty(userData)) return res.status(206).send("Invalid username");
   if (!(await bcrypt.compare(req.body.password, userData.password)))
@@ -48,7 +44,13 @@ function getBackUserData(userData, res) {
   delete userData.password;
 
   // JWT auth token
-  const token = jwt.sign({ uuid: userData.uuid }, process.env.TOKEN_SECRET);
+  const token = jwt.sign(
+    { uuid: userData.uuid, login: userData.login },
+    process.env.TOKEN_SECRET,
+    {
+      expiresIn: 60 * 60 * 24 // expires in 24 hours
+    }
+  );
   delete userData.uuid;
   userData.jwt = token;
   res.status(200).send(userData);
