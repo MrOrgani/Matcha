@@ -1,10 +1,11 @@
 import React from "react";
 import useProfileForm from "./useProfileForm";
 import { Formik } from "formik";
-import { valuesValidations } from "./../../Home/Components/UserValidation";
+// import { valuesValidations } from "./../../Home/Components/UserValidation";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import "./FormProfile.css";
+import { Upload, Icon, Modal } from "antd";
 
 import {
   //   FirstName,
@@ -19,10 +20,22 @@ import {
 } from "./Components/FieldsForm";
 
 function FormProfile() {
-  const { trigerSubmit, values } = useProfileForm();
+  const {
+    // trigerSubmit,
+    values,
+    handlePreview,
+    handlePictures,
+    handleCancel
+  } = useProfileForm();
   // console.log(trigerSubmit);
   console.log("FUUUUUUKING VALUES", values);
   // console.log(valuesValidations);
+  const uploadButton = (
+    <div>
+      <Icon type="plus" />
+      <div className="ant-upload-text">Upload</div>
+    </div>
+  );
   return (
     <Formik
       initialValues={values}
@@ -149,6 +162,26 @@ function FormProfile() {
             margin="normal"
             variant="outlined"
           />
+          {/* <Upload
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            listType="picture-card"
+            fileList={values.pics}
+            onPreview={handlePreview}
+            onChange={handlePictures}
+          >
+            {values.fileList.length >= 8 ? null : uploadButton}
+          </Upload>
+          <Modal
+            // visible={values.previewVisible}
+            footer={null}
+            onCancel={handleCancel}
+          >
+            <img
+              alt="example"
+              style={{ width: "100%" }}
+              src={values.previewImage}
+            /> */}
+          {/* </Modal> */}
           {/* <FirstName props={[values, handleBlur, handleChange, errors, touched]} /> */}
           {/* <LastName props={[values, handleBlur, handleChange]} /> */}
           {/* <Gender props={[values, handleBlur, handleChange]} /> */}
