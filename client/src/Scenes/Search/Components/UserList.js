@@ -3,6 +3,7 @@ import User from "./User";
 import { UsersContext } from "./UsersContext";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
+import { AuthContext } from "../../../AuthContext";
 
 const useStyles = makeStyles({
   container: {
@@ -28,9 +29,13 @@ const filterUsers = (props, users) => {
 
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
 // fait qu'on attende la reponse de l'api dans UsersContext;
-const session = sessionStorage.getItem("data");
+// const session = JSON.parse(sessionStorage.getItem("data"));
 
+// console.log(session);
 const UserList = props => {
+  const authContext = useContext(AuthContext);
+  const session = authContext.data;
+  console.log(session);
   const [users] = useContext(UsersContext);
   const classes = useStyles();
 
@@ -38,11 +43,7 @@ const UserList = props => {
   return (
     <div className={classes.container}>
       {filteredUserList.map((user, index) => (
-        <UserCardProvider
-          key={`Card${index}`}
-          user={user}
-          session={JSON.parse(session)}
-        >
+        <UserCardProvider key={`Card${index}`} user={user} session={session}>
           <User />
         </UserCardProvider>
       ))}
