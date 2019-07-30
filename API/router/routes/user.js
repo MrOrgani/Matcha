@@ -4,9 +4,11 @@ const fileUpload = require("express-fileupload");
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const { addPicture } = require("../../controlers/profile/handlePictures");
 const { addHobbies } = require("../../controlers/other/addHobbies");
+const formData = require("express-form-data");
 
 const app = express();
 app.use(fileUpload());
+app.use(formData.parse());
 
 const {
   createUser,
@@ -38,24 +40,32 @@ router
   });
 
 //=========================================================
-// const cloudinary = require("cloudinary");
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET
-// });
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
 
-// router.route("/image-upload").post((req, res) => {
-//   console.log("values", req.files);
-//   const values = Object.values(req.files);
-//   const promises = values.map(image => cloudinary.uploader.upload(image.path));
-//   console.log("promises", promises);
+router.route("/image-upload").post((req, res) => {
+  try {
+    console.log("values", req.body);
+    const values = Object.values(req.body);
+    const promises = values.map(image =>
+      cloudinary.uploader.upload(image.path)
+    );
+    console.log("promises", promises);
 
-//   Promise.all(promises).then(results => {
-//     res.json(results);
-//     console.log("res", results);
-//   });
-// });
+    Promise.all(promises)
+      .then(results => {
+        res.json(results);
+        console.log("res", results);
+      })
+      .catch(err => res.status(405).send(err));
+  } catch (err) {
+    console.log("error is", err);
+  }
+});
 //=========================================================
 router
   .route("/register")

@@ -2,45 +2,51 @@ import React from "react";
 import useProfileForm from "./useProfileForm";
 import { Formik } from "formik";
 // import { valuesValidations } from "./../../Home/Components/UserValidation";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import "./FormProfile.css";
-import { Upload, Icon, Modal } from "antd";
 
 import {
-  //   FirstName,
-  //   LastName,
-  //   Email,
-  //   Login,
-  //   Bio,
-  //   Gender,
-  //   SexualOrient,
-  //   Age,
+  FirstName,
+  LastName,
+  Email,
+  Login,
+  Bio,
+  Gender,
+  SexualOrientation,
+  Age,
+  UploadFile,
   Submit
 } from "./Components/FieldsForm";
 
 function FormProfile() {
-  const {
-    // trigerSubmit,
-    values,
-    handlePreview,
-    handlePictures,
-    handleCancel
-  } = useProfileForm();
-  // console.log(trigerSubmit);
-  console.log("FUUUUUUKING VALUES", values);
-  // console.log(valuesValidations);
-  const uploadButton = (
-    <div>
-      <Icon type="plus" />
-      <div className="ant-upload-text">Upload</div>
-    </div>
-  );
+  const { values, handlePreview, handleCancel } = useProfileForm();
+
   return (
     <Formik
       initialValues={values}
-      onSubmit={values => console.log("ta maman", values)}
-      // validate={valuesValidations}
+      onSubmit={async values => {
+        console.log("ta maman", values);
+        // validate={valuesValidations}
+        // UPLOAD DES IMAGES
+        const files = Array.from(values.fileList);
+        const formData = new FormData();
+
+        files.forEach((file, i) => {
+          console.log("file", file);
+          formData.append(i, file);
+        });
+        // formData.append("author", "Morg");
+        // formData.append("jwt", "123456789");
+        await fetch(`http://localhost:9000/api/user/image-upload`, {
+          method: "POST",
+          body: formData
+        }).then(res => res.json());
+        //   .then(images => {
+        //     this.setState({
+        //       uploading: false,
+        //       images
+        //     });
+        //   });
+      }}
     >
       {({
         values,
@@ -48,148 +54,72 @@ function FormProfile() {
         handleBlur,
         touched,
         handleChange,
+        setFieldValue,
         handleSubmit
       }) => (
         <form onSubmit={handleSubmit} className="container">
-          <TextField
-            className="input"
-            type="text"
-            label="First Name"
-            name="firstName"
-            variant="outlined"
+          <FirstName
             value={values.firstName}
             onChange={handleChange("firstName")}
             onBlur={handleBlur}
-            required
-            helperText={
-              errors.firstName && touched.firstName && errors.firstName
-            }
+            helperText={[errors.firstName, touched.firstName, errors.firstName]}
           />
-          <TextField
-            className="input"
-            type="text"
-            label="Last Name"
-            name="lastName"
-            variant="outlined"
+          <LastName
             value={values.lastName}
             onChange={handleChange("lastName")}
             onBlur={handleBlur}
-            required
-            helperText={errors.lastName && touched.lastName && errors.lastName}
+            helperText={[errors.lastName, touched.lastName, errors.lastName]}
           />
-          <TextField
-            select
-            label="Select Gender"
+          <Gender
             value={values.gender}
             onChange={handleChange("gender")}
-            // SelectProps={{
-            //   MenuProps: {
-            //     className: classes.menu,
-            //   },
-            // }}
-            helperText={errors.gender && touched.gender && errors.gender}
-            margin="normal"
-            variant="outlined"
-          >
-            <MenuItem value="" />
-            <MenuItem value="male">Male</MenuItem>
-            <MenuItem value="female">Female</MenuItem>
-          </TextField>
-          <TextField
-            className="input"
-            type="text"
-            label="Login"
-            name="login"
-            variant="outlined"
+            onBlur={handleBlur}
+            helperText={[errors.gender, touched.gender, errors.gender]}
+          />
+
+          <Login
             value={values.login}
             onChange={handleChange("login")}
             onBlur={handleBlur}
-            required
-            helperText={errors.login && touched.login && errors.login}
+            helperText={[errors.login, touched.login, errors.login]}
           />
-          <TextField
-            className="input"
-            type="text"
-            label="Bio"
-            name="bio"
-            multiline
-            rows="4"
-            variant="outlined"
+          <Email
+            value={values.email}
+            onChange={handleChange("email")}
+            onBlur={handleBlur}
+            helperText={[errors.email, touched.email, errors.email]}
+          />
+          <Bio
             value={values.bio}
             onChange={handleChange("bio")}
             onBlur={handleBlur}
-            required
-            helperText={errors.bio && touched.bio && errors.bio}
+            helperText={[errors.bio, touched.bio, errors.bio]}
           />
-          <TextField
-            select
-            label="Sexual Orientation"
+          <SexualOrientation
             value={values.sexualOrientation}
             onChange={handleChange("sexualOrientation")}
-            // SelectProps={{
-            //   MenuProps: {
-            //     className: classes.menu,
-            //   },
-            // }}
-            helperText={
-              errors.sexualOrientation &&
-              touched.sexualOrientation &&
+            onBlur={handleBlur}
+            helperText={[
+              errors.sexualOrientation,
+              touched.sexualOrientation,
               errors.sexualOrientation
-            }
-            margin="normal"
-            variant="outlined"
-          >
-            <MenuItem value="" />
-            <MenuItem key="bi" value="bi">
-              Bi
-            </MenuItem>
-            <MenuItem key="straight" value="straight">
-              Straight
-            </MenuItem>
-            <MenuItem key="gay" value="gay">
-              Gay
-            </MenuItem>
-          </TextField>
-          <TextField
-            id="filled-number"
-            label="Age"
+            ]}
+          />
+          <Age
             value={values.age}
             onChange={handleChange("age")}
-            type="number"
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-            variant="outlined"
+            onBlur={handleBlur}
+            helperText={[errors.age, touched.age, errors.age]}
           />
-          {/* <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            listType="picture-card"
-            fileList={values.pics}
+          <UploadFile
+            fileList={values.fileList}
+            onBlur={handleBlur}
             onPreview={handlePreview}
-            onChange={handlePictures}
-          >
-            {values.fileList.length >= 8 ? null : uploadButton}
-          </Upload>
-          <Modal
-            // visible={values.previewVisible}
-            footer={null}
-            onCancel={handleCancel}
-          >
-            <img
-              alt="example"
-              style={{ width: "100%" }}
-              src={values.previewImage}
-            /> */}
-          {/* </Modal> */}
-          {/* <FirstName props={[values, handleBlur, handleChange, errors, touched]} /> */}
-          {/* <LastName props={[values, handleBlur, handleChange]} /> */}
-          {/* <Gender props={[values, handleBlur, handleChange]} /> */}
-          {/* <Login props={[values, handleBlur, handleChange]} /> */}
-          {/* <Email props={[values, handleBlur, handleChange]} /> */}
-          {/* <Bio props={[values, handleBlur, handleChange]} /> */}
-          {/* <SexualOrient props={[values, handleBlur, handleChange]} /> */}
-          {/* <Age props={[values, handleBlur, handleChange]} /> */}
+            values={values}
+            setFieldValue={setFieldValue}
+            handleCancel={handleCancel}
+          />
+
           <Submit />
         </form>
       )}
