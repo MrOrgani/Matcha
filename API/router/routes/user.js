@@ -34,7 +34,7 @@ router
 router
   .route("/profile")
   .patch(isAuthenticated, dataProfileValidation, (req, res) => {
-    // updateProfile(req, res);
+    updateProfile(req, res);
   })
   .post((req, res) => {
     addPicture(req, res);

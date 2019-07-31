@@ -39,15 +39,17 @@ function FormProfile() {
           JSON.parse(sessionStorage.getItem("data")).login
         );
         formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
-        //       ---- send data to back for images
-        // await fetch(`http://localhost:9000/api/user/profile`, {
-        //   method: "POST",
-        //   body: formData
-        // });
+        // ---- send data to back for images
+        await fetch(`http://localhost:9000/api/user/profile`, {
+          method: "POST",
+          body: formData
+        });
 
-        // delete values.fileList;
+        delete values.fileList;
         //       ---- send data to back for info
         console.log("ta maman", values);
+        delete values.previewVisible;
+        delete values.previewImage;
         values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
         values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
         await axios
