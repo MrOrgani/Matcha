@@ -27,7 +27,7 @@ function InconsAndLinks({ param }) {
 
   function disconnect() {
     // sessionStorage.removeItem("data");
-    authContext.setData(null);
+    authContext.setData();
     authContext.setIsAuth(0);
     // socket.emit("logOut");
     // socket.disconnect();

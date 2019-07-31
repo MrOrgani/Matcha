@@ -10,7 +10,7 @@ export default ({ component: Component, ...rest }) => {
   //   console.log(rest);
   //   console.log(componentProp);
   useEffect(() => {
-    console.log("TRIGGGEEEERRRRRRREEEEEEDDD");
+    console.log("secure route, use effect TRIGGGEEEERRRRRRREEEEEEDDD");
     if (data === null) return;
     const fetchData = async () => {
       axios
