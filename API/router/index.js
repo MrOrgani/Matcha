@@ -7,7 +7,7 @@ const router = require("express").Router();
 router
   .use("/api/user", require("./routes/user"))
   .use("/api/rel", require("./routes/routeRel"))
-  .use("/api/tempchat", require("./routes/tempchat"))
+  .use("/api/tempchat", require("./routes/tempchat"));
 // router.use("/api/rel", require("./routes/routeRel"));
 
 // Just for testing

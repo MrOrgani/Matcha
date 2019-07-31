@@ -182,7 +182,7 @@ export const UploadFile = props => {
   return (
     <React.Fragment>
       <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action="https://api.cloudinary.com/v1_1/morgani/upload"
         listType="picture-card"
         fileList={props.fileList}
         onPreview={props.onPreview}

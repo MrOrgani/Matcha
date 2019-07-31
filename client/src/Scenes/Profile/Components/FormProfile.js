@@ -3,6 +3,7 @@ import useProfileForm from "./useProfileForm";
 import { Formik } from "formik";
 // import { valuesValidations } from "./../../Home/Components/UserValidation";
 import "./FormProfile.css";
+import axios from "axios";
 
 import {
   FirstName,
@@ -24,28 +25,42 @@ function FormProfile() {
     <Formik
       initialValues={values}
       onSubmit={async values => {
-        console.log("ta maman", values);
         // validate={valuesValidations}
-        // UPLOAD DES IMAGES
+
+        // *******  UPLOAD PICTURES
         const files = Array.from(values.fileList);
         const formData = new FormData();
-
         files.forEach((file, i) => {
-          console.log("file", file);
-          formData.append(i, file);
+          formData.append(i, file.originFileObj);
         });
-        // formData.append("author", "Morg");
-        // formData.append("jwt", "123456789");
-        await fetch(`http://localhost:9000/api/user/image-upload`, {
-          method: "POST",
-          body: formData
-        }).then(res => res.json());
-        //   .then(images => {
-        //     this.setState({
-        //       uploading: false,
-        //       images
-        //     });
+        //       ---- add complementatry data (login, & jwt)
+        formData.append(
+          "userSource",
+          JSON.parse(sessionStorage.getItem("data")).login
+        );
+        formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
+        //       ---- send data to back for images
+        // await fetch(`http://localhost:9000/api/user/profile`, {
+        //   method: "POST",
+        //   body: formData
+        // });
+
+        // delete values.fileList;
+        //       ---- send data to back for info
+        console.log("ta maman", values);
+        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
+        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
+        await axios
+          .patch("http://localhost:9000/api/user/profile", { values })
+          .then(res => console.log("result update", res.data))
+          .catch(err => console.log("result error", err.response.data));
+
+        // .then(images => {
+        //   this.setState({
+        //     uploading: false,
+        //     images
         //   });
+        // });
       }}
     >
       {({

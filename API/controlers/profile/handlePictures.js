@@ -12,24 +12,23 @@ cloudinary.config({
 
 async function addPicture(req, res) {
   try {
-    console.log("in here", req.body);
-    const values = Object.values(req.body);
-    console.log("values", values);
-    const promises = await values.map(image =>
+    const values = Object.values(req.files);
+    const promises = values.map(image =>
       cloudinary.uploader.upload(image.path)
     );
 
-    await Promise.all(promises)
-      .then(results => console.log(results))
-      .catch(err => res.status(400).json(err));
+    Promise.all(promises)
+      .then(results => {
+        req.body.arrayURL = [];
+        results.map(result => req.body.arrayURL.push(result.secure_url));
+        modelUpdateProfileImage(req);
+      })
+      .catch(err => console.log(err));
+    res.status(204);
   } catch (err) {
-    res.status(401).send(err);
+    res.status(400).send(err);
   }
 }
-
-// app.post("/image-upload", (req, res) => {
-
-// });
 
 module.exports = {
   addPicture
