@@ -5,8 +5,8 @@ import axios from "axios";
 
 export default ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
-  const data = authContext.data;
-  const isAuth = authContext.isAuth;
+  const data = sessionStorage.data;
+  const isAuth = sessionStorage.isAuth;
   //   console.log(rest);
   //   console.log(componentProp);
   useEffect(() => {
