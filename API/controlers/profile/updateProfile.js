@@ -11,15 +11,15 @@ const modelUser = require("../../models/modelUser");
 // UPDATE INFOS  FROM PROFILE PAGE
 async function updateProfile(req, res) {
   // console.log("IN HERe");
-  console.log("BODY REQ", req.body);
-  if (!(await modelUserVerif(req.body))) {
-    res.status(206).send("Error on user");
-    return;
-  }
-  if (req.body.addPic || req.body.delPic) modelUpdateProfileImage(req);
+  // console.log("BODY REQ", req.body);
+  // if (!(await modelUserVerif(req.body))) {
+  //   res.status(206).send("Error on user");
+  //   return;
+  // }
+  // if (req.body.addPic || req.body.delPic) modelUpdateProfileImage(req);
   //   // UPDATE INFOS ENTERED IN FORM PROFILE
   let errors = await Validation.ProfileValidation(req.body);
-  if (!isEmpty(errors)) return res.status(208).send(errors);
+  if (!isEmpty(errors)) return res.status(401).send(errors);
 
   try {
     if (!(await modelUser.findOne(req.body.userSource, "login")))
