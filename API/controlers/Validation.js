@@ -38,8 +38,7 @@ exports.LoginValidation = function(values) {
 exports.dataProfileValidation = function(req, res, next) {
   let errors = {};
   for (let value in req.body.values) {
-    if (req.body.values[value] === null || !req.body.values[value])
-      errors[value] = `${value} is required`;
+    if (!req.body.values[value]) errors[value] = `${value} is required`;
   }
   if (
     req.body.values.firstName &&

@@ -24,7 +24,7 @@ async function modelUpdateProfile(values, res) {
                 u.bio = {bio}
                 RETURN u
              `,
-        values
+        values.values
       )
       .then(userData => {
         console.log("UserData in ModelUpdateProfile", userData);
