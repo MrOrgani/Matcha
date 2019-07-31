@@ -3,14 +3,25 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const prevIsAuth = sessionStorage.getItem("isAuth") || 0;
-  const prevData = JSON.parse(sessionStorage.getItem("data")) || null;
+  // console.log(sessionStorage.data);
+  const prevData =
+    (sessionStorage.data && JSON.parse(sessionStorage.data)) || null;
   const [isAuth, setIsAuth] = useState(prevIsAuth);
   const [data, setData] = useState(prevData);
 
   useEffect(() => {
-    sessionStorage.setItem("data", JSON.stringify(data));
+    // console.log(data);
+    (() => {
+      if (data) sessionStorage.data = JSON.stringify(data);
+      else sessionStorage.removeItem("data");
+    })();
     sessionStorage.isAuth = isAuth;
-    console.log("inAuthContext, data  = ", data, " isAuth = ", isAuth);
+    console.log(
+      "AUTH CONTEXT USE EFFECT TRIGERED, data  = ",
+      data,
+      " isAuth = ",
+      isAuth
+    );
   }, [isAuth, data]);
 
   const defaultContext = {
