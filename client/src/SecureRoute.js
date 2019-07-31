@@ -3,6 +3,9 @@ import { Redirect, Route } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import axios from "axios";
 
+//SecureRoute uses context for auth --> connexion via url cannot show context
+//Therefore it always fails
+
 export default ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
   const data = authContext.data;
@@ -32,7 +35,7 @@ export default ({ component: Component, ...rest }) => {
     fetchData();
   });
 
-  console.log("SecureRoute, is auth ==", isAuth);
+  console.log("SecureRoute, is auth ==", isAuth, "data = ", data);
   return (
     <Route
       {...rest}
@@ -41,7 +44,10 @@ export default ({ component: Component, ...rest }) => {
           if (isAuth === 1) {
             console.log("isAuth, apres condition, SecureRoute", isAuth);
             return <Component {...props} />;
-          } else return <Redirect to="/" />;
+          } else {
+            console.log("redirected bitch");
+            return <Redirect to="/" />;
+          }
         }
         // isAuth ? <Component {...props} /> : <Redirect to="/" />
       }
