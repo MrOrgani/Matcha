@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
-  const data = sessionStorage.data;
+  const data = JSON.parse(sessionStorage.data);
   const isAuth = sessionStorage.isAuth;
   //   console.log(rest);
   //   console.log(componentProp);
@@ -21,11 +21,11 @@ export default ({ component: Component, ...rest }) => {
         .then(res => {
           console.log("in useEffect Secureroute, Response from API = ", res);
           if (res.status === 200) {
-            authContext.setIsAuth(1);
+            sessionStorage.isAuth = 1;
             console.log("success !", isAuth);
           } else {
-            authContext.setIsAuth(0);
-            authContext.setData(null);
+            sessionStorage.isAuth = 0;
+            sessionStorage.data = null;
           }
         });
     };
@@ -33,11 +33,12 @@ export default ({ component: Component, ...rest }) => {
   });
 
   console.log("SecureRoute, is auth ==", isAuth);
+  console.log(typeof isAuth);
   return (
     <Route
       {...rest}
       render={
-        props => {
+        (props, isAuth) => {
           if (isAuth === 1) {
             console.log("isAuth, apres condition, SecureRoute", isAuth);
             return <Component {...props} />;
