@@ -107,7 +107,7 @@ export const Gender = props => {
       // required
       value={props.value}
       onChange={props.onChange}
-      onBlur={props.onBlur}
+      // onBlur={props.onBlur}
       helperText={
         props.helperText[0] && props.helperText[1] && props.helperText[2]
       }
@@ -182,7 +182,7 @@ export const UploadFile = props => {
   return (
     <React.Fragment>
       <Upload
-        action="https://api.cloudinary.com/v1_1/morgani/upload"
+        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
         fileList={props.fileList}
         onPreview={props.onPreview}

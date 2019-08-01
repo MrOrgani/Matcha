@@ -44,8 +44,9 @@ function FormProfile() {
           method: "POST",
           body: formData
         });
+        // .then(res => console.log("result of fetch post image =", res));
 
-        delete values.fileList;
+        values.fileList = [];
         //       ---- send data to back for info
         console.log("ta maman", values);
         delete values.previewVisible;

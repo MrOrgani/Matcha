@@ -6,18 +6,25 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-async function modelUpdateProfileImage(req) {
-  console.log("modelUpdateProfileImage REQ IS", req.body);
+async function modelUpdateProfileImage(req, res) {
+  // console.log("modelUpdateProfileImage REQ IS", req.body);
   // REPLACE array of pics with new one
-  await session.run(
-    `MATCH (u:User {login: {userSource}})
+  try {
+    await session
+      .run(
+        `MATCH (u:User {login: {userSource}})
     SET u.pics = {arrayURL}
     RETURN u`,
-    {
-      userSource: req.body.userSource,
-      arrayURL: req.body.arrayURL
-    }
-  );
+        {
+          userSource: req.body.userSource,
+          arrayURL: req.body.arrayURL
+        }
+      )
+      .catch(err => res.status(400).send(err));
+    res.status(200).end();
+  } catch (err) {
+    res.status(400).send(err);
+  }
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
 export const RegisterValidation = function(values) {
-  console.log(values);
+  // console.log(values);
   let errors = {};
   if (!values.login) {
     errors.login = "A login is required";
@@ -37,7 +37,7 @@ export const LoginValidation = function(values) {
 };
 
 export const valuesValidations = values => {
-  console.log("FUCKING VALUES ARE", values);
+  // console.log("FUCKING VALUES ARE", values);
   let errors = {};
   if (!values.age) {
     errors.age = "Age is required";

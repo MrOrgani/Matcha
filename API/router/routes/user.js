@@ -36,7 +36,7 @@ router
   .patch(isAuthenticated, dataProfileValidation, (req, res) => {
     updateProfile(req, res);
   })
-  .post((req, res) => {
+  .post(isAuthenticated, (req, res) => {
     addPicture(req, res);
   });
 
