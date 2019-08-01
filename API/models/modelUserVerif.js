@@ -13,6 +13,7 @@ const session = driver.session();
 const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
+  console.log(req);
   if (!req.jwt) return false;
   const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
   const result = await session

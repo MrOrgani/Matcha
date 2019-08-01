@@ -9,7 +9,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
-import { socket } from "../../../../Components/Navbar/NavBar";
+// import { AuthContext } from "../../../../AuthContext";
+// import { socket } from "../../../../Components/Navbar/NavBar";
 
 function Login() {
   const [open, setOpen] = useState(false);
@@ -58,9 +59,9 @@ function Login() {
                       // console.log("response de l'API", res.data);
                       if (res.status === 200) {
                         setSubmitionCompleted(true);
-                        const data = res.data;
-                        sessionStorage.setItem("data", JSON.stringify(data));
-                        socket.emit("login", data.login);
+                        sessionStorage.data = JSON.stringify(res.data);
+                        sessionStorage.isAuth = 1;
+                        // socket.emit("login", data.login);
                       } else {
                         let errorStr = "";
                         setSubmitionCompleted(true);

@@ -8,7 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
-import { socket } from "../../../Components/Navbar/NavBar";
+// import { socket } from "../../../Components/Navbar/NavBar";
 
 const useStyles = makeStyles({
   link: {
@@ -25,8 +25,7 @@ function InconsAndLinks({ param }) {
 
   function disconnect() {
     sessionStorage.removeItem("data");
-    socket.emit("logOut");
-    // socket.disconnect();
+    sessionStorage.isAuth = 0;
   }
 
   return (
