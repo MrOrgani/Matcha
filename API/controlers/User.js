@@ -3,9 +3,10 @@ const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid/v4");
-const express = require("express");
+// const express = require("express");
 // const app = express();
 // const isConnectedToChat = require("../app");
+const { modelUserVerif } = require("../models/modelUserVerif");
 
 async function createUser(req, res) {
   try {
@@ -89,11 +90,29 @@ function getUsers(req, res) {
   modelUser.getUsers(req, res);
 }
 
+async function isAuthenticated(req, res, next) {
+  // console.log("isAuth", req.body);
+  try {
+    if (
+      (await req.body.values)
+        ? modelUserVerif(req.body.values)
+        : modelUserVerif(req.body)
+    ) {
+      // console.log("c bon");
+      return next();
+    }
+    res.redirect("/");
+  } catch (err) {
+    res.status(401).send(err);
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  isAuthenticated
   // updateProfile
 };

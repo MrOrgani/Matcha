@@ -8,40 +8,33 @@ const session = driver.session();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(values, res) {
-  console.log("value in MODEL USER", values);
+  // console.log("value in MODEL USER", values);
   try {
     // MODIFICATION DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
-    session
-      .run(
-        `MATCH (u:User {login: {userSource}})
+    const userData = await session.run(
+      `MATCH (u:User {login: {userSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
                 u.age = {age},
                 u.gender = {gender},
-                u.sexualPref = {sexualOrientation},
+                u.sexualOrientation = {sexualOrientation},
                 u.login = {login},
                 u.email = {email},
                 u.bio = {bio}
                 RETURN u
              `,
-        values
-      )
-      .then(userData => {
-        console.log("UserData in ModelUpdateProfile", userData);
-        delete userData.password;
-
-        // JWT auth token
-        const token = jwt.sign(
-          { uuid: userData.uuid },
-          process.env.TOKEN_SECRET
-        );
-        delete userData.uuid;
-        userData.jwt = token;
-        return userData;
-      })
-      .catch(err => console.log(err));
+      values.values
+    );
+    //// JWT auth token
+    const token = jwt.sign(
+      { uuid: userData.records[0]._fields[0].properties.uuid },
+      process.env.TOKEN_SECRET
+    );
+    delete userData.records[0]._fields[0].properties.password;
+    delete userData.records[0]._fields[0].properties.uuid;
+    userData.records[0]._fields[0].properties.jwt = token;
+    return userData.records[0]._fields[0].properties;
   } catch (err) {
-    res.status(206).send(err);
     console.log(err);
   }
 }

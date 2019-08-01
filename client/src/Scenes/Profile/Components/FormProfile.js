@@ -1,14 +1,9 @@
-import React, { useContext } from "react"; // , { useState }
-import { Formik } from "formik";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
-import Select from "@material-ui/core/Select";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-
+import React from "react";
 import useProfileForm from "./useProfileForm";
-import { ProfileFormContext } from "./ProfileFormContext";
+import { Formik } from "formik";
+// import { valuesValidations } from "./../../Home/Components/UserValidation";
+import "./FormProfile.css";
+import axios from "axios";
 
 import {
   FirstName,
@@ -17,63 +12,136 @@ import {
   Login,
   Bio,
   Gender,
-  SexualOrient,
+  SexualOrientation,
   Age,
+  UploadFile,
   Submit
 } from "./Components/FieldsForm";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: "auto"
-  },
-  image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center"
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  gallery: {
-    display: "inline",
-    width: "50%"
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
-  }
-}));
-
 function FormProfile() {
-  const { handleSubmit, values } = useProfileForm();
-  const classes = useStyles();
+  const { values, handlePreview, handleCancel } = useProfileForm();
+
   return (
-    <form onSubmit={handleSubmit}>
-      <FirstName />
-      <LastName />
-      <Gender />
-      <Login />
-      <Email />
-      <Bio />
-      <SexualOrient />
-      <Age />
-      <Submit />
-    </form>
+    <Formik
+      initialValues={values}
+      onSubmit={async values => {
+        // validate={valuesValidations}
+
+        // *******  UPLOAD PICTURES
+        const files = Array.from(values.fileList);
+        const formData = new FormData();
+        files.forEach((file, i) => {
+          formData.append(i, file.originFileObj);
+        });
+        //       ---- add complementatry data (login, & jwt)
+        formData.append(
+          "userSource",
+          JSON.parse(sessionStorage.getItem("data")).login
+        );
+        formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
+        // ---- send data to back for images
+        await fetch(`http://localhost:9000/api/user/profile`, {
+          method: "POST",
+          body: formData
+        });
+        // .then(res => console.log("result of fetch post image =", res));
+
+        values.fileList = [];
+        //       ---- send data to back for info
+        console.log("ta maman", values);
+        delete values.previewVisible;
+        delete values.previewImage;
+        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
+        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
+        await axios
+          .patch("http://localhost:9000/api/user/profile", { values })
+          .then(res => console.log("result update", res.data))
+          .catch(err => console.log("result error", err.response.data));
+
+        // .then(images => {
+        //   this.setState({
+        //     uploading: false,
+        //     images
+        //   });
+        // });
+      }}
+    >
+      {({
+        values,
+        errors,
+        handleBlur,
+        touched,
+        handleChange,
+        setFieldValue,
+        handleSubmit
+      }) => (
+        <form onSubmit={handleSubmit} className="container">
+          <FirstName
+            value={values.firstName}
+            onChange={handleChange("firstName")}
+            onBlur={handleBlur}
+            helperText={[errors.firstName, touched.firstName, errors.firstName]}
+          />
+          <LastName
+            value={values.lastName}
+            onChange={handleChange("lastName")}
+            onBlur={handleBlur}
+            helperText={[errors.lastName, touched.lastName, errors.lastName]}
+          />
+          <Gender
+            value={values.gender}
+            onChange={handleChange("gender")}
+            onBlur={handleBlur}
+            helperText={[errors.gender, touched.gender, errors.gender]}
+          />
+
+          <Login
+            value={values.login}
+            onChange={handleChange("login")}
+            onBlur={handleBlur}
+            helperText={[errors.login, touched.login, errors.login]}
+          />
+          <Email
+            value={values.email}
+            onChange={handleChange("email")}
+            onBlur={handleBlur}
+            helperText={[errors.email, touched.email, errors.email]}
+          />
+          <Bio
+            value={values.bio}
+            onChange={handleChange("bio")}
+            onBlur={handleBlur}
+            helperText={[errors.bio, touched.bio, errors.bio]}
+          />
+          <SexualOrientation
+            value={values.sexualOrientation}
+            onChange={handleChange("sexualOrientation")}
+            onBlur={handleBlur}
+            helperText={[
+              errors.sexualOrientation,
+              touched.sexualOrientation,
+              errors.sexualOrientation
+            ]}
+          />
+          <Age
+            value={values.age}
+            onChange={handleChange("age")}
+            onBlur={handleBlur}
+            helperText={[errors.age, touched.age, errors.age]}
+          />
+          <UploadFile
+            fileList={values.fileList}
+            onBlur={handleBlur}
+            onPreview={handlePreview}
+            values={values}
+            setFieldValue={setFieldValue}
+            handleCancel={handleCancel}
+          />
+
+          <Submit />
+        </form>
+      )}
+    </Formik>
   );
 }
 

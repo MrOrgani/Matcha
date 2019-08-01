@@ -1,0 +1,12 @@
+.notif {
+  /* width: 100px; */
+  /* height: 100px; */
+  background-color: black;
+  color: white;
+  padding: 16px;
+  position: absolute;
+  top: px;
+  right: 16px;
+  z-index: 999;
+  transition: top 0.5 ease;
+}

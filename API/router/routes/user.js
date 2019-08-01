@@ -4,7 +4,7 @@ const fileUpload = require("express-fileupload");
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const { addPicture } = require("../../controlers/profile/handlePictures");
 const { addHobbies } = require("../../controlers/other/addHobbies");
-const verifyToken = require("../../controlers/verifyToken");
+const { dataProfileValidation } = require("./../../controlers/Validation");
 
 const app = express();
 app.use(fileUpload());
@@ -14,7 +14,8 @@ const {
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  isAuthenticated
 } = require("../../controlers/User");
 
 router
@@ -31,16 +32,12 @@ router
 
 router
   .route("/profile")
-  .patch((req, res) => {
+  .patch(isAuthenticated, dataProfileValidation, (req, res) => {
     updateProfile(req, res);
   })
-  .post((req, res) => {
+  .post(isAuthenticated, (req, res) => {
     addPicture(req, res);
   });
-
-router.route("/verify").post((req, res) => {
-  verifyToken(req, res);
-});
 
 router
   .route("/register")
@@ -54,26 +51,6 @@ router
 router.route("/login").post((req, res) => {
   loginUser(req, res);
 });
-//=========================================================
-// const cloudinary = require("cloudinary");
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET
-// });
-
-// router.route("/image-upload").post((req, res) => {
-//   console.log("values", req.files);
-//   const values = Object.values(req.files);
-//   const promises = values.map(image => cloudinary.uploader.upload(image.path));
-//   console.log("promises", promises);
-
-//   Promise.all(promises).then(results => {
-//     res.json(results);
-//     console.log("res", results);
-//   });
-// });
-//=========================================================
 
 // router.route("/generate");
 // .post((req, res) => {
