@@ -89,8 +89,17 @@ function getUsers(req, res) {
 }
 
 async function isAuthenticated(req, res, next) {
+  // console.log("isAuth", req.body);
   try {
-    if (await modelUserVerif(req.body.values)) return next();
+    if (
+      (await req.body.values)
+        ? modelUserVerif(req.body.values)
+        : modelUserVerif(req.body)
+    ) {
+      // console.log("c bon");
+      return next();
+    }
+    res.redirect("/");
   } catch (err) {
     res.status(401).send(err);
   }

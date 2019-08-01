@@ -1,12 +1,12 @@
 const {
   modelUpdateProfile
 } = require("../../models/modelProfile/modelUpdateProfile");
-const { modelUserVerif } = require("../../models/modelUserVerif");
-const {
-  modelUpdateProfileImage
-} = require("../../models/modelProfile/modelUpdateProfileImage");
-const Validation = require("../Validation");
-const modelUser = require("../../models/modelUser");
+// const { modelUserVerif } = require("../../models/modelUserVerif");
+// const {
+//   modelUpdateProfileImage
+// } = require("../../models/modelProfile/modelUpdateProfileImage");
+// const Validation = require("../Validation");
+// const modelUser = require("../../models/modelUser");
 
 // UPDATE INFOS  FROM PROFILE PAGE
 async function updateProfile(req, res) {
@@ -36,7 +36,7 @@ async function updateProfile(req, res) {
   // }
   // ----------------------------------
   try {
-    const data = await modelUpdateProfile(req.body, res);
+    const data = await modelUpdateProfile(req.body);
     res.status(200).send(data);
   } catch (err) {
     res.status(400).send(err);

@@ -19,12 +19,13 @@ async function addPicture(req, res) {
 
     Promise.all(promises)
       .then(results => {
+        // console.log("results", results);
         req.body.arrayURL = [];
         results.map(result => req.body.arrayURL.push(result.secure_url));
-        modelUpdateProfileImage(req);
+        modelUpdateProfileImage(req, res);
       })
-      .catch(err => console.log(err));
-    res.status(204);
+      .catch(err => res.status(400).send(err));
+    res.status(200);
   } catch (err) {
     res.status(400).send(err);
   }
