@@ -9,7 +9,7 @@ const session = driver.session();
 async function modelSetLike(req) {
   const data = await session.run(
     `MATCH (s:User {login:{userSource}}), (t:User {login:{target}})
-    CREATE (s)-[r:LIKES]->(t)
+    CREATE (s)-[r:LIKED]->(t)
     RETURN r`,
     req
   );

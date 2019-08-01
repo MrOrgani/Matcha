@@ -35,22 +35,30 @@ exports.LoginValidation = function(values) {
   return errors;
 };
 
-exports.ProfileValidation = function(values) {
+exports.dataProfileValidation = function(req, res, next) {
   let errors = {};
-  if (values.firstName && !/^[a-z]+/i.test(values.firstName)) {
+  for (let value in req.body.values) {
+    if (!req.body.values[value]) errors[value] = `${value} is required`;
+  }
+  if (
+    req.body.values.firstName &&
+    !/^[a-z]+$/i.test(req.body.values.firstName)
+  ) {
     errors.firstName = "Your First Name must contain letters only";
   }
-  if (values.lastName && !/^[a-z]+/i.test(values.lastName)) {
+  if (req.body.values.lastName && !/^[a-z]+$/i.test(req.body.values.lastName)) {
     errors.lastName = "Your last Name must contain letters only";
   }
   if (
-    values.email &&
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    req.body.values.email &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(req.body.values.email)
   ) {
     errors.email = "Invalid email address !";
   }
-  if (values.login && !/^[a-z0-9]+/i.test(values.login)) {
+  if (req.body.values.login && !/^[a-z0-9]+$/i.test(req.body.values.login)) {
     errors.login = "Your Login can only contain letters and numbers";
   }
-  return errors;
+  console.log("DATAPROFILEVALID", errors);
+  for (let x in errors) return res.status(400).send(errors);
+  next();
 };

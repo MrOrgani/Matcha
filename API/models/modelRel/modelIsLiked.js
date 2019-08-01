@@ -8,7 +8,7 @@ const session = driver.session();
 
 async function modelIsLiked(req) {
   const data = await session.run(
-    `MATCH (u:User {login:{userSource}})-[r:LIKES]->(n:User {login:{
+    `MATCH (u:User {login:{userSource}})-[r:LIKED]->(n:User {login:{
       target}}) RETURN r`,
     req
   );

@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuItem from "@material-ui/core/MenuItem";
 import DrawerNavigator from "./../Navbar/DrawerNavigation";
@@ -71,20 +71,13 @@ function NavBar() {
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
           <DrawerNavigator />
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            aria-label="Menu"
-          > */}
-          {/* <MenuIcon /> */}
-          {/* </IconButton> */}
           <Typography variant="h6" className={classes.title}>
             Matcha
           </Typography>
           <MenuItem>
-            <Link className={classes.text} to="/signIn">
+            {/* <Link className={classes.text} to="/signIn">
               <p>Sign In</p>
-            </Link>
+            </Link> */}
           </MenuItem>
           {/* <Button>Login</Button> */}
         </Toolbar>

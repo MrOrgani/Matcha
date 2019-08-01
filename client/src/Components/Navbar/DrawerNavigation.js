@@ -32,6 +32,7 @@ export default function TemporaryDrawer() {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
+      { text: "TempChat", link: "/TempChat" },
       { text: "Disconnect", link: "/" } // Disconnect process happens in Icons and Links
     );
   } else {

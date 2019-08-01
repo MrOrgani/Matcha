@@ -6,15 +6,16 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-async function modelSetUnlike(req) {
+async function modelLikedMe(req) {
+  // console.log('req is', req)
   const data = await session.run(
-    `MATCH (s:User {login:{userSource}})-[r:LIKED]->(t:User {login:{target}})
-    DELETE r`,
+    `MATCH (u:User)-[r:LIKED]->(n:User {login:{userSource}}) RETURN u`,
     req
   );
-  return data;
+  // console.log('data is', data.records)
+  return data.records;
 }
 
 module.exports = {
-  modelSetUnlike
+  modelLikedMe
 };
