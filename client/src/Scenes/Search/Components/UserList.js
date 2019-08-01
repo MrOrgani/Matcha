@@ -3,7 +3,7 @@ import User from "./User";
 import { UsersContext } from "./UsersContext";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
-import { AuthContext } from "../../../AuthContext";
+// import { AuthContext } from "../../../AuthContext";
 
 const useStyles = makeStyles({
   container: {
@@ -33,9 +33,7 @@ const filterUsers = (props, users) => {
 
 // console.log(session);
 const UserList = props => {
-  const authContext = useContext(AuthContext);
-  const session = authContext.data;
-  console.log(session);
+  const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
   const classes = useStyles();
 
