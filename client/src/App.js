@@ -7,20 +7,24 @@ import Profile from "./Scenes/Profile/Profile";
 import Social from "./Scenes/Social/Social";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
 import Navbar from "./Components/Navbar/NavBar";
+import { AuthProvider } from "./AuthContext";
+import SecureRoute from "./SecureRoute";
 
 export function App() {
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/SignIn" component={SignIn} />
-        <Route path="/Search" component={Search} />
-        <Route path="/Profile" component={Profile} />
-        <Route path="/Social" component={Social} />
-        <Route path="/handleUsers" component={handleUsers} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <SecureRoute path="/SignIn" component={SignIn} />
+          <SecureRoute path="/Search" component={Search} />
+          <SecureRoute path="/Profile" component={Profile} />
+          <SecureRoute path="/Social" component={Social} />
+          <Route path="/handleUsers" component={handleUsers} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

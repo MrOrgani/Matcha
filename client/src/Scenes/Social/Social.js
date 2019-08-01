@@ -1,39 +1,43 @@
 import React, { useState } from "react";
-import { socket } from "../../Components/Navbar/NavBar";
+// import { socket } from "../../Components/Navbar/NavBar";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const Social = () => {
-  const [oldMessages, setOldMessages] = useState([]);
+  const [oldMessages] = useState([]); //setOldMessages
   const initialValues = {
     msg: ""
   };
 
-  socket
-    .on("chat message", msg => {
-      console.log("new messages pushed: ", msg);
-      setOldMessages([...oldMessages, msg]);
-    })
-    .on("newUsr", () => {
-      console.log("mamen");
-    })
-    .on("deleteUsr", () => {
-      console.log("deleteUsr");
-    });
+  // socket
+  //   .on("chat message", msg => {
+  //     console.log("new messages pushed: ", msg);
+  //     setOldMessages([...oldMessages, msg]);
+  //   })
+  //   .on("newUsr", () => {
+  //     console.log("mamen");
+  //   })
+  //   .on("deleteUsr", () => {
+  //     console.log("deleteUsr");
+  //   });
 
   return (
     <div>
       <ul>
-        {oldMessages.map(msg => (
-          <li key={msg}>{msg}</li>
-        ))}
+        {oldMessages.map(msg => {
+          return (
+            <li key={msg.content}>
+              {msg.content} {msg.h}:{msg.m}
+            </li>
+          );
+        })}
       </ul>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
-          socket.emit("chat message", values.msg);
+          // socket.emit("chat message", values.msg);
           values.msg = "";
         }}
       >
