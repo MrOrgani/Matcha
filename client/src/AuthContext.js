@@ -1,35 +1,8 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { createContext } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const prevIsAuth = sessionStorage.getItem("isAuth") || 0;
-  // console.log(sessionStorage.data);
-  const prevData =
-    (sessionStorage.data && JSON.parse(sessionStorage.data)) || null;
-  const [isAuth, setIsAuth] = useState(prevIsAuth);
-  const [data, setData] = useState(prevData);
-
-  useEffect(() => {
-    // console.log(data);
-    (() => {
-      if (data) sessionStorage.data = JSON.stringify(data);
-      else sessionStorage.removeItem("data");
-    })();
-    sessionStorage.isAuth = isAuth;
-    console.log(
-      "AUTH CONTEXT USE EFFECT TRIGERED, data  = ",
-      data,
-      " isAuth = ",
-      isAuth
-    );
-  }, [isAuth, data]);
-
-  const defaultContext = {
-    isAuth,
-    setIsAuth,
-    data,
-    setData
-  };
+  const defaultContext = {};
 
   return (
     <AuthContext.Provider value={defaultContext}>

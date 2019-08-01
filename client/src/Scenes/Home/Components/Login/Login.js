@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
-import { AuthContext } from "../../../../AuthContext";
+// import { AuthContext } from "../../../../AuthContext";
 // import { socket } from "../../../../Components/Navbar/NavBar";
 
 function Login() {
@@ -17,7 +17,6 @@ function Login() {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-  const authContext = useContext(AuthContext);
 
   function handleClose() {
     setValid(true);
@@ -59,14 +58,9 @@ function Login() {
                     .then(res => {
                       // console.log("response de l'API", res.data);
                       if (res.status === 200) {
-                        const resData = res.data;
-                        console.log("login, resData  =", resData);
                         setSubmitionCompleted(true);
-                        authContext.setData(resData);
-                        authContext.setIsAuth(1);
-                        // setData(authContext.resData);
-                        // console.log(authContext);
-                        // sessionStorage.setItem("data", JSON.stringify(resData));
+                        sessionStorage.data = JSON.stringify(res.data);
+                        sessionStorage.isAuth = 1;
                         // socket.emit("login", data.login);
                       } else {
                         let errorStr = "";

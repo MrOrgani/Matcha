@@ -17,15 +17,11 @@ export function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/SignIn" component={SignIn} />
+          <SecureRoute path="/SignIn" component={SignIn} />
           <SecureRoute path="/Search" component={Search} />
-          {/* <Route
-            path="/Search"
-            render={_ => <AuthRequired redirectTo="/" orRender={<Search />} />}
-          /> */}
-          <Route path="/Profile" component={Profile} />
-          <Route path="/Social" component={Social} />
-          <SecureRoute path="/handleUsers" component={handleUsers} />
+          <SecureRoute path="/Profile" component={Profile} />
+          <SecureRoute path="/Social" component={Social} />
+          <Route path="/handleUsers" component={handleUsers} />
         </Switch>
       </Router>
     </AuthProvider>
