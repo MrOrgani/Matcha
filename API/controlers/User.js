@@ -52,7 +52,7 @@ function getBackUserData(userData, res) {
       expiresIn: 60 * 60 * 24 // expires in 24 hours
     }
   );
-  delete userData.uuid;
+  // delete userData.uuid;
   userData.jwt = token;
   res.status(200).send(userData);
 }
