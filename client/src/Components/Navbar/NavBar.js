@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import "./NavBar.css";
 import MenuItem from "@material-ui/core/MenuItem";
 import DrawerNavigator from "./../Navbar/DrawerNavigation";
-// import socketIOClient from "socket.io-client";
 
 // if (user connecte  --> connect) {
 //   et ensuite les autres composants se connectent
@@ -43,27 +42,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function NavBar() {
-  // SOCKET MANAGEMENT
-  // const [socket, setSocket] = React.useState({});
-
-  // if (sessionStorage.data) {
-  //   const endpoint = "http://localhost:9000";
-  //   const session = JSON.parse(sessionStorage.data);
-  //   setSocket(
-  //     socketIOClient.connect(endpoint, {
-  //       transports: ["polling"],
-  //       requestTimeout: 5000,
-  //       upgrade: false,
-  //       query: {
-  //         // token: this.state.userToken
-  //         // userID: this.state.userID,
-  //         login: session.login
-  //         // room_id: this.state.room_id
-  //       }
-  //     })
-  //   );
-  //   console.log(socket);
-  // }
   const classes = useStyles();
 
   return (
