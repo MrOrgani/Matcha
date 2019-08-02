@@ -29,22 +29,15 @@ const connectedUsrs = {};
 io.sockets.on("connection", socket => {
   connectedUsrs[socket.id] = socket.handshake.query;
   // console.log("socket", socket);
-
   console.log(
-    "new user connection :",
+    "new socket connection :",
     socket.id,
     "connected User:",
     connectedUsrs
   );
   const disconnectUser = reason => {
-    console.log("reason", reason);
-    if (connectedUsrs[socket.id]) {
-      delete connectedUsrs[socket.id];
-      console.log("a user is deleted from logout");
-    } else {
-      console.log("tryed to deconnect without being connected to socket");
-    }
-    console.log("A user disconnected, Connected users are: ", connectedUsrs);
+    // console.log("reason", reason);
+    if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
   socket
@@ -65,25 +58,11 @@ io.sockets.on("connection", socket => {
     })
     .on("logOut", disconnectUser)
     .on("disconnect", reason => {
-      console.log(reason);
-      console.log("disconnnnnnnnnnect");
+      // console.log(reason);
+      // console.log("disconnnnnnnnnnect");
       disconnectUser(reason);
-      // if (connectedUsrs[connectionInfo.usr]) {
-      //   delete connectedUsrs[connectionInfo.usr];
-      //   console.log(
-      //     "A user disconnected from socket disconnect, Connected users are: ",
-      //     connectedUsrs,
-      //     "actualUser = ",
-      //     connectionInfo.usr
-      //   );
-      // }
     });
-  // socket.emit("refreshingData"); // informs the front that a refresh occured to try and get user auth NOTE SECURED
 });
-
-// exports.isConnectedToChat = function() {
-//   console.log(connectedUSrs);
-// }
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

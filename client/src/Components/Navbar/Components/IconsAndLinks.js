@@ -24,7 +24,6 @@ function InconsAndLinks({ param }) {
   const { text, link } = param;
   const [socketContext, authContext] = useContext(AuthContext);
 
-  console.log(socketContext.socket);
   function disconnect() {
     authContext.setData({});
     sessionStorage.removeItem("data");

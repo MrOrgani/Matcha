@@ -7,7 +7,7 @@ const UserInMenu = props => {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex" }} onClick={console.log(props.data)}>
       <img
         style={{ borderRadius: "50%", width: "20%", height: "20%" }}
         alt=""
@@ -33,7 +33,8 @@ const UserInMenu = props => {
           fontStyle: "italic"
         }}
       >
-        {capFLtr(props.data.firstName)} {capFLtr(props.data.lastName[0])}
+        {capFLtr(props.data.firstName || "Unknown User")}{" "}
+        {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}
       </div>
     </div>
   );

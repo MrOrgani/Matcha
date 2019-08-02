@@ -1,13 +1,15 @@
 import React from "react";
-import MenuChat from "./Components/MenuChat";
-// import "./TempChat.css";
-import { TempChatProvider } from "./Components/TempChatContext";
+import ChatMenu from "./Components/ChatMenu/MenuChat";
+import "./TempChat.css";
+import { TempChatProvider } from "./TempChatContext";
+import ChatApp from "./Components/ChatApp/ChatApp";
 
 const TempChat = () => {
   return (
-    <div>
+    <div className="ChatContainer">
       <TempChatProvider source={JSON.parse(sessionStorage.getItem("data"))}>
-        <MenuChat />
+        <ChatMenu />
+        <ChatApp />
       </TempChatProvider>
     </div>
   );
