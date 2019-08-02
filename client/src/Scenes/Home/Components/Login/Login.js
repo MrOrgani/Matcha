@@ -66,6 +66,7 @@ function Login() {
                         socketContext.socket &&
                           socketContext.socket.emit("logOut");
                         // sessionStorage.data = JSON.stringify(res.data);
+                        console.log(res.data);
                         authContext.setData(res.data);
                         authContext.setIsAuth(1);
                         // sessionStorage.isAuth = 1;

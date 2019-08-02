@@ -23,49 +23,34 @@ app.use("/", router);
 
 // SOCKET MANAGEMENT FOR RT CHAT
 const connectedUsrs = {};
-app.set("connectedUsrs", connectedUsrs);
 // ABOUT LOGIN AND CONNECTION :
 // IF CONNECTION AND CONNECTION ON OTHER TAB ADN ONE DISCTONNECT --> OTHER DISCONNECTED
 // MAYBE : NOT ALLOW CONNECTION WHEN CONNECTED OR CHECK IF CONNECTED
-// io.set("transports", ["websocket"]);
 io.sockets.on("connection", socket => {
   connectedUsrs[socket.id] = socket.handshake.query;
-  const connectionInfo = {};
-  // console.log(conn);
-  // console.log(socket.handshake.query.login);
+  // console.log("socket", socket);
 
-  if (connectionInfo)
-    console.log(
-      "new user connection :",
-      socket.id,
-      "connected User:",
-      connectedUsrs
-    );
+  console.log(
+    "new user connection :",
+    socket.id,
+    "connected User:",
+    connectedUsrs
+  );
   const disconnectUser = reason => {
-    // console.log(connectionInfo.usr);
     console.log("reason", reason);
-    // delete connectedUsrs[socket.id]
     if (connectedUsrs[socket.id]) {
       delete connectedUsrs[socket.id];
-      // app.set("connectedUsrs", connectedUsrs);
-      console.log("a user is deleted from logout", connectionInfo.usr);
+      console.log("a user is deleted from logout");
     } else {
       console.log("tryed to deconnect without being connected to socket");
     }
-    // connectionInfo.usr.length = 0;
-    console.log(
-      "A user disconnected, Connected users are: ",
-      connectedUsrs,
-      "actualUser = ",
-      connectionInfo.usr
-    );
+    console.log("A user disconnected, Connected users are: ", connectedUsrs);
   };
 
   socket
     .on("chat message", content => {
       const msg = {};
-      console.log(connectionInfo.usr);
-      msg.user = connectionInfo.usr;
+      msg.user = connectedUsrs[socket.id].login;
       date = new Date();
       msg.h = date.getHours();
       msg.m = date.getMinutes();
@@ -74,16 +59,9 @@ io.sockets.on("connection", socket => {
       console.log("Message from id: " + socket.id, "with msg: ", msg.user);
     })
     .on("login", login => {
-      connectionInfo.usr = login;
+      console.log("login", login);
       connectedUsrs[login] = true;
-      app.set("connectedUsrs", connectedUsrs);
-      // io.sockets.emit("newUsr");
-      console.log(
-        "connected Users are: ",
-        connectedUsrs,
-        "current Usr = ",
-        connectionInfo.usr
-      );
+      console.log("connected Users are: ", connectedUsrs);
     })
     .on("logOut", disconnectUser)
     .on("disconnect", reason => {

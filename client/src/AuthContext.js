@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       upgrade: false,
       query: {
         // token: this.state.userToken
-        // userID: this.state.userID,
+        // userID: .userID,
         login: data.login
         // room_id: this.state.room_id
       }
