@@ -1,6 +1,5 @@
 const { modelSetLike } = require("../../models/modelRel/modelSetLike");
 const { modelSetUnlike } = require("../../models/modelRel/modelsetUnlike");
-// const { modelUserVerif } = require("../../models/modelUserVerif");
 
 async function setLike(req, res) {
   try {

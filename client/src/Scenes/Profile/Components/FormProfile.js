@@ -53,12 +53,11 @@ function FormProfile() {
         delete values.previewImage;
         values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
         values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
-        let newData = await axios.patch(
-          "http://localhost:9000/api/user/profile",
-          { values }
-        );
-
-        console.log("newData", newData.data);
+        let newData = await axios
+          .patch("http://localhost:9000/api/user/profile", { values })
+          .catch(err => console.log(err));
+        // sessionStorage.setItem("data", JSON.stringify(newData.data));
+        // console.log("newData", newData.data);
       }}
     >
       {({
