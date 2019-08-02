@@ -3,5 +3,4 @@ const session = initNeo4j();
 
 exports.modelTempChat = async (s = '', r, d, t = '', w) {
     let cypher = `MATCH (s:User `
-    cypher += s !== '' ? 
 }
