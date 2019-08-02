@@ -57,8 +57,9 @@ function FormProfile() {
           "http://localhost:9000/api/user/profile",
           { values }
         );
+        // .catch(err => console.log("err", err.response.data));
 
-        console.log("newData", newData.data);
+        // console.log("newData", newData.data) ;
       }}
     >
       {({

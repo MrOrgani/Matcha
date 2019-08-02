@@ -35,7 +35,8 @@ export const AuthProvider = ({ children }) => {
     });
     socketContext.socket = socket;
   }
-  console.log("socket", socketContext.socket);
+
+  // console.log("socket", socketContext.socket);
   const authContext = {
     isAuth,
     setIsAuth,

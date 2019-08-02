@@ -4,7 +4,7 @@ const session = initNeo4j();
 async function modelIMatched(req) {
   try {
     const data = await session.run(
-      `MATCH (u:User {login:{userSource}})-[r:MATCHED]->(n:User) RETURN n`,
+      `MATCH (u:User {login:{userSource}})-[r:MATCHED]-(n:User) RETURN n`,
       req
     );
     return data.records;
