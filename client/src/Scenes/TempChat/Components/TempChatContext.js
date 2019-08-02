@@ -57,7 +57,7 @@ const TempChatProvider = props => {
 
     const getVisitedMe = async () => {
       const result = await axios.get(
-        `http://localhost:9000/api/tempchat/visits?userSource=${
+        `http://localhost:9000/api/tempchat/visitedMe?userSource=${
           props.source.login
         }&jwt=${props.source.jwt}`
       );

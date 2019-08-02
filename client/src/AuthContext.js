@@ -1,11 +1,50 @@
-import React, { createContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const defaultContext = {};
+  // ISAUTH IS IN CONTEXT TO MAKE THE CONTEXT REFRESH
+  // AND UPDATE SOCKET AUTOMATICALLY
+  const [isAuth, setIsAuth] = useState(
+    JSON.parse(sessionStorage.isAuth || "0")
+  );
+  const [data, setData] = useState(JSON.parse(sessionStorage.data || null));
+
+  useEffect(() => {
+    sessionStorage.isAuth = JSON.stringify(isAuth);
+    sessionStorage.data = JSON.stringify(data);
+  }, [isAuth, data]);
+
+  // SOCKET MANAGEMENT
+  const socketContext = {};
+
+  if (data && isAuth > 0) {
+    // const session = JSON.parse(sessionStorage.data);
+
+    const socket = socketIOClient.connect("http://localhost:9000", {
+      transports: ["polling"],
+      requestTimeout: 5000,
+      upgrade: false,
+      query: {
+        // token: this.state.userToken
+        // userID: .userID,
+        login: data.login
+        // room_id: this.state.room_id
+      }
+    });
+    socketContext.socket = socket;
+  }
+  console.log("socket", socketContext.socket);
+  const authContext = {
+    isAuth,
+    setIsAuth,
+    data,
+    setData
+  };
 
   return (
-    <AuthContext.Provider value={defaultContext}>
+    <AuthContext.Provider value={[socketContext, authContext]}>
       {children}
     </AuthContext.Provider>
   );
