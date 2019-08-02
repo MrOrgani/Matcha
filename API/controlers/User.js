@@ -7,22 +7,12 @@ const uuid = require("uuid/v4");
 // const app = express();
 // const isConnectedToChat = require("../app");
 const { modelUserVerif } = require("../models/modelUserVerif");
+const { findOne, modelCreateUser } = require("./../models/modelUser");
 
 async function createUser(req, res) {
   try {
-    if (await modelUser.findOne(req.body.login, "login"))
-      return res.status(206).send(`login is taken`);
-  } catch (err) {
-    res.status(206).send(err);
-  }
-  let errors = await Validation.RegisterValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
-
-  //create db ready userinfo with uuid for jwt
-  const user = await cryptAndObjectify(req);
-  user.uuid = await uuid();
-  try {
-    const data = await modelUser.createUser(user, res);
+    req.body.uuid = await uuid();
+    const data = await modelCreateUser(req.body);
     res.status(200).send(data);
   } catch (err) {
     res.status(206).send(err);
@@ -30,21 +20,20 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
-  const user = await cryptAndObjectify(req);
-  let errors = await Validation.LoginValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
-  const userData = await modelUser.findOne(user.login, "login");
-  if (isEmpty(userData)) return res.status(206).send("Invalid username");
-  if (!(await bcrypt.compare(req.body.password, userData.password)))
-    return res.status(206).send("Invalid password");
-
-  return getBackUserData(userData, res);
+  try {
+    let userData = await findOne(req.body.login, "login");
+    if (userData.length === 0) return res.status(401).send("Invalid username");
+    userData = userData[0]._fields[0].properties;
+    if (!(await bcrypt.compare(req.body.password, userData.password)))
+      return res.status(206).send("Invalid password");
+    userData = cleanUserData(userData);
+    return res.status(200).send(userData);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 }
 
-function getBackUserData(userData, res) {
-  delete userData.password;
-
-  // JWT auth token
+function cleanUserData(userData) {
   const token = jwt.sign(
     { uuid: userData.uuid, login: userData.login },
     process.env.TOKEN_SECRET,
@@ -52,30 +41,23 @@ function getBackUserData(userData, res) {
       expiresIn: 60 * 60 * 24 // expires in 24 hours
     }
   );
-  delete userData.uuid;
   userData.jwt = token;
-  res.status(200).send(userData);
+  delete userData.uuid;
+  delete userData.password;
+  return userData;
 }
 
 // Crypts pwd and returns a well rounded user object from req.body
-async function cryptAndObjectify(req) {
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-  const user = {
-    login: req.body.login,
-    password: hashPassword
-  };
-  if (req.body.email) user.email = req.body.email;
-  return user;
-}
-
-// empty obj checker
-function isEmpty(obj) {
-  for (var prop in obj) {
-    if (obj.hasOwnProperty(prop)) return false;
+async function cryptAndObjectify(req, res, next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    req.body.password = hashPassword;
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
   }
-  return true;
 }
 
 function gUsers(req, res) {
@@ -90,20 +72,29 @@ function getUsers(req, res) {
   modelUser.getUsers(req, res);
 }
 
-async function isAuthenticated(req, res, next) {
-  // console.log("isAuth", req.body);
+async function userVerif(req, res, next) {
   try {
     if (
       (await req.body.values)
         ? modelUserVerif(req.body.values)
         : modelUserVerif(req.body)
-    ) {
-      // console.log("c bon");
+    )
       return next();
-    }
     res.redirect("/");
   } catch (err) {
     res.status(401).send(err);
+  }
+}
+
+async function loginOrEmailNotTaken(req, res, next) {
+  try {
+    let data = await findOne(req.body.login, "login");
+    if (data.length > 0) res.status(400).send("Login already taken.");
+    data = await findOne(req.body.email, "email");
+    if (data.length > 0) res.status(400).send("Login already taken.");
+    next();
+  } catch (err) {
+    res.status(400).send(err);
   }
 }
 
@@ -113,6 +104,8 @@ module.exports = {
   gUsers,
   delUsers,
   getUsers,
-  isAuthenticated
+  userVerif,
+  loginOrEmailNotTaken,
+  cryptAndObjectify
   // updateProfile
 };

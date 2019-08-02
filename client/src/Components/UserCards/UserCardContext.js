@@ -54,7 +54,8 @@ export const UserCardProvider = props => {
           props.session.login
         }&target=${userInfo.login}&jwt=${props.session.jwt}`
       );
-      if (result.data.length > 0) setLiked(true);
+      // REPLACED BY A BOOLEAN ANSWER
+      if (result.data) setLiked(true);
     };
 
     const getBlock = async () => {
@@ -63,7 +64,9 @@ export const UserCardProvider = props => {
           props.session.login
         }&target=${userInfo.login}&jwt=${props.session.jwt}`
       );
-      if (result.data.length > 0) setBlocked(true);
+      // if (result.data.length > 0) setBlocked(true);
+      // REPLACED BY A BOOLEAN ANSWER
+      if (result.data) setLiked(true);
     };
 
     getBlock();

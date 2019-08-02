@@ -6,11 +6,10 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-async function createUser(req, res) {
-  if (!req.pics)
-    req.pics = ["http://image.flaticon.com/icons/svg/53/53142.svg"];
-  const data = await session.run(
-    `CREATE(u:User {
+async function modelCreateUser(req) {
+  try {
+    const data = await session.run(
+      `CREATE(u:User {
               login:{login},
               password:{password},
               email:{email},
@@ -22,27 +21,31 @@ async function createUser(req, res) {
               sexualOrientation:'bi',
               location:['', ''],
               phone:'',
-              pics:{pics},
-              bio:''  
+              pics:[],
+              bio:'',
+              tag: []
             }) 
               RETURN u`,
-    req
-  );
-  return data;
+      req
+    );
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-async function findOne(req, category) {
+async function findOne(value, category) {
   const data = await session.run(
     `WITH {category} AS propname
-        MATCH(u:User)
-        WHERE u[toLower(propname)] = $value
-        RETURN u`,
+    MATCH(u:User)
+    WHERE u[propname] = $value
+    RETURN u`,
     {
-      value: req,
+      value: value,
       category: category
     }
   );
-  if (data.records[0]) return data.records[0]._fields[0].properties;
+  return data.records;
 }
 
 async function gUsers() {
@@ -125,7 +128,7 @@ async function updateUser(values, res) {
 }
 
 module.exports = {
-  createUser,
+  modelCreateUser,
   gUsers,
   delUsers,
   getUsers,

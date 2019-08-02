@@ -13,21 +13,27 @@ const session = driver.session();
 const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
-  // console.log("YA QUOI", req);
-  if (!req.jwt) return false;
-  const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
-  // console.log("verified", verified);
-  const result = await session
-    .run(`MATCH (u:User {login: {userSource}, uuid:{uuid}}) RETURN u`, {
-      userSource: req.userSource,
-      uuid: verified.uuid
-    })
-    .then(data => {
-      if (data.records.length === 0) {
-        return false;
-      } else return true;
-    });
-  return result;
+  try {
+    if (!req.jwt) return false;
+    const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
+    // console.log("verified", verified);
+    const result = await session
+      .run(`MATCH (u:User {login: {userSource}, uuid:{uuid}}) RETURN u`, {
+        userSource: req.userSource,
+        uuid: verified.uuid
+      })
+      .then(data => {
+        if (data.records.length === 0) {
+          return false;
+        } else return true;
+      })
+      .catch(err => {
+        return err;
+      });
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {

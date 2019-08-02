@@ -8,7 +8,7 @@ const session = driver.session();
 
 async function modelSetUnblock(req) {
   const data = await session.run(
-    `MATCH (s:User {login:{userSource}})-[r:BLOCKS]->(t:User {login:{target}})
+    `MATCH (s:User {login:{userSource}})-[r:BLOCKED]->(t:User {login:{target}})
     DELETE r`,
     req
   );
