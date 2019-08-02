@@ -1,38 +1,43 @@
-exports.RegisterValidation = function(values) {
+exports.dataRegisterValidation = function(req, res, next) {
   let errors = {};
-  if (!values.login) {
+  if (!req.body.login) {
     errors.login = "A login is required";
   }
-  if (!values.email) {
+  if (!req.body.email) {
     errors.email = "Email is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(req.body.email)
+  ) {
     errors.email = "Invalid email address !";
   }
-  if (!values.password) {
+  if (!req.body.password) {
     errors.password = "Password is Required";
-  } else if (!/[A-Z0-9]+/i.test(values.password)) {
+  } else if (!/[A-Z0-9]+/i.test(req.body.password)) {
     errors.password = "Password must at least contain one letter and one digit";
-  } else if (!/[!@#$%^&*()]+/.test(values.password)) {
+  } else if (!/[!@#$%^&*()]+/.test(req.body.password)) {
     errors.password =
       "Password must at least contain one of the following !@#$%^&*()";
   }
-  return errors;
+  for (let x in errors) return res.status(400).send(errors);
+  next();
 };
 
-exports.LoginValidation = function(values) {
+exports.dataLoginValidation = function(req, res, next) {
+  // console.log("login", req.body);
   const errors = {};
-  if (!values.login) {
+  if (!req.body.login) {
     errors.login = "A login is required";
   }
-  if (!values.password) {
+  if (!req.body.password) {
     errors.password = "Password is required";
-  } else if (!/[A-Z0-9]+/i.test(values.password)) {
+  } else if (!/[A-Z0-9]+/i.test(req.body.password)) {
     errors.password = "Password must at least contain one letter and one digit";
-  } else if (!/[!@#$%^*&()]+/.test(values.password)) {
+  } else if (!/[!@#$%^*&()]+/.test(req.body.password)) {
     errors.password =
       "Password must at least contain one of the following !@#$%^&*()";
   }
-  return errors;
+  for (let x in errors) return res.status(400).send(errors);
+  next();
 };
 
 exports.dataProfileValidation = function(req, res, next) {
@@ -58,7 +63,6 @@ exports.dataProfileValidation = function(req, res, next) {
   if (req.body.values.login && !/^[a-z0-9]+$/i.test(req.body.values.login)) {
     errors.login = "Your Login can only contain letters and numbers";
   }
-  console.log("DATAPROFILEVALID", errors);
   for (let x in errors) return res.status(400).send(errors);
   next();
 };

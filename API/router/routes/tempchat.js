@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const fetch = require("node-fetch");
 
 const { iMatched } = require("../../controlers/tempchat/matched");
 const { likedMe } = require("../../controlers/tempchat/likedMe");

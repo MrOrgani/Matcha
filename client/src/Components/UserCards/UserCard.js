@@ -25,7 +25,7 @@ export default function UserCard() {
       <Card
         className={classes.card}
         onClick={() => {
-          console.log(userInfo);
+          // console.log(userInfo);
         }}
       >
         <CardMedia className={classes.media} image={userInfo.picLarge} />

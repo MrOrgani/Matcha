@@ -4,7 +4,11 @@ const fileUpload = require("express-fileupload");
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const { addPicture } = require("../../controlers/profile/handlePictures");
 const { addHobbies } = require("../../controlers/other/addHobbies");
-const { dataProfileValidation } = require("./../../controlers/Validation");
+const {
+  dataProfileValidation,
+  dataRegisterValidation,
+  dataLoginValidation
+} = require("./../../controlers/Validation");
 
 const app = express();
 app.use(fileUpload());
@@ -15,7 +19,9 @@ const {
   gUsers,
   delUsers,
   getUsers,
-  isAuthenticated
+  userVerif,
+  loginOrEmailNotTaken,
+  cryptAndObjectify
 } = require("../../controlers/User");
 
 router
@@ -32,25 +38,34 @@ router
 
 router
   .route("/profile")
-  .patch(isAuthenticated, dataProfileValidation, (req, res) => {
-    updateProfile(req, res);
-  })
-  .post(isAuthenticated, (req, res) => {
+  .post(userVerif, (req, res) => {
     addPicture(req, res);
+  })
+  .patch(userVerif, dataProfileValidation, (req, res) => {
+    updateProfile(req, res);
   });
 
 router
   .route("/register")
-  .post((req, res) => {
-    createUser(req, res);
-  })
+  .post(
+    loginOrEmailNotTaken,
+    dataRegisterValidation,
+    cryptAndObjectify,
+    (req, res) => {
+      createUser(req, res);
+    }
+  )
   .get((req, res) => {
     getUsers(req, res);
   });
 
-router.route("/login").post((req, res) => {
-  loginUser(req, res);
-});
+router.route("/login").post(
+  dataLoginValidation,
+  // cryptAndObjectify,
+  (req, res) => {
+    loginUser(req, res);
+  }
+);
 
 // router.route("/generate");
 // .post((req, res) => {
