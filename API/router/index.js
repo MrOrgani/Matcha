@@ -4,11 +4,15 @@ const router = require("express").Router();
 // router.use("/auth", require("./routes/authRoutes"));
 
 // ROUTES
-router.use("/api/user", require("./routes/user"));
+router
+  .use("/api/user", require("./routes/user"))
+  .use("/api/rel", require("./routes/routeRel"))
+  .use("/api/tempchat", require("./routes/tempchat"))
+  .use("/api/getusers", require("./routes/getusers"));
+// router.use("/api/rel", require("./routes/routeRel"));
 
 // Just for testing
-router.use("/", require("./routes/index"));
-router.use("/testAPI", require("./routes/testAPI"));
-router.use("/register", require("./routes/register"));
+// router.use("/testAPI", require("./routes/testAPI"));
+// router.use("/register", require("./routes/register"));
 
 module.exports = router;

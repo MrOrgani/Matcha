@@ -2,18 +2,17 @@ const modelUser = require("../models/modelUser");
 const Validation = require("./Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const uuid = require("uuid/v4");
+// const express = require("express");
+// const app = express();
+// const isConnectedToChat = require("../app");
+const { modelUserVerif } = require("../models/modelUserVerif");
+const { findOne, modelCreateUser } = require("./../models/modelUser");
 
 async function createUser(req, res) {
-  // Check if we can create user
-  const PropNode = "login";
-  const PropNodeExists = await modelUser.findOne(req.body.login, PropNode);
-  if (PropNodeExists) return res.status(206).send(`${PropNode} is taken`);
-  let errors = await Validation.RegisterValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
-
-  const user = await cryptAndObjectify(req);
   try {
-    const data = await modelUser.createUser(user, res);
+    req.body.uuid = await uuid();
+    const data = await modelCreateUser(req.body);
     res.status(200).send(data);
   } catch (err) {
     res.status(206).send(err);
@@ -21,57 +20,82 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
-  const user = await cryptAndObjectify(req);
-  let errors = await Validation.LoginValidation(req.body);
-  if (!isEmpty(errors)) return res.status(206).send(errors);
+  try {
+    let userData = await findOne(req.body.login, "login");
+    if (userData.length === 0) return res.status(401).send("Invalid username");
+    userData = userData[0]._fields[0].properties;
+    if (!(await bcrypt.compare(req.body.password, userData.password)))
+      return res.status(206).send("Invalid password");
+    userData = cleanUserData(userData);
+    return res.status(200).send(userData);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+}
 
-  const rawData = await modelUser.findOne(user.login, "login");
-  if (isEmpty(rawData)) return res.status(206).send("Invalid username");
-  const userData = rawData._fields[0].properties;
-  // console.log("User connect result: ", userData);
-  const isValidPwd = await bcrypt.compare(req.body.password, userData.password);
-  if (!isValidPwd) return res.status(206).send("Invalid password");
-
-  // JWT auth token
-  const token = jwt.sign({ _login: user.login }, process.env.TOKEN_SECRET);
-  res
-    .header("auth-token", token)
-    .status(200)
-    .send(userData);
+function cleanUserData(userData) {
+  const token = jwt.sign(
+    { uuid: userData.uuid, login: userData.login },
+    process.env.TOKEN_SECRET,
+    {
+      expiresIn: 60 * 60 * 24 // expires in 24 hours
+    }
+  );
+  userData.jwt = token;
+  // delete userData.uuid;
+  delete userData.password;
+  return userData;
 }
 
 // Crypts pwd and returns a well rounded user object from req.body
-async function cryptAndObjectify(req) {
-  const salt = await bcrypt.genSalt(10);
-  // console.log("salt: ", salt);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-  const user = {
-    login: req.body.login,
-    password: hashPassword
-  };
-  if (req.body.email) user.email = req.body.email;
-  return user;
-}
-
-// empty obj checker
-function isEmpty(obj) {
-  for (var prop in obj) {
-    if (obj.hasOwnProperty(prop)) return false;
+async function cryptAndObjectify(req, res, next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    req.body.password = hashPassword;
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
   }
-  return true;
 }
 
 function gUsers(req, res) {
-  ModelUser.gUsers(req, res);
+  modelUser.gUsers(req, res);
 }
 
 function delUsers(req, res) {
-  ModelUser.delUsers(req, res);
+  modelUser.delUsers(req, res);
 }
 
 function getUsers(req, res) {
-  ModelUser.getUsers(req, res);
+  modelUser.getUsers(req, res);
+}
+
+async function userVerif(req, res, next) {
+  try {
+    if (
+      (await req.body.values)
+        ? modelUserVerif(req.body.values)
+        : modelUserVerif(req.body)
+    )
+      return next();
+    res.redirect("/");
+  } catch (err) {
+    res.status(401).send(err);
+  }
+}
+
+async function loginOrEmailNotTaken(req, res, next) {
+  try {
+    let data = await findOne(req.body.login, "login");
+    if (data.length > 0) res.status(400).send("Login already taken.");
+    data = await findOne(req.body.email, "email");
+    if (data.length > 0) res.status(400).send("Login already taken.");
+    next();
+  } catch (err) {
+    res.status(400).send(err);
+  }
 }
 
 module.exports = {
@@ -79,5 +103,9 @@ module.exports = {
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  userVerif,
+  loginOrEmailNotTaken,
+  cryptAndObjectify
+  // updateProfile
 };

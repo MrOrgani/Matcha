@@ -1,23 +1,33 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Form from "./form/FormContainer";
-// import SignInInside from "./signinExample";
 import Home from "./Scenes/Home/Home";
 import SignIn from "./Scenes/SignIn/SignIn";
 import Search from "./Scenes/Search/Search";
+import Profile from "./Scenes/Profile/Profile";
+import Social from "./Scenes/Social/Social";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
+import TempChat from "./Scenes/TempChat/TempChat";
+import Navbar from "./Components/Navbar/NavBar";
+import { AuthProvider } from "./AuthContext";
+import SecureRoute from "./SecureRoute";
 
-function App() {
+export function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/SignIn" component={SignIn} />
-        <Route path="/Search" component={Search} />
-        <Route path="/handleUsers" component={handleUsers} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <SecureRoute path="/SignIn" component={SignIn} />
+          <SecureRoute path="/Search" component={Search} />
+          <SecureRoute path="/Profile" component={Profile} />
+          <SecureRoute path="/Social" component={Social} />
+          <SecureRoute path="/TempChat" component={TempChat} />
+          <Route path="/handleUsers" component={handleUsers} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
-export default App;
+// export App;
