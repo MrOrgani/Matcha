@@ -32,8 +32,22 @@ const TempChatProvider = props => {
     };
 
     const getVisitedMe = async () => {
+<<<<<<< HEAD:client/src/Scenes/TempChat/Components/TempChatContext.js
       const result = await axios.get(`${api}s=User&r=VISITED&t=me&w=s`);
       setVisitedMe(result.data);
+=======
+      const result = await axios.get(
+        `http://localhost:9000/api/tempchat/visitedMe?userSource=${
+          props.source.login
+        }&jwt=${props.source.jwt}`
+      );
+      let visitedMe = [];
+      if (result.data.length > 0)
+        await result.data.forEach(user => {
+          visitedMe.push(user._fields[0].properties);
+        });
+      setVisitedMe(visitedMe);
+>>>>>>> 38d06ae986f0fd9edbe19243a763e5ba5bff1300:client/src/Scenes/TempChat/TempChatContext.js
     };
 
     const getIVisited = async () => {
