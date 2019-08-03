@@ -26,8 +26,8 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         // validate={valuesValidations}
-        
-        userValues = JSON.parse(sessionStorage.getItem("data"));
+        console.log("the values are", values);
+        const userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
         const files = Array.from(values.fileList);
         const formData = new FormData();
@@ -35,13 +35,19 @@ function FormProfile() {
           formData.append(i, file.originFileObj);
         });
         //       ---- add complementatry data (login, & jwt)
-        formData.append(
-          "userSource",
-          JSON.parse(sessionStorage.getItem("data")).login
-        );
-        formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
+        // formData.append(
+        // "userSource",
+        // JSON.parse(sessionStorage.getItem("data")).login
+        // );
+        // formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
         // ---- send data to back for images
-        await axios.post(`http://localhost:9000/api/user/profile?login=${}`, { formData });
+        const api = `http://localhost:9000/api/user/profile?login=${
+          userValues.login
+        }&jwt=${userValues.jwt}`;
+        await fetch(api, {
+          method: "POST",
+          body: formData
+        });
         // .then(res => console.log("result of fetch post image =", res));
 
         // values.fileList = [];
