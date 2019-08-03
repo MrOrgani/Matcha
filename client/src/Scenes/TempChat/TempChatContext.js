@@ -12,89 +12,38 @@ const TempChatProvider = props => {
   const [iBlocked, setIBlocked] = useState([]);
 
   useEffect(() => {
+    const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
+      props.source.login
+    }&jwt=${props.source.jwt}&`;
+
     const getIMatched = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/matched?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      let iMatched = [];
-      if (result.data.length > 0)
-        await result.data.forEach(user => {
-          iMatched.push(user._fields[0].properties);
-        });
-      setIMatched(iMatched);
+      const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
+      setIMatched(result.data);
     };
 
     const getLikedMe = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/likedMe?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      let isLikingMe = [];
-      if (result.data.length > 0)
-        await result.data.forEach(user => {
-          isLikingMe.push(user._fields[0].properties);
-        });
-      setLikedMe(isLikingMe);
+      const result = await axios.get(`${api}s=User&r=LIKED&t=me&w=s`);
+      setLikedMe(result.data);
     };
 
     const getILiked = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/liked?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      // let iLiked = [];
-      // if (result.data.length > 0)
-      //   await result.data.forEach(user => {
-      //     iLiked.push(user._fields[0].properties);
-      //   });
-      console.log("result i liked", result);
+      const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
       setILiked(result.data);
     };
 
     const getVisitedMe = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/visitedMe?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      let visitedMe = [];
-      if (result.data.length > 0)
-        await result.data.forEach(user => {
-          visitedMe.push(user._fields[0].properties);
-        });
-      setVisitedMe(visitedMe);
+      const result = await axios.get(`${api}s=User&r=VISITED&t=me&w=s`);
+      setVisitedMe(result.data);
     };
 
     const getIVisited = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/visited?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      let iVisited = [];
-      if (result.data.length > 0)
-        await result.data.forEach(user => {
-          iVisited.push(user._fields[0].properties);
-        });
-      setIVisited(iVisited);
+      const result = await axios.get(`${api}s=Me&r=VISITED&t=User&w=t`);
+      setIVisited(result.data);
     };
 
     const getIBlocked = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/tempchat/blocked?userSource=${
-          props.source.login
-        }&jwt=${props.source.jwt}`
-      );
-      let iBlocked = [];
-      if (result.data.length > 0)
-        await result.data.forEach(user => {
-          iBlocked.push(user._fields[0].properties);
-        });
-      setIBlocked(iBlocked);
+      const result = await axios.get(`${api}s=Me&r=BLOCKED&t=User&w=t`);
+      setIBlocked(result.data);
     };
 
     getIMatched();

@@ -26,7 +26,8 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         // validate={valuesValidations}
-
+        console.log("the values are", values);
+        const userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
         const files = Array.from(values.fileList);
         const formData = new FormData();
@@ -34,32 +35,33 @@ function FormProfile() {
           formData.append(i, file.originFileObj);
         });
         //       ---- add complementatry data (login, & jwt)
-        formData.append(
-          "userSource",
-          JSON.parse(sessionStorage.getItem("data")).login
-        );
-        formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
+        // formData.append(
+        // "userSource",
+        // JSON.parse(sessionStorage.getItem("data")).login
+        // );
+        // formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
         // ---- send data to back for images
-        await fetch(`http://localhost:9000/api/user/profile`, {
+        const api = `http://localhost:9000/api/user/profile?login=${
+          userValues.login
+        }&jwt=${userValues.jwt}`;
+        await fetch(api, {
           method: "POST",
           body: formData
         });
         // .then(res => console.log("result of fetch post image =", res));
 
-        values.fileList = [];
-        //       ---- send data to back for info
-        console.log("ta maman", values);
-        delete values.previewVisible;
-        delete values.previewImage;
-        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
-        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
-        let newData = await axios.patch(
-          "http://localhost:9000/api/user/profile",
-          { values }
-        );
-        // .catch(err => console.log("err", err.response.data));
-
-        // console.log("newData", newData.data) ;
+        // values.fileList = [];
+        // //       ---- send data to back for info
+        // console.log("ta maman", values);
+        // delete values.previewVisible;
+        // delete values.previewImage;
+        // values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
+        // values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
+        // let newData = await axios
+        //   .patch("http://localhost:9000/api/user/profile", { values })
+        //   .catch(err => console.log(err));
+        // // sessionStorage.setItem("data", JSON.stringify(newData.data));
+        // // console.log("newData", newData.data);
       }}
     >
       {({
