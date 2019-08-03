@@ -26,7 +26,8 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         // validate={valuesValidations}
-
+        
+        userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
         const files = Array.from(values.fileList);
         const formData = new FormData();
@@ -40,24 +41,21 @@ function FormProfile() {
         );
         formData.append("jwt", JSON.parse(sessionStorage.getItem("data")).jwt);
         // ---- send data to back for images
-        await fetch(`http://localhost:9000/api/user/profile`, {
-          method: "POST",
-          body: formData
-        });
+        await axios.post(`http://localhost:9000/api/user/profile?login=${}`, { formData });
         // .then(res => console.log("result of fetch post image =", res));
 
-        values.fileList = [];
-        //       ---- send data to back for info
-        console.log("ta maman", values);
-        delete values.previewVisible;
-        delete values.previewImage;
-        values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
-        values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
-        let newData = await axios
-          .patch("http://localhost:9000/api/user/profile", { values })
-          .catch(err => console.log(err));
-        // sessionStorage.setItem("data", JSON.stringify(newData.data));
-        // console.log("newData", newData.data);
+        // values.fileList = [];
+        // //       ---- send data to back for info
+        // console.log("ta maman", values);
+        // delete values.previewVisible;
+        // delete values.previewImage;
+        // values.jwt = JSON.parse(sessionStorage.getItem("data")).jwt;
+        // values.userSource = JSON.parse(sessionStorage.getItem("data")).login;
+        // let newData = await axios
+        //   .patch("http://localhost:9000/api/user/profile", { values })
+        //   .catch(err => console.log(err));
+        // // sessionStorage.setItem("data", JSON.stringify(newData.data));
+        // // console.log("newData", newData.data);
       }}
     >
       {({
