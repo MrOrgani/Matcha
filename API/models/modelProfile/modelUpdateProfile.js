@@ -7,12 +7,13 @@ const driver = neo4j.driver(
 const session = driver.session();
 const jwt = require("jsonwebtoken");
 
-async function modelUpdateProfile(values, res) {
+async function modelUpdateProfile(values) {
   // console.log("value in MODEL USER", values);
   try {
     // MODIFICATION DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
-    const userData = await session.run(
-      `MATCH (u:User {login: {userSource}})
+    const userData = await session
+      .run(
+        `MATCH (u:User {login: {userSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
                 u.age = {age},
@@ -20,11 +21,14 @@ async function modelUpdateProfile(values, res) {
                 u.sexualOrientation = {sexualOrientation},
                 u.login = {login},
                 u.email = {email},
-                u.bio = {bio}
+                u.bio = {bio},
+                u.pics = {pics},
+                u.fileList = {fileList}
                 RETURN u
-             `,
-      values.values
-    );
+                `,
+        values
+      )
+      .catch(err => console.log(err));
     //// JWT auth token
     const token = jwt.sign(
       { uuid: userData.records[0]._fields[0].properties.uuid },
@@ -33,6 +37,11 @@ async function modelUpdateProfile(values, res) {
     delete userData.records[0]._fields[0].properties.password;
     delete userData.records[0]._fields[0].properties.uuid;
     userData.records[0]._fields[0].properties.jwt = token;
+
+    console.log(
+      "value in MODEL USER",
+      userData.records[0]._fields[0].properties
+    );
     return userData.records[0]._fields[0].properties;
   } catch (err) {
     console.log(err);

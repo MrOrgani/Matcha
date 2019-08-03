@@ -48,25 +48,19 @@ export const UserCardProvider = props => {
   };
 
   useEffect(() => {
+    const api1 = `http://localhost:9000/api/rel/`;
+    const api2 = `?userSource=${props.session.login}&target=${
+      userInfo.login
+    }&jwt=${props.session.jwt}`;
+
     const getLike = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/rel/like?userSource=${
-          props.session.login
-        }&target=${userInfo.login}&jwt=${props.session.jwt}`
-      );
-      // REPLACED BY A BOOLEAN ANSWER
+      const result = await axios.get(`${api1}like${api2}`);
       if (result.data) setLiked(true);
     };
 
     const getBlock = async () => {
-      const result = await axios.get(
-        `http://localhost:9000/api/rel/block?userSource=${
-          props.session.login
-        }&target=${userInfo.login}&jwt=${props.session.jwt}`
-      );
-      // if (result.data.length > 0) setBlocked(true);
-      // REPLACED BY A BOOLEAN ANSWER
-      if (result.data) setLiked(true);
+      const result = await axios.get(`${api1}block${api2}`);
+      if (result.data) setBlocked(true);
     };
 
     getBlock();
