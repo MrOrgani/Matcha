@@ -1,11 +1,10 @@
-// import NavBar from "../../Components/Navbar/NavBar";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Home.css";
-import background from "./img/header.jpg";
-import Button from "@material-ui/core/Button";
-
-import DrawerNavigator from "../../Components/Navbar/DrawerNavigation";
+import background from "./img/couple.jpeg";
+// import Button from "@material-ui/core/Button";
+import Register from "../Home/Components/Register/Register";
+import Login from "../Home/Components/Login/Login";
 
 function HomeHeader() {
   const useStyles = makeStyles(theme => ({
@@ -13,15 +12,12 @@ function HomeHeader() {
       flexGrow: 1,
       backgroundImage: `url(${background})`,
       backgroundSize: "cover",
-      backgroundPosition: "bottom",
       overflow: "hidden",
-      height: "350px"
+      height: "100vh",
+      backgroundPosition: "50% 50%"
     },
     back: {
       marginTop: "80px"
-    },
-    button: {
-      top: "-20px"
     }
   }));
 
@@ -30,12 +26,16 @@ function HomeHeader() {
   return (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <DrawerNavigator />
-        <h1 className={classes.back}>
-          Qui allez vous rencontrer aujourd'hui ?
-        </h1>
+        {/* <DrawerNavigator /> */}
+        <h1 className={classes.back}>Are you ready for Love?</h1>
+        <p>
+          Life is an adventure which you must chose who you will share it with?
+        </p>
+        <div className="buttonContainer">
+          <Register />
+          <Login />
+        </div>
       </div>
-      <Button className={classes.button}>test</Button>
     </div>
   );
 }

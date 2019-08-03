@@ -1,57 +1,75 @@
 const router = require("express").Router();
-// const cors = require("cors");
-const fetch = require("node-fetch");
-const hobby = require("../../public/includes/hobbies");
-// const cors = require("cors");
+const express = require("express");
+const fileUpload = require("express-fileupload");
+const { updateProfile } = require("../../controlers/profile/updateProfile");
+const { addPicture } = require("../../controlers/profile/handlePictures");
+const { addHobbies } = require("../../controlers/other/addHobbies");
+const {
+  dataProfileValidation,
+  dataRegisterValidation,
+  dataLoginValidation
+} = require("./../../controlers/Validation");
+
+const app = express();
+app.use(fileUpload());
 
 const {
   createUser,
   loginUser,
   gUsers,
   delUsers,
-  getUsers
+  getUsers,
+  userVerif,
+  loginOrEmailNotTaken,
+  cryptAndObjectify
 } = require("../../controlers/User");
 
 router
-  .route("/register")
-  .post((req, res) => {
-    createUser(req, res);
+  .route("/")
+  .delete((req, res) => {
+    delUsers(req, res);
   })
+  .head((req, res) => {
+    gUsers(req, res);
+  })
+  .get((req, res) => {
+    addHobbies(req, res);
+  });
+
+router
+  .route("/profile")
+  .post(userVerif, (req, res) => {
+    addPicture(req, res);
+  })
+  .patch(userVerif, dataProfileValidation, (req, res) => {
+    updateProfile(req, res);
+  });
+
+router
+  .route("/register")
+  .post(
+    loginOrEmailNotTaken,
+    dataRegisterValidation,
+    cryptAndObjectify,
+    (req, res) => {
+      createUser(req, res);
+    }
+  )
   .get((req, res) => {
     getUsers(req, res);
   });
 
-router.route("/login").post((req, res) => {
-  loginUser(req, res);
-});
+router.route("/login").post(
+  dataLoginValidation,
+  // cryptAndObjectify,
+  (req, res) => {
+    loginUser(req, res);
+  }
+);
 
-router
-  .route("/generate")
-  .post((req, res) => {
-    req.body.value ? gUsers(req, res) : delUsers(req, res);
-  })
-  .get(async (req, res) => {
-    const url = "https://randomuser.me/api/?results=100&nat=FR";
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-
-      let hobbiesExample = hobby.hobbiesExample();
-
-      json.results.forEach((element, index) => {
-        let hobbyUser = [];
-        for (let y = 0; y < 6; y++) {
-          hobbyUser.push(
-            hobbiesExample[Math.floor(Math.random() * (49 - 0 + 1))]
-          );
-        }
-        element.hobbies = hobbyUser;
-        element.index = index;
-      });
-      res.send(json);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+// router.route("/generate");
+// .post((req, res) => {
+//   req.body.value ? gUsers(req, res) : delUsers(req, res);
+// })
 
 module.exports = router;
