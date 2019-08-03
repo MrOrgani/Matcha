@@ -4,6 +4,13 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+// envoyer message dans une room en instant,
+// Listen les event dansune room en instant,
+// --> avoir le nom des rooms pre-definis dans le chat
+// --> join a chaque clique et listen et emmetre des messages depuis ca
+
+// Envoyer et trouver les vieux messages
+
 const Social = () => {
   const [oldMessages] = useState([]); //setOldMessages
   const initialValues = {
