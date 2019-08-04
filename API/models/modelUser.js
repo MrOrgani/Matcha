@@ -21,7 +21,6 @@ async function modelCreateUser(req) {
               sexualOrientation:'bi',
               location:['', ''],
               phone:'',
-              pics:[],
               bio:'',
               tag: [],
               fileList: []

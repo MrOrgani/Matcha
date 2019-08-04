@@ -1,16 +1,10 @@
-const neo4j = require("neo4j-driver").v1;
-const driver = neo4j.driver(
-  "bolt://localhost",
-  neo4j.auth.basic(process.env.DB_LOGIN, process.env.DB_PWD),
-  () => console.log("connected to db")
-);
-const session = driver.session();
+const {initNeo4j} = require('../initNeo4j')
+const session = initNeo4j()
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(values) {
-  // console.log("value in MODEL USER", values);
+  console.log('values are', values)
   try {
-    // MODIFICATION DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
     const userData = await session
       .run(
         `MATCH (u:User {login: {userSource}})
@@ -22,7 +16,6 @@ async function modelUpdateProfile(values) {
                 u.login = {login},
                 u.email = {email},
                 u.bio = {bio},
-                u.pics = {pics},
                 u.fileList = {fileList}
                 RETURN u
                 `,
