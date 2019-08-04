@@ -6,24 +6,24 @@ const driver = neo4j.driver(
 );
 const session = driver.session();
 
-async function modelUpdateProfileImage(req, res) {
+async function modelUpdateProfileImage(req) {
   // console.log("modelUpdateProfileImage REQ IS", req.body);
   // REPLACE array of pics with new one
   try {
-    await session
+    const result = await session
       .run(
         `MATCH (u:User {login: {userSource}})
-    SET u.pics = {arrayURL}
+    SET u.fileList = {fileList}
     RETURN u`,
         {
-          userSource: req.body.userSource,
-          arrayURL: req.body.arrayURL
+          userSource: req.query.login,
+          fileList: req.body.fileList
         }
       )
-      .catch(err => res.status(400).send(err));
-    res.status(200).end();
+      .catch(err => console.log(err));
+    // console.log('result of model', result.records[0]._fields[0].properties)
   } catch (err) {
-    res.status(400).send(err);
+    console.log('error modelUpdateProfile', err)
   }
 }
 

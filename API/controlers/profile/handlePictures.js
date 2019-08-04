@@ -1,6 +1,6 @@
 const {
-  modelUpdateProfileImage
-} = require("../../models/modelProfile/modelUpdateProfileImage");
+  modelUpdateProfile
+} = require("../../models/modelProfile/modelUpdateProfile");
 
 const cloudinary = require("cloudinary");
 
@@ -12,22 +12,30 @@ cloudinary.config({
 
 async function addPicture(req, res) {
   try {
-    console.log(req.files);
+
+    // const files = Array.from(values.fileList);
+    // const formData = new FormData();
+    // files.forEach((file, i) => {
+    //   formData.append(i, file.originFileObj);
+    // });
+    // console.log('req', req.body, 'req values', req.values)
+    console.log('body',req.files);
     console.log("query", req.query);
     const values = Object.values(req.files);
     const promises = values.map(image =>
       cloudinary.uploader.upload(image.path)
     );
-    console.log("promises", promises);
-    Promise.all(promises)
-      .then(results => {
-        console.log("results", results);
-        req.body.arrayURL = [];
-        results.map(result => req.body.arrayURL.push(result.secure_url));
-        modelUpdateProfileImage(req, res);
-      })
-      .catch(err => console.log("err", err));
-    res.status(200);
+    // console.log("promises", promises);
+    const results = await Promise.all(promises)
+    .catch(err => console.log("err", err));
+    //   // .then(results => {
+    console.log("results of promises", results);
+        req.body.fileList = [];
+        results.map(result => req.body.fileList.push(result.secure_url));
+    //    const newData = await modelUpdateProfile(req.body);
+    //    console.log('new data', newData)
+    //   // })
+    // res.status(200),send(newData);
   } catch (err) {
     res.status(406).send(err);
   }
