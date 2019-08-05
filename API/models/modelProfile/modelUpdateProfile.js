@@ -1,9 +1,9 @@
-const {initNeo4j} = require('../initNeo4j')
-const session = initNeo4j()
+const { initNeo4j } = require("../initNeo4j");
+const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
-async function modelUpdateProfile(values) {
-  console.log('values are', values)
+async function modelUpdateProfile(req) {
+  console.log("values MODELUPDATEPROFILE are");
   try {
     const userData = await session
       .run(
@@ -15,13 +15,23 @@ async function modelUpdateProfile(values) {
                 u.sexualOrientation = {sexualOrientation},
                 u.login = {login},
                 u.email = {email},
-                u.bio = {bio},
-                u.fileList = {fileList}
+                u.bio = {bio}
                 RETURN u
                 `,
-        values
+        {
+          userSource: req.query.login,
+          firstName: req.body.values.firstName,
+          lastName: req.body.values.lastName,
+          age: req.body.values.age,
+          gender: req.body.values.gender,
+          sexualOrientation: req.body.values.sexualOrientation,
+          login: req.body.values.login,
+          email: req.body.values.email,
+          bio: req.body.values.bio
+        }
       )
       .catch(err => console.log(err));
+    console.log("THE NEW USER DATA", userData);
     //// JWT auth token
     const token = jwt.sign(
       { uuid: userData.records[0]._fields[0].properties.uuid },

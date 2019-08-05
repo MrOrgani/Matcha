@@ -1,4 +1,79 @@
-.container {
+.containerFormProfile {
+  margin-left: 100px;
+  margin-right: 100px;
+  height: 100vh;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 200px);
+  grid-template-areas:
+    "n i b"
+    "s m p"
+    "l . ."
+    "l . sub";
+}
+
+.name {
+  grid-area: n;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.mail {
+  grid-area: m;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.search {
+  grid-area: s;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.login {
+  grid-area: i;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.bio {
+  grid-area: b;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.localisation {
+  grid-area: l;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.photos {
+  grid-area: p;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.submit {
+  grid-area: sub;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }

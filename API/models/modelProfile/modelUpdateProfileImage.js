@@ -1,29 +1,28 @@
-const neo4j = require("neo4j-driver").v1;
-const driver = neo4j.driver(
-  "bolt://localhost",
-  neo4j.auth.basic(process.env.DB_LOGIN, process.env.DB_PWD),
-  () => console.log("connected to db")
-);
-const session = driver.session();
+const { initNeo4j } = require("../initNeo4j");
+const session = initNeo4j();
 
 async function modelUpdateProfileImage(req) {
-  // console.log("modelUpdateProfileImage REQ IS", req.body);
+  console.log("modelUpdateProfileImage REQ IS", req.body);
   // REPLACE array of pics with new one
   try {
-    const result = await session
+    const newDataPics = await session
       .run(
         `MATCH (u:User {login: {userSource}})
-    SET u.fileList = {fileList}
-    RETURN u`,
+        SET u.fileList = {fileList}
+        RETURN u`,
         {
           userSource: req.query.login,
           fileList: req.body.fileList
         }
       )
       .catch(err => console.log(err));
-    // console.log('result of model', result.records[0]._fields[0].properties)
+    console.log(
+      "newDataPics",
+      newDataPics.records[0]._fields[0].properties.fileList
+    );
+    return newDataPics.records[0]._fields[0].properties.fileList;
   } catch (err) {
-    console.log('error modelUpdateProfile', err)
+    console.log("error modelUpdateProfile", err);
   }
 }
 

@@ -1,6 +1,13 @@
 .root {
-  height: "auto";
-  width: "90vh";
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 3vh;
+  margin-left: 3vh;
+  margin-top: 10vh;
 }
 
 .image {
@@ -8,6 +15,18 @@
   background-repeat: "no-repeat";
   background-size: "cover";
   background-position: "center";
+}
+
+.title {
+  font-size: 3vh;
+  margin-left: 8vh;
+  margin-top: 8vh;
+}
+
+.blue {
+  background: blue;
+  display: "flex";
+  flex-direction: "column";
 }
 
 .paper {
