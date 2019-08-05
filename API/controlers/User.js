@@ -42,7 +42,7 @@ function cleanUserData(userData) {
     }
   );
   userData.jwt = token;
-  // delete userData.uuid;
+  delete userData.uuid;
   delete userData.password;
   return userData;
 }

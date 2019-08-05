@@ -2,6 +2,8 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Upload, Icon, Modal } from "antd";
+import SaveIcon from "@material-ui/icons/Save";
+import Button from "@material-ui/core/Button";
 
 export const FirstName = props => {
   return (
@@ -210,8 +212,16 @@ export const UploadFile = props => {
 
 export const Submit = () => {
   return (
-    <button type="submit" className="button is-block is-info is-fullwidth">
-      Submit
-    </button>
+    <Button
+      variant="contained"
+      type="submit"
+      style={{
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+        color: "white"
+      }}
+    >
+      <SaveIcon />
+      Save
+    </Button>
   );
 };
