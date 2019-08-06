@@ -10,6 +10,10 @@ const TempChatProvider = props => {
   const [visitedMe, setVisitedMe] = useState([]);
   const [iVisited, setIVisited] = useState([]);
   const [iBlocked, setIBlocked] = useState([]);
+  const [openKeys, setOpenKeys] = useState([""]);
+  const [chatTarget, setChatTarget] = useState("");
+
+  console.log(chatTarget);
 
   useEffect(() => {
     const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
@@ -17,7 +21,9 @@ const TempChatProvider = props => {
     }&jwt=${props.source.jwt}&`;
 
     const getIMatched = async () => {
+      // console.log(`${api}s=Me&r=MATCHED&t=User&w=t`);
       const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
+      // console.log(api);
       setIMatched(result.data);
     };
 
@@ -57,7 +63,18 @@ const TempChatProvider = props => {
   // console.log("TEMP CHAT CONTECT liked me", likedMe);
   return (
     <TempChatContext.Provider
-      value={[iMatched, likedMe, iLiked, visitedMe, iVisited, iBlocked]}
+      value={[
+        iMatched,
+        likedMe,
+        iLiked,
+        visitedMe,
+        iVisited,
+        iBlocked,
+        openKeys,
+        setOpenKeys,
+        chatTarget,
+        setChatTarget
+      ]}
     >
       {props.children}
     </TempChatContext.Provider>

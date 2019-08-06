@@ -1,9 +1,7 @@
 .ChatAppContainer {
   display: flex;
   width: 100%;
-  /* height: calc(100% - 300px); */
   flex-direction: column;
-  /* justify-content: space-between; */
 }
 
 .messages {
@@ -12,7 +10,6 @@
   overflow-y: hidden;
   flex-basis: auto;
   flex-grow: 1;
-  /* height: calc(100% - 40px); */
   padding: 20px 0;
 }
 
@@ -28,14 +25,14 @@ h3 {
   display: flex;
   position: relative;
   overflow: hidden;
-  padding: 0 40px 0;
+
+  height: 5vh;
+  padding: 0px 40px 10px;
   flex-shrink: 0;
 }
 
 .chat-input input[type="text"] {
   width: 100%;
-  margin-left: -20px;
-  margin-right: -20px;
 }
 
 .message.from-me .username {
@@ -49,18 +46,19 @@ h3 {
 }
 
 .message.from-me .message-body {
-  background-color: #af9570;
-  color: white;
+  background-color: lightgrey;
+  color: black;
 }
 
 .message {
   margin-bottom: 20px;
 }
+
 .message-body {
   max-width: 80%;
   display: inline-block;
   padding: 20px;
-  background-color: #eee;
+  background-color: #fe6b8b;
   border: 1px;
   border-radius: 5px;
   padding-right: 50px;

@@ -3,6 +3,10 @@ import socketIOClient from "socket.io-client";
 
 export const AuthContext = createContext();
 
+//HOW TO USE WHEN IMPORT
+// WE EXPORT 2 OBJECTS authContext (isauth. data ....) and socketContext
+//-->  const [socketContext, authContext] = useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
   // ISAUTH IS IN CONTEXT TO MAKE THE CONTEXT REFRESH
   // AND UPDATE SOCKET AUTOMATICALLY
@@ -20,23 +24,20 @@ export const AuthProvider = ({ children }) => {
   const socketContext = {};
 
   if (data && isAuth > 0) {
-    // const session = JSON.parse(sessionStorage.data);
-
     const socket = socketIOClient.connect("http://localhost:9000", {
       transports: ["polling"],
-      requestTimeout: 5000,
+      requestTimeout: 5000, // IN CASE OF FIRE BREACK GLASS
       upgrade: false,
       query: {
         // token: this.state.userToken
-        // userID: .userID,
-        login: data.login
+        login: data.login,
+        uuid: data.uuid
         // room_id: this.state.room_id
       }
     });
     socketContext.socket = socket;
   }
 
-  // console.log("socket", socketContext.socket);
   const authContext = {
     isAuth,
     setIsAuth,

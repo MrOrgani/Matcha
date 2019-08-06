@@ -1,3 +1,8 @@
 li {
   padding-left: 0px;
 }
+
+.Menu {
+  width: 30%; /* DONT'T KNOW WHY BUT DOES noT APPLY tO THECOMP --> inline Style */
+  height: 93vh;
+}

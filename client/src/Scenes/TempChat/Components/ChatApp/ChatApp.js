@@ -3,25 +3,37 @@ import Messages from "./Components/Messages";
 import ChatInput from "./Components/ChatInput";
 import { AuthContext } from "../../../../AuthContext";
 import "./ChatApp.css";
+import { TempChatContext } from "../../TempChatContext";
 
+//getthe messages from db, export them at each send
+// create the room and send messages in --> listen in the back
 const ChatApp = () => {
-  const [socket] = useContext(AuthContext);
+  const [socketContext, authContext] = useContext(AuthContext);
+  // const [iMatched, , , , , , OpenKeys] = useContext(TempChatContext);
+  // console.log(iMatched);
+  // console.log(OpenKeys);
+
   const [messages, setMessages] = useState([
     {
       login: "asdf",
-      message: "coucou ma couille"
+      content: "coucou ma couille"
     },
     {
       login: "mamen",
-      message: "Ici les messages de la db"
+      content: "Ici les messages de la db"
     }
   ]);
 
-  //   console.log(messages);
-
-  const sendHandler = msg => {
-    console.log("sendHandler: ", msg);
+  const sendHandler = content => {
+    let msg = { content: content };
+    socketContext.socket.emit("chatMessage", msg);
   };
+
+  socketContext.socket.on("chatMessage", msg => {
+    // console.log("new messages pushed: ", msg);
+    let newMessage = { login: msg.login, content: msg.content };
+    setMessages(messages.concat(newMessage));
+  });
 
   return (
     <div className="ChatAppContainer">
