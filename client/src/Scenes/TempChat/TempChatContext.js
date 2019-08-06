@@ -13,8 +13,6 @@ const TempChatProvider = props => {
   const [openKeys, setOpenKeys] = useState([""]);
   const [chatTarget, setChatTarget] = useState("");
 
-  console.log(chatTarget);
-
   useEffect(() => {
     const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
       props.source.login

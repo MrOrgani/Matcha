@@ -25,9 +25,9 @@ export const AuthProvider = ({ children }) => {
 
   if (data && isAuth > 0) {
     const socket = socketIOClient.connect("http://localhost:9000", {
-      transports: ["polling"],
-      requestTimeout: 5000, // IN CASE OF FIRE BREACK GLASS
-      upgrade: false,
+      // transports: ["polling"],
+      // requestTimeout: 5000, // IN CASE OF FIRE BREACK GLASS
+      // upgrade: false,
       query: {
         // token: this.state.userToken
         login: data.login,

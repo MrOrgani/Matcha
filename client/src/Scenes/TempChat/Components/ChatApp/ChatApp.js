@@ -9,9 +9,9 @@ import { TempChatContext } from "../../TempChatContext";
 // create the room and send messages in --> listen in the back
 const ChatApp = () => {
   const [socketContext, authContext] = useContext(AuthContext);
-  // const [iMatched, , , , , , OpenKeys] = useContext(TempChatContext);
+  const [, , , , , , , , chatTarget] = useContext(TempChatContext);
   // console.log(iMatched);
-  // console.log(OpenKeys);
+  console.log("chat target:", chatTarget);
 
   const [messages, setMessages] = useState([
     {
@@ -25,7 +25,7 @@ const ChatApp = () => {
   ]);
 
   const sendHandler = content => {
-    let msg = { content: content };
+    let msg = { content: content, target: chatTarget };
     socketContext.socket.emit("chatMessage", msg);
   };
 

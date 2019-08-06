@@ -26,9 +26,10 @@ const connectedUsrs = {};
 // ABOUT LOGIN AND CONNECTION :
 // IF CONNECTION AND CONNECTION ON OTHER TAB ADN ONE DISCTONNECT --> OTHER DISCONNECTED
 // MAYBE : NOT ALLOW CONNECTION WHEN CONNECTED OR CHECK IF CONNECTED
-io.sockets.on("connection", socket => {
+io.sockets.on("connect", socket => {
+  const chatTrgt = {};
   connectedUsrs[socket.id] = socket.handshake.query;
-  // console.log("socket", socket);
+  // console.log("socket", socket.handshake.query);
   console.log(
     "new socket connection :",
     socket.id,
@@ -39,6 +40,16 @@ io.sockets.on("connection", socket => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
+  socket.on("joinRoom", chatTarget => {
+    chatTrgt.uuid = chatTarget;
+    console.log("room joining", userSourceUuuid);
+    let userSourceUuid = connectedUsrs[socket.id].uuid;
+
+    if (chatTrgt.uuid > userSourceUuid)
+      socket.join(chatTrgt.uuid + userSourceUuid);
+    else socket.join(userSourceUuid + chatTrgt.uuid); //just testing, to be replaced with uuid combination
+  });
+
   socket
     .on("chatMessage", msg => {
       // const msg = {};
@@ -47,7 +58,18 @@ io.sockets.on("connection", socket => {
       msg.h = date.getHours();
       msg.m = date.getMinutes();
       // msg.content = content;
-      io.sockets.emit("chatMessage", msg);
+
+      // if (chatTargetUuid > userSourceUuid)
+      socket
+        .to(
+          chatTrgt.uuid > userSourceUuid
+            ? chatTrgt.uuid + userSourceUuid
+            : userSourceUuid + chatTrgt.uuidd
+        )
+        .emit("chatMessage", msg);
+      // else
+      //   socket.join(userSourceUuid + chatTargetUuid).emit("chatMessage", msg);
+      // io.sockets.to("test").emit("chatMessage", msg);
       console.log(
         "Message from id: " + socket.id,
         "from: ",
