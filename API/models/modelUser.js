@@ -54,7 +54,7 @@ async function gUsers() {
       `CALL apoc.load.json('http://localhost:9000/api/user/')
           YIELD value AS data
           UNWIND data.results AS user
-          MERGE (u:User {user_id: user.id.value})
+          MERGE (u:User {uuid: user.id.value})
           ON CREATE SET u.firstName = user.name.first,
             u.lastName = user.name.last,
               u.age = user.dob.age,

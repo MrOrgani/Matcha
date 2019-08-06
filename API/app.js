@@ -35,50 +35,35 @@ io.sockets.on("connection", socket => {
     "connected User:",
     connectedUsrs
   );
-  const disconnectUser = reason => {
-    // console.log("reason", reason);
+  const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
   socket
-    .on("chat message", content => {
-      const msg = {};
-      msg.user = connectedUsrs[socket.id].login;
+    .on("chatMessage", msg => {
+      // const msg = {};
+      msg.login = connectedUsrs[socket.id].login;
       date = new Date();
       msg.h = date.getHours();
       msg.m = date.getMinutes();
-      msg.content = content;
-      io.sockets.emit("chat message", msg);
-      console.log("Message from id: " + socket.id, "with msg: ", msg.user);
+      // msg.content = content;
+      io.sockets.emit("chatMessage", msg);
+      console.log(
+        "Message from id: " + socket.id,
+        "from: ",
+        msg.login,
+        "with msg:",
+        msg.content
+      );
     })
-    .on("login", login => {
-      console.log("login", login);
-      connectedUsrs[login] = true;
-      console.log("connected Users are: ", connectedUsrs);
-    })
+    // .on("login", login => {
+    //   console.log("login", login);
+    //   connectedUsrs[login] = true;
+    //   console.log("connected Users are: ", connectedUsrs);
+    // })
     .on("logOut", disconnectUser)
     .on("disconnect", reason => {
-      // console.log(reason);
-      // console.log("disconnnnnnnnnnect");
+      // console.log("disconnnnnnnnnnect, reason is:", reason);
       disconnectUser(reason);
     });
 });
-
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
-
-// const port = 5000;
-// app.listen(port, () => console.log(`Connect on port ${port}`));

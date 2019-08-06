@@ -17,18 +17,6 @@ const Social = () => {
     msg: ""
   };
 
-  // socket
-  //   .on("chat message", msg => {
-  //     console.log("new messages pushed: ", msg);
-  //     setOldMessages([...oldMessages, msg]);
-  //   })
-  //   .on("newUsr", () => {
-  //     console.log("mamen");
-  //   })
-  //   .on("deleteUsr", () => {
-  //     console.log("deleteUsr");
-  //   });
-
   return (
     <div>
       <ul>

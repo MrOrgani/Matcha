@@ -7,36 +7,44 @@ import UserInMenu from "./Components/UserInMenu";
 const { SubMenu, Item } = Menu;
 
 const MenuChat = () => {
-  const [iMatched, likedMe, iLiked, visitedMe, iVisited, iBlocked] = useContext(
-    TempChatContext
-  );
+  const [
+    iMatched,
+    likedMe,
+    iLiked,
+    visitedMe,
+    iVisited,
+    iBlocked,
+    openKeys,
+    setOpenKeys
+  ] = useContext(TempChatContext);
   // submenu keys of first level
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
-  const [state, setState] = useState({
-    openKeys: [""]
-  });
-
-  const onOpenChange = openKeys => {
-    const latestOpenKey = openKeys.find(
-      key => state.openKeys.indexOf(key) === -1
-    );
+  // const [state, setState] = useState({
+  //   openKeys: [""]
+  // });
+  // console.log("openKeys", openKeys);
+  const onOpenChange = OKeys => {
+    // console.log(OKeys);
+    const latestOpenKey = OKeys.find(key => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setState({ openKeys });
+      setOpenKeys(OKeys);
+      // setState({ openKeys });
     } else {
-      setState({
-        openKeys: latestOpenKey ? [latestOpenKey] : []
-      });
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+      // setState({
+      //   openKeys: latestOpenKey ? [latestOpenKey] : []
+      // });
     }
   };
 
   return (
     <Menu
       mode="inline"
-      openKeys={state.openKeys}
+      openKeys={openKeys}
       onOpenChange={onOpenChange}
       className="Menu"
-      style={{ width: 256, height: "100vh" }} // avirer pour avoir la bonne taille
+      style={{ width: "30%" }} // avirer pour avoir la bonne taille
     >
       <SubMenu
         key="sub1"
@@ -68,7 +76,7 @@ const MenuChat = () => {
         <SubMenu key="sub20" title="I LIKED">
           {iLiked.map(el => {
             return (
-              <Menu.Item style={{ paddingLeft: "0px" }} key={el.user_id}>
+              <Menu.Item style={{ paddingLeft: "0px" }} key={el.uuid}>
                 <UserInMenu data={el} />
               </Menu.Item>
             );
@@ -80,7 +88,7 @@ const MenuChat = () => {
               <Item
                 className="Item"
                 style={{ paddingLeft: "0px" }}
-                key={el.user_id}
+                key={el.uuid}
               >
                 <UserInMenu className="Item" data={el} />
               </Item>
@@ -100,7 +108,7 @@ const MenuChat = () => {
         <SubMenu key="sub40" title="VISITED ME">
           {visitedMe.map(el => {
             return (
-              <Menu.Item key={el.user_id}>
+              <Menu.Item key={el.uuid}>
                 <UserInMenu data={el} />
               </Menu.Item>
             );
@@ -109,7 +117,7 @@ const MenuChat = () => {
         <SubMenu key="sub41" title="VISITED">
           {iVisited.map(el => {
             return (
-              <Menu.Item key={el.user_id}>
+              <Menu.Item key={el.uuid}>
                 <UserInMenu data={el} />
               </Menu.Item>
             );
@@ -127,7 +135,7 @@ const MenuChat = () => {
       >
         {iBlocked.map(el => {
           return (
-            <Menu.Item key={el.user_id}>
+            <Menu.Item key={el.uuid}>
               <UserInMenu data={el} />
             </Menu.Item>
           );

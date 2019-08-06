@@ -42,7 +42,7 @@ function cleanUserData(userData) {
     }
   );
   userData.jwt = token;
-  delete userData.uuid;
+  // delete userData.uuid;// need it for the chat rooms
   delete userData.password;
   return userData;
 }

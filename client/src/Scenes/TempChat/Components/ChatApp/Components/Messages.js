@@ -3,12 +3,10 @@ import Message from "./Message";
 import "../ChatApp.css";
 
 const Messages = props => {
-  console.log(props);
-  const messagesDiv = props.messages.map((message, i) => {
+  // console.log(props.messages[0]);
+  const messagesDiv = props.messages[0].map((message, i) => {
     // console.log(message);
-    return (
-      <Message key={i} username={message.login} message={message.message} />
-    );
+    return <Message key={i} login={message.login} content={message.content} />;
   });
 
   return (

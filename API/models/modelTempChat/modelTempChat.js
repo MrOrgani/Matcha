@@ -5,7 +5,8 @@ exports.modelTempChat = async req => {
   try {
     let cypher = `MATCH (s:User `;
     cypher += req.s !== "User" ? `{login:{userSource}})-` : `)-`;
-    cypher += `[r:${req.r}]->(t:User `;
+    cypher +=
+      req.r === "MATCHED" ? `[r:${req.r}]-(t:User ` : `[r:${req.r}]->(t:User `;
     cypher += req.t !== "User" ? `{login:{userSource}}) RETURN ` : `) RETURN `;
     cypher += `${req.w}`;
 

@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./UserInMenu.css";
+import { TempChatContext } from "../../../TempChatContext";
 
 const UserInMenu = props => {
+  const [, , , , , , , , , setChatTarget] = useContext(TempChatContext);
+  console.log(setChatTarget);
+
   function capFLtr(string) {
+    // console.log(string.charAt(0).toUpperCase() + string.slice(1));
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
   return (
-    <div style={{ display: "flex" }} onClick={console.log(props.data)}>
+    <div
+      style={{ display: "flex" }}
+      onClick={() => {
+        console.log(props.data);
+        setChatTarget(props.data.uuid);
+      }}
+    >
       <img
         style={{ borderRadius: "50%", width: "20%", height: "20%" }}
         alt=""
@@ -25,13 +35,14 @@ const UserInMenu = props => {
         }}
       />
       <div
-        style={{
-          alignSelf: "flex-end",
-          fontFamily: "Raleway",
-          fontSize: "2em",
-          paddingLeft: "1em",
-          fontStyle: "italic"
-        }}
+      // style={{
+      //   alignSelf: "flex-end",
+      //   fontFamily: "Raleway",
+      //   fontSize: "2em",
+      //   paddingLeft: "1em",
+      //   fontStyle: "italic",
+      //   background: "black"
+      // }}
       >
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}
