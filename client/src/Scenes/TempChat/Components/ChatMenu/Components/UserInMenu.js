@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import "./UserInMenu.css";
 import { TempChatContext } from "../../../TempChatContext";
+import { AuthContext } from "../../../../../AuthContext";
 
 const UserInMenu = props => {
-  const [, , , , , , , , , setChatTarget] = useContext(TempChatContext);
-  console.log(setChatTarget);
+  const [, , , , , , , , chatTarget, setChatTarget] = useContext(
+    TempChatContext
+  );
+  const [socketContext, authContext] = useContext(AuthContext);
+  // console.log(setChatTarget);
 
   function capFLtr(string) {
     // console.log(string.charAt(0).toUpperCase() + string.slice(1));
@@ -15,6 +19,8 @@ const UserInMenu = props => {
       style={{ display: "flex" }}
       onClick={() => {
         console.log(props.data);
+        socketContext.socket.emit("joinRoom", chatTarget);
+        // socketContext.socket.join("test");
         setChatTarget(props.data.uuid);
       }}
     >

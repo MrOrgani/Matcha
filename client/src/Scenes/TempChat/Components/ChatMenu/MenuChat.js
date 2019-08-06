@@ -58,7 +58,7 @@ const MenuChat = () => {
         {iMatched.map(el => {
           // console.log(el);
           return (
-            <Menu.Item key={el.uuid}>
+            <Menu.Item key={el.uuid + "iMatched"}>
               <UserInMenu data={el} />
             </Menu.Item>
           );
@@ -76,7 +76,10 @@ const MenuChat = () => {
         <SubMenu key="sub20" title="I LIKED">
           {iLiked.map(el => {
             return (
-              <Menu.Item style={{ paddingLeft: "0px" }} key={el.uuid}>
+              <Menu.Item
+                style={{ paddingLeft: "0px" }}
+                key={el.uuid + `iLiked`}
+              >
                 <UserInMenu data={el} />
               </Menu.Item>
             );
