@@ -8,7 +8,8 @@ router
   .use("/api/user", require("./routes/user"))
   .use("/api/rel", require("./routes/routeRel"))
   .use("/api/tempchat", require("./routes/routeTempChat"))
-  .use("/api/getusers", require("./routes/getusers"));
+  .use("/api/getusers", require("./routes/getusers"))
+  .use("/api/chatMessages", require("./routes/chatMessages"));
 // router.use("/api/rel", require("./routes/routeRel"));
 
 // Just for testing
