@@ -11,7 +11,7 @@ const ChatApp = () => {
   const [socketContext, authContext] = useContext(AuthContext);
   const [, , , , , , , , chatTarget] = useContext(TempChatContext);
   // console.log(iMatched);
-  console.log("chat target:", chatTarget);
+  // console.log("chat target:", chatTarget);
 
   const [messages, setMessages] = useState([
     {
@@ -27,10 +27,11 @@ const ChatApp = () => {
   const sendHandler = content => {
     let msg = { content: content, target: chatTarget };
     socketContext.socket.emit("chatMessage", msg);
+    // console.log("chatinput send");
   };
 
   socketContext.socket.on("chatMessage", msg => {
-    // console.log("new messages pushed: ", msg);
+    console.log("new messages pushed: ", msg); //JE NE COMPRENDS PAS MAIS APPAREMMENT ON PASSE 8 FOIS ICI PAR MESSAGE
     let newMessage = { login: msg.login, content: msg.content };
     setMessages(messages.concat(newMessage));
   });

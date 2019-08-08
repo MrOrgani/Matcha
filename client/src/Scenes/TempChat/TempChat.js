@@ -5,6 +5,7 @@ import { TempChatProvider } from "./TempChatContext";
 import ChatApp from "./Components/ChatApp/ChatApp";
 
 const TempChat = () => {
+  console.log("tempchat", JSON.parse(sessionStorage.getItem("data")));
   return (
     <div className="ChatContainer">
       <TempChatProvider source={JSON.parse(sessionStorage.getItem("data"))}>

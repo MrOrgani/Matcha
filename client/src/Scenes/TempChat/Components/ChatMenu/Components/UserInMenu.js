@@ -17,11 +17,13 @@ const UserInMenu = props => {
   return (
     <div
       style={{ display: "flex" }}
-      onClick={() => {
-        console.log(props.data);
-        socketContext.socket.emit("joinRoom", chatTarget);
+      onClick={async () => {
+        // console.log(props.data.uuid, setChatTarget);
+        await setChatTarget(props.data.uuid);
+        console.log("userInMenu :", props.data.uuid);
+        // console.log(socketContext);
+        socketContext.socket.emit("joinRoom", props.data.uuid);
         // socketContext.socket.join("test");
-        setChatTarget(props.data.uuid);
       }}
     >
       <img
