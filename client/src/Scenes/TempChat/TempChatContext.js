@@ -12,8 +12,10 @@ const TempChatProvider = props => {
   const [iBlocked, setIBlocked] = useState([]);
   const [openKeys, setOpenKeys] = useState([""]);
   const [chatTarget, setChatTarget] = useState("");
+  // console.log(chatTarget);
 
-  useEffect(() => {
+  useEffect(_ => {
+    // console.log(props.source);
     const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
       props.source.login
     }&jwt=${props.source.jwt}&`;

@@ -28,7 +28,8 @@ export default function TemporaryDrawer() {
 
   // CHECKS IF USER IS AUTH
   const menuItems = [{ text: "Home", link: "/" }];
-  if (sessionStorage.data) {
+  // console.log(sessionStorage);
+  if (sessionStorage.data && sessionStorage.isAuth !== 0) {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
