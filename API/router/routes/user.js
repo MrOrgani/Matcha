@@ -38,12 +38,9 @@ router
 
 router
   .route("/profile")
-  .post(
-    // userVerif,
-    (req, res) => {
-      addPicture(req, res);
-    }
-  )
+  .post(userVerif, (req, res) => {
+    addPicture(req, res);
+  })
   .patch(userVerif, dataProfileValidation, (req, res) => {
     updateProfile(req, res);
   });

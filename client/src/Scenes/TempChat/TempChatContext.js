@@ -19,7 +19,7 @@ const TempChatProvider = props => {
     const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
       props.source.login
     }&jwt=${props.source.jwt}&`;
-
+    console.log(api);
     const getIMatched = async () => {
       // console.log(`${api}s=Me&r=MATCHED&t=User&w=t`);
       const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);

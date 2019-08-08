@@ -26,6 +26,14 @@ const connectedUsrs = {};
 // ABOUT LOGIN AND CONNECTION :
 // IF CONNECTION AND CONNECTION ON OTHER TAB ADN ONE DISCTONNECT --> OTHER DISCONNECTED
 // MAYBE : NOT ALLOW CONNECTION WHEN CONNECTED OR CHECK IF CONNECTED
+// doc pour les emit ect https://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender
+
+console.log(
+  typeof JSON.parse(
+    '{"uuidSource":"538f9370-592c-44dd-8619-6f178b83479e","content":"Aque Coucou"}'
+  )
+);
+
 io.sockets.on("connect", socket => {
   const chatTarget = {};
   connectedUsrs[socket.id] = socket.handshake.query;
@@ -73,6 +81,7 @@ io.sockets.on("connect", socket => {
       msg.login = connectedUsrs[socket.id].login;
       let userSourceUuid = connectedUsrs[socket.id].uuid;
       date = new Date();
+      msg.uuidSource = userSourceUuid;
       msg.h = date.getHours();
       msg.m = date.getMinutes();
       // msg.content = content;
