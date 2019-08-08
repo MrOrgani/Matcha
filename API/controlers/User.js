@@ -94,9 +94,11 @@ async function loginOrEmailNotTaken(req, res, next) {
   try {
     let data = await findOne(req.body.login, "login");
     if (data.length > 0) res.status(400).send("Login already taken.");
-    data = await findOne(req.body.email, "email");
-    if (data.length > 0) res.status(400).send("Login already taken.");
-    next();
+    else {
+      data = await findOne(req.body.email, "email");
+      if (data.length > 0) res.status(400).send("Login already taken.");
+      else next();
+    }
   } catch (err) {
     res.status(400).send(err);
   }

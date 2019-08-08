@@ -27,7 +27,7 @@ const connectedUsrs = {};
 // IF CONNECTION AND CONNECTION ON OTHER TAB ADN ONE DISCTONNECT --> OTHER DISCONNECTED
 // MAYBE : NOT ALLOW CONNECTION WHEN CONNECTED OR CHECK IF CONNECTED
 io.sockets.on("connect", socket => {
-  const chatTrgt = {};
+  const chatTarget = {};
   connectedUsrs[socket.id] = socket.handshake.query;
   // console.log("socket", socket.handshake.query);
   console.log(
@@ -40,33 +40,58 @@ io.sockets.on("connect", socket => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
-  socket.on("joinRoom", chatTarget => {
-    chatTrgt.uuid = chatTarget;
-    console.log("room joining", userSourceUuuid);
+  socket.on("joinRoom", chatTargetFromClient => {
+    chatTarget.uuid = chatTargetFromClient;
     let userSourceUuid = connectedUsrs[socket.id].uuid;
+    // console.log("room joining", userSourceUuuid);
+    console.log(
+      "JOINJOIN chatTarget :",
+      chatTarget.uuid,
+      typeof chatTarget.uuid,
+      "userSourceUuid :",
+      userSourceUuid,
+      typeof userSourceUuid
+    );
+    // socket.join("test");
 
-    if (chatTrgt.uuid > userSourceUuid)
-      socket.join(chatTrgt.uuid + userSourceUuid);
-    else socket.join(userSourceUuid + chatTrgt.uuid); //just testing, to be replaced with uuid combination
+    // if (chatTarget.uuid > userSourceUuid) {
+    // console.log(chatTarget.uuid > userSourceUuid);
+    // console.log(chatTarget.uuid, userSourceUuid);
+    // } else
+
+    let roomID =
+      chatTarget.uuid > userSourceUuid
+        ? chatTarget.uuid.concat(userSourceUuid)
+        : userSourceUuid.concat(chatTarget.uuid);
+    console.log(roomID);
+    socket.join(roomID);
   });
 
   socket
     .on("chatMessage", msg => {
       // const msg = {};
       msg.login = connectedUsrs[socket.id].login;
+      let userSourceUuid = connectedUsrs[socket.id].uuid;
       date = new Date();
       msg.h = date.getHours();
       msg.m = date.getMinutes();
       // msg.content = content;
 
       // if (chatTargetUuid > userSourceUuid)
-      socket
-        .to(
-          chatTrgt.uuid > userSourceUuid
-            ? chatTrgt.uuid + userSourceUuid
-            : userSourceUuid + chatTrgt.uuidd
-        )
-        .emit("chatMessage", msg);
+      console.log(
+        "Trying to emit chat message",
+        chatTarget.uuid,
+        userSourceUuid
+      );
+      // io.sockets.to("test").emit("chatMessage", msg);
+      let roomID =
+        chatTarget.uuid > userSourceUuid
+          ? chatTarget.uuid + userSourceUuid
+          : userSourceUuid + chatTarget.uuid;
+      chatTarget &&
+        userSourceUuid &&
+        io.sockets.to(roomID).emit("chatMessage", msg);
+
       // else
       //   socket.join(userSourceUuid + chatTargetUuid).emit("chatMessage", msg);
       // io.sockets.to("test").emit("chatMessage", msg);
