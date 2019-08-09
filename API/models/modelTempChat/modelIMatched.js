@@ -8,7 +8,7 @@ async function modelIMatched(req) {
       `MATCH (u:User {login:{userSource}})-[r:MATCHED]-(n:User) RETURN n`,
       req
     );
-    console.log(data.records);
+    // console.log(data.records);
     return data.records;
   } catch (err) {
     console.log(err);

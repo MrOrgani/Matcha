@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Message from "./Message";
 import "../ChatApp.css";
+import { TempChatContext } from "../../../TempChatContext";
 
 const Messages = props => {
-  // console.log(props.messages[0]);
-  const messagesDiv = props.messages[0].map((message, i) => {
+  const [chatAppContext] = useContext(TempChatContext);
+  // console.log(chatAppContext.messsages);
+  const messagesDiv = chatAppContext.messages.map((message, i) => {
     // console.log(message);
-    return <Message key={i} login={message.login} content={message.content} />;
+    return (
+      <Message
+        key={i}
+        uuidviewer={JSON.parse(sessionStorage.data).uuid}
+        uuidSource={message.uuid}
+        DisplayName={message.displayName}
+        content={message.content}
+      />
+    );
   });
 
   return (

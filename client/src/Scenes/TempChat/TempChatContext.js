@@ -1,81 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../../AuthContext";
 
 const TempChatContext = React.createContext([{}, () => {}]);
 
 const TempChatProvider = props => {
-  const [iMatched, setIMatched] = useState([]);
-  const [likedMe, setLikedMe] = useState([]);
-  const [iLiked, setILiked] = useState([]);
-  const [visitedMe, setVisitedMe] = useState([]);
-  const [iVisited, setIVisited] = useState([]);
-  const [iBlocked, setIBlocked] = useState([]);
-  const [openKeys, setOpenKeys] = useState([""]);
-  const [chatTarget, setChatTarget] = useState("");
-  // console.log(chatTarget);
+  const [socketContext, authContext] = useContext(AuthContext);
+  const [chatTarget, setChatTarget] = useState({});
+  const [messages, setMessages] = useState([
+    {
+      login: "asdf",
+      uuid: "538f9370-592c-44dd-8619-6f178b83479e",
+      content: "coucou ma couille"
+      // displayName: "Aasdf A"
+    },
+    {
+      login: "mamen",
+      uuid: "",
+      content: "Ici les fake messages de la db"
+      // displayName: "Mamen A"
+    }
+  ]);
 
-  useEffect(_ => {
-    // console.log(props.source);
-    const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
-      props.source.login
-    }&jwt=${props.source.jwt}&`;
-    console.log(api);
-    const getIMatched = async () => {
-      // console.log(`${api}s=Me&r=MATCHED&t=User&w=t`);
-      const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
-      // console.log(api);
-      setIMatched(result.data);
-    };
+  const fetchData = async () => {
+    const result = await axios(
+      `http://localhost:9000/api/chatMessages?uuidSource=${
+        authContext.data.uuid
+      }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
+    );
+    setMessages(messages.concat(JSON.parse(result.data[0])));
+    console.log("PREVIOUS MESSAGES LOADED");
+  };
 
-    const getLikedMe = async () => {
-      const result = await axios.get(`${api}s=User&r=LIKED&t=me&w=s`);
-      setLikedMe(result.data);
-    };
+  useEffect(() => {
+    socketContext.socket.emit("joinRoom", chatTarget);
+    chatTarget.uuid && fetchData();
+    console.log("CHATTARGET WAS CHANGED --> JOINING ROOM: ", chatTarget.uuid);
+  }, [chatTarget.uuid]);
 
-    const getILiked = async () => {
-      const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
-      setILiked(result.data);
-    };
+  const chatAppContext = {
+    chatTarget,
+    setChatTarget,
+    messages,
+    setMessages
+  };
 
-    const getVisitedMe = async () => {
-      const result = await axios.get(`${api}s=User&r=VISITED&t=me&w=s`);
-      setVisitedMe(result.data);
-    };
-
-    const getIVisited = async () => {
-      const result = await axios.get(`${api}s=Me&r=VISITED&t=User&w=t`);
-      setIVisited(result.data);
-    };
-
-    const getIBlocked = async () => {
-      const result = await axios.get(`${api}s=Me&r=BLOCKED&t=User&w=t`);
-      setIBlocked(result.data);
-    };
-
-    getIMatched();
-    getLikedMe();
-    getILiked();
-    getVisitedMe();
-    getIVisited();
-    getIBlocked();
-  }, []);
-
-  // console.log("TEMP CHAT CONTECT liked me", likedMe);
   return (
-    <TempChatContext.Provider
-      value={[
-        iMatched,
-        likedMe,
-        iLiked,
-        visitedMe,
-        iVisited,
-        iBlocked,
-        openKeys,
-        setOpenKeys,
-        chatTarget,
-        setChatTarget
-      ]}
-    >
+    <TempChatContext.Provider value={[chatAppContext]}>
       {props.children}
     </TempChatContext.Provider>
   );

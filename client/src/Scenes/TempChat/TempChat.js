@@ -3,13 +3,15 @@ import ChatMenu from "./Components/ChatMenu/MenuChat";
 import "./TempChat.css";
 import { TempChatProvider } from "./TempChatContext";
 import ChatApp from "./Components/ChatApp/ChatApp";
+import { ChatMenuProvider } from "./ChatMenuContext";
 
 const TempChat = () => {
-  console.log("tempchat", JSON.parse(sessionStorage.getItem("data")));
   return (
     <div className="ChatContainer">
-      <TempChatProvider source={JSON.parse(sessionStorage.getItem("data"))}>
-        <ChatMenu />
+      <TempChatProvider>
+        <ChatMenuProvider source={JSON.parse(sessionStorage.getItem("data"))}>
+          <ChatMenu />
+        </ChatMenuProvider>
         <ChatApp />
       </TempChatProvider>
     </div>

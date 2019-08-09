@@ -5,7 +5,7 @@ require("dotenv").config(); //STORE PASSWORD AND LOGIN IN .ENV
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const formData = require("express-form-data");
-
+// const newMessages = require("./controlers/tempchat/newMessages");
 const io = require("socket.io")(server);
 
 // SERVER LISTENS
@@ -28,38 +28,33 @@ const connectedUsrs = {};
 // MAYBE : NOT ALLOW CONNECTION WHEN CONNECTED OR CHECK IF CONNECTED
 // doc pour les emit ect https://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender
 
-console.log(
-  typeof JSON.parse(
-    '{"uuidSource":"538f9370-592c-44dd-8619-6f178b83479e","content":"Aque Coucou"}'
-  )
-);
-
 io.sockets.on("connect", socket => {
   const chatTarget = {};
   connectedUsrs[socket.id] = socket.handshake.query;
   // console.log("socket", socket.handshake.query);
-  console.log(
-    "new socket connection :",
-    socket.id,
-    "connected User:",
-    connectedUsrs
-  );
+  // console.log(
+  //   "new socket connection :",
+  //   socket.id,
+  //   "connected User:",
+  //   connectedUsrs
+  // );
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
   socket.on("joinRoom", chatTargetFromClient => {
-    chatTarget.uuid = chatTargetFromClient;
+    chatTarget.uuid = chatTargetFromClient.uuid; //SECURITY HAZARD INFO FROM FRONT
     let userSourceUuid = connectedUsrs[socket.id].uuid;
+    // let userSourceDispla
     // console.log("room joining", userSourceUuuid);
-    console.log(
-      "JOINJOIN chatTarget :",
-      chatTarget.uuid,
-      typeof chatTarget.uuid,
-      "userSourceUuid :",
-      userSourceUuid,
-      typeof userSourceUuid
-    );
+    // console.log(
+    //   "JOINJOIN chatTarget :",
+    //   chatTarget.uuid,
+    //   typeof chatTarget.uuid,
+    //   "userSourceUuid :",
+    //   userSourceUuid,
+    //   typeof userSourceUuid
+    // );
     // socket.join("test");
 
     // if (chatTarget.uuid > userSourceUuid) {
@@ -71,46 +66,34 @@ io.sockets.on("connect", socket => {
       chatTarget.uuid > userSourceUuid
         ? chatTarget.uuid.concat(userSourceUuid)
         : userSourceUuid.concat(chatTarget.uuid);
-    console.log(roomID);
+    // console.log(roomID);
     socket.join(roomID);
   });
 
   socket
     .on("chatMessage", msg => {
-      // const msg = {};
-      msg.login = connectedUsrs[socket.id].login;
+      console.log("received CHAT MESSAGE IN BACK: ", msg);
       let userSourceUuid = connectedUsrs[socket.id].uuid;
-      date = new Date();
       msg.uuidSource = userSourceUuid;
+      date = new Date();
       msg.h = date.getHours();
       msg.m = date.getMinutes();
-      // msg.content = content;
+      msg.target = chatTarget.uuid;
 
-      // if (chatTargetUuid > userSourceUuid)
-      console.log(
-        "Trying to emit chat message",
-        chatTarget.uuid,
-        userSourceUuid
-      );
-      // io.sockets.to("test").emit("chatMessage", msg);
       let roomID =
         chatTarget.uuid > userSourceUuid
           ? chatTarget.uuid + userSourceUuid
           : userSourceUuid + chatTarget.uuid;
-      chatTarget &&
-        userSourceUuid &&
-        io.sockets.to(roomID).emit("chatMessage", msg);
+      console.log("SENDING TO CLIENT SOCKET: ", msg);
+      chatTarget && userSourceUuid && io.to(roomID).emit("chatMessage", msg);
 
-      // else
-      //   socket.join(userSourceUuid + chatTargetUuid).emit("chatMessage", msg);
-      // io.sockets.to("test").emit("chatMessage", msg);
-      console.log(
-        "Message from id: " + socket.id,
-        "from: ",
-        msg.login,
-        "with msg:",
-        msg.content
-      );
+      // console.log(
+      //   "Message from id: " + socket.id,
+      //   "from: ",
+      //   msg.login,
+      //   "with msg:",
+      //   msg.content
+      // );
     })
     // .on("login", login => {
     //   console.log("login", login);
