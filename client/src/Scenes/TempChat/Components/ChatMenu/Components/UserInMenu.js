@@ -1,29 +1,25 @@
 import React, { useContext } from "react";
 import "./UserInMenu.css";
 import { TempChatContext } from "../../../TempChatContext";
-import { AuthContext } from "../../../../../AuthContext";
+// import { AuthContext } from "../../../../../AuthContext";
 
 const UserInMenu = props => {
-  const [, , , , , , , , chatTarget, setChatTarget] = useContext(
-    TempChatContext
-  );
-  const [socketContext, authContext] = useContext(AuthContext);
-  // console.log(setChatTarget);
+  const [chatAppContext] = useContext(TempChatContext);
 
   function capFLtr(string) {
-    // console.log(string.charAt(0).toUpperCase() + string.slice(1));
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
   return (
     <div
       style={{ display: "flex" }}
       onClick={async () => {
-        // console.log(props.data.uuid, setChatTarget);
-        await setChatTarget(props.data.uuid);
-        console.log("userInMenu :", props.data.uuid);
-        // console.log(socketContext);
-        socketContext.socket.emit("joinRoom", props.data.uuid);
-        // socketContext.socket.join("test");
+        console.log(props.data);
+        await chatAppContext.setChatTarget({
+          uuid: props.data.uuid,
+          displayName:
+            capFLtr(props.data.firstName) + " " + capFLtr(props.data.lastName)
+        });
       }}
     >
       <img
