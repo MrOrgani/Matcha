@@ -12,7 +12,7 @@ const TempChat = () => {
         <ChatMenuProvider source={JSON.parse(sessionStorage.getItem("data"))}>
           <ChatMenu />
         </ChatMenuProvider>
-        <ChatApp />
+        <ChatApp id="chatApp" />
       </TempChatProvider>
     </div>
   );
