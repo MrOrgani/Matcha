@@ -9,13 +9,11 @@ const TempChatProvider = props => {
   const [chatTarget, setChatTarget] = useState({});
   const [messages, setMessages] = useState([
     {
-      // login: "asdf",
-      uuidSource: "",
-      h: "",
-      m: "",
+      // uuidSource: "",
+      // h: "",
+      // m: "",
       content:
         "Welcome to the chat, click on an icon to get a conversation going"
-      // displayName: "Aasdf A"
     }
   ]);
 
@@ -26,7 +24,7 @@ const TempChatProvider = props => {
       }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
     );
     // console.log("PREVIOUS MESSAGES LOADED", result.data);
-    setMessages(messages.concat(result.data));
+    result.data && setMessages(result.data);
   };
 
   useEffect(() => {
