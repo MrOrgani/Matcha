@@ -9,16 +9,13 @@ const TempChatProvider = props => {
   const [chatTarget, setChatTarget] = useState({});
   const [messages, setMessages] = useState([
     {
-      login: "asdf",
-      uuid: "538f9370-592c-44dd-8619-6f178b83479e",
-      content: "coucou ma couille"
+      // login: "asdf",
+      uuidSource: "",
+      h: "",
+      m: "",
+      content:
+        "Welcome to the chat, click on an icon to get a conversation going"
       // displayName: "Aasdf A"
-    },
-    {
-      login: "mamen",
-      uuid: "",
-      content: "Ici les fake messages de la db"
-      // displayName: "Mamen A"
     }
   ]);
 
@@ -28,14 +25,14 @@ const TempChatProvider = props => {
         authContext.data.uuid
       }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
     );
-    setMessages(messages.concat(JSON.parse(result.data[0])));
-    console.log("PREVIOUS MESSAGES LOADED");
+    // console.log("PREVIOUS MESSAGES LOADED", result.data);
+    setMessages(messages.concat(result.data));
   };
 
   useEffect(() => {
     socketContext.socket.emit("joinRoom", chatTarget);
     chatTarget.uuid && fetchData();
-    console.log("CHATTARGET WAS CHANGED --> JOINING ROOM: ", chatTarget.uuid);
+    // console.log("CHATTARGET WAS CHANGED --> JOINING ROOM: ", chatTarget.uuid);
   }, [chatTarget.uuid]);
 
   const chatAppContext = {

@@ -29,21 +29,16 @@ const connectedUsrs = {};
 // doc pour les emit ect https://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender
 
 io.sockets.on("connect", socket => {
-  const chatTarget = {};
+  // const chatTarget = {};
   connectedUsrs[socket.id] = socket.handshake.query;
-  // console.log("socket", socket.handshake.query);
-  // console.log(
-  //   "new socket connection :",
-  //   socket.id,
-  //   "connected User:",
-  //   connectedUsrs
-  // );
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
 
   socket.on("joinRoom", chatTargetFromClient => {
-    chatTarget.uuid = chatTargetFromClient.uuid; //SECURITY HAZARD INFO FROM FRONT
+    socket.chatTarget = {
+      uuid: chatTargetFromClient.uuid
+    }; //SECURITY HAZARD INFO FROM FRONT
     let userSourceUuid = connectedUsrs[socket.id].uuid;
     // let userSourceDispla
     // console.log("room joining", userSourceUuuid);
@@ -63,29 +58,41 @@ io.sockets.on("connect", socket => {
     // } else
 
     let roomID =
-      chatTarget.uuid > userSourceUuid
-        ? chatTarget.uuid.concat(userSourceUuid)
-        : userSourceUuid.concat(chatTarget.uuid);
-    // console.log(roomID);
+      socket.chatTarget.uuid > userSourceUuid
+        ? socket.chatTarget.uuid.concat(userSourceUuid)
+        : userSourceUuid.concat(socket.chatTarget.uuid);
+    console.log("joining room", roomID);
     socket.join(roomID);
   });
 
+  const axios = require("axios");
   socket
     .on("chatMessage", msg => {
-      console.log("received CHAT MESSAGE IN BACK: ", msg);
+      // console.log("received CHAT MESSAGE IN BACK: ", msg);
       let userSourceUuid = connectedUsrs[socket.id].uuid;
-      msg.uuidSource = userSourceUuid;
       date = new Date();
+      msg.uuidSource = userSourceUuid;
       msg.h = date.getHours();
       msg.m = date.getMinutes();
-      msg.target = chatTarget.uuid;
+      msg.target = socket.chatTarget.uuid;
 
       let roomID =
-        chatTarget.uuid > userSourceUuid
-          ? chatTarget.uuid + userSourceUuid
-          : userSourceUuid + chatTarget.uuid;
-      console.log("SENDING TO CLIENT SOCKET: ", msg);
-      chatTarget && userSourceUuid && io.to(roomID).emit("chatMessage", msg);
+        socket.chatTarget.uuid > userSourceUuid
+          ? socket.chatTarget.uuid + userSourceUuid
+          : userSourceUuid + socket.chatTarget.uuid;
+      // console.log(
+      //   "SENDING TO CLIENT SOCKET: ",
+      //   msg,
+      //   socket.chatTarget,
+      //   userSourceUuid
+      // );
+      if (socket.chatTarget.uuid && userSourceUuid) {
+        axios.post("http://localhost:9000/api/chatMessages/", msg);
+        // .then(res => console.log(res));
+        // console.log(msg);
+        // console.log("emiting to all clients in room ", roomID);
+        io.to(roomID).emit("chatMessage", msg);
+      }
 
       // console.log(
       //   "Message from id: " + socket.id,
