@@ -16,6 +16,7 @@ const ChatApp = () => {
   const sendHandler = content => {
     let msg = {
       jwt: authContext.data.jwt,
+      uuidSource: authContext.data.uuid,
       content: content
     };
     // console.log("chatMessage sent from client");
