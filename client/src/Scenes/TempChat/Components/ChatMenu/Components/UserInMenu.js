@@ -9,7 +9,9 @@ const UserInMenu = props => {
   function capFLtr(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
+  const picture =
+    props.data.fileList[0] && JSON.parse(props.data.fileList[0]).url;
+  // console.log(JSON.parse(props.data.fileList[0]).url);
   return (
     <div
       style={{ display: "flex" }}
@@ -18,14 +20,15 @@ const UserInMenu = props => {
         await chatAppContext.setChatTarget({
           uuid: props.data.uuid,
           displayName:
-            capFLtr(props.data.firstName) + " " + capFLtr(props.data.lastName)
+            capFLtr(props.data.firstName) + " " + capFLtr(props.data.lastName),
+          picture: picture
         });
       }}
     >
       <img
         style={{ borderRadius: "50%", width: "20%", height: "20%" }}
         alt=""
-        src={props.data.picMedium}
+        src={picture}
       />
       <div
         style={{

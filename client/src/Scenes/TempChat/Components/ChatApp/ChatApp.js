@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Messages from "./Components/Messages";
 import ChatInput from "./Components/ChatInput";
 import { AuthContext } from "../../../../AuthContext";
 import "./ChatApp.css";
-import axios from "axios";
 import { TempChatContext } from "../../TempChatContext";
 
-//getthe messages from db, export them at each send
-// create the room and send messages in --> listen in the back
 // Inspiration https://medium.com/@coderacademy/you-can-build-an-fb-messenger-style-chat-app-with-reactjs-heres-how-intermediate-211b523838ad
 const ChatApp = () => {
   const [socketContext, authContext] = useContext(AuthContext);
@@ -34,11 +31,7 @@ const ChatApp = () => {
       m: msg.m
     };
     // console.log("front sends message to controller", msg, authContext.data.jwt);
-    // axios
-    //   .post("http://localhost:9000/api/chatMessages/", newMessage)
-    //   .then(res => console.log(res));
     chatAppContext.setMessages(chatAppContext.messages.concat(newMessage));
-    console.log(chatAppContext.messages);
   });
 
   return (
