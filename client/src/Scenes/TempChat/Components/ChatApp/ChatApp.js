@@ -15,32 +15,29 @@ const ChatApp = () => {
 
   const sendHandler = content => {
     let msg = {
+      jwt: authContext.data.jwt,
       content: content
     };
-    console.log("chatMessage sent from client");
+    // console.log("chatMessage sent from client");
     socketContext.socket.emit("chatMessage", msg);
   };
 
+  socketContext.socket.off("chatMessage"); //unsubscribe to all previous listeners in case the context made reruns
   socketContext.socket.on("chatMessage", msg => {
     let newMessage = {
-      content: msg.content
-    };
-    console.log("front sends message to controller");
-    axios.post("http://localhost:9000/api/chatMessages/", {
       uuidSource: msg.uuidSource,
       target: msg.target,
-      jwt: authContext.jwt,
+      jwt: authContext.data.jwt,
       content: msg.content,
       h: msg.h,
       m: msg.m
-    });
-    // console.log(
-    //   "newmessage from api = ",
-    //   msg,
-    //   "oldMessage = ",
-    //   chatAppContext.messages
-    // );
+    };
+    // console.log("front sends message to controller", msg, authContext.data.jwt);
+    // axios
+    //   .post("http://localhost:9000/api/chatMessages/", newMessage)
+    //   .then(res => console.log(res));
     chatAppContext.setMessages(chatAppContext.messages.concat(newMessage));
+    console.log(chatAppContext.messages);
   });
 
   return (

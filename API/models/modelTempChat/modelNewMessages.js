@@ -9,17 +9,14 @@ async function modelNewMessages(req) {
     m: req.m,
     content: req.content
   };
-  const arrayMessages = [JSON.stringify(messageJSON)];
+  req.newMessage = [JSON.stringify(messageJSON)];
+  // const arrayMessages = [JSON.stringify(messageJSON)];
   // console.log(req);
   try {
     const data = await session.run(
       `MATCH (s:User {uuid:{uuidSource}})-[r:MESSAGED]-(t:User {uuid:{target}})
       SET r.history = r.history + {newMessage}`,
-      {
-        newMessage: arrayMessages,
-        uuidSource: req.uuidSource,
-        target: req.target
-      }
+      req
     );
     // console.log(data.records);
     return data.records;

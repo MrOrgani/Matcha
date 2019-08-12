@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../ChatApp.css";
+import { TempChatContext } from "../../../TempChatContext";
 
 const Message = props => {
+  const [chatAppContext] = useContext(TempChatContext);
   let fromMe = "";
   let displayName = "";
   // console.log(props);
-  if (props.uuidMessage === props.uuidSource) fromMe = "from-me";
-  else displayName = props.DisplayName;
+  if (props.uuidViewer === props.uuidSource) fromMe = "from-me";
+  else displayName = chatAppContext.chatTarget.displayName;
 
   return (
     <div className={`message ${fromMe}`}>
