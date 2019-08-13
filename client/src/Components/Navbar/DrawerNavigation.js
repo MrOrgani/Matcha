@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -9,8 +9,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconsAndLinks from "./Components/IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
+import { AuthContext } from "../../AuthContext";
 
 export default function TemporaryDrawer() {
+  const [, authContext] = useContext(AuthContext);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -27,18 +29,14 @@ export default function TemporaryDrawer() {
   };
 
   // CHECKS IF USER IS AUTH
-  const menuItems = [{ text: "Home", link: "/" }];
-  // console.log(sessionStorage);
-  if (sessionStorage.data && sessionStorage.isAuth !== 0) {
-    menuItems.push(
-      { text: "My Account", link: "/Profile" },
-      { text: "Search", link: "/Search" },
-      { text: "TempChat", link: "/TempChat" },
-      { text: "Disconnect", link: "/" } // Disconnect process happens in Icons and Links
-    );
-  } else {
-    menuItems.push({ text: "Connect", link: "/signIn" });
-  }
+  const menuItems = [
+    { text: "My Account", link: "/Profile" },
+    { text: "Search", link: "/Search" },
+    { text: "TempChat", link: "/TempChat" },
+    { text: "Disconnect", link: "/" }
+  ];
+
+  //A CHECKER REACT CLICK AWAy LISTENER MATERIAL uI
 
   const sideList = side => {
     return (
@@ -64,7 +62,7 @@ export default function TemporaryDrawer() {
           ))}
           <Divider />
           {["About us"].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key={index}>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -74,7 +72,7 @@ export default function TemporaryDrawer() {
   };
 
   return (
-    <div>
+    <div style={{ display: authContext.isAuth === 1 ? "block" : "none" }}>
       <div onClick={toggleDrawer("left", true)} className={classes.icon}>
         <MenuIcon />
       </div>
