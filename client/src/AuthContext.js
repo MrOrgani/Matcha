@@ -20,10 +20,19 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.data = data ? JSON.stringify(data) : "";
   }, [isAuth, data]);
 
+  const authContext = {
+    isAuth,
+    setIsAuth,
+    data,
+    setData
+  };
+
   // SOCKET MANAGEMENT
   const socketContext = {};
+  const notifArray = [{ name: "test", userUuid: "123678" }];
 
   if (data && isAuth > 0) {
+    // Websocket or polling: https://stackoverflow.com/questions/28238628/socket-io-1-x-use-websockets-only#targetText=There%20are%20two%20types%20of,actually%20initiate%20a%20webSocket%20connection.
     const socket = socketIOClient.connect("http://localhost:9000", {
       transports: ["websocket"],
       requestTimeout: 5000, // IN CASE OF FIRE BREACK GLASS
@@ -35,15 +44,10 @@ export const AuthProvider = ({ children }) => {
         // room_id: this.state.room_id
       }
     });
-    socketContext.socket = socket;
-  }
 
-  const authContext = {
-    isAuth,
-    setIsAuth,
-    data,
-    setData
-  };
+    socketContext.socket = socket;
+    socketContext.notifArray = notifArray;
+  }
 
   return (
     <AuthContext.Provider value={[socketContext, authContext]}>
@@ -51,44 +55,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-//   const [socket, setSocket] = React.useState({});
-
-//   if (sessionStorage.data) {
-//     const endpoint = "http://localhost:9000";
-//     const session = JSON.parse(sessionStorage.data);
-//     setSocket(
-//       socketIOClient.connect(endpoint, {
-//         transports: ["polling"],
-//         requestTimeout: 5000,
-//         upgrade: false,
-//         query: {
-//           // token: this.state.userToken
-//           // userID: this.state.userID,
-//           login: session.login
-//           // room_id: this.state.room_id
-//         }
-//       })
-//     );
-//     console.log(socket);
-//   return (
-//     <AuthContext.Provider value={[users, setUsers]}>
-//       {props.children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// useEffect(() => {
-//     //fetch data from the back to check if the user login and token are valid
-//     //If they are, define the context state like so and connect to socket and add to state
-//     // If not, define the context and send a message error
-
-//       const authToken = async () => {
-//           const result = await axios.get(
-//             `http://localhost:9000/api/users/verify`
-//           );
-//           if (result.data.length > 0) setAuth(true);
-//           else
-//         }
-//         AuthToken();
-//   });
