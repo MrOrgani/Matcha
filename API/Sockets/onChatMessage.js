@@ -19,6 +19,14 @@ module.exports = function(socket, io) {
       // console.log(msg);
       // console.log("emiting to all clients in room ", roomID);
       io.to(roomID).emit("chatMessage", msg);
+
+      //NOTIF CORNER
+      const notif = {
+        targetUuid: socket.chatTarget.uuid,
+        type: "message",
+        source: msg.uuidSource
+      };
+      require("./newNotif")(socket, io, notif);
     }
   });
 };
