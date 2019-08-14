@@ -34,7 +34,7 @@ async function modelCreateUser(req) {
   }
 }
 
-async function findOne(value, category) {
+async function modelFindOne(value, category) {
   const data = await session.run(
     `WITH {category} AS propname
     MATCH(u:User)
@@ -132,6 +132,6 @@ module.exports = {
   gUsers,
   delUsers,
   getUsers,
-  findOne,
+  modelFindOne,
   updateUser
 };

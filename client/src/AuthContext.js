@@ -29,7 +29,24 @@ export const AuthProvider = ({ children }) => {
 
   // SOCKET MANAGEMENT
   const socketContext = {};
-  const notifArray = [{ name: "test", userUuid: "123678" }];
+  const notifArray = [
+    {
+      d: 3,
+      h: 12,
+      m: 20,
+      uuidSource: "538f9370-592c-44dd-8619-6f178b83479e",
+      targetUuid: "538f9370-592c-44dd-8619-6f178b83479e",
+      type: "message"
+    },
+    {
+      d: 4,
+      h: 13,
+      m: 27,
+      uuidSource: "59c4b346-0da6-4953-aa2e-f3de02d86fbb",
+      targetUuid: "59c4b346-0da6-4953-aa2e-f3de02d86fbb",
+      type: "message"
+    }
+  ];
 
   if (data && isAuth > 0) {
     // Websocket or polling: https://stackoverflow.com/questions/28238628/socket-io-1-x-use-websockets-only#targetText=There%20are%20two%20types%20of,actually%20initiate%20a%20webSocket%20connection.

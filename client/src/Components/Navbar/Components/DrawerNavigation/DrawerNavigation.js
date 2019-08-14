@@ -6,10 +6,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import IconsAndLinks from "./Components/IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../../../AuthContext";
+import IconsAndLinks from "./IconsAndLinks";
 
 export default function TemporaryDrawer() {
   const [, authContext] = useContext(AuthContext);
@@ -28,7 +28,6 @@ export default function TemporaryDrawer() {
     setState({ ...state, [side]: open });
   };
 
-  // CHECKS IF USER IS AUTH
   const menuItems = [
     { text: "My Account", link: "/Profile" },
     { text: "Search", link: "/Search" },

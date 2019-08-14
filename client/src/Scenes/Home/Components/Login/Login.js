@@ -72,6 +72,7 @@ function Login() {
                         // sessionStorage.isAuth = 1;
                         // socketContext.socket.emit("login", res.data.login);
                       } else {
+                        console.log(res);
                         let errorStr = "";
                         setSubmitionCompleted(true);
                         setValid(false);
