@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import NotificationBell from "./Components/NotificationBell";
+import NotificationBell from "./Components/NotificationBell/NotificationBell";
 import Typography from "@material-ui/core/Typography";
 import "./NavBar.css";
 import MenuItem from "@material-ui/core/MenuItem";
-import DrawerNavigator from "./../Navbar/DrawerNavigation";
+import DrawerNavigator from "./Components/DrawerNavigation/DrawerNavigation";
 import { AuthContext } from "../../AuthContext";
 
 function NavBar() {
@@ -17,14 +17,12 @@ function NavBar() {
     <div>
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
-          <DrawerNavigator style={{ display: "none" }} />
+          {authContext.isAuth ? <DrawerNavigator /> : null}
           <Typography variant="h6" className={classes.title}>
             Matcha
           </Typography>
-          <MenuItem
-            style={{ display: authContext.isAuth === 1 ? "block" : "none" }}
-          >
-            <NotificationBell />
+          <MenuItem>
+            {authContext.isAuth ? <NotificationBell /> : null}
           </MenuItem>
         </Toolbar>
       </AppBar>

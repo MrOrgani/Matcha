@@ -7,7 +7,7 @@ const uuid = require("uuid/v4");
 // const app = express();
 // const isConnectedToChat = require("../app");
 const { modelUserVerif } = require("../models/modelUserVerif");
-const { findOne, modelCreateUser } = require("./../models/modelUser");
+const { modelFindOne, modelCreateUser } = require("./../models/modelUser");
 
 async function createUser(req, res) {
   try {
@@ -20,8 +20,9 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
+  // console.log(req);
   try {
-    let userData = await findOne(req.body.login, "login");
+    let userData = await modelFindOne(req.body.login, "login");
     if (userData.length === 0) return res.status(401).send("Invalid username");
     userData = userData[0]._fields[0].properties;
     if (!(await bcrypt.compare(req.body.password, userData.password)))
@@ -29,7 +30,8 @@ async function loginUser(req, res) {
     userData = cleanUserData(userData);
     return res.status(200).send(userData);
   } catch (err) {
-    return res.status(400).send(err);
+    console.log(err);
+    return res.status(207).send(err);
   }
 }
 
@@ -92,15 +94,27 @@ async function userVerif(req, res, next) {
 
 async function loginOrEmailNotTaken(req, res, next) {
   try {
-    let data = await findOne(req.body.login, "login");
+    let data = await modelFindOne(req.body.login, "login");
     if (data.length > 0) res.status(400).send("Login already taken.");
     else {
-      data = await findOne(req.body.email, "email");
+      data = await modelFindOne(req.body.email, "email");
       if (data.length > 0) res.status(400).send("Login already taken.");
       else next();
     }
   } catch (err) {
     res.status(400).send(err);
+  }
+}
+
+async function findOne(req, res) {
+  try {
+    // console.log(req.query);
+    let data = await modelFindOne(req.query.uuidSource, "uuid");
+    delete data.password;
+    res.status(200).send(data);
+  } catch (err) {
+    console.log(err);
+    res.status(206).send(err);
   }
 }
 
@@ -112,6 +126,7 @@ module.exports = {
   getUsers,
   userVerif,
   loginOrEmailNotTaken,
-  cryptAndObjectify
+  cryptAndObjectify,
+  findOne
   // updateProfile
 };

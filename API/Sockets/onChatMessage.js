@@ -24,9 +24,9 @@ module.exports = function(socket, io) {
       const notif = {
         targetUuid: socket.chatTarget.uuid,
         type: "message",
-        source: msg.uuidSource
+        uuidSource: msg.uuidSource
       };
-      require("./newNotif")(socket, io, notif);
+      require("./newNotif")(io, notif);
     }
   });
 };

@@ -21,7 +21,8 @@ const {
   getUsers,
   userVerif,
   loginOrEmailNotTaken,
-  cryptAndObjectify
+  cryptAndObjectify,
+  findOne
 } = require("../../controlers/User");
 
 router
@@ -66,6 +67,13 @@ router.route("/login").post(
     loginUser(req, res);
   }
 );
+
+router.route("/findOne").get(userVerif, (req, res) => {
+  // console.log(req);
+  // console.log(req.query);
+  findOne(req, res);
+  // console.log(res);
+});
 
 // router.route("/generate");
 // .post((req, res) => {
