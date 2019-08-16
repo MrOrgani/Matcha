@@ -11,46 +11,51 @@ import List from "@material-ui/core/List";
 import { AuthContext } from "../../../../AuthContext";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const filledNotifArray = [];
+const notifArray = [];
 
 function NotificationBell() {
   const [socketContext, authContext] = useContext(AuthContext);
-  const [nbNotif, setNbNotif] = useState(
-    socketContext.notifArray ? socketContext.notifArray.length : 0
-  );
-  // const [filledNotifArray, setFilledNotifArray] = useState([]);
-
+  const [nbNotif, setNbNotif] = useState(0);
+  // socketContext.notifArray ? socketContext.notifArray.length : 0
+  // );
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
   const id = open ? "simple-popper" : undefined;
 
   const handleNotif = e => {
-    console.log("filledNotifArray", filledNotifArray);
-    setAnchorEl(anchorEl ? null : e.currentTarget);
-    // socketContext.context.emit("notifSeen");
-  }; // next up design an element (similar to the login ones where you display all the events) then link it to the db
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
+  };
 
-  // if (socketContext.notifArray) {
-  socketContext.socket.on("newNotif", newNotif => {
-    console.log("newNotif", newNotif);
-    // console.log(setNotifArray);
-    socketContext.notifArray.push(newNotif);
-    setNbNotif(socketContext.notifArray.length);
-    console.log("notifs for this socket:", socketContext.notifArray);
-  });
+  //   data &&
+  //   data.notifs &&
+  //   data.notifs.forEach(elem => {
+  //     notifArray.push(JSON.parse(elem));
+  //   });
+  // console.log("notifs from the Auth Socketcontext:", notifArray)
+
+  const handleClickAway = () => {
+    if (open) {
+      socketContext.notifArray = [];
+      axios.post("http://localhost:9000/api/notif/delete", {
+        jwt: authContext.data.jwt,
+        uuidSource: authContext.data.uuid
+      });
+      setNbNotif(0);
+    }
+    setOpen(false);
+  };
 
   useEffect(() => {
-    // console.log("useEffect");
+    console.log(socketContext.notifArray);
     fetchData();
-  }, []);
+  }, [nbNotif]);
 
-  //QUESTION Should i put all the info in the context for notifArray
-  //--> lot of info passed to all pages
-  // SHould i keep it here --> adds a bit of complexity
   const fetchData = async _ => {
     const promises = socketContext.notifArray.map(elem => {
-      console.log(elem);
       let api = `http://localhost:9000/api/user/findOne?jwt=${
         authContext.data.jwt
       }&uuidSource=${elem.uuidSource}&category=uuid`;
@@ -58,58 +63,49 @@ function NotificationBell() {
       return responses;
     });
     const results = await Promise.all(promises);
-    // console.log("reusls", results);
     await results.map((elem, index) => {
-      // console.log(elem.data[0]._fields[0].properties);
       filledNotifArray.push({
         source: elem.data[0]._fields[0].properties,
         info: socketContext.notifArray[index]
       });
-      // setFilledNotifArray(
-      //   filledNotifArray.concat({
-      //     sourceInfo: elem.data[0]._fields[0].properties,
-      //     notifSource: socketContext.notifArray[index]
-      //   })
-      // );
     });
     console.log("useEffect, filledNotifArray", filledNotifArray);
   };
 
-  // console.log(params);
-  // }
+  socketContext.socket.on("newNotif", newNotif => {
+    socketContext.notifArray.push(newNotif);
+    setNbNotif(socketContext.notifArray.length);
+    console.log("notifs for this socket:", socketContext.notifArray);
+  });
 
-  //POPPER DOC: https://material-ui.com/components/popper/
   return (
     <div>
-      <IconButton
-        aria-label="show 17 new notifications"
-        color="inherit"
-        onClick={handleNotif}
-      >
-        <Badge badgeContent={nbNotif} color="primary">
-          <NotificationsIcon />
-        </Badge>
-        <Popper id={id} open={open} anchorEl={anchorEl} transition>
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              <Paper>
-                <List>
-                  {filledNotifArray.map((el, index) => {
-                    console.log(el, index);
-                    return (
-                      // <div key={`${index}`}>
-                      //   <Typography>{el.info.type}</Typography>
-                      //   <Divider />
-                      // </div>
-                      <NotificationCard notif={el} key={index} />
-                    );
-                  })}
-                </List>
-              </Paper>
-            </Fade>
-          )}
-        </Popper>
-      </IconButton>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <IconButton
+          aria-label="show 17 new notifications"
+          color="inherit"
+          onClick={handleNotif}
+        >
+          <Badge badgeContent={nbNotif} color="primary">
+            <NotificationsIcon />
+          </Badge>
+
+          <Popper id={id} open={open} anchorEl={anchorEl} transition>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper>
+                  <List>
+                    {filledNotifArray.map((el, index) => {
+                      console.log(el, index);
+                      return <NotificationCard notif={el} key={index} />;
+                    })}
+                  </List>
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
+        </IconButton>
+      </ClickAwayListener>
     </div>
   );
 }
