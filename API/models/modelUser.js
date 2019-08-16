@@ -23,6 +23,7 @@ async function modelCreateUser(req) {
               phone:'',
               bio:'',
               tag: [],
+              notifs: [],
               fileList: []
             }) 
               RETURN u`,
