@@ -14,9 +14,9 @@ import NotificationCard from "./NotificationCard";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const filledNotifArray = [];
-const notifArray = [];
 
 function NotificationBell() {
+  const notifArray = [];
   const [socketContext, authContext] = useContext(AuthContext);
   const [nbNotif, setNbNotif] = useState(0);
   // socketContext.notifArray ? socketContext.notifArray.length : 0
@@ -26,20 +26,17 @@ function NotificationBell() {
   const id = open ? "simple-popper" : undefined;
 
   const handleNotif = e => {
+    console.log("onclick, fillednotif :", filledNotifArray);
     setAnchorEl(e.currentTarget);
     setOpen(true);
   };
 
-  //   data &&
-  //   data.notifs &&
-  //   data.notifs.forEach(elem => {
-  //     notifArray.push(JSON.parse(elem));
-  //   });
-  // console.log("notifs from the Auth Socketcontext:", notifArray)
-
   const handleClickAway = () => {
+    console.log("click away", notifArray);
     if (open) {
-      socketContext.notifArray = [];
+      console.log("click away, notif errased", notifArray);
+      notifArray.length = 0;
+      filledNotifArray.length = 0;
       axios.post("http://localhost:9000/api/notif/delete", {
         jwt: authContext.data.jwt,
         uuidSource: authContext.data.uuid
@@ -50,12 +47,40 @@ function NotificationBell() {
   };
 
   useEffect(() => {
-    console.log(socketContext.notifArray);
+    console.log(
+      "useEffect for original db notif",
+      typeof notifArray,
+      notifArray
+    );
+    fetchDbNotif();
+    console.log("useEffect for original db notif", typeof notifArray);
+  }, []);
+
+  const fetchDbNotif = async () => {
+    //FIRST GET THE NOTIF IN BRUTE MODE
+    const brutNotif = await axios.get(
+      `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${
+        authContext.data.uuid
+      }&category=uuid`
+    );
+    // console.log("brutNotif", brutNotif.data);
+    await brutNotif.data.forEach(elem => {
+      notifArray.push(JSON.parse(elem));
+    });
+    setNbNotif(notifArray.length);
+    // console.log("notif array from the brut db = ", notifArray);
+  };
+
+  useEffect(() => {
     fetchData();
-  }, [nbNotif]);
+    console.log("use effect for augmented data: notifArray", filledNotifArray);
+  }, [notifArray]);
 
   const fetchData = async _ => {
-    const promises = socketContext.notifArray.map(elem => {
+    // if (notifArray.length === 0) return;
+    console.log("notifArray in the augmented effeect", typeof notifArray);
+    const promises = notifArray.map(elem => {
+      console.log(elem);
       let api = `http://localhost:9000/api/user/findOne?jwt=${
         authContext.data.jwt
       }&uuidSource=${elem.uuidSource}&category=uuid`;
@@ -63,19 +88,21 @@ function NotificationBell() {
       return responses;
     });
     const results = await Promise.all(promises);
+    console.log("result before map", results);
     await results.map((elem, index) => {
       filledNotifArray.push({
         source: elem.data[0]._fields[0].properties,
-        info: socketContext.notifArray[index]
+        info: notifArray[index]
       });
     });
-    console.log("useEffect, filledNotifArray", filledNotifArray);
+    // console.log("useEffect, filledNotifArray", filledNotifArray);
   };
 
   socketContext.socket.on("newNotif", newNotif => {
-    socketContext.notifArray.push(newNotif);
-    setNbNotif(socketContext.notifArray.length);
-    console.log("notifs for this socket:", socketContext.notifArray);
+    console.log("socket Notif, actual array:", notifArray);
+    notifArray.push(newNotif);
+    setNbNotif(notifArray.length);
+    console.log("notifs for this socket:", newNotif);
   });
 
   return (
