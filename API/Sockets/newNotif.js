@@ -13,11 +13,12 @@ module.exports = async function(io, notif) {
 
   // TELL THE BROWSER IN RT IF CONNECTED
   Object.keys(io.sockets.connected).map(key => {
+    console.log(key);
     let elem = io.sockets.connected[key].handshake.query;
     // console.log(elem);
     if (elem.uuid === notif.targetUuid) {
-      console.log("notif emited from the back", notif, key);
-      io.to(`${key}`).emit("newNotif", notif);
+      console.log("notif emited from the back, via socket", key);
+      io.to(`${key}`).emit("newNotif", notif); //emits to individual socket
     }
   });
 
