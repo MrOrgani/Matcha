@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import { ProfileFormContext } from "./../ProfileFormContext";
 // import { Hobbies } from "./Components/Hobbies";
 
-const Hobbies = [
+const hobbiesList = [
   "La lecture",
   "Les jeux de société et jeux de réflexion",
   "La promenade",
@@ -266,21 +266,22 @@ export const UploadFile = props => {
 };
 
 const { CheckableTag } = Tag;
-export const Tags = props => {
-  const [state, setState] = useContext(ProfileFormContext);
+export const Tags = async props => {
+  const [state, setState] = await useContext(ProfileFormContext);
   console.log("test", state);
-  const { hobbies } = state;
   function handleChange(tag, checked) {
     const { hobbies } = state;
     const nextSelectedTags = checked
-      ? [...selectedTags, tag]``
-      : hobbies.filter(t => t !== tag);
+    ? [...hobbies, tag]``
+    : hobbies.filter(t => t !== tag);
     // console.log("You are interested in: ", nextSelectedTags);
     setState({ hobbies: nextSelectedTags });
   }
-
-  const tagsFromServer = Hobbies;
-  const { selectedTags } = state;
+  
+  const tagsFromServer = hobbiesList;
+  const hobbies = state.hobbies;
+  console.log('hobbies are', typeof hobbies, 'and tagfrom', typeof tagsFromServer)
+  // const { selectedTags } = state;
   return (
     <div>
       {/* <h6 style={{ marginRight: 8, display: "inline" }}>Categories:</h6> */}
@@ -290,7 +291,7 @@ export const Tags = props => {
           checked={hobbies.indexOf(tag) > -1}
           onChange={checked => handleChange(tag, checked)}
         >
-          {tag}
+          tag
         </CheckableTag>
       ))}
     </div>
