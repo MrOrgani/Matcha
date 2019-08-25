@@ -9,8 +9,12 @@
   grid-template-areas:
     "n i b"
     "s m p"
-    "l . ."
+    "l tags tags"
     "l . sub";
+}
+
+.box {
+  /* background-color: blue; */
 }
 
 .name {
@@ -18,8 +22,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-left: 10vw;
-  margin-right: 10vw;
 }
 
 .mail {
@@ -27,16 +29,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-left: 10vw;
-  margin-right: 10vw;
 }
 
 .search {
   grid-area: s;
   display: flex;
   flex-direction: column;
-  margin-left: 10vw;
-  margin-right: 10vw;
 }
 
 .login {
@@ -44,8 +42,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-left: 10vw;
-  margin-right: 10vw;
 }
 
 .bio {
@@ -69,11 +65,14 @@
   justify-content: space-evenly;
 }
 
+.tags {
+  grid-area: tags;
+  text-align: center;
+}
+
 .submit {
   grid-area: sub;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-left: 10vw;
-  margin-right: 10vw;
 }

@@ -15,6 +15,7 @@ import {
   SexualOrientation,
   Age,
   UploadFile,
+  Tags,
   Submit
 } from "./Components/FieldsForm";
 
@@ -27,35 +28,35 @@ function FormProfile() {
       onSubmit={async values => {
         // validate={valuesValidations}
         console.log("the values are", values);
-        const userValues = JSON.parse(sessionStorage.getItem("data"));
+        // const userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
-        const files = Array.from(values.fileList);
-        const formData = new FormData();
-        files.forEach((file, i) => {
-          formData.append(i, file.originFileObj);
-        });
+        // const files = Array.from(values.fileList);
+        // const formData = new FormData();
+        // files.forEach((file, i) => {
+        //   formData.append(i, file.originFileObj);
+        // });
         // ---- send data to back for images
-        const api = `http://localhost:9000/api/user/profile?login=${
-          userValues.login
-        }&jwt=${userValues.jwt}`;
-        await fetch(api, {
-          method: "POST",
-          body: formData
-        });
+        // const api = `http://localhost:9000/api/user/profile?login=${
+        //   userValues.login
+        // }&jwt=${userValues.jwt}`;
+        // await fetch(api, {
+        //   method: "POST",
+        //   body: formData
+        // });
         // .then(res => console.log("result of fetch post image =", res));
         // values.fileList = returnOfPics.data.fileList;
         // ---- send data to back for info
         console.log("ta maman", values);
-        delete values.previewVisible;
-        values.fileList = [];
+        // delete values.previewVisible;
+        // values.fileList = [];
 
-        delete values.previewImage;
-        delete values.pics;
-        let newData = await axios
-          .patch(api, { values })
-          .catch(err => console.log(err));
+        // delete values.previewImage;
+        // delete values.pics;
+        // let newData = await axios
+        //   .patch(api, { values })
+        //   .catch(err => console.log(err));
         // // sessionStorage.setItem("data", JSON.stringify(newData.data));
-        console.log("newData", newData);
+        // console.log("newData", newData);
       }}
     >
       {({
@@ -69,7 +70,7 @@ function FormProfile() {
       }) => (
         <form onSubmit={handleSubmit}>
           <div className="containerFormProfile">
-            <div className="name">
+            <div className="box name">
               <FirstName
                 value={values.firstName}
                 onChange={handleChange("firstName")}
@@ -91,15 +92,15 @@ function FormProfile() {
                 ]}
               />
             </div>
-            <div className="search">
-              <h2>I am a ...</h2>
+            <div className="box search">
+              I am a ...
               <Gender
                 value={values.gender}
                 onChange={handleChange("gender")}
                 onBlur={handleBlur}
                 helperText={[errors.gender, touched.gender, errors.gender]}
               />
-              <h2>I want to date</h2>
+              I want to date
               <SexualOrientation
                 value={values.sexualOrientation}
                 onChange={handleChange("sexualOrientation")}
@@ -110,10 +111,10 @@ function FormProfile() {
                 ]}
               />
             </div>
-            <div className="localisation">
+            <div className="box localisation">
               <h2>Where I live...</h2>
             </div>
-            <div className="login">
+            <div className="box login">
               <Login
                 value={values.login}
                 onChange={handleChange("login")}
@@ -127,7 +128,7 @@ function FormProfile() {
                 helperText={[errors.age, touched.age, errors.age]}
               />
             </div>
-            <div className="mail">
+            <div className="box mail">
               <Email
                 value={values.email}
                 onChange={handleChange("email")}
@@ -141,7 +142,7 @@ function FormProfile() {
                 helperText={[errors.email, touched.email, errors.email]}
               /> */}
             </div>
-            <div className="bio">
+            <div className="box bio">
               Tell us something about you :
               <Bio
                 value={values.bio}
@@ -150,7 +151,7 @@ function FormProfile() {
                 helperText={[errors.bio, touched.bio, errors.bio]}
               />
             </div>
-            <div className="photos">
+            <div className="box photos">
               Your photos
               <UploadFile
                 fileList={values.fileList}
@@ -160,6 +161,9 @@ function FormProfile() {
                 setFieldValue={setFieldValue}
                 handleCancel={handleCancel}
               />
+            </div>
+            <div className="box tags">
+              <Tags value={values.hobbies} onChange={handleChange("hobbies")} />
             </div>
             <div className="submit">
               <Submit />

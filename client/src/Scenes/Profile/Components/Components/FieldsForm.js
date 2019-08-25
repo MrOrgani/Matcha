@@ -1,9 +1,64 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Upload, Icon, Modal } from "antd";
+import { Upload, Icon, Modal, Tag } from "antd";
 import SaveIcon from "@material-ui/icons/Save";
 import Button from "@material-ui/core/Button";
+import { ProfileFormContext } from "./../ProfileFormContext";
+// import { Hobbies } from "./Components/Hobbies";
+
+const Hobbies = [
+  "La lecture",
+  "Les jeux de société et jeux de réflexion",
+  "La promenade",
+  "L’apprentissage d’une nouvelle langue",
+  "Le tricot",
+  "La cuisine",
+  "Regarder la télévision",
+  "Prendre soin de soi",
+  "Faire le ménage",
+  "Le bricolage",
+  "Le jardinage",
+  "Écouter de la musique",
+  "Nager",
+  "Le bénévolat",
+  "L’astronomie",
+  "S’occuper de son animal de compagnie",
+  "Voyager",
+  "Le modélisme",
+  "L’Origami",
+  "Apprendre à jouer d’un instrument de musique",
+  "La couture",
+  "Visiter les monuments historiques",
+  "Aller au théâtre",
+  "Le karting",
+  "Le karaoké",
+  "Le paintball",
+  "La peinture",
+  "Le rubik’s cube",
+  "Le vide-grenier",
+  "Aller au cinéma",
+  "Jouer au billard",
+  "Le sport",
+  "Créer et gérer un blog",
+  "Le Scrapbooking",
+  "La photographie",
+  "Le dessin",
+  "Les jeux vidéo",
+  "Les devinettes",
+  "La vente en ligne",
+  "Aller au restaurant",
+  "Débusquer les bonnes affaires sur internet",
+  "Le shopping",
+  "Collectionner",
+  "Écouter la radio",
+  "Une fête improvisée chez soi",
+  "Prendre des nouvelles d’un ami, d’un proche",
+  "Établir la liste des choses à faire pour le lendemain",
+  "Le repassage",
+  "La poterie",
+  "La randonnée"
+];
 
 export const FirstName = props => {
   return (
@@ -207,6 +262,38 @@ export const UploadFile = props => {
         />
       </Modal>
     </React.Fragment>
+  );
+};
+
+const { CheckableTag } = Tag;
+export const Tags = props => {
+  const [state, setState] = useContext(ProfileFormContext);
+  console.log("test", state);
+  const { hobbies } = state;
+  function handleChange(tag, checked) {
+    const { hobbies } = state;
+    const nextSelectedTags = checked
+      ? [...selectedTags, tag]``
+      : hobbies.filter(t => t !== tag);
+    // console.log("You are interested in: ", nextSelectedTags);
+    setState({ hobbies: nextSelectedTags });
+  }
+
+  const tagsFromServer = Hobbies;
+  const { selectedTags } = state;
+  return (
+    <div>
+      {/* <h6 style={{ marginRight: 8, display: "inline" }}>Categories:</h6> */}
+      {tagsFromServer.map(tag => (
+        <CheckableTag
+          key={tag}
+          checked={hobbies.indexOf(tag) > -1}
+          onChange={checked => handleChange(tag, checked)}
+        >
+          {tag}
+        </CheckableTag>
+      ))}
+    </div>
   );
 };
 

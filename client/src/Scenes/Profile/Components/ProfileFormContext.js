@@ -15,6 +15,7 @@ const ProfileFormProvider = props => {
     bio: data.bio,
     pics: data.pics,
     previewVisible: false,
+    hobbies: data.hobbies,
     previewImage: "",
     fileList: []
   });

@@ -19,10 +19,11 @@ async function modelCreateUser(req) {
               age:'',
               gender:'',
               sexualOrientation:'bi',
+              city: '',
               location:['', ''],
               phone:'',
               bio:'',
-              tag: [],
+              hobbies: [],
               fileList: []
             }) 
               RETURN u`,
@@ -62,11 +63,13 @@ async function gUsers() {
               u.sexualOrientation = 'bi',
               u.login = user.login.username,
               u.password = user.login.password,
-              u.location = [user.location.coordinates.latitude, user.location.coordinates.longitude],
               u.cell = user.cell,
               u.picMedium = user.picture.medium,
               u.picLarge = user.picture.large,
               u.email = user.email,
+              u.city = user.location.city,
+              u.location = user.coords,
+              u.hobbies = user.hobbies,
               u.isComplete = 1
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
