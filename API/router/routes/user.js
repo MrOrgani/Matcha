@@ -3,7 +3,9 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const { addPicture } = require("../../controlers/profile/handlePictures");
-const { addHobbies } = require("../../controlers/other/addHobbies");
+const {
+  addHobbiesAndCity
+} = require("../../controlers/other/addHobbiesAndCity");
 const {
   dataProfileValidation,
   dataRegisterValidation,
@@ -33,7 +35,7 @@ router
     gUsers(req, res);
   })
   .get((req, res) => {
-    addHobbies(req, res);
+    addHobbiesAndCity(req, res);
   });
 
 router

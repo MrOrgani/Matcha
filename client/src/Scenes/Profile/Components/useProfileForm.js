@@ -5,8 +5,9 @@ const useProfileForm = () => {
   const [state, setState] = useContext(ProfileFormContext);
 
   function handleChange(event) {
+    console.log("here");
     event.persist();
-    // console.log("NAME", event.target.name, "value", event.target.value);
+    console.log("NAME", event.target.name, "value", event.target.value);
     setState({
       ...state,
       [event.target.name]: event.target.value
