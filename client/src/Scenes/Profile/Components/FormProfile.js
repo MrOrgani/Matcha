@@ -164,11 +164,17 @@ function FormProfile() {
             </div>
             <div className="box tags">
               <Tags
+<<<<<<< HEAD
                 value={values.hobbies}
                 // onClick={handleTags}
                 // onChange={handleChange("hobbies")}
                 setFieldValue={setFieldValue}
               />
+=======
+              //  value={values.hobbies} 
+              // onChange={handleChange("hobbies")}
+               />
+>>>>>>> 79dbfda611c7e8281cdaac8369ff2c49f3dfd227
             </div>
             <div className="submit">
               <Submit />
