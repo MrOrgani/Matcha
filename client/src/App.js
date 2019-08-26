@@ -10,6 +10,7 @@ import TempChat from "./Scenes/TempChat/TempChat";
 import Navbar from "./Components/Navbar/NavBar";
 import { AuthProvider } from "./AuthContext";
 import SecureRoute from "./SecureRoute";
+import "leaflet/dist/leaflet.css";
 
 export function App() {
   return (
