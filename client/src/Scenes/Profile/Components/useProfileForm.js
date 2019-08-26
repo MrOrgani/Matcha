@@ -6,13 +6,23 @@ const useProfileForm = () => {
 
   function handleChange(event) {
     console.log("here");
-    event.persist();
+    // event.persist();
     console.log("NAME", event.target.name, "value", event.target.value);
     setState({
       ...state,
       [event.target.name]: event.target.value
     });
   }
+
+  const handleTags = (tag, checked) => {
+    console.log("echoooo", tag, checked);
+    const { hobbies } = state;
+    const nextSelectedTags = checked
+      ? [...hobbies, tag]
+      : hobbies.filter(t => t !== tag);
+    // console.log("You are interested in: ", nextSelectedTags);
+    setState({ hobbies: nextSelectedTags });
+  };
 
   function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -22,6 +32,7 @@ const useProfileForm = () => {
       reader.onerror = error => reject(error);
     });
   }
+
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -50,7 +61,8 @@ const useProfileForm = () => {
     // handleChangePics,
     handlePreview,
     values: state,
-    setState
+    setState,
+    handleTags
   };
 };
 

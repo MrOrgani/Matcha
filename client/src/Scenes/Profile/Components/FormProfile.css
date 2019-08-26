@@ -13,10 +13,6 @@
     "l . sub";
 }
 
-.box {
-  /* background-color: blue; */
-}
-
 .name {
   grid-area: n;
   display: flex;
@@ -51,13 +47,6 @@
   justify-content: space-evenly;
 }
 
-.localisation {
-  grid-area: l;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
 .photos {
   grid-area: p;
   display: flex;
@@ -75,4 +64,45 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+.mapDiv {
+  grid-area: l;
+}
+
+@media (max-width: 768px) {
+  .containerFormProfile {
+    display: flex;
+    flex-direction: column;
+  }
+  .containerFormProfile > div {
+    margin-top: 1vh;
+  }
+  /* .map > div {
+    height: "-webkit-fill-available";
+    position: relative;
+  } */
+  .mapDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "textTittle button" "map map";
+  }
+  .map {
+    grid-area: map;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-evenly; */
+    height: -webkit-fill-available;
+    position: relative;
+  }
+  .button {
+    grid-area: button;
+    justify-self: center;
+    margin: 1vh;
+  }
+  .textTittle {
+    grid-area: textTittle;
+    justify-self: center;
+    align-self: center;
+  }
 }

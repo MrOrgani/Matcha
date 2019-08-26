@@ -5,22 +5,21 @@ import { Formik } from "formik";
 import "./FormProfile.css";
 import axios from "axios";
 
-import {
-  FirstName,
-  LastName,
-  Email,
-  Login,
-  Bio,
-  Gender,
-  SexualOrientation,
-  Age,
-  UploadFile,
-  Tags,
-  Submit
-} from "./Components/FieldsForm";
+import { FirstName } from "./Components/FirstName";
+import { LastName } from "./Components/LastName";
+import { Age } from "./Components/Age";
+import { Bio } from "./Components/Bio";
+import { Email } from "./Components/Email";
+import { Gender } from "./Components/Gender";
+import { Login } from "./Components/Login";
+import { Photo } from "./Components/Photo";
+import { ProfileMap } from "./Components/ProfileMap";
+import { SexualOrientation } from "./Components/SexualOrientation";
+import { Submit } from "./Components/Submit";
+import { Tags } from "./Components/Tags";
 
 function FormProfile() {
-  const { values, handlePreview, handleCancel } = useProfileForm();
+  const { values, handlePreview, handleCancel, handleTags } = useProfileForm();
 
   return (
     <Formik
@@ -111,8 +110,8 @@ function FormProfile() {
                 ]}
               />
             </div>
-            <div className="box localisation">
-              <h2>Where I live...</h2>
+            <div className="mapDiv">
+              <ProfileMap setFieldValue={setFieldValue} />
             </div>
             <div className="box login">
               <Login
@@ -153,17 +152,23 @@ function FormProfile() {
             </div>
             <div className="box photos">
               Your photos
-              <UploadFile
+              <Photo />
+              {/* <UploadFile
                 fileList={values.fileList}
                 onBlur={handleBlur}
                 onPreview={handlePreview}
                 values={values}
                 setFieldValue={setFieldValue}
                 handleCancel={handleCancel}
-              />
+              /> */}
             </div>
             <div className="box tags">
-              <Tags value={values.hobbies} onChange={handleChange("hobbies")} />
+              <Tags
+                value={values.hobbies}
+                // onClick={handleTags}
+                // onChange={handleChange("hobbies")}
+                setFieldValue={setFieldValue}
+              />
             </div>
             <div className="submit">
               <Submit />
