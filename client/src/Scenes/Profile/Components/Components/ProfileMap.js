@@ -25,7 +25,7 @@ export const ProfileMap = props => {
   function findUser() {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log("position is", position);
+        // console.log("position is", position);
         setState({
           location: {
             lat: position.coords.latitude,

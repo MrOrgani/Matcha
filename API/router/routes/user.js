@@ -43,9 +43,14 @@ router
   .post(userVerif, (req, res) => {
     addPicture(req, res);
   })
-  .patch(userVerif, dataProfileValidation, (req, res) => {
-    updateProfile(req, res);
-  });
+  .patch(
+    // userVerif,
+    // dataProfileValidation,
+    (req, res) => {
+      console.log("req", req.socket.bytesRead);
+      updateProfile(req, res);
+    }
+  );
 
 router
   .route("/register")

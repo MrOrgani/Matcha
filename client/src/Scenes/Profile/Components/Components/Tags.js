@@ -66,7 +66,7 @@ export const Tags = props => {
     const nextSelectedTags = checked
       ? [...hobbies, tag]
       : hobbies.filter(t => t !== tag);
-    setState({ hobbies: nextSelectedTags });
+    setState({ ...state, hobbies: nextSelectedTags });
     props.setFieldValue("hobbies", nextSelectedTags);
   }
 

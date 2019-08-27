@@ -10,14 +10,17 @@ async function modelUpdateProfile(req) {
         `MATCH (u:User {login: {userSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
-                u.age = {age},
-                u.gender = {gender},
-                u.sexualOrientation = {sexualOrientation},
-                u.login = {login},
-                u.email = {email},
-                u.bio = {bio}
-                RETURN u
-                `,
+              u.age = {age},
+              u.gender = {gender},
+              u.sexualOrientation = {sexualOrientation},
+              u.login = {login},
+              u.email = {email},
+              u.bio = {bio},
+              u.pics = {pics},
+              u.hobbies = {hobbies},
+              u.location = {location}
+              RETURN u
+              `,
         {
           userSource: req.query.login,
           firstName: req.body.values.firstName,
@@ -27,7 +30,10 @@ async function modelUpdateProfile(req) {
           sexualOrientation: req.body.values.sexualOrientation,
           login: req.body.values.login,
           email: req.body.values.email,
-          bio: req.body.values.bio
+          bio: req.body.values.bio,
+          pics: req.body.values.pics,
+          hobbies: req.body.values.hobbies,
+          location: req.body.values.location
         }
       )
       .catch(err => console.log(err));

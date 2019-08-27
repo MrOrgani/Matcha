@@ -10,10 +10,8 @@ const UserInMenu = props => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   const picture =
-    props.data.fileList &&
-    props.data.fileList[0] &&
-    JSON.parse(props.data.fileList[0]).url;
-  // console.log(JSON.parse(props.data.fileList[0]).url);
+    props.data.pics && props.data.pics[0] && JSON.parse(props.data.pics[0]).url;
+  // console.log(JSON.parse(props.data.pics[0]).url);
   return (
     <div
       style={{ display: "flex" }}

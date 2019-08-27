@@ -2,8 +2,6 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 export const Email = props => {
-  // const { handleChange, values } = useProfileForm();
-
   return (
     <TextField
       className="input"

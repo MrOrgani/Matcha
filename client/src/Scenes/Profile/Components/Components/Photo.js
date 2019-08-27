@@ -1,48 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./Photo.css";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ProfileFormContext } from "./../ProfileFormContext";
 
-export const Photo = () => {
-  const [state, setState] = useState({
-    files: []
-  });
-
-  //   function getBase64(img, callback) {
-  //     const reader = new FileReader();
-  //     // reader.addEventListener("load", () => callback(reader.result));
-  //     reader.onloadend = function() {
-  //       console.log("RESULT", reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
+export const Photo = props => {
+  const [state, setState] = useContext(ProfileFormContext);
+  const { pics } = state;
 
   const handleChange = event => {
-    const { files } = state;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = function() {
-      const allFiles = [...files, reader.result];
-      console.log("RESULT", reader.result);
-      setState({
-        files: allFiles
-      });
+      const allFiles = [...pics, reader.result];
+      setState({ ...state, pics: allFiles });
+      props.setFieldValue("pics", allFiles);
     };
     reader.readAsDataURL(file);
-    // console.log("end", end);
   };
+
+  function handleClick(index) {
+    // const { files } = state;
+    const notDeletedPhotos = pics.filter(file => pics.indexOf(file) !== index);
+    setState({ ...state, pics: notDeletedPhotos });
+    props.setFieldValue("pics", notDeletedPhotos);
+  }
   return (
     <React.Fragment>
       <div className="gridPhotos">
-        {state.files.map((file, index) => (
-          <a key={index} className="textWithBlurredBg">
+        {state.pics.map((file, index) => (
+          <a
+            key={index}
+            className="textWithBlurredBg"
+            onClick={() => handleClick(index)}
+          >
             <img className="previewImage" src={file} />
-            <h2>Click to delete</h2>
+            <h2>
+              <FontAwesomeIcon icon={faTrash} size="6x" />
+            </h2>
           </a>
         ))}
       </div>
-      {state.files.length < 5 ? (
-        //   <label for="ppt">
+      {state.pics.length < 5 ? (
         <div>
           <input
             id="ppt"
@@ -50,11 +49,7 @@ export const Photo = () => {
             type="file"
             onChange={handleChange}
           />
-          <label
-            htmlFor="ppt"
-            // class="button"
-            style={{ border: "1px solid black" }}
-          >
+          <label htmlFor="ppt" style={{ border: "1px solid black" }}>
             Add a photo
           </label>
         </div>
