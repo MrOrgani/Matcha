@@ -1,5 +1,6 @@
 import React from "react";
 import useProfileForm from "./useProfileForm";
+// import { ProfileFormContext } from "./ProfileFormContext";
 import { Formik } from "formik";
 // import { valuesValidations } from "./../../Home/Components/UserValidation";
 import "./FormProfile.css";
@@ -19,7 +20,7 @@ import { Submit } from "./Components/Submit";
 import { Tags } from "./Components/Tags";
 
 function FormProfile() {
-  const { values, handlePreview, handleCancel, handleTags } = useProfileForm();
+  const { values } = useProfileForm();
 
   return (
     <Formik
@@ -27,7 +28,7 @@ function FormProfile() {
       onSubmit={async values => {
         // validate={valuesValidations}
         console.log("the values are", values);
-        // const userValues = JSON.parse(sessionStorage.getItem("data"));
+        const userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
         // const files = Array.from(values.fileList);
         // const formData = new FormData();
@@ -35,9 +36,7 @@ function FormProfile() {
         //   formData.append(i, file.originFileObj);
         // });
         // ---- send data to back for images
-        // const api = `http://localhost:9000/api/user/profile?login=${
-        //   userValues.login
-        // }&jwt=${userValues.jwt}`;
+        const api = `http://localhost:9000/api/user/profile?login=${userValues.login}&jwt=${userValues.jwt}`;
         // await fetch(api, {
         //   method: "POST",
         //   body: formData
@@ -51,11 +50,11 @@ function FormProfile() {
 
         // delete values.previewImage;
         // delete values.pics;
-        // let newData = await axios
-        //   .patch(api, { values })
-        //   .catch(err => console.log(err));
-        // // sessionStorage.setItem("data", JSON.stringify(newData.data));
-        // console.log("newData", newData);
+        let newData = await axios
+          .patch(api, { values })
+          .catch(err => console.log(err));
+        console.log("newData", newData);
+        sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
     >
       {({
@@ -152,29 +151,15 @@ function FormProfile() {
             </div>
             <div className="box photos">
               Your photos
-              <Photo />
-              {/* <UploadFile
-                fileList={values.fileList}
-                onBlur={handleBlur}
-                onPreview={handlePreview}
-                values={values}
-                setFieldValue={setFieldValue}
-                handleCancel={handleCancel}
-              /> */}
+              <Photo setFieldValue={setFieldValue} />
             </div>
             <div className="box tags">
               <Tags
-<<<<<<< HEAD
                 value={values.hobbies}
                 // onClick={handleTags}
                 // onChange={handleChange("hobbies")}
                 setFieldValue={setFieldValue}
               />
-=======
-              //  value={values.hobbies} 
-              // onChange={handleChange("hobbies")}
-               />
->>>>>>> 79dbfda611c7e8281cdaac8369ff2c49f3dfd227
             </div>
             <div className="submit">
               <Submit />

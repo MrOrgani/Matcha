@@ -43,8 +43,9 @@
   transition: 0.3s;
 }
 
-/* .textWithBlurredBg i {
+/* .textWithBlurredBg h2 {
   top: 50%;
+  size: 5vh;
 } */
 
 .textWithBlurredBg:hover :not(img) {

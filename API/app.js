@@ -6,6 +6,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const formData = require("express-form-data");
 const io = require("socket.io")(server);
+const bodyParser = require("body-parser");
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // SERVER LISTENS
 server.listen(9000, () => console.log("listening on 9000"));
