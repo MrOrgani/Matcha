@@ -20,11 +20,11 @@ export const Photo = props => {
   };
 
   function handleClick(index) {
-    // const { files } = state;
     const notDeletedPhotos = pics.filter(file => pics.indexOf(file) !== index);
     setState({ ...state, pics: notDeletedPhotos });
     props.setFieldValue("pics", notDeletedPhotos);
   }
+
   return (
     <React.Fragment>
       <div className="gridPhotos">
@@ -35,9 +35,9 @@ export const Photo = props => {
             onClick={() => handleClick(index)}
           >
             <img className="previewImage" src={file} />
-            <h2>
-              <FontAwesomeIcon icon={faTrash} size="6x" />
-            </h2>
+            {/* <h2> */}
+            <FontAwesomeIcon icon={faTrash} size="6x" />
+            {/* </h2> */}
           </a>
         ))}
       </div>

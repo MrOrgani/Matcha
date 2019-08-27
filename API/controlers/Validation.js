@@ -1,3 +1,6 @@
+const { findOne } = require("./../models/modelUser");
+const bcrypt = require("bcryptjs");
+
 exports.dataRegisterValidation = function(req, res, next) {
   let errors = {};
   if (!req.body.login) {
@@ -43,7 +46,12 @@ exports.dataLoginValidation = function(req, res, next) {
 exports.dataProfileValidation = function(req, res, next) {
   let errors = {};
   for (let value in req.body.values) {
-    if (!req.body.values[value]) errors[value] = `${value} is required`;
+    if (
+      !req.body.values[value] &&
+      value !== "oldpassword" &&
+      value !== "newpassword"
+    )
+      errors[value] = `${value} is required`;
   }
   if (
     req.body.values.firstName &&
@@ -63,6 +71,38 @@ exports.dataProfileValidation = function(req, res, next) {
   if (req.body.values.login && !/^[a-z0-9]+$/i.test(req.body.values.login)) {
     errors.login = "Your Login can only contain letters and numbers";
   }
+  // console.log("error ara", errors);
   for (let x in errors) return res.status(400).send(errors);
+  next();
+};
+
+exports.checkPasswordIsChanged = async function(req, res, next) {
+  let errors = {};
+  const { oldpassword, newpassword } = req.body.values;
+  // Si oldpassword et newpassword
+  if (oldpassword && newpassword) {
+    try {
+      const userData = await findOne(req.query.login, "login");
+      const { password } = userData[0]._fields[0].properties;
+
+      if (!(await bcrypt.compare(oldpassword, password))) {
+        errors.oldpassword = "You old password is incorrect !";
+        console.log("pas bon le pass");
+        return;
+      } else if (!/[A-Z0-9]+/i.test(newpassword)) {
+        errors.newpassword =
+          "You new Password must at least contain one letter and one digit";
+      } else if (!/[!@#$%^&*()]+/.test(newpassword)) {
+        errors.newpassword =
+          "Your new Password must at least contain one of the following !@#$%^&*()";
+      }
+
+      delete req.body.values.oldpassword;
+      console.log("req.body.values.oldpasswird", req.body.values.oldpassword);
+    } catch (err) {
+      console.log(err);
+    }
+    for (let x in errors) return res.status(400).send(errors);
+  }
   next();
 };

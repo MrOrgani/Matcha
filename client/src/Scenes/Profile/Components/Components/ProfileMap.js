@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import { Button } from "antd";
+import "./ProfileMap.css";
+import "leaflet/dist/leaflet.css";
 
 var myIcon = L.icon({
   iconUrl:
@@ -68,10 +70,10 @@ export const ProfileMap = props => {
           Find Me !
         </Button>
       </div>
-      <Map center={position} zoom={state.zoom} className="map">
+      <Map center={position} zoom={state.zoom}>
         <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         {state.gotUserLocation ? (
           <Marker position={position} icon={myIcon}>

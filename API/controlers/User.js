@@ -51,8 +51,13 @@ function cleanUserData(userData) {
 async function cryptAndObjectify(req, res, next) {
   try {
     const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
-    req.body.password = hashPassword;
+    const password = req.body.password
+      ? req.body.password
+      : req.body.values.newpassword;
+    const hashPassword = await bcrypt.hash(password, salt);
+    req.body.password
+      ? (req.body.password = hashPassword)
+      : (req.body.values.newpassword = hashPassword);
     next();
   } catch (err) {
     console.log(err);

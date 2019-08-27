@@ -9,7 +9,8 @@ const {
 const {
   dataProfileValidation,
   dataRegisterValidation,
-  dataLoginValidation
+  dataLoginValidation,
+  checkPasswordIsChanged
 } = require("./../../controlers/Validation");
 
 const app = express();
@@ -44,10 +45,11 @@ router
     addPicture(req, res);
   })
   .patch(
-    // userVerif,
-    // dataProfileValidation,
+    userVerif,
+    checkPasswordIsChanged,
+    cryptAndObjectify,
+    dataProfileValidation,
     (req, res) => {
-      console.log("req", req.socket.bytesRead);
       updateProfile(req, res);
     }
   );
