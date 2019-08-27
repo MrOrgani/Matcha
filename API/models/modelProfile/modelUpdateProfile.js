@@ -3,8 +3,21 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  console.log("values MODELUPDATEPROFILE are");
+  console.log("values MODELUPDATEPROFILE are", req.body.values);
   try {
+    if (req.body.values.newpassword) {
+      console.log("MODELUPDATEPROFILE in here bitch");
+      await session
+        .run(
+          `MATCH (u:User {login: {userSource}})
+          SET u.password = {newpassword}`,
+          {
+            userSource: req.query.login,
+            newpassword: req.body.values.newpassword
+          }
+        )
+        .catch(err => console.log(err));
+    }
     const userData = await session
       .run(
         `MATCH (u:User {login: {userSource}})
@@ -37,7 +50,8 @@ async function modelUpdateProfile(req) {
         }
       )
       .catch(err => console.log(err));
-    console.log("THE NEW USER DATA", userData);
+
+    // console.log("THE NEW USER DATA", userData);
     //// JWT auth token
     const token = jwt.sign(
       { uuid: userData.records[0]._fields[0].properties.uuid },
@@ -47,10 +61,10 @@ async function modelUpdateProfile(req) {
     delete userData.records[0]._fields[0].properties.uuid;
     userData.records[0]._fields[0].properties.jwt = token;
 
-    console.log(
-      "value in MODEL USER",
-      userData.records[0]._fields[0].properties
-    );
+    // console.log(
+    //   "value in MODEL USER",
+    //   userData.records[0]._fields[0].properties
+    // );
     return userData.records[0]._fields[0].properties;
   } catch (err) {
     console.log(err);

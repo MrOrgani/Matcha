@@ -16,7 +16,7 @@ async function modelUserVerif(req) {
   try {
     if (!req.jwt) return false;
     const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
-    // console.log("verified", verified);
+    console.log("mdoelUserVerif verified", verified);
     const result = await session
       .run(`MATCH (u:User {login: {userSource}, uuid:{uuid}}) RETURN u`, {
         userSource: req.userSource,

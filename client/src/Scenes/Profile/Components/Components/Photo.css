@@ -12,12 +12,14 @@
 }
 
 .textWithBlurredBg {
-  width: 300px;
+  width: 10vh;
   height: auto;
-  display: inline-block;
+  display: flex;
   position: relative;
   transition: 0.3s;
   margin: 4px;
+  justify-content: center;
+  align-items: center;
 }
 
 .textWithBlurredBg img {
@@ -35,7 +37,6 @@
 .textWithBlurredBg :not(img) {
   position: absolute;
   z-index: 1;
-  top: 50%;
   width: 100%;
   text-align: center;
   color: #fff;
@@ -43,11 +44,17 @@
   transition: 0.3s;
 }
 
-/* .textWithBlurredBg h2 {
-  top: 50%;
-  size: 5vh;
-} */
+.svg-inline--fa.fa-w-14 {
+  width: 0.8em;
+}
 
 .textWithBlurredBg:hover :not(img) {
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  /* .textWithBlurredBg h2 {
+  top: 50%;
+  size: 5vh;
+} */
 }

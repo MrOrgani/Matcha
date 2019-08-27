@@ -13,6 +13,7 @@ import { Bio } from "./Components/Bio";
 import { Email } from "./Components/Email";
 import { Gender } from "./Components/Gender";
 import { Login } from "./Components/Login";
+import { Passwords } from "./Components/Passwords";
 import { Photo } from "./Components/Photo";
 import { ProfileMap } from "./Components/ProfileMap";
 import { SexualOrientation } from "./Components/SexualOrientation";
@@ -27,7 +28,7 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         // validate={valuesValidations}
-        console.log("the values are", values);
+        // console.log("the values are", values);
         const userValues = JSON.parse(sessionStorage.getItem("data"));
         // *******  UPLOAD PICTURES
         // const files = Array.from(values.fileList);
@@ -50,9 +51,10 @@ function FormProfile() {
 
         // delete values.previewImage;
         // delete values.pics;
+
         let newData = await axios
           .patch(api, { values })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err.response.data));
         console.log("newData", newData);
         sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
@@ -133,12 +135,19 @@ function FormProfile() {
                 onBlur={handleBlur}
                 helperText={[errors.email, touched.email, errors.email]}
               />
-              {/* <Email
-                value={values.email}
-                onChange={handleChange("email")}
+              <Passwords
+                value={[values.oldpassword, values.newpassword]}
+                onChange={[
+                  handleChange("oldpassword"),
+                  handleChange("newpassword")
+                ]}
                 onBlur={handleBlur}
-                helperText={[errors.email, touched.email, errors.email]}
-              /> */}
+                helperText={[
+                  errors.password,
+                  touched.password,
+                  errors.password
+                ]}
+              />
             </div>
             <div className="box bio">
               Tell us something about you :

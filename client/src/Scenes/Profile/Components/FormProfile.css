@@ -69,6 +69,22 @@
   grid-area: l;
 }
 
+.mapDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "textTittle button" "map map";
+}
+
+.map {
+  grid-area: map;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-evenly; */
+  height: -webkit-fill-available;
+  position: relative;
+}
+
 @media (max-width: 768px) {
   .containerFormProfile {
     display: flex;
@@ -81,20 +97,7 @@
     height: "-webkit-fill-available";
     position: relative;
   } */
-  .mapDiv {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "textTittle button" "map map";
-  }
-  .map {
-    grid-area: map;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: space-evenly; */
-    height: -webkit-fill-available;
-    position: relative;
-  }
+
   .button {
     grid-area: button;
     justify-self: center;
