@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 // MIDDLEWARE
-const { userVerif } = require("../../controlers/User");
+const userVerif = require("../../controlers/user/middleware/userVerif");
 
 //FINALWARE
 const { newMessages } = require("../../controlers/tempchat/newMessages");

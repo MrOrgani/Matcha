@@ -7,6 +7,7 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 async function modelCreateUser(req) {
+  const { login, password, email, uuid } = req;
   try {
     const data = await session.run(
       `CREATE(u:User {
@@ -24,10 +25,18 @@ async function modelCreateUser(req) {
               phone:'',
               bio:'',
               hobbies: [],
-              pics: []
+              pics: [],
+              indexOfPP: {myIntParam},
+              indexfalse: 5 
             }) 
               RETURN u`,
-      req
+      {
+        login: login,
+        password: password,
+        email: email,
+        uuid: uuid,
+        myIntParam: neo4j.int(0)
+      }
     );
     return data;
   } catch (err) {

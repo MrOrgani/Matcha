@@ -80,7 +80,13 @@ function Register() {
                         }
                         setTextError(errorStr.trim());
                       }
-                    });
+                    })
+                    .catch(err =>
+                      console.log(
+                        "Error while registering: ",
+                        err.response.data
+                      )
+                    );
                 }}
                 validate={RegisterValidation}
               >

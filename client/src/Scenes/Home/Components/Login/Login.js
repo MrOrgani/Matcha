@@ -84,7 +84,10 @@ function Login() {
                         }
                         setTextError(errorStr.trim());
                       }
-                    });
+                    })
+                    .catch(err =>
+                      console.log("Error while loging: ", err.response.data)
+                    );
                 }}
                 validate={LoginValidation}
               >

@@ -4,6 +4,7 @@ import L from "leaflet";
 import { Button } from "antd";
 import "./ProfileMap.css";
 import "leaflet/dist/leaflet.css";
+import TextField from "@material-ui/core/TextField";
 
 var myIcon = L.icon({
   iconUrl:
@@ -23,11 +24,9 @@ export const ProfileMap = props => {
     zoom: 3
   });
 
-  const position = [state.location.lat, state.location.long];
   function findUser() {
     navigator.geolocation.getCurrentPosition(
       position => {
-        // console.log("position is", position);
         setState({
           location: {
             lat: position.coords.latitude,
@@ -44,7 +43,6 @@ export const ProfileMap = props => {
       async () => {
         const api = await fetch("https://ipapi.co/json");
         const api_json = await api.json();
-        // console.log("api json", api_json);
         await setState({
           location: {
             lat: api_json.latitude,
@@ -57,20 +55,37 @@ export const ProfileMap = props => {
           api_json.latitude,
           api_json.longitude
         ]);
-        // console.log("state is", api_json.latitude);
       }
     );
   }
 
+  const position = [state.location.lat, state.location.long];
   return (
     <React.Fragment>
-      <div className="textTittle">Where I live</div>
+      <div className="textTittle">
+        <TextField
+          className="input"
+          type="text"
+          label="City"
+          name="city"
+          // variant="outlined"
+          // required
+          value={props.value}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          // helperText={
+          //   props.helperText[0] && props.helperText[1] && props.helperText[2]
+          // }
+        />
+        <Button type="primary" icon="search" onClick={findUser} />
+      </div>
       <div className="button">
+        Or
         <Button type="primary" icon="environment" onClick={findUser}>
           Find Me !
         </Button>
       </div>
-      <Map center={position} zoom={state.zoom}>
+      <Map center={position} zoom={state.zoom} className="map">
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

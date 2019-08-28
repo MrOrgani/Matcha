@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./Photo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faStar } from "@fortawesome/free-solid-svg-icons";
 import { ProfileFormContext } from "./../ProfileFormContext";
 
 export const Photo = props => {
@@ -19,26 +19,58 @@ export const Photo = props => {
     reader.readAsDataURL(file);
   };
 
-  function handleClick(index) {
+  function handleDelete(index) {
     const notDeletedPhotos = pics.filter(file => pics.indexOf(file) !== index);
-    setState({ ...state, pics: notDeletedPhotos });
-    props.setFieldValue("pics", notDeletedPhotos);
+    if (index <= state.indexOfPP) {
+      setState({
+        ...state,
+        pics: notDeletedPhotos,
+        indexOfPP: state.indexOfPP - 1
+      });
+      props.setFieldValue("pics", notDeletedPhotos);
+      props.setFieldValue("indexOfPP", state.indexOfPP - 1);
+    } else {
+      setState({ ...state, pics: notDeletedPhotos });
+      props.setFieldValue("pics", notDeletedPhotos);
+    }
+  }
+
+  function handleFav(index) {
+    setState({ ...state, indexOfPP: index });
+    props.setFieldValue("indexOfPP", index);
   }
 
   return (
     <React.Fragment>
       <div className="gridPhotos">
         {state.pics.map((file, index) => (
-          <a
-            key={index}
-            className="textWithBlurredBg"
-            onClick={() => handleClick(index)}
-          >
-            <img className="previewImage" src={file} />
-            {/* <h2> */}
-            <FontAwesomeIcon icon={faTrash} size="6x" />
-            {/* </h2> */}
-          </a>
+          <div key={index} className="textWithBlurredBg">
+            <img
+              alt={index}
+              className={
+                state.indexOfPP === index || (index === 0 && state.length === 1)
+                  ? "favPreviewImg"
+                  : "previewImg"
+              }
+              src={file}
+            />
+            <div className="iconsImages">
+              {/* <a href="#"> */}
+              <FontAwesomeIcon
+                icon={faTrash}
+                size="2x"
+                onClick={() => handleDelete(index)}
+              />
+              {/* </a> */}
+              {/* <a href="#"> */}
+              <FontAwesomeIcon
+                icon={faStar}
+                size="2x"
+                onClick={() => handleFav(index)}
+              />
+              {/* </a> */}
+            </div>
+          </div>
         ))}
       </div>
       {state.pics.length < 5 ? (
