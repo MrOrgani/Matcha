@@ -1,8 +1,7 @@
 const router = require("express").Router();
 
 // MIDDLEWARE
-const { userVerif } = require("../../controlers/User");
-
+const userVerif = require("../../controlers/user/middleware/userVerif");
 const { isLiked } = require("../../controlers/rel/isLiked");
 const { setLike } = require("../../controlers/rel/setLike");
 const { isBlocked } = require("../../controlers/rel/isBlocked");

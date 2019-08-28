@@ -1,12 +1,13 @@
 const { initNeo4j } = require("../initNeo4j");
+const neo4j = require("neo4j-driver").v1;
 const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  console.log("values MODELUPDATEPROFILE are", req.body.values);
+  // console.log("values MODELUPDATEPROFILE are", req.body.values);
   try {
     if (req.body.values.newpassword) {
-      console.log("MODELUPDATEPROFILE in here bitch");
+      // console.log("MODELUPDATEPROFILE in here bitch");
       await session
         .run(
           `MATCH (u:User {login: {userSource}})
@@ -30,6 +31,7 @@ async function modelUpdateProfile(req) {
               u.email = {email},
               u.bio = {bio},
               u.pics = {pics},
+              u.indexOfPP = {indexOfPP},
               u.hobbies = {hobbies},
               u.location = {location}
               RETURN u
@@ -45,6 +47,7 @@ async function modelUpdateProfile(req) {
           email: req.body.values.email,
           bio: req.body.values.bio,
           pics: req.body.values.pics,
+          indexOfPP: req.body.values.indexOfPP,
           hobbies: req.body.values.hobbies,
           location: req.body.values.location
         }

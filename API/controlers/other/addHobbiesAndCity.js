@@ -41,7 +41,7 @@ async function addCityCoords(json) {
   }
 }
 
-async function addHobbiesAndCity(req, res) {
+async function addTagNCity(req, res) {
   const response = await fetch(url);
   const json = await response.json();
 
@@ -51,5 +51,5 @@ async function addHobbiesAndCity(req, res) {
 }
 
 module.exports = {
-  addHobbiesAndCity
+  addTagNCity
 };

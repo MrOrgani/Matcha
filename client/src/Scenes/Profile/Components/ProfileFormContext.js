@@ -14,6 +14,7 @@ const ProfileFormProvider = props => {
     sexualOrientation: data.sexualOrientation,
     bio: data.bio,
     pics: data.pics,
+    indexOfPP: data.indexOfPP,
     hobbies: data.hobbies,
     location: data.location,
     oldpassword: "",

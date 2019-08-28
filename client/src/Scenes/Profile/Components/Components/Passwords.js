@@ -29,7 +29,7 @@ export const Passwords = props => {
         value={props.value[1]}
         onChange={props.onChange[1]}
         onBlur={props.onBlur}
-        disabled={props.value[0] == "" ? true : false}
+        disabled={props.value[0] === "" ? true : false}
         helperText={
           props.helperText[0] && props.helperText[1] && props.helperText[2]
         }

@@ -1,31 +1,26 @@
+const ctrlUsr = "../../controlers/user";
+
 const router = require("express").Router();
 const express = require("express");
 const fileUpload = require("express-fileupload");
-const { updateProfile } = require("../../controlers/profile/updateProfile");
-const { addPicture } = require("../../controlers/profile/handlePictures");
-const {
-  addHobbiesAndCity
-} = require("../../controlers/other/addHobbiesAndCity");
-const {
-  dataProfileValidation,
-  dataRegisterValidation,
-  dataLoginValidation,
-  checkPasswordIsChanged
-} = require("./../../controlers/Validation");
-
 const app = express();
 app.use(fileUpload());
 
-const {
-  createUser,
-  loginUser,
-  gUsers,
-  delUsers,
-  getUsers,
-  userVerif,
-  loginOrEmailNotTaken,
-  cryptAndObjectify
-} = require("../../controlers/User");
+// MIDDLEWARES
+const cryptNObject = require(`${ctrlUsr}/middleware/cryptAndObjectify`);
+const existLogOrEmail = require(`${ctrlUsr}/middleware/ExistLogOrEmail`);
+const dataProfileVal = require(`./${ctrlUsr}/validation/dataProfileVal`);
+const dataRegisterVal = require(`./${ctrlUsr}/validation/dataRegisterVal`);
+const dataLoginVal = require(`./${ctrlUsr}/validation/dataLoginVal`);
+const changePass = require(`./${ctrlUsr}/validation/changePass`);
+const userVerif = require(`../../controlers/user/middleware/userVerif`);
+
+// FUNCTIONS
+const { gUsers, delUsers, getUsers } = require(`${ctrlUsr}/User`);
+const { addTagNCity } = require("../../controlers/other/addHobbiesAndCity");
+const createUser = require(`${ctrlUsr}/createUser`);
+const loginUser = require(`${ctrlUsr}/loginUser`);
+const { updateProfile } = require("../../controlers/profile/updateProfile");
 
 router
   .route("/")
@@ -36,19 +31,19 @@ router
     gUsers(req, res);
   })
   .get((req, res) => {
-    addHobbiesAndCity(req, res);
+    addTagNCity(req, res);
   });
 
 router
   .route("/profile")
-  .post(userVerif, (req, res) => {
-    addPicture(req, res);
-  })
+  // .post(userVerif, (req, res) => {
+  // addPicture(req, res);
+  // })
   .patch(
     userVerif,
-    checkPasswordIsChanged,
-    cryptAndObjectify,
-    dataProfileValidation,
+    changePass,
+    cryptNObject,
+    // dataProfileVal,
     (req, res) => {
       updateProfile(req, res);
     }
@@ -56,29 +51,15 @@ router
 
 router
   .route("/register")
-  .post(
-    loginOrEmailNotTaken,
-    dataRegisterValidation,
-    cryptAndObjectify,
-    (req, res) => {
-      createUser(req, res);
-    }
-  )
+  .post(existLogOrEmail, dataRegisterVal, cryptNObject, (req, res) => {
+    createUser(req, res);
+  })
   .get((req, res) => {
     getUsers(req, res);
   });
 
-router.route("/login").post(
-  dataLoginValidation,
-  // cryptAndObjectify,
-  (req, res) => {
-    loginUser(req, res);
-  }
-);
-
-// router.route("/generate");
-// .post((req, res) => {
-//   req.body.value ? gUsers(req, res) : delUsers(req, res);
-// })
+router.route("/login").post(dataLoginVal, (req, res) => {
+  loginUser(req, res);
+});
 
 module.exports = router;
