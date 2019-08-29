@@ -16,7 +16,8 @@ const ProfileFormProvider = props => {
     pics: data.pics,
     indexOfPP: data.indexOfPP,
     hobbies: data.hobbies,
-    location: data.location,
+    location: [data.location[0], data.location[1]],
+    city: data.city,
     oldpassword: "",
     newpassword: ""
   });

@@ -4,7 +4,7 @@ import L from "leaflet";
 import { Button } from "antd";
 import "./ProfileMap.css";
 import "leaflet/dist/leaflet.css";
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 
 var myIcon = L.icon({
   iconUrl:
@@ -62,7 +62,7 @@ export const ProfileMap = props => {
   const position = [state.location.lat, state.location.long];
   return (
     <React.Fragment>
-      <div className="textTittle">
+      {/* <div className="textTittle">
         <TextField
           className="input"
           type="text"
@@ -77,10 +77,9 @@ export const ProfileMap = props => {
           //   props.helperText[0] && props.helperText[1] && props.helperText[2]
           // }
         />
-        <Button type="primary" icon="search" onClick={findUser} />
-      </div>
+        <Button type="primary" icon="search" onClick={findCity} />
+      </div> */}
       <div className="button">
-        Or
         <Button type="primary" icon="environment" onClick={findUser}>
           Find Me !
         </Button>

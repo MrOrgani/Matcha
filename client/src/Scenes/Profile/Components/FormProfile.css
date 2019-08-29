@@ -72,9 +72,9 @@
 
 .mapDiv {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto 1fr;
-  grid-template-areas: "textTittle button" "map map";
+  grid-template-areas: ". button ." "map map map";
 }
 
 .map {

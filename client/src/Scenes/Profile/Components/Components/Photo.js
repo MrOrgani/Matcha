@@ -25,10 +25,13 @@ export const Photo = props => {
       setState({
         ...state,
         pics: notDeletedPhotos,
-        indexOfPP: state.indexOfPP - 1
+        indexOfPP: state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
       });
       props.setFieldValue("pics", notDeletedPhotos);
-      props.setFieldValue("indexOfPP", state.indexOfPP - 1);
+      props.setFieldValue(
+        "indexOfPP",
+        state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
+      );
     } else {
       setState({ ...state, pics: notDeletedPhotos });
       props.setFieldValue("pics", notDeletedPhotos);
@@ -39,7 +42,7 @@ export const Photo = props => {
     setState({ ...state, indexOfPP: index });
     props.setFieldValue("indexOfPP", index);
   }
-
+  console.log("state length", pics.length, state.indexOfPP);
   return (
     <React.Fragment>
       <div className="gridPhotos">
@@ -48,7 +51,7 @@ export const Photo = props => {
             <img
               alt={index}
               className={
-                state.indexOfPP === index || (index === 0 && state.length === 1)
+                state.indexOfPP === index || (index === 0 && pics.length === 1)
                   ? "favPreviewImg"
                   : "previewImg"
               }
