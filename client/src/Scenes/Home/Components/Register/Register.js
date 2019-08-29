@@ -64,7 +64,7 @@ function Register() {
                       }
                     })
                     .then(res => {
-                      // console.log("response de l'API", res);
+                      console.log("response de l'API", res);
                       if (res.status === 200) setSubmitionCompleted(true);
                       else {
                         console.log("erreure recue lors de l'enregistrement");

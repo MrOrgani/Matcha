@@ -112,7 +112,11 @@ function FormProfile() {
               />
             </div>
             <div className="mapDiv">
-              <ProfileMap setFieldValue={setFieldValue} />
+              <ProfileMap
+                setFieldValue={setFieldValue}
+                onChange={handleChange("city")}
+                value={values.city}
+              />
             </div>
             <div className="box login">
               <Login
