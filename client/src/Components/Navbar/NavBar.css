@@ -4,3 +4,27 @@
   flex-direction: row;
   /* flex-grow: 1; */
 }
+
+.bar {
+  display: flex;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+  background-color: white;
+  text-decoration: none;
+  min-height: 64px;
+}
+
+.loginBut {
+  margin-left: auto;
+}
+
+.MuiMenuItem-root {
+  width: -webkit-fill-available;
+}
+
+.titleBar {
+  font-family: "Habibi";
+  font-size: 2vh;
+  text-align: center;
+}

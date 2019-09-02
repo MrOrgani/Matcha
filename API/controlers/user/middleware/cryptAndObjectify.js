@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 // Crypts pwd and returns a well rounded user object from req.body
 module.exports = async function cryptNObject(req, res, next) {
   try {
-    console.log("crypt");
+    // console.log("crypt");
     const salt = await bcrypt.genSalt(10);
     const password = req.body.password
       ? req.body.password

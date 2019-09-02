@@ -7,27 +7,13 @@ import Register from "../Home/Components/Register/Register";
 import Login from "../Home/Components/Login/Login";
 
 function HomeHeader() {
-  const useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-      backgroundImage: `url(${background})`,
-      backgroundSize: "cover",
-      overflow: "hidden",
-      height: "100vh",
-      backgroundPosition: "50% 50%"
-    },
-    back: {
-      marginTop: "80px"
-    }
-  }));
-
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div style={{ textAlign: "center" }}>
-      <div className={classes.root}>
+      <div className="root">
         {/* <DrawerNavigator /> */}
-        <h1 className={classes.back}>Are you ready for Love?</h1>
+        <h1 className="back">Are you ready for Love?</h1>
         <p>
           Life is an adventure which you must chose who you will share it with?
         </p>

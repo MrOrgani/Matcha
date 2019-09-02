@@ -1,0 +1,16 @@
+.containerUL {
+  display: grid;
+  /* flex-direction: row; */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding-left: 5vw;
+  padding-right: 5vw;
+  justify-items: center;
+}
+
+.card {
+  height: 200px;
+  width: 200px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  text-align: center;
+}
