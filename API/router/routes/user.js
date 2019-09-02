@@ -7,20 +7,21 @@ const app = express();
 app.use(fileUpload());
 
 // MIDDLEWARES
+const userVerif = require(`${ctrlUsr}/middleware/userVerif`);
 const cryptNObject = require(`${ctrlUsr}/middleware/cryptAndObjectify`);
 const existLogOrEmail = require(`${ctrlUsr}/middleware/ExistLogOrEmail`);
 const dataProfileVal = require(`./${ctrlUsr}/validation/dataProfileVal`);
 const dataRegisterVal = require(`./${ctrlUsr}/validation/dataRegisterVal`);
 const dataLoginVal = require(`./${ctrlUsr}/validation/dataLoginVal`);
 const changePass = require(`./${ctrlUsr}/validation/changePass`);
-const userVerif = require(`../../controlers/user/middleware/userVerif`);
 
 // FUNCTIONS
-const { gUsers, delUsers, getUsers } = require(`${ctrlUsr}/User`);
-const { addTagNCity } = require("../../controlers/other/addHobbiesAndCity");
+const { gUsers, delUsers, getUsers } = require(`../../controlers/seed/user`);
+const { addTagNCity } = require("../../controlers/seed/addHobbiesAndCity");
 const createUser = require(`${ctrlUsr}/createUser`);
 const loginUser = require(`${ctrlUsr}/loginUser`);
 const { updateProfile } = require("../../controlers/profile/updateProfile");
+const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
 
 router
   .route("/")
@@ -33,6 +34,21 @@ router
   .get((req, res) => {
     addTagNCity(req, res);
   });
+
+router
+  .route("/register")
+  .post(existLogOrEmail, dataRegisterVal, cryptNObject, (req, res) => {
+    createUser(req, res);
+  })
+  .get((req, res) => {
+    getUsers(req, res);
+  });
+
+router.route("/confirm/:id").get(confirmEmail);
+
+router.route("/login").post(dataLoginVal, (req, res) => {
+  loginUser(req, res);
+});
 
 router
   .route("/profile")
@@ -48,18 +64,5 @@ router
       updateProfile(req, res);
     }
   );
-
-router
-  .route("/register")
-  .post(existLogOrEmail, dataRegisterVal, cryptNObject, (req, res) => {
-    createUser(req, res);
-  })
-  .get((req, res) => {
-    getUsers(req, res);
-  });
-
-router.route("/login").post(dataLoginVal, (req, res) => {
-  loginUser(req, res);
-});
 
 module.exports = router;
