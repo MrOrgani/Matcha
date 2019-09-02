@@ -3,13 +3,8 @@
 // https://www.youtube.com/watch?v=2jqok-WgelI&t=3386s at 1h03m
 // testable with postman
 
-const neo4j = require("neo4j-driver").v1;
-const driver = neo4j.driver(
-  "bolt://localhost",
-  neo4j.auth.basic(process.env.DB_LOGIN, process.env.DB_PWD),
-  () => console.log("connected to db")
-);
-const session = driver.session();
+const { initNeo4j } = require("../initNeo4j");
+const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
