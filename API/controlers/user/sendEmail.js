@@ -12,7 +12,7 @@ module.exports = async function sendMail(email, nb, key) {
       pass: "S6PVnQW3zn8bXDUkEu"
     }
   });
-  console.log("key email user", key);
+  // console.log("key email user", key);
   await transporter.sendMail({
     from: "ValentinLePigeon@matcha.com",
     to: email,
@@ -20,6 +20,6 @@ module.exports = async function sendMail(email, nb, key) {
     text: "Confirm your account ",
     //  html: <h1>Click <a href=\"http://localhost:3000/security/reset/${key}\">here</a> to reset your password 🔒</h1>
     //    : <h1>Confirm your account 🔥 <a href=\"http://localhost:3000/authentication/${key}\">here</a></h1>
-    html: `<h1>Confirm your account : <a href=\"http://localhost:3000/confirm/${key}\">here</a></h1>`
+    html: `<h1>Confirm your account : <a href=\"http://localhost:3000/api/user/confirm/${key}\">here</a></h1>`
   });
 };

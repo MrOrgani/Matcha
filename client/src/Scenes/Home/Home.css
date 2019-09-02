@@ -12,3 +12,16 @@
   margin: auto;
   color: white;
 }
+
+.root {
+  height: -webkit-fill-available;
+  overflow: auto;
+  /* flex-grow: 1; */
+  background-size: cover;
+  background-image: url(/static/media/couple.6b901e69.jpeg);
+  /* background-position: 50% 50%; */
+}
+
+.back {
+  margin-top: 80px;
+}

@@ -1,5 +1,5 @@
 module.exports = function dataRegisterValidation(req, res, next) {
-  console.log("dataRegister");
+  // console.log("dataRegister");
   let errors = {};
   if (!req.body.login) {
     errors.login = "A login is required";

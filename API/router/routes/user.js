@@ -44,7 +44,7 @@ router
     getUsers(req, res);
   });
 
-router.route("/confirm/:id").get(confirmEmail);
+router.route("/confirm/:id").get((req, res) => confirmEmail(req, res));
 
 router.route("/login").post(dataLoginVal, (req, res) => {
   loginUser(req, res);

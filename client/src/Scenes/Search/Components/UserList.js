@@ -4,15 +4,16 @@ import { UsersContext } from "./UsersContext";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 // import { AuthContext } from "../../../AuthContext";
+import "./UserList.css";
 
-const useStyles = makeStyles({
-  container: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    justifyContent: "space-around",
-    flexFlow: "row wrap",
-    display: "flex"
-  }
-});
+// const useStyles = makeStyles({
+//   container: {
+//     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+//     justifyContent: "space-around",
+//     flexFlow: "row wrap",
+//     display: "flex"
+//   }
+// });
 
 const filterUsers = (props, users) => {
   const genderFiltered =
@@ -35,11 +36,11 @@ const filterUsers = (props, users) => {
 const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const filteredUserList = filterUsers(props, users);
   return (
-    <div className={classes.container}>
+    <div className="containerUL">
       {filteredUserList.map((user, index) => (
         <UserCardProvider key={`Card${index}`} user={user} session={session}>
           <User />

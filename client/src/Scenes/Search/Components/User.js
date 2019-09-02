@@ -62,7 +62,7 @@ const User = props => {
 
   return (
     <React.Fragment>
-      <CardMedia className={classes.card} image={userInfo.picLarge}>
+      <CardMedia className="card" image={userInfo.picLarge}>
         <div className={classes.root}>
           <IconButton
             className={
