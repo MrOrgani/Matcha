@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async function sendMail(email, nb, key) {
+module.exports = async function sendMail(email, np = false, key) {
   // let testAccount = await nodemailer.createTestAccount();
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
@@ -16,10 +16,10 @@ module.exports = async function sendMail(email, nb, key) {
   await transporter.sendMail({
     from: "ValentinLePigeon@matcha.com",
     to: email,
-    subject: "Welcome ",
-    text: "Confirm your account ",
-    //  html: <h1>Click <a href=\"http://localhost:3000/security/reset/${key}\">here</a> to reset your password 🔒</h1>
-    //    : <h1>Confirm your account 🔥 <a href=\"http://localhost:3000/authentication/${key}\">here</a></h1>
-    html: `<h1>Confirm your account : <a href=\"http://localhost:3000/api/user/confirm/${key}\">here</a></h1>`
+    subject: !np ? "Welcome" : "Password forgotten",
+    text: !np ? "Confirm your account" : "Change your password",
+    html: !np
+      ? `Confirm your account : <a href=\"http://localhost:3000/api/user/confirm/${key}\">here</a>`
+      : `Change your password : <a href=\"http://localhost:3000/api/user/forgot/${key}\">here</a>`
   });
 };

@@ -1,47 +1,52 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import "./NavBar.css";
-import MenuItem from "@material-ui/core/MenuItem";
-import DrawerNavigator from "./../Navbar/DrawerNavigation";
-import Login from "./Components/Login/Login";
+// import MenuItem from "@material-ui/core/MenuItem";
+import DrawerNavigator from "./Components/DrawerNavigation";
+import ConnectButton from "./Components/ConnectButton/ConnectButton";
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-  // bar: {
-  //   // background: "transparent",
-  //   boxShadow: "none",
-  //   textAlign: "center",
-  // background: "white",
-  //   textDecoration: "none",
-  //   minHeight: "64px"
-  // },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1,
-    color: "white"
-  },
-  text: {
-    color: "white",
-    display: "flex",
-    textDecoration: "none"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   // bar: {
+//   //   // background: "transparent",
+//   //   boxShadow: "none",
+//   //   textAlign: "center",
+//   // background: "white",
+//   //   textDecoration: "none",
+//   //   minHeight: "64px"
+//   // },
+//   menuButton: {
+//     marginRight: theme.spacing(2)
+//   },
+//   title: {
+//     flexGrow: 1,
+//     color: "white"
+//   },
+//   text: {
+//     color: "white",
+//     display: "flex",
+//     textDecoration: "none"
+//   }
+// }));
 
 function NavBar() {
   // const classes = useStyles();
 
   return (
-    <div className="bar">
+    <div>
       <AppBar position="static">
         <Toolbar className="bar">
           <DrawerNavigator />
-          <h2 className="titleBar">Matcha</h2>
+          <div className="tittleBar">
+            <Link to="/" className="link">
+              Matcha
+            </Link>
+          </div>
           {/* <MenuItem> */}
-          <Login className="loginBut" />
+          <ConnectButton className="loginBut" />
           {/* </MenuItem> */}
         </Toolbar>
       </AppBar>
