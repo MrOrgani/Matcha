@@ -3,9 +3,22 @@
 [x] : Recoder controlller/user
 
 https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
-[] : mail de confirmation
+[x] : mail de confirmation
     [x] : installation de nodemailer
     [x] : creation  d'un compte ethreal
-    [] : envoi de l'email au nouvel utilisateur
+    [x] : envoi de l'email au nouvel utilisateur
 ---------> Pour l'auth de l'utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
-    [] : envoie du mail avec un link vers le site web et un id qui lui correspond
+    [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
+
+
+[] : Revoir Validation du mots de passe, etc.
+
+[] : Mail de reinitialisation
+    [] : refonte de la dialogue box
+        [] : dialoge ou j'importe register/Login/Init MDP
+            []: register
+            [] : Login
+            [] : init MDP
+
+
+[] : deconnexion du site en un clic

@@ -20,6 +20,7 @@ const { gUsers, delUsers, getUsers } = require(`../../controlers/seed/user`);
 const { addTagNCity } = require("../../controlers/seed/addHobbiesAndCity");
 const createUser = require(`${ctrlUsr}/createUser`);
 const loginUser = require(`${ctrlUsr}/loginUser`);
+const forgotPass = require(`${ctrlUsr}/forgotPass`);
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
 
@@ -48,6 +49,10 @@ router.route("/confirm/:id").get((req, res) => confirmEmail(req, res));
 
 router.route("/login").post(dataLoginVal, (req, res) => {
   loginUser(req, res);
+});
+
+router.route("/forgot").post((req, res) => {
+  forgotPass(req, res);
 });
 
 router

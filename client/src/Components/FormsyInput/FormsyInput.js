@@ -1,23 +1,23 @@
-import { withFormsy } from "formsy-react";
-import React from "react";
+// import { withFormsy } from "formsy-react";
+// import React from "react";
 
-function FormsyInput(props) {
-  function changeValue(envent) {
-    props.setValue(event.currentTarget.value);
-  }
+// function FormsyInput(props) {
+//   function changeValue(envent) {
+//     props.setValue(event.currentTarget.value);
+//   }
 
-  const errorMessage = props.getErrorMessage();
+//   const errorMessage = props.getErrorMessage();
 
-  return (
-    <div>
-      <input
-        onChange={changeValue}
-        type="text"
-        value={props.getValue() || ""}
-      />
-      <span>{errorMessage}</span>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <input
+//         onChange={changeValue}
+//         type="text"
+//         value={props.getValue() || ""}
+//       />
+//       <span>{errorMessage}</span>
+//     </div>
+//   );
+// }
 
-export default withFormsy(FormsyInput);
+// export default withFormsy(FormsyInput);

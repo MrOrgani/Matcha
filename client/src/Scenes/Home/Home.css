@@ -13,15 +13,51 @@
   color: white;
 }
 
-.root {
-  height: -webkit-fill-available;
-  overflow: auto;
-  /* flex-grow: 1; */
-  background-size: cover;
-  background-image: url(/static/media/couple.6b901e69.jpeg);
-  /* background-position: 50% 50%; */
+.backg {
+  background-color: #eff0c538;
+  height: 95vh;
+  border-right: solid white 25px;
+  border-left: solid white 25px;
+  border-bottom: solid white 25px;
 }
 
-.back {
-  margin-top: 80px;
+.MuiPaper-elevation4 {
+  box-shadow: none;
+}
+
+.tittleLove {
+  /* margin-top: 80px; */
+  position: absolute;
+  color: white;
+  font-size: 150px;
+  font-family: -webkit-pictograph;
+  margin-top: 14%;
+  margin-left: 19%;
+  z-index: 5;
+}
+
+.gifBox {
+  position: absolute;
+  margin-top: 13%;
+  margin-left: 45%;
+  z-index: 0;
+  background-size: cover;
+  height: 50%;
+  width: 50%;
+}
+
+.tittleLove > span::before {
+  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  bottom: 3vh;
+  content: "";
+  display: block;
+  height: 6vh;
+  left: 11vw;
+  position: absolute;
+  width: 74%;
+  z-index: -1;
+}
+
+.tittleLove > span {
+  color: black;
 }
