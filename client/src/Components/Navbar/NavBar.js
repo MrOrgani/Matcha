@@ -47,10 +47,25 @@ function NavBar() {
             </Link>
           </div>
           {/* <MenuItem> */}
-          {authContext.isAuth ? <NotificationBell /> : null}
-          {/* GERER LE DISPLAY DE CONNECT BUTTON EN FONCTION DE AUTH */}
-          <ConnectButton className="loginBut" />
-          {/* </MenuItem> */}
+          <div className="menuItems">
+            {authContext.isAuth ? (
+              <React.Fragment>
+                <Link to="/Search" className="link">
+                  Search
+                </Link>
+                <Link to="/Profile" className="link">
+                  Profile
+                </Link>
+                <Link to="/TempChat" className="link">
+                  Chat
+                </Link>
+                <NotificationBell />
+              </React.Fragment>
+            ) : null}
+            {/* GERER LE DISPLAY DE CONNECT BUTTON EN FONCTION DE AUTH */}
+            {authContext.isAuth ? <ConnectButton className="loginBut" /> : null}
+            {/* </MenuItem> */}
+          </div>
         </Toolbar>
       </AppBar>
     </div>

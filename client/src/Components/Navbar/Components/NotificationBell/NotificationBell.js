@@ -100,11 +100,10 @@ function NotificationBell() {
       <ClickAwayListener onClickAway={handleClickAway}>
         <IconButton
           aria-label="show 17 new notifications"
-          color="inherit"
           onClick={handleNotif}
         >
-          <Badge badgeContent={nbNotif} color="primary">
-            <NotificationsIcon />
+          <Badge badgeContent={nbNotif}>
+            <NotificationsIcon color="action" />
           </Badge>
 
           <Popper id={id} open={open} anchorEl={anchorEl} transition>

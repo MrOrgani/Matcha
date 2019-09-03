@@ -93,7 +93,8 @@ const useStyles = makeStyles({
     width: "auto"
   },
   icon: {
-    display: "flex"
+    display: "flex",
+    color: "black"
   },
   link: {
     textDecoration: "none",
