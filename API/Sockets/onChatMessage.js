@@ -4,7 +4,7 @@ const axios = require("axios");
 
 module.exports = function(socket, io) {
   socket.on("chatMessage", msg => {
-    // console.log("received CHAT MESSAGE IN BACK: ", msg);
+    console.log("received CHAT MESSAGE IN BACK: ", socket.chatTarget, msg);
     date = new Date();
     msg.h = date.getHours();
     msg.m = date.getMinutes();
@@ -17,7 +17,7 @@ module.exports = function(socket, io) {
     if (socket.chatTarget.uuid && msg.uuidSource) {
       axios.post("http://localhost:9000/api/chatMessages/", msg);
       // console.log(msg);
-      console.log("emiting to all clients in room ", roomID);
+      console.log("emiting a chatMessage to all clients in room ", roomID);
       io.to(roomID).emit("chatMessage", msg);
 
       //NOTIF CORNER
