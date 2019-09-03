@@ -14,13 +14,15 @@ const TempChatProvider = props => {
     }
   ]);
 
+  // 2 EFFECTS EVERYTIME WE SELECT A PROFILE
+  // 1. GET THE MESSAGES FROM THE DB
+  //   getter: fetchData
+  // 2. COMMUNICATE WITH THE BACK WHO WE ARE TALKING WITH
   useEffect(() => {
     //FETCH MESSAGES FROM THE BACK
     const fetchData = async () => {
       const result = await axios(
-        `http://localhost:9000/api/chatMessages?uuidSource=${
-          authContext.data.uuid
-        }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
+        `http://localhost:9000/api/chatMessages?uuidSource=${authContext.data.uuid}&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
       );
       return result.data ? result.data : [];
     };
