@@ -16,7 +16,8 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 const filledNotifArray = [];
 
 function NotificationBell() {
-  const notifArray = [];
+  const notifArray = new Array(0);
+  console.log(typeof notifArray);
   const [socketContext, authContext] = useContext(AuthContext);
   const [nbNotif, setNbNotif] = useState(0);
   // socketContext.notifArray ? socketContext.notifArray.length : 0
