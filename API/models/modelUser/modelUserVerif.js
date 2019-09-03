@@ -8,6 +8,7 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
+  // console.log("in modelUserVerif", req);
   try {
     if (!req.jwt) return false;
     const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);

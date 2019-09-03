@@ -13,10 +13,9 @@ const ChatMenuProvider = props => {
   const [openKeys, setOpenKeys] = useState([""]);
 
   // *** BEAUTIFULL CODE INCOMMIIIIING LIST UPDATE VARIABLES *** //
-  const api = `http://localhost:9000/api/tempchat/affinities?userSource=${
-    props.source.login
-  }&jwt=${props.source.jwt}&`;
+  const api = `http://localhost:9000/api/tempchat/affinities?userSource=${props.source.login}&jwt=${props.source.jwt}&`;
   const getIMatched = async () => {
+    console.log("getIMatched");
     // setIMatched(await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`));
     const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
     setIMatched(result.data);

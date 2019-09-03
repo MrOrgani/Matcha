@@ -56,6 +56,7 @@ function Register() {
                 initialValues={initialState}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
+                  console.log("Register front value", values);
                   axios
                     .post("http://localhost:9000/api/user/register", values, {
                       headers: {
@@ -64,6 +65,7 @@ function Register() {
                       }
                     })
                     .then(res => {
+                      // console.log(res)
                       console.log("response de l'API", res);
                       if (res.status === 200) setSubmitionCompleted(true);
                       else {

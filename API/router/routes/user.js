@@ -23,6 +23,7 @@ const loginUser = require(`${ctrlUsr}/loginUser`);
 const forgotPass = require(`${ctrlUsr}/forgotPass`);
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
+// const findOne = require('../../controlers/user/')
 
 router
   .route("/")
@@ -69,5 +70,14 @@ router
       updateProfile(req, res);
     }
   );
+
+router.route("/findOne").get(userVerif, (req, res) => {
+  findOne(req, res);
+});
+
+// router.route("/generate");
+// .post((req, res) => {
+//   req.body.value ? gUsers(req, res) : delUsers(req, res);
+// })
 
 module.exports = router;

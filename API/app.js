@@ -28,7 +28,6 @@ app.use("/", router);
 io.sockets.on("connect", socket => {
   const connectedUsrs = {};
   connectedUsrs[socket.id] = socket.handshake.query;
-
   require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
   const disconnectUser = _ => {

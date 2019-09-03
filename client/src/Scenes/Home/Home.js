@@ -3,8 +3,8 @@ import React from "react";
 import "./Home.css";
 // import background from "./img/couple.jpeg";
 // import Button from "@material-ui/core/Button";
-// import Register from "../Home/Components/Register/Register";
-// import Login from "../Home/Components/Login/Login";
+import Register from "../Home/Components/Register/Register";
+import Login from "../Home/Components/Login/Login";
 
 function HomeHeader() {
   // const classes = useStyles();
@@ -36,10 +36,10 @@ function HomeHeader() {
       >
         {/* <img src={images[Math.floor(Math.random() * images.length)]} /> */}
       </div>
-      {/* <div className="buttonContainer">
+      <div className="buttonContainer">
         <Register />
         <Login />
-      </div> */}
+      </div>
       {/* </div> */}
     </div>
     // <div style={{ textAlign: "center" }}>
