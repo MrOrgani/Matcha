@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconsAndLinks from "./IconsAndLinks";
 import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
+import "../NavBar.css";
 
 export default function TemporaryDrawer() {
   const classes = useStyles();
@@ -74,8 +75,8 @@ export default function TemporaryDrawer() {
   };
 
   return (
-    <div>
-      <div onClick={toggleDrawer("left", true)} className={classes.icon}>
+    <div className="menuIcon">
+      <div onClick={toggleDrawer("left", true)}>
         <MenuIcon />
       </div>
       <Drawer
@@ -96,7 +97,8 @@ const useStyles = makeStyles({
     width: "auto"
   },
   icon: {
-    display: "flex"
+    display: "flex",
+    color: "black"
   },
   link: {
     textDecoration: "none",

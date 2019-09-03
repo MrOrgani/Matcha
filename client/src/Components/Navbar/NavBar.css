@@ -7,7 +7,7 @@
 
 .bar {
   display: flex;
-  background: transparent;
+  /* background: transparent; */
   box-shadow: none;
   text-align: center;
   background-color: white;
@@ -15,8 +15,10 @@
   min-height: 64px;
 }
 
-.loginBut {
+.menuItems {
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .MuiMenuItem-root {
@@ -58,4 +60,8 @@
 .registerBlock {
   display: flex;
   flex-direction: column;
+}
+
+.menuIcon {
+  display: none;
 }
