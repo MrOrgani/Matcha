@@ -4,7 +4,7 @@ const axios = require("axios");
 
 module.exports = function(socket, io) {
   socket.on("chatMessage", msg => {
-    console.log("received CHAT MESSAGE IN BACK: ", socket.chatTarget, msg);
+    console.log("received CHAT MESSAGE IN BACK: ");
     date = new Date();
     msg.h = date.getHours();
     msg.m = date.getMinutes();
