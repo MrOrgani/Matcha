@@ -20,13 +20,14 @@ function NotificationBell() {
   // console.log(typeof notifArray);
   const [socketContext, authContext] = useContext(AuthContext);
   const [nbNotif, setNbNotif] = useState(0);
+  const [displayNotif, setDisplayNotif] = useState([]);
   // socketContext.notifArray ? socketContext.notifArray.length : 0
   // );
 
   useEffect(() => {
     console.log("use effect for augmented data: notifArray", notifArray);
     fetchData();
-  }, [notifArray]);
+  }, []);
 
   function fetchUserData(elem) {
     let api = `http://localhost:9000/api/user/findOne?jwt=${
@@ -48,21 +49,26 @@ function NotificationBell() {
     setNbNotif(notifArray.length);
   };
 
+  async function addUserData(notifArray) {
+    const promises = notifArray.map(fetchUserData);
+    const results = await Promise.all(promises);
+    console.log("result before map", results);
+    setDisplayNotif(
+      await results.map((elem, index) => {
+        return {
+          source: elem.data[0]._fields[0].properties,
+          info: notifArray[index]
+        };
+      })
+    );
+  }
+
   const fetchData = async _ => {
     // console.log("useEffect, fetchDbNotif", typeof notifArray, notifArray);
     if (notifArray.length === 0) await fetchDbNotif();
     // if (notifArray.length === 0) return;
     // console.log("notifArray in the augmented effeect", notifArray);
-    const promises = notifArray.map(fetchUserData);
-    const results = await Promise.all(promises);
-    filledNotifArray.length = 0;
-    console.log("result before map", results);
-    await results.map((elem, index) => {
-      filledNotifArray.push({
-        source: elem.data[0]._fields[0].properties,
-        info: notifArray[index]
-      });
-    });
+    addUserData(notifArray);
     // console.log("useEffect, filledNotifArray", filledNotifArray);
   };
 
@@ -72,6 +78,7 @@ function NotificationBell() {
     console.log("SOCKET NEWWWWWWsNOTIF, actual notifarray:", notifArray);
     console.log("notifs for this socket:", newNotif);
     notifArray.push(newNotif);
+    addUserData(notifArray);
     setNbNotif(notifArray.length);
   });
 
@@ -92,7 +99,8 @@ function NotificationBell() {
     if (open) {
       console.log("click away, notif errased", notifArray);
       notifArray.length = 0;
-      filledNotifArray.length = 0;
+      setDisplayNotif([]);
+      // filledNotifArray.length = 0;
       axios.post("http://localhost:9000/api/notif/delete", {
         jwt: authContext.data.jwt,
         uuidSource: authContext.data.uuid
@@ -119,7 +127,7 @@ function NotificationBell() {
               <Fade {...TransitionProps} timeout={350}>
                 <Paper>
                   <List>
-                    {filledNotifArray.map((el, index) => (
+                    {displayNotif.map((el, index) => (
                       <NotificationCard notif={el} key={index} />
                     ))}
                   </List>
