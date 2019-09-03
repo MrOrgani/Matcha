@@ -23,7 +23,7 @@ const loginUser = require(`${ctrlUsr}/loginUser`);
 const forgotPass = require(`${ctrlUsr}/forgotPass`);
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
-// const findOne = require('../../controlers/user/')
+const findOne = require("../../controlers/user/findOne");
 
 router
   .route("/")
