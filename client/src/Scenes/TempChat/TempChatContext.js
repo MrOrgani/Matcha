@@ -9,29 +9,26 @@ const TempChatProvider = props => {
   const [chatTarget, setChatTarget] = useState({});
   const [messages, setMessages] = useState([
     {
-      // uuidSource: "",
-      // h: "",
-      // m: "",
       content:
         "Welcome to the chat, click on an icon to get a conversation going"
     }
   ]);
 
-  const fetchData = async () => {
-    const result = await axios(
-      `http://localhost:9000/api/chatMessages?uuidSource=${
-        authContext.data.uuid
-      }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
-    );
-    // console.log("PREVIOUS MESSAGES LOADED", result.data);
-    result.data && setMessages(result.data);
-  };
-
   useEffect(() => {
+    //FETCH MESSAGES FROM THE BACK
+    const fetchData = async () => {
+      const result = await axios(
+        `http://localhost:9000/api/chatMessages?uuidSource=${
+          authContext.data.uuid
+        }&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
+      );
+      return result.data ? result.data : [];
+    };
+    chatTarget.uuid && fetchData().then(setMessages);
+
+    //TELL THE BACK WE ENTERED A CHATROOM,
     socketContext.socket.emit("joinRoom", chatTarget);
-    chatTarget.uuid && fetchData();
-    // console.log("CHATTARGET WAS CHANGED --> JOINING ROOM: ", chatTarget.uuid);
-  }, [chatTarget.uuid]);
+  }, [chatTarget, socketContext.socket, authContext.data]);
 
   const chatAppContext = {
     chatTarget,

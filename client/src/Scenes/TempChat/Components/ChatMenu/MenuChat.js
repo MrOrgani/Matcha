@@ -17,7 +17,7 @@ const MenuChat = () => {
     MenuContext.getVisitedMe();
     MenuContext.getIVisited();
     MenuContext.getIBlocked();
-  }, []);
+  }, [MenuContext]);
 
   const onOpenChange = async OKeys => {
     const latestOpenKey = OKeys.find(
