@@ -5,8 +5,6 @@ import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 import Badge from "@material-ui/core/Badge";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import { AuthContext } from "../../../../AuthContext";
 import axios from "axios";
@@ -21,29 +19,37 @@ function NotificationBell() {
   const [socketContext, authContext] = useContext(AuthContext);
   const [nbNotif, setNbNotif] = useState(0);
 
-  function fetchUserData(elem) {
-    let api = `http://localhost:9000/api/user/findOne?jwt=${
-      authContext.data.jwt
-    }&uuidSource=${elem.uuidSource}&category=uuid`;
-    // const responses = axios.get(api);
-    // return responses;
-    return axios.get(api);
-  }
-
-  const fetchDbNotif = async () => {
-    const brutNotif = await axios.get(
-      `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${
-        authContext.data.uuid
-      }&category=uuid`
-    );
-    await brutNotif.data.forEach(elem => {
-      notifArray.push(JSON.parse(elem));
-    });
-    setNbNotif(notifArray.length);
-  };
+  // THREE STEP PROCESS:
+  // GET ALL NOTIF THAT WERE NOT SEEN FROM DB :
+  //   recipient: brutNotif then notifArray
+  //   getter: fetchDbNotif
+  // FOR EACH NOTIF GET PROFILE
+  //   recipient: filledNotifArray
+  //   getter: fetchUserData
+  // USE EFFECT TO GET PROFILE OF USERS ON EVERy NEW NOTIF
 
   useEffect(() => {
-    console.log("use effect for augmented data: notifArray", notifArray);
+    function fetchUserData(elem) {
+      return axios.get(
+        `http://localhost:9000/api/user/findOne?jwt=${
+          authContext.data.jwt
+        }&uuidSource=${elem.uuidSource}&category=uuid`
+      );
+    }
+
+    const fetchDbNotif = async () => {
+      const brutNotif = await axios.get(
+        `http://localhost:9000/api/notif?jwt=${
+          authContext.data.jwt
+        }&uuidSource=${authContext.data.uuid}&category=uuid`
+      );
+      await brutNotif.data.forEach(elem => {
+        notifArray.push(JSON.parse(elem));
+      });
+      setNbNotif(notifArray.length);
+    };
+
+    // console.log("use effect for augmented data: notifArray", notifArray);
     const fetchData = async _ => {
       if (notifArray.length === 0) await fetchDbNotif();
       const results = await Promise.all(notifArray.map(fetchUserData));
@@ -56,7 +62,7 @@ function NotificationBell() {
       });
     };
     fetchData();
-  }, [notifArray]);
+  }, [notifArray, authContext.data]);
 
   // SOCKET LISTNER
   useEffect(() => {

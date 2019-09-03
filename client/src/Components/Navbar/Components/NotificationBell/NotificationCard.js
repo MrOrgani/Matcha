@@ -2,12 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-// import CardHeader from "@material-ui/core/CardHeader";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import CardContent from "@material-ui/core/CardContent";
-// import Card from "@material-ui/core/Card";
 export default function NotificationCard(props) {
-  // if (props.notif.source.fileList) console.log("passed the test");
   const display = {};
   display.picture =
     props.notif.source.fileList &&
@@ -27,17 +22,6 @@ export default function NotificationCard(props) {
       <Typography>{display.time}</Typography>
       <Typography>{display.type}</Typography>
       <Divider />
-      {/* <Card>
-        <CardMedia>
-          <CardHeader>
-            <Typography>test</Typography>
-          </CardHeader>
-          <CardContent>
-            <Typography>{display.type}</Typography>
-          </CardContent>
-        </CardMedia>
-        <Divider />
-      </Card> */}
     </div>
   );
 }
