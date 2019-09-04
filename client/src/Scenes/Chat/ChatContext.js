@@ -19,20 +19,24 @@ const ChatProvider = props => {
   // 2. COMMUNICATE WITH THE BACK SOCKET WHO WE ARE TALKING WITH
   useEffect(() => {
     if (chatTarget.matched) {
-      // console.log("useEffectChatContext, ", chatTarget);
       const fetchMsg = async () => {
         const result = await axios(
           `http://localhost:9000/api/chatMessages?uuidSource=${authContext.data.uuid}&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
         );
-        return result.data ? result.data : [basicContent];
+        return result.data
+          ? result.data
+          : [{ content: "you do not have a conversation yet" }];
       };
       chatTarget.uuid && fetchMsg().then(setMessages);
       socketContext.socket.emit("joinRoom", chatTarget);
     } else {
-      setMessages([basicContent]);
+      setMessages([
+        {
+          content:
+            "Welcome to the chat, click on one of your match to get a conversation going"
+        }
+      ]);
     }
-
-    console.log(chatTarget, authContext.data);
   }, [chatTarget, socketContext.socket, authContext.data]);
 
   const chatAppContext = {
