@@ -39,7 +39,7 @@ const MenuChat = () => {
         }
       >
         {MenuContext.iMatched.map(el => {
-          // console.log(el);
+          console.log(el);
           return (
             <Menu.Item key={el.uuid + "iMatched"}>
               <UserInMenu data={el} matched={true} />
