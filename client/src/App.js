@@ -9,6 +9,7 @@ import handleUsers from "./Scenes/handleUsers/handleUsers";
 import TempChat from "./Scenes/TempChat/TempChat";
 import Navbar from "./Components/Navbar/NavBar";
 import Confirm from "./Scenes/Confirm/Confirmation";
+import Reset from "./Scenes/Forgot/Reset";
 import { AuthProvider } from "./AuthContext";
 import SecureRoute from "./SecureRoute";
 
@@ -20,6 +21,7 @@ export function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/api/user/confirm/:id" component={Confirm} />
+          <Route path="/api/user/reset/:id" component={Reset} />
           {/* <Route path="/Login" component={Login} /> */}
           <SecureRoute path="/Search" component={Search} />
           <SecureRoute path="/Profile" component={Profile} />

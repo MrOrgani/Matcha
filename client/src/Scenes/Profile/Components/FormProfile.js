@@ -27,35 +27,13 @@ function FormProfile() {
     <Formik
       initialValues={values}
       onSubmit={async values => {
-        // validate={valuesValidations}
-        // console.log("the values are", values);
         const userValues = JSON.parse(sessionStorage.getItem("data"));
-        // *******  UPLOAD PICTURES
-        // const files = Array.from(values.fileList);
-        // const formData = new FormData();
-        // files.forEach((file, i) => {
-        //   formData.append(i, file.originFileObj);
-        // });
-        // ---- send data to back for images
         const api = `http://localhost:9000/api/user/profile?login=${userValues.login}&jwt=${userValues.jwt}`;
-        // await fetch(api, {
-        //   method: "POST",
-        //   body: formData
-        // });
-        // .then(res => console.log("result of fetch post image =", res));
-        // values.fileList = returnOfPics.data.fileList;
-        // ---- send data to back for info
-        console.log("ta maman", values);
-        // delete values.previewVisible;
-        // values.fileList = [];
-
-        // delete values.previewImage;
-        // delete values.pics;
-
+        // console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
-        console.log("newData", newData);
+        // console.log("newData", newData);
         sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
     >

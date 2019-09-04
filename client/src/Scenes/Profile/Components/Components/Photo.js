@@ -25,12 +25,12 @@ export const Photo = props => {
       setState({
         ...state,
         pics: notDeletedPhotos,
-        indexOfPP: state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
+        indexOfPP: state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
       });
       props.setFieldValue("pics", notDeletedPhotos);
       props.setFieldValue(
         "indexOfPP",
-        state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
+        state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
       );
     } else {
       setState({ ...state, pics: notDeletedPhotos });
