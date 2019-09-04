@@ -16,13 +16,40 @@
 }
 
 .menuItems {
+  width: 21%;
+  justify-content: space-around;
   margin-left: auto;
   display: flex;
   flex-direction: row;
+  margin-right: 3%;
 }
 
 .MuiMenuItem-root {
   width: -webkit-fill-available;
+}
+
+.link {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  /* opacity: 0.54; */
+  color: black;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  font-family: Futura;
+}
+
+.bell {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  /* opacity: 0.54; */
+  color: black;
+  /* width: 100px; */
+  /* height: 50px; */
+  align-items: center;
+  font-family: Futura;
 }
 
 .tittleBar {
@@ -31,12 +58,6 @@
   text-align: center;
   color: black;
   margin-left: 10vw;
-}
-
-.link {
-  text-decoration: none;
-  /* opacity: 0.54; */
-  color: black;
 }
 
 .tab-list {

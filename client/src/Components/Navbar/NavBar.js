@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 import NotificationBell from "./Components/NotificationBell/NotificationBell";
 import Typography from "@material-ui/core/Typography";
 import "./NavBar.css";
-import ConnectButton from "./Components/ConnectButton/ConnectButton";
+import ConnectButton from "./Components/Links/ConnectButton/ConnectButton";
+import DiscoButton from "./Components/Links/DiscoButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import DrawerNavigator from "./Components/DrawerNavigation/DrawerNavigation";
 import { AuthContext } from "../../AuthContext";
-
+import LSearch from "./Components/Links/LSearch";
+import LProfile from "./Components/Links/LProfile";
+import LChat from "./Components/Links/LChat";
 // function NavBar() {
 //   // const classes = useStyles();
 //   const [, authContext] = useContext(AuthContext);
@@ -33,7 +36,6 @@ import { AuthContext } from "../../AuthContext";
 // }
 
 function NavBar() {
-  // const classes = useStyles();
   const [, authContext] = useContext(AuthContext);
 
   return (
@@ -42,29 +44,22 @@ function NavBar() {
         <Toolbar className="bar">
           {authContext.isAuth ? <DrawerNavigator /> : null}
           <div className="tittleBar">
-            <Link to="/" className="link">
+            <Link to="/" className="tittleBar">
               Matcha
             </Link>
           </div>
-          {/* <MenuItem> */}
           <div className="menuItems">
             {authContext.isAuth ? (
               <React.Fragment>
-                <Link to="/Search" className="link">
-                  Search
-                </Link>
-                <Link to="/Profile" className="link">
-                  Profile
-                </Link>
-                <Link to="/TempChat" className="link">
-                  Chat
-                </Link>
+                <LSearch />
+                <LProfile />
+                <LChat />
                 <NotificationBell />
+                <DiscoButton />
               </React.Fragment>
-            ) : null}
-            {/* GERER LE DISPLAY DE CONNECT BUTTON EN FONCTION DE AUTH */}
-            {authContext.isAuth ? <ConnectButton className="loginBut" /> : null}
-            {/* </MenuItem> */}
+            ) : (
+              <ConnectButton />
+            )}
           </div>
         </Toolbar>
       </AppBar>

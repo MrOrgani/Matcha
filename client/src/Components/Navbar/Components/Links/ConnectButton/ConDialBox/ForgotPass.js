@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import { ForgotValidation } from "./UserValidation";
-import { ConnectButtonContext } from "./../ConnectButtonContext";
+import { ConnectButtonContext } from "../ConnectButtonContext";
 
 export default function ForgotPass() {
   const [

@@ -15,8 +15,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 // import { AuthContext } from "../../../../../AuthContext";
 // import { AuthContext } from "../../../../AuthContext";
 // import { socket } from "../../../../Components/Navbar/NavBar";
-import "../../../NavBar.css";
-import { ConnectButtonContext } from "./../ConnectButtonContext";
+import "../../../../NavBar.css";
+import { ConnectButtonContext } from "../ConnectButtonContext";
 import { Result, Button } from "antd";
 
 import FormLogin from "./Components/FormLogin";

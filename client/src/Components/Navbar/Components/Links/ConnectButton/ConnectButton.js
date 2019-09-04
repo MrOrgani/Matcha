@@ -15,7 +15,7 @@ import Dialog from "@material-ui/core/Dialog";
 // import { AuthContext } from "../../../../AuthContext";
 // import { AuthContext } from "../../../../AuthContext";
 // import { socket } from "../../../../Components/Navbar/NavBar";
-import "../../NavBar.css";
+import "../../../NavBar.css";
 
 import Login from "./ConDialBox/Login";
 import Register from "./ConDialBox/Register";
