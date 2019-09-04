@@ -11,12 +11,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
-import { LoginValidation } from "./../UserValidation";
+import { LoginValidation } from "../UserValidation";
 // import { AuthContext } from "../../../../../../AuthContext";
 // import { AuthContext } from "../../../../AuthContext";
 // import { socket } from "../../../../Components/Navbar/NavBar";
-import "../../../../NavBar.css";
-import { ConnectButtonContext } from "./../../ConnectButtonContext";
+import "../../../../../NavBar.css";
+import { ConnectButtonContext } from "../../ConnectButtonContext";
 
 export default function FormLogin() {
   const [state, setState] = useContext(ConnectButtonContext);

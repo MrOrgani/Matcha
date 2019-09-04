@@ -102,7 +102,7 @@ function NotificationBell() {
           aria-label="show 17 new notifications"
           onClick={handleNotif}
         >
-          <Badge badgeContent={nbNotif}>
+          <Badge badgeContent={nbNotif} className="bell">
             <NotificationsIcon color="action" />
           </Badge>
 
