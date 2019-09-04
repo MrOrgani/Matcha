@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Menu, Icon } from "antd";
 import { ChatMenuContext } from "../../ChatMenuContext";
 import "./ChatMenu.css";
@@ -9,15 +9,6 @@ const { SubMenu, Item } = Menu;
 const MenuChat = () => {
   const [MenuContext] = useContext(ChatMenuContext);
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
-
-  useEffect(() => {
-    MenuContext.getIMatched();
-    MenuContext.getLikedMe();
-    MenuContext.getILiked();
-    MenuContext.getVisitedMe();
-    MenuContext.getIVisited();
-    MenuContext.getIBlocked();
-  }, []);
 
   const onOpenChange = async OKeys => {
     const latestOpenKey = OKeys.find(
