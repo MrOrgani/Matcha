@@ -4,8 +4,8 @@ const router = require("express").Router();
 const userVerif = require("../../controlers/user/middleware/userVerif");
 
 //FINALWARE
-const { newMessages } = require("../../controlers/tempchat/newMessages");
-const { getMessages } = require("../../controlers/tempchat/getMessages");
+const { newMessages } = require("../../controlers/chat/newMessages");
+const { getMessages } = require("../../controlers/chat/getMessages");
 
 router
   .route("/")

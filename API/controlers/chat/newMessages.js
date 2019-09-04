@@ -1,6 +1,4 @@
-const {
-  modelNewMessages
-} = require("../../models/modelTempChat/modelNewMessages");
+const { modelNewMessages } = require("../../models/modelChat/modelNewMessages");
 
 exports.newMessages = async (req, res) => {
   try {

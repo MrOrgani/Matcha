@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { TempChatContext } from "./../TempChatContext";
+import { ChatContext } from "./../ChatContext";
 import { Menu, Icon } from "antd";
 const { SubMenu } = Menu;
 
 const LikedMe = () => {
-  const [likedMe] = useContext(TempChatContext);
+  const [likedMe] = useContext(ChatContext);
 
   return likedMe.map((e, i) => {
     return (

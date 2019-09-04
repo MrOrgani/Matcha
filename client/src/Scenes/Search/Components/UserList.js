@@ -32,11 +32,9 @@ const filterUsers = (props, users) => {
 // fait qu'on attende la reponse de l'api dans UsersContext;
 // const session = JSON.parse(sessionStorage.getItem("data"));
 
-// console.log(session);
 const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
-  // const classes = useStyles();
 
   const filteredUserList = filterUsers(props, users);
   return (

@@ -22,8 +22,9 @@ module.exports = async function modelCreateUser(req) {
               hobbies: [],
               pics: [],
               notifs: [], 
-              indexOfPP: 0,
-              isAuth: false
+              isComplete: 0,
+              isConfirmed,
+              indexOfPP: 0
             }) 
               RETURN u`,
       {

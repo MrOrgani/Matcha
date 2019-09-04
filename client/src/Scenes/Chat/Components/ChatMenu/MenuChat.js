@@ -51,7 +51,7 @@ const MenuChat = () => {
           // console.log(el);
           return (
             <Menu.Item key={el.uuid + "iMatched"}>
-              <UserInMenu data={el} />
+              <UserInMenu data={el} matched={true} />
             </Menu.Item>
           );
         })}
