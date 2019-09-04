@@ -21,6 +21,6 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
             [] : init MDP
 
 
-[] : deconnexion du site en un clic
+[x] : deconnexion du site en un clic
 
 [] : finir front navbar

@@ -55,7 +55,7 @@ function ConnectButton() {
         onClick={handleClickOpen}
         style={{ color: "white", marginLeft: "auto" }}
       >
-        Login
+        Sign in / up
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <ConnectButtonProvider>

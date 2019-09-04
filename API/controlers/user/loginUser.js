@@ -11,6 +11,7 @@ module.exports = async function loginUser(req, res) {
     if (!(await bcrypt.compare(req.body.password, userData.password)))
       return res.status(206).send("Invalid password");
     userData = cleanUserData(userData);
+    console.log("loginUser userDate", userData);
     return res.status(200).send(userData);
   } catch (err) {
     return res.status(400).send(err);
