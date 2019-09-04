@@ -1,12 +1,13 @@
 import React, { useContext, useRef, useEffect } from "react";
 import Message from "./Message";
 import "../ChatApp.css";
-import { TempChatContext } from "../../../TempChatContext";
+import { ChatContext } from "../../../ChatContext";
 import { AuthContext } from "../../../../../AuthContext";
 
 const Messages = () => {
-  const [chatAppContext] = useContext(TempChatContext);
+  const [chatAppContext] = useContext(ChatContext);
   const [, authContext] = useContext(AuthContext);
+  // console.log(chatAppContext.messages);
   const messagesDiv = chatAppContext.messages.map((message, i) => {
     // console.log(message);
     return (

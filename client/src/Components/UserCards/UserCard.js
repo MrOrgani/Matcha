@@ -18,7 +18,6 @@ export default function UserCard() {
   const [isLiked, setLiked, isBlocked, setBlocked, userInfo] = useContext(
     UserCardContext
   );
-  // console.log(userInfo);s
 
   return (
     <React.Fragment>
@@ -34,9 +33,7 @@ export default function UserCard() {
             <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />
           }
           title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
-          subheader={`Last connection: ${userInfo.lastConnection}\n ${
-            userInfo.firstName
-          } did not notice you yet `}
+          subheader={`Last connection: ${userInfo.lastConnection}\n ${userInfo.firstName} did not notice you yet `}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">

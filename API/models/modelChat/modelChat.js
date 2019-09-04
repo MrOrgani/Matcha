@@ -1,7 +1,7 @@
 const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
-exports.modelTempChat = async req => {
+exports.modelChat = async req => {
   try {
     let cypher = `MATCH (s:User `;
     cypher += req.s !== "User" ? `{login:{userSource}})-` : `)-`;

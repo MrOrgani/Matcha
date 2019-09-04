@@ -1,4 +1,5 @@
 .ChatContainer {
   display: flex;
   flex-direction: row;
+  border-top: 1px solid #ddd;
 }

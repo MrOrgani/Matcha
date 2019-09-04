@@ -31,7 +31,7 @@ export default function TemporaryDrawer() {
   const menuItems = [
     { text: "My Account", link: "/Profile" },
     { text: "Search", link: "/Search" },
-    { text: "TempChat", link: "/TempChat" },
+    { text: "Chat", link: "/Chat" },
     { text: "Disconnect", link: "/" }
   ];
 

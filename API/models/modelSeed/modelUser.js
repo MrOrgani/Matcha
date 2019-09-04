@@ -22,6 +22,8 @@ async function gUsers() {
               u.city = user.location.city,
               u.location = user.coords,
               u.hobbies = user.hobbies,
+              u.messages = [],
+              u.notifs = [],
               u.isComplete = 1
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
