@@ -1,5 +1,7 @@
 
-    
+
+MORGANI   
+
 [x] : Recoder controlller/user
 
 https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
@@ -11,16 +13,35 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
     [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
 
 
-[] : Revoir Validation du mots de passe, etc.
+[x] : Revoir Validation du mots de passe, etc.
 
-[] : Mail de reinitialisation
-    [] : refonte de la dialogue box
-        [] : dialoge ou j'importe register/Login/Init MDP
-            []: register
-            [] : Login
-            [] : init MDP
+[x] : Mail de reinitialisation
+    [x] : refonte de la dialogue box
+        [x] : dialoge ou j'importe register/Login/Init MDP
+            [x]: register
+            [x] : Login
+            [x] : init MDP
+    [x] : verifier le chemin
+    [x] : verifier le mdp en back
+    [x] : chiffrer
+    [x] : mette les infos dans la database
 
 
 [x] : deconnexion du site en un clic
 
-[] : finir front navbar
+[x] : finir front navbar
+
+[x]: Enregistrement Nom Prenom + Validation des inputs
+
+[] : Verrifeir poiur les photos
+
+VAL
+
+[] : score de popularité
+
+[] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
+
+[] : ameliorer les infos sur le profil
+
+[] : finir notif de like, visite ou dislike 
+

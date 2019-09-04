@@ -2,7 +2,7 @@ const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
 module.exports = async function modelCreateUser(req) {
-  const { login, password, email, uuid } = req.body;
+  const { login, password, email, uuid, firstName, lastName } = req.body;
   try {
     const data = await session.run(
       `CREATE(u:User {
@@ -10,8 +10,8 @@ module.exports = async function modelCreateUser(req) {
               password:{password},
               email:{email},
               uuid:{uuid},
-              firstName:'',
-              lastName:'',
+              firstName:{firstName},
+              lastName:{lastName},
               age:'',
               gender:'',
               sexualOrientation:'bi',
@@ -30,7 +30,9 @@ module.exports = async function modelCreateUser(req) {
         login: login,
         password: password,
         email: email,
-        uuid: uuid
+        uuid: uuid,
+        firstName: firstName,
+        lastName: lastName
       }
     );
     return data.records[0]._fields[0].properties;
