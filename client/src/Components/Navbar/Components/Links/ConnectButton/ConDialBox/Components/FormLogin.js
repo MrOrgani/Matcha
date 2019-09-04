@@ -12,7 +12,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
-// import { AuthContext } from "../../../../../../AuthContext";
+import { AuthContext } from "../../../../../../../../src/AuthContext";
 // import { AuthContext } from "../../../../AuthContext";
 // import { socket } from "../../../../Components/Navbar/NavBar";
 import "../../../../../NavBar.css";
@@ -20,7 +20,7 @@ import { ConnectButtonContext } from "../../ConnectButtonContext";
 
 export default function FormLogin() {
   const [state, setState] = useContext(ConnectButtonContext);
-  // const [socketContext, authContext] = useContext(AuthContext);
+  const [socketContext, authContext] = useContext(AuthContext);
 
   return (
     <React.Fragment>
@@ -66,11 +66,17 @@ export default function FormLogin() {
               .catch(err =>
                 console.log("Error while loging: ", err.response.data)
               );
-
-            if (resLogin.status === 200)
-              setState({ ...state, isSubmitionCompleted: true, isValid: true });
-
             console.log("FormLogin resLogin", resLogin);
+
+            if (resLogin.status === 200) {
+              setState({ ...state, isSubmitionCompleted: true, isValid: true });
+              socketContext.socket && socketContext.socket.emit("logOut");
+              console.log("FormLogin socketcontet", socketContext.socket);
+              authContext.setData(resLogin.data);
+              authContext.setIsAuth(1);
+              // sessionStorage.isAuth = 1;
+              // socketContext.socket.emit("login", resLogin.data.login);
+            }
           }}
           validate={LoginValidation}
         >
