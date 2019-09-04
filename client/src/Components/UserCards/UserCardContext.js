@@ -9,6 +9,7 @@ export const UserCardProvider = props => {
   const [isBlocked, setBlocked] = useState(false);
   const [userInfo] = useState([props.user][0]);
 
+  console.log(props);
   const handleLike = () => {
     Axios.post("http://localhost:9000/api/rel/like", {
       userSource: props.session.login,
@@ -49,9 +50,7 @@ export const UserCardProvider = props => {
 
   useEffect(() => {
     const api1 = `http://localhost:9000/api/rel/`;
-    const api2 = `?userSource=${props.session.login}&target=${
-      userInfo.login
-    }&jwt=${props.session.jwt}`;
+    const api2 = `?userSource=${props.session.login}&target=${userInfo.login}&jwt=${props.session.jwt}`;
 
     const getLike = async () => {
       const result = await axios.get(`${api1}like${api2}`);
