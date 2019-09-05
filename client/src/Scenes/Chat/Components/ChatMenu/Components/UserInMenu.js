@@ -29,12 +29,12 @@ const UserInMenu = props => {
   function handleCloseCard() {
     setOpenCard(false);
   }
-  console.log(
-    "inuserMenu, available info is:",
-    props.data,
-    "available session data",
-    authContext.data
-  );
+  // console.log(
+  //   "inuserMenu, available info is:",
+  //   props.data,
+  //   "available session data",
+  //   authContext.data
+  // );
 
   // console.log(JSON.parse(props.data.pics[0]).url);
   return (

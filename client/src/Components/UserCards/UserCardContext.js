@@ -9,7 +9,7 @@ export const UserCardProvider = props => {
   const [isBlocked, setBlocked] = useState(false);
   const [userInfo] = useState([props.user][0]);
 
-  console.log(props);
+  // console.log(props);
   const handleLike = () => {
     Axios.post("http://localhost:9000/api/rel/like", {
       userSource: props.session.login,

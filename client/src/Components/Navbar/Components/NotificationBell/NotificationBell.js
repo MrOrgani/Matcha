@@ -38,7 +38,7 @@ function NotificationBell() {
       const brutNotif = await axios.get(
         `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${authContext.data.uuid}&category=uuid`
       );
-      console.log(brutNotif);
+      // console.log(brutNotif);
       await brutNotif.data.forEach(elem => {
         notifArray.push(JSON.parse(elem));
       });

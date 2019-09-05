@@ -1,10 +1,10 @@
 const axios = require("axios");
 
-// doc pour les emit ect https://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender
+// doc pour les emit ect https://socket.io/docs/emit-cheatsheet/
 
 module.exports = function(socket, io) {
   socket.on("chatMessage", msg => {
-    console.log("received CHAT MESSAGE IN BACK: ");
+    // console.log("received CHAT MESSAGE IN BACK: ");
     date = new Date();
     msg.h = date.getHours();
     msg.m = date.getMinutes();
@@ -20,7 +20,7 @@ module.exports = function(socket, io) {
       console.log("emiting a chatMessage to all clients in room ", roomID);
       io.to(roomID).emit("chatMessage", msg);
 
-      //NOTIF CORNER
+      //NOTIF CORNER // ENVOYEE EN PARALELLE
       const notif = {
         targetUuid: socket.chatTarget.uuid,
         type: "message",
