@@ -1,26 +1,29 @@
-
-    
 [x] : Recoder controlller/user
-
 https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 [x] : mail de confirmation
-    [x] : installation de nodemailer
-    [x] : creation  d'un compte ethreal
-    [x] : envoi de l'email au nouvel utilisateur
----------> Pour l'auth de l'utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
-    [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
-
-
-[] : Revoir Validation du mots de passe, etc.
-
-[] : Mail de reinitialisation
-    [] : refonte de la dialogue box
-        [] : dialoge ou j'importe register/Login/Init MDP
-            []: register
-            [] : Login
-            [] : init MDP
-
-
+   [x] : installation de nodemailer
+   [x] : creation  d’un compte ethreal
+   [x] : envoi de l’email au nouvel utilisateur
+---------> Pour l’auth de l’utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
+   [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
+[x] : Revoir Validation du mots de passe, etc.
+[x] : Mail de reinitialisation
+   [x] : refonte de la dialogue box
+       [x] : dialoge ou j’importe register/Login/Init MDP
+           [x]: register
+           [x] : Login
+           [x] : init MDP
+   [x] : verifier le chemin
+   [x] : verifier le mdp en back
+   [x] : chiffrer
+   [x] : mette les infos dans la database
 [x] : deconnexion du site en un clic
+[x] : finir front navbar
+[x]: Enregistrement Nom Prenom + Validation des inputs
+[] : Verrifeir poiur les photos
+[] : finir notif de like, visite ou dislike
 
-[] : finir front navbar
+VAL
+[] : score de popularité
+[] : revoir le tri (froont ou back) pour inclure tous les criteres + le block
+[] : ameliorer les infos sur le profil

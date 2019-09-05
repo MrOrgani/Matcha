@@ -19,6 +19,7 @@ export default function UserCard() {
     UserCardContext
   );
 
+  console.log(userInfo);
   return (
     <React.Fragment>
       <Card
