@@ -33,7 +33,11 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [x]: Enregistrement Nom Prenom + Validation des inputs
 
-[] : Verrifeir poiur les photos
+[x] : Verrifeir poiur les photos
+
+[] : Creer les lien Practice sur les activites a la modifiction des tags dans le profile
+    [] : supprimer les liens existant
+    [] : en creer de nouveau
 
 VAL
 

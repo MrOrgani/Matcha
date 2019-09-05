@@ -30,6 +30,7 @@ io.sockets.on("connect", socket => {
   connectedUsrs[socket.id] = socket.handshake.query;
   require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
+  require("./Sockets/newNotif")(socket, io);
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
