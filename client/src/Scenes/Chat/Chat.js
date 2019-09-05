@@ -1,5 +1,5 @@
 import React from "react";
-import ChatMenu from "./Components/ChatMenu/MenuChat";
+import ChatMenu from "./Components/ChatMenu/ChatMenu";
 import "./Chat.css";
 import { ChatProvider } from "./ChatContext";
 import ChatApp from "./Components/ChatApp/ChatApp";
