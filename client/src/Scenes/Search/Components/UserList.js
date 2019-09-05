@@ -36,6 +36,7 @@ const filterUsers = (props, users) => {
 const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
+  // console.log()
   // const classes = useStyles();
 
   const filteredUserList = filterUsers(props, users);
