@@ -22,7 +22,7 @@ async function gUsers() {
               u.city = user.location.city,
               u.location = user.coords,
               u.hobbies = user.hobbies,
-              u.isComplete = 1
+              u.isComplete = true
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))`
