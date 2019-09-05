@@ -35,9 +35,17 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [x] : Verrifeir poiur les photos
 
-[] : Creer les lien Practice sur les activites a la modifiction des tags dans le profile
-    [] : supprimer les liens existant
-    [] : en creer de nouveau
+[x] : Creer les lien Practice sur les activites a la modifiction des tags dans le profile
+    [x] : supprimer les liens existant
+    [x] : en creer de nouveau
+
+[x] : Empecher le user d'acceder au site si compte non comfirmé
+
+[x] : empeche le user de naviguer si le profile nest pas complet
+
+[] : Verifier les infos en back
+    [] : confirmer le remplissage des infos
+    [] : mettre l'affchage de la barre rouge sur profile en conditionnel
 
 VAL
 

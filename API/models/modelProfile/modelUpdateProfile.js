@@ -54,6 +54,7 @@ async function modelUpdateProfile(req) {
       )
       .catch(err => console.log(err));
 
+    await handlePracticeHobbies(req);
     // console.log("THE NEW USER DATA", userData);
     //// JWT auth token
     const token = jwt.sign(
@@ -72,6 +73,31 @@ async function modelUpdateProfile(req) {
   } catch (err) {
     console.log(err);
   }
+}
+
+async function handlePracticeHobbies(req) {
+  await session
+    .run(
+      `MATCH (u:User {login: {userSource}})-[r:PRACTICE]->(h:Hobby)
+                DETACH DELETE r`,
+      {
+        userSource: req.query.login
+      }
+    )
+    .catch(err => console.log("err on delete practice: ", err));
+  req.body.values.hobbies.map(async hobby => {
+    console.log("hobby is ", hobby);
+    await session
+      .run(
+        `MATCH (u:User {login: {userSource}}),(h:Hobby {name:{hobby}})
+      CREATE (u)-[r:PRACTICE]->(h)`,
+        {
+          userSource: req.query.login,
+          hobby: hobby
+        }
+      )
+      .catch(err => console.log("err on create practice: ", err));
+  });
 }
 
 module.exports = {

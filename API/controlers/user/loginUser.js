@@ -10,8 +10,9 @@ module.exports = async function loginUser(req, res) {
     userData.indexOfPP = userData.indexOfPP.low;
     if (!(await bcrypt.compare(req.body.password, userData.password)))
       return res.status(206).send("Invalid password");
+    if (!userData.isConfirmed)
+      return res.status(206).send("You need to validate your account.");
     userData = cleanUserData(userData);
-    // console.log("loginUser userDate", userData);
     return res.status(200).send(userData);
   } catch (err) {
     return res.status(400).send(err);
