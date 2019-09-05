@@ -4,7 +4,8 @@ import React, {
 } from "react";
 import axios from "axios";
 // import { Spin, Icon } from "antd";
-import { Result, Button } from "antd";
+import { Result } from "antd";
+import { Button } from "@material-ui/core";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 // import Button from "@material-ui/core/Button";
@@ -27,8 +28,9 @@ export default function Reset(props) {
         <Formik
           initialValues={initialValues}
           onSubmit={async values => {
-            const { id } = props.match.params;
+            console.log("here");
             console.log("values", values);
+            const { id } = props.match.params;
             const api = `http://localhost:9000/api/user/forgot/${id}`;
             const resConf = await axios
               .patch(api, values)
@@ -133,7 +135,7 @@ export default function Reset(props) {
           title={isValid ? "Succes." : "Error."}
           subTitle={isValid ? "Your password has been changed" : textError}
           extra={
-            <Button type="primary" key="login">
+            <Button key="login">
               <a href="/">Home</a>
             </Button>
           }

@@ -7,12 +7,25 @@ import Grid from "@material-ui/core/Grid";
 import FormProfile from "./Components/FormProfile";
 import { ProfileFormProvider } from "./Components/ProfileFormContext";
 import "./Profile.css";
+import { withTheme } from "@material-ui/styles";
 
 export default function Profile() {
   return (
     <ProfileFormProvider>
       <Grid component="main" className="root">
         {/* <Notifications /> */}
+        <div
+          style={{
+            backgroundColor: "red",
+            color: "white",
+            fontFamily: "Futura",
+            fontSize: "30px",
+            textAlign: "center",
+            margin: "10px"
+          }}
+        >
+          You must complete your profile
+        </div>
         {/* <div className={classes.gallery}> */}
         {/* <Photos /> */}
         {/* <Upload /> */}

@@ -19,6 +19,7 @@ import { ProfileMap } from "./Components/ProfileMap";
 import { SexualOrientation } from "./Components/SexualOrientation";
 import { Submit } from "./Components/Submit";
 import { Tags } from "./Components/Tags";
+import { ProfileValidation } from "./../../../../src/Components/Navbar/Components/Links/ConnectButton/ConDialBox/UserValidation";
 
 function FormProfile() {
   const { values } = useProfileForm();
@@ -36,6 +37,7 @@ function FormProfile() {
         // console.log("newData", newData);
         sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
+      validate={ProfileValidation}
     >
       {({
         values,
