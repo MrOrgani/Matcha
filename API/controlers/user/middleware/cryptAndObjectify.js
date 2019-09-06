@@ -3,16 +3,24 @@ const bcrypt = require("bcryptjs");
 module.exports = async function cryptNObject(req, res, next) {
   try {
     const salt = await bcrypt.genSalt(10);
-    const password = req.body.password
-      ? req.body.password
-      : req.body.values.newpassword;
-    const hashPassword = await bcrypt.hash(password, salt);
-    req.body.password
-      ? (req.body.password = hashPassword)
-      : (req.body.values.newpassword = hashPassword);
-    delete req.body.confNewPass;
-
-    // console.log("crypt");
+    if (
+      req.body.values &&
+      req.body.values.newpassword &&
+      req.body.values.oldpassword
+    ) {
+      password = req.body.values.newpassword;
+      const hashPassword = await bcrypt.hash(password, salt);
+      req.body.values.newpassword = hashPassword;
+      delete req.body.values.oldpassword;
+      console.log("NEWPASS AND CONFNEW EXIST");
+    }
+    // console.log("crypt wht are in req", req.body);
+    if (req.body.password && req.body.confNewPass) {
+      password = req.body.password;
+      const hashPassword = await bcrypt.hash(password, salt);
+      req.body.password = hashPassword;
+      delete req.body.confNewPass;
+    }
     next();
   } catch (err) {
     console.log(err);

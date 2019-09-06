@@ -6,13 +6,12 @@ module.exports = async function changePass(req, res, next) {
   const { oldpassword, newpassword } = req.body.values;
   // Si oldpassword et newpassword
   if (oldpassword && newpassword) {
+    // console.log("password is being changed", oldpassword, newpassword);
     try {
-      const userData = await modelFindOne(req.query.login, "login");
+      const userData = await modelFindOne(req.query.userSource, "login");
       const { password } = userData[0]._fields[0].properties;
       if (!(await bcrypt.compare(oldpassword, password))) {
         errors.oldpassword = "You old password is incorrect !";
-        console.log("pas bon le pass");
-        return;
       } else if (!/[A-Z0-9]+/i.test(newpassword)) {
         errors.newpassword =
           "You new Password must at least contain one letter and one digit";
@@ -20,12 +19,13 @@ module.exports = async function changePass(req, res, next) {
         errors.newpassword =
           "Your new Password must at least contain one of the following !@#$%^&*()";
       }
-      delete req.body.values.oldpassword;
-      console.log("req.body.values.oldpasswird", req.body.values.oldpassword);
     } catch (err) {
       console.log(err);
     }
-    for (let x in errors) return res.status(400).send(errors);
+    console.log("errors Change pass", errors);
+    for (let x in errors) return res.status(201).json(errors);
   }
+  // if (req.body.values.oldpassword) delete req.body.values.oldpassword;
+  // console.log("Changedpass ?", !req.body.values.newpassword);
   next();
 };

@@ -7,13 +7,13 @@ async function modelUpdateProfile(req) {
   // console.log("values MODELUPDATEPROFILE are", req.body.values);
   try {
     if (req.body.values.newpassword) {
-      // console.log("MODELUPDATEPROFILE in here bitch");
+      console.log("THE PASSWORD WAS UPDATED", req.body.values);
       await session
         .run(
           `MATCH (u:User {login: {userSource}})
           SET u.password = {newpassword}`,
           {
-            userSource: req.query.login,
+            userSource: req.query.userSource,
             newpassword: req.body.values.newpassword
           }
         )
@@ -33,11 +33,12 @@ async function modelUpdateProfile(req) {
               u.pics = {pics},
               u.indexOfPP = {indexOfPP},
               u.hobbies = {hobbies},
-              u.location = {location}
+              u.location = {location},
+              u.isComplete = true
               RETURN u
               `,
         {
-          userSource: req.query.login,
+          userSource: req.query.userSource,
           firstName: req.body.values.firstName,
           lastName: req.body.values.lastName,
           age: req.body.values.age,
@@ -55,15 +56,17 @@ async function modelUpdateProfile(req) {
       .catch(err => console.log(err));
 
     await handlePracticeHobbies(req);
-    // console.log("THE NEW USER DATA", userData);
-    //// JWT auth token
+    console.log("THE NEW USER DATA", userData);
+
+    //// ********************* JWT auth token
     const token = jwt.sign(
       { uuid: userData.records[0]._fields[0].properties.uuid },
       process.env.TOKEN_SECRET
     );
     delete userData.records[0]._fields[0].properties.password;
-    delete userData.records[0]._fields[0].properties.uuid;
+    // delete userData.records[0]._fields[0].properties.uuid;
     userData.records[0]._fields[0].properties.jwt = token;
+    // ------------------------------------
 
     // console.log(
     //   "value in MODEL USER",
@@ -81,18 +84,18 @@ async function handlePracticeHobbies(req) {
       `MATCH (u:User {login: {userSource}})-[r:PRACTICE]->(h:Hobby)
                 DETACH DELETE r`,
       {
-        userSource: req.query.login
+        userSource: req.query.userSource
       }
     )
     .catch(err => console.log("err on delete practice: ", err));
   req.body.values.hobbies.map(async hobby => {
-    console.log("hobby is ", hobby);
+    // console.log("hobby is ", hobby);
     await session
       .run(
         `MATCH (u:User {login: {userSource}}),(h:Hobby {name:{hobby}})
       CREATE (u)-[r:PRACTICE]->(h)`,
         {
-          userSource: req.query.login,
+          userSource: req.query.userSource,
           hobby: hobby
         }
       )

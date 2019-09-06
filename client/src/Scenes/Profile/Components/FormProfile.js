@@ -2,7 +2,6 @@ import React from "react";
 import useProfileForm from "./useProfileForm";
 // import { ProfileFormContext } from "./ProfileFormContext";
 import { Formik } from "formik";
-// import { valuesValidations } from "./../../Home/Components/UserValidation";
 import "./FormProfile.css";
 import axios from "axios";
 
@@ -20,6 +19,7 @@ import { SexualOrientation } from "./Components/SexualOrientation";
 import { Submit } from "./Components/Submit";
 import { Tags } from "./Components/Tags";
 import { ProfileValidation } from "./../../../../src/Components/Navbar/Components/Links/ConnectButton/ConDialBox/UserValidation";
+import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {
   const { values } = useProfileForm();
@@ -29,15 +29,46 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         const userValues = JSON.parse(sessionStorage.getItem("data"));
-        const api = `http://localhost:9000/api/user/profile?login=${userValues.login}&jwt=${userValues.jwt}`;
-        // console.log("ta maman", values);
+        console.log("userValues", userValues);
+        const api = `http://localhost:9000/api/user/profile?userSource=${userValues.login}&jwt=${userValues.jwt}`;
+        console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
+
+        console.log(
+          "FormProfile retour patch",
+          // newData,
+          newData.status,
+          newData
+        );
+        if (newData.status === 200) {
+          // setSubmitionCompleted(true);
+          // socketContext.socket && socketContext.socket.emit("logOut");
+          // console.log(newData.data);
+          // authContext.setData(newData.data);
+          // authContext.setIsAuth(1);
+          notify.show("Your profile has been updated !", "success");
+        } else {
+          // const errjson = await newData.json();
+          for (let error in newData.data) {
+            notify.show(newData.data[error], "error");
+          }
+          // setSubmitionCompleted(true);
+          // setValid(false);
+          // if (typeof newData.data !== "string") {
+          //   for (let strKey in newData.data) {
+          //     errorStr += newData.data[strKey] + "\n";
+          //   }
+          // } else {
+          //   errorStr = newData.data;
+          // }
+          // setTextError(errorStr.trim());
+        }
         // console.log("newData", newData);
         sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
-      validate={ProfileValidation}
+      // validate={ProfileValidation}
     >
       {({
         values,
@@ -49,6 +80,7 @@ function FormProfile() {
         handleSubmit
       }) => (
         <form onSubmit={handleSubmit}>
+          <Notifications />
           <div className="containerFormProfile">
             <div className="box name">
               <FirstName
@@ -127,9 +159,9 @@ function FormProfile() {
                 ]}
                 onBlur={handleBlur}
                 helperText={[
-                  errors.password,
-                  touched.password,
-                  errors.password
+                  errors.newpassword,
+                  touched.newpassword,
+                  errors.newpassword
                 ]}
               />
             </div>
@@ -145,8 +177,14 @@ function FormProfile() {
             <div className="box photos">
               Your photos
               <Photo setFieldValue={setFieldValue} />
+              {errors.pics
+                ? notify.show("You must upload at least 1 picture", "error")
+                : null}
             </div>
             <div className="box tags">
+              {errors.hobbies
+                ? notify.show("You must choose at least 5 tags", "error")
+                : null}
               <Tags
                 value={values.hobbies}
                 // onClick={handleTags}

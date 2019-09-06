@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import axios from "axios";
 import { Formik } from "formik";
-import { LoginValidation } from "./UserValidation";
+// import { LoginValidation } from "./UserValidation";
 import { AuthContext } from "../../../../../../AuthContext";
 import "../../../../NavBar.css";
 import { Result } from "antd";
@@ -57,10 +57,10 @@ function Login() {
                   }
                 })
                 .catch(err =>
-                  console.log("Error while loging: ", err.response.data)
+                  console.log("Error while loging: ", err.response)
                 );
             }}
-            validate={LoginValidation}
+            // validate={LoginValidation}
           >
             {props => {
               const {
