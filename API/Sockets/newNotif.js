@@ -1,51 +1,51 @@
 const { modelNewNotif } = require("../models/modelNotif/modelNewNotif");
 
-module.exports = async function(socket, io, notif) {
-  // SI NOTIF NEST PAS UNDIFINED PASSER CETTE ETAPE
-  socket.on("newNotif", data => {
-    date = new Date();
-    data.h = date.getHours();
-    data.m = date.getMinutes();
-    data.d = date.getDay();
-    console.log("newNotif data", data);
+// module.exports = async function(socket, io, notif) {
+// SI NOTIF NEST PAS UNDIFINED PASSER CETTE ETAPE
+//   socket.on("newNotif", data => {
+//     date = new Date();
+//     data.h = date.getHours();
+//     data.m = date.getMinutes();
+//     data.d = date.getDay();
+//     console.log("newNotif data", data);
 
-    // PUT IT IN THE DB
-    modelNewNotif(data);
+//     // PUT IT IN THE DB
+//     modelNewNotif(data);
 
-    // TELL THE BROWSER IN RT IF CONNECTED
-    Object.keys(io.sockets.connected).map(key => {
-      let elem = io.sockets.connected[key].handshake.query;
-      if (elem.uuid === data.targetUuid) {
-        console.log(
-          "NEWNOTIF emited from the back, via socket to",
-          elem.login,
-          key
-        );
-        io.to(`${key}`).emit("newNotif", data); //emits to individual socket
-      }
-    });
-    // console.log("newNotif socket", socket);
+//     // TELL THE BROWSER IN RT IF CONNECTED
+//     Object.keys(io.sockets.connected).map(key => {
+//       let elem = io.sockets.connected[key].handshake.query;
+//       if (elem.uuid === data.targetUuid) {
+//         console.log(
+//           "NEWNOTIF emited from the back, via socket to",
+//           elem.login,
+//           key
+//         );
+//         io.to(`${key}`).emit("newNotif", data); //emits to individual socket
+//       }
+//     });
+//     // console.log("newNotif socket", socket);
 
-    // let roomID =
-    //   socket.chatTarget.uuid > msg.uuidSource
-    //     ? socket.chatTarget.uuid + msg.uuidSource
-    //     : msg.uuidSource + socket.chatTarget.uuid;
-    // if (socket.chatTarget.uuid && msg.uuidSource) {
-    //   axios.post("http://localhost:9000/api/chatMessages/", msg);
-    //   // console.log(msg);
-    //   console.log("emiting a chatMessage to all clients in room ", roomID);
-    //   io.to(roomID).emit("chatMessage", msg);
+//     // let roomID =
+//     //   socket.chatTarget.uuid > msg.uuidSource
+//     //     ? socket.chatTarget.uuid + msg.uuidSource
+//     //     : msg.uuidSource + socket.chatTarget.uuid;
+//     // if (socket.chatTarget.uuid && msg.uuidSource) {
+//     //   axios.post("http://localhost:9000/api/chatMessages/", msg);
+//     //   // console.log(msg);
+//     //   console.log("emiting a chatMessage to all clients in room ", roomID);
+//     //   io.to(roomID).emit("chatMessage", msg);
 
-    //   //NOTIF CORNER
-    //   const notif = {
-    //     targetUuid: socket.chatTarget.uuid,
-    //     type: "message",
-    //     uuidSource: msg.uuidSource
-    //   };
-    //   require("./newNotif")(io, notif);
-    // }
-  });
-};
+//     //   //NOTIF CORNER
+//     //   const notif = {
+//     //     targetUuid: socket.chatTarget.uuid,
+//     //     type: "message",
+//     //     uuidSource: msg.uuidSource
+//     //   };
+//     //   require("./newNotif")(io, notif);
+//     // }
+//   });
+// };
 
 // module.exports = async function( io, notif) {
 // date = new Date();

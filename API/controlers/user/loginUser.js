@@ -8,6 +8,7 @@ module.exports = async function loginUser(req, res) {
     if (userData.length === 0) return res.status(201).send("Invalid username");
     userData = userData[0]._fields[0].properties;
     userData.indexOfPP = userData.indexOfPP.low;
+    console.log("login user userData", req.body.password, userData.password);
     if (!(await bcrypt.compare(req.body.password, userData.password)))
       return res.status(206).send("Invalid password");
     if (!userData.isConfirmed)

@@ -8,25 +8,19 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
-  // console.log("in modelUserVerif", req);
   try {
     if (!req.jwt) return false;
     const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
-    // console.log("mdoelUserVerif verified", verified);
     const result = await session
       .run(`MATCH (u:User {login: {userSource}, uuid:{uuid}}) RETURN u`, {
         userSource: req.userSource,
         uuid: verified.uuid
       })
-      .then(data => {
-        if (data.records.length === 0) {
-          return false;
-        } else return true;
-      })
       .catch(err => {
-        return err;
+        console.log("err on modelUserVerif, find user: ", err);
       });
-    return result;
+
+    return result.records.length > 0 ? true : false;
   } catch (err) {
     console.log(err);
   }

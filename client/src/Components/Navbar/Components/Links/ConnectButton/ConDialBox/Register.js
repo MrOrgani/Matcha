@@ -37,7 +37,7 @@ function Register() {
           <Formik
             initialValues={initialState}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("values", values);
+              // console.log("values", values);
               setSubmitting(true);
               axios
                 .post("http://localhost:9000/api/user/register", values, {

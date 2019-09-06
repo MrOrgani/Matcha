@@ -93,7 +93,7 @@ export const ResetValidation = function(values) {
 // sexualOrientation: "bi";
 
 export const ProfileValidation = values => {
-  console.log("UserVlaidation Profile values", values);
+  // console.log("UserVlaidation Profile values", values);
   let errors = {};
   if (!values.age) {
     errors.age = "Age is required";

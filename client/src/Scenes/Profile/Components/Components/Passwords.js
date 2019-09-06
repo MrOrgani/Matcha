@@ -15,9 +15,9 @@ export const Passwords = props => {
         value={props.value[0]}
         onChange={props.onChange[0]}
         onBlur={props.onBlur}
-        helperText={
-          props.helperText[0] && props.helperText[1] && props.helperText[2]
-        }
+        // helperText={
+        //   props.helperText[0] && props.helperText[1] && props.helperText[2]
+        // }
       />
       {/* New password */}
       <TextField

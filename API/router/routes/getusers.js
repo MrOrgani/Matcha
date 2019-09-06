@@ -31,7 +31,7 @@ router
     session
       .run(
         `MATCH (u:User)-[:PRACTICE]-(hobby)
-          WHERE u.isComplete = 1 RETURN u, collect(hobby)`
+          RETURN u, collect(hobby)`
       )
       .then(nodes => {
         nodes.records.forEach(record => {

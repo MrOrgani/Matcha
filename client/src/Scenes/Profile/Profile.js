@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 // import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -7,14 +7,23 @@ import Grid from "@material-ui/core/Grid";
 import FormProfile from "./Components/FormProfile";
 import { ProfileFormProvider } from "./Components/ProfileFormContext";
 import "./Profile.css";
-import { withTheme } from "@material-ui/styles";
+// import { withTheme } from "@material-ui/styles";
+import Notifications, { notify } from "react-notify-toast";
 
 export default function Profile() {
+  useEffect(() => {
+    const userData = JSON.parse(sessionStorage.data);
+    if (!userData.isComplete)
+      notify.show("You must complete your profile", "error");
+  }, []);
+
   return (
     <ProfileFormProvider>
+      <Notifications />
+
       <Grid component="main" className="root">
         {/* <Notifications /> */}
-        <div
+        {/* <div
           style={{
             backgroundColor: "red",
             color: "white",
@@ -25,7 +34,7 @@ export default function Profile() {
           }}
         >
           You must complete your profile
-        </div>
+        </div> */}
         {/* <div className={classes.gallery}> */}
         {/* <Photos /> */}
         {/* <Upload /> */}

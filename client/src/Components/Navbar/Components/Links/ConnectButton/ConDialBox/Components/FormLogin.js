@@ -43,74 +43,6 @@ export default function FormLogin(props) {
         {!isSubmitionCompleted ? (
           <Formik
             initialValues={initialState}
-            // onSubmit={async values => {
-            //   console.log("FormLogin state onsub", state);
-            //   setState({ ...state, submitting: true });
-            //   const resLogin = await axios
-            //     .post("http://localhost:9000/api/user/login", values, {
-            //       headers: {
-            //         "Content-Type": "application/json"
-            //       }
-            //     })
-            //     // .then(res => {
-            //     //   // console.log("response de l'API", res.data);
-            //     //   if (res.status === 200) {
-            //     //     setState({ ...state, isSubmitionCompleted: true });
-            //     //     socketContext.socket && socketContext.socket.emit("logOut");
-            //     //     // sessionStorage.data = JSON.stringify(res.data);
-            //     //     console.log(res.data);
-            //     //     authContext.setData(res.data);
-            //     //     authContext.setIsAuth(1);
-            //     //     // sessionStorage.isAuth = 1;
-            //     //     // socketContext.socket.emit("login", res.data.login);
-            //     //   } else {
-            //     //     let errorStr = "";
-            //     //     setState({
-            //     //       ...state,
-            //     //       isSubmitionCompleted: true,
-            //     //       isValid: false
-            //     //     });
-            //     //     if (typeof res.data !== "string") {
-            //     //       for (let strKey in res.data) {
-            //     //         errorStr += res.data[strKey] + "\n";
-            //     //       }
-            //     //     } else {
-            //     //       errorStr = res.data;
-            //     //     }
-            //     //     setState({ ...state, textError: errorStr.trim() });
-            //     //   }
-            //     // })
-            //     .catch(err =>
-            //       console.log("Error while loging: ", err.response.data)
-            //     );
-            //   // console.log("FormLogin resLogin", resLogin);
-
-            //   if (resLogin.status === 200) {
-            //     setState({
-            //       ...state,
-            //       isSubmitionCompleted: true,
-            //       isValid: true
-            //     });
-            //     socketContext.socket && socketContext.socket.emit("logOut");
-            //     authContext.setData(resLogin.data);
-            //     authContext.setIsAuth(1);
-            //   } else {
-            //     let errorStr = "";
-            //     setState({
-            //       ...state,
-            //       isSubmitionCompleted: true,
-            //       isValid: false
-            //     });
-            //     if (typeof resLogin.data !== "string") {
-            //       for (let strKey in resLogin.data) {
-            //         errorStr += resLogin.data[strKey] + "\n";
-            //       }
-            //     } else {
-            //       errorStr = resLogin.data;
-            //     }
-            //     setState({ ...state, textError: errorStr.trim() });
-            //   }
-            // }}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
               axios
@@ -163,7 +95,6 @@ export default function FormLogin(props) {
                 handleSubmit,
                 handleReset
               } = props;
-              // console.log(errors.login, touched.login);
               return (
                 <form onSubmit={handleSubmit} className="registerBlock">
                   <TextField
@@ -210,11 +141,6 @@ export default function FormLogin(props) {
             status={isValid ? "success" : "error"}
             title={isValid ? "Logged in !" : "Error."}
             subTitle={isValid ? "Enjoy :)" : textError}
-            // extra={
-            //   <Button type="primary" key="login">
-            //     <a href="/">Home</a>
-            //   </Button>
-            // }
           />
         )}
       </DialogContent>

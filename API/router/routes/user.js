@@ -64,26 +64,12 @@ router
 
 router
   .route("/profile")
-  // .post(userVerif, (req, res) => {
-  // addPicture(req, res);
-  // })
-  .patch(
-    userVerif,
-    changePass,
-    cryptNObject,
-    // dataProfileVal,
-    (req, res) => {
-      updateProfile(req, res);
-    }
-  );
+  .patch(userVerif, changePass, dataProfileVal, cryptNObject, (req, res) => {
+    updateProfile(req, res);
+  });
 
 router.route("/findOne").get(userVerif, (req, res) => {
   findOne(req, res);
 });
-
-// router.route("/generate");
-// .post((req, res) => {
-//   req.body.value ? gUsers(req, res) : delUsers(req, res);
-// })
 
 module.exports = router;

@@ -42,7 +42,7 @@ export const Photo = props => {
     setState({ ...state, indexOfPP: index });
     props.setFieldValue("indexOfPP", index);
   }
-  console.log("state length", pics.length, state.indexOfPP);
+  // console.log("state length", state, pics.length, state.indexOfPP);
   return (
     <React.Fragment>
       <div className="gridPhotos">

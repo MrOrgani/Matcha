@@ -43,10 +43,13 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [x] : empeche le user de naviguer si le profile nest pas complet
 
-[] : Verifier les infos en back
-    [] : confirmer le remplissage des infos
-    [] : mettre l'affchage de la barre rouge sur profile en conditionnel
+[x] : Verifier les infos en back
+    [x] : confirmer le remplissage des infos
+    [x] : mettre l'affchage de la barre rouge sur profile en conditionnel
 
+[] : Jai remis en place le uuid, a verifier si on en a besoin ans modelUpateProfile
+
+[] : MEttre typ  password a tous les inputs parssword
 VAL
 
 [] : score de popularité
