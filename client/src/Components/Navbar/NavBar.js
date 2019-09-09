@@ -12,26 +12,6 @@ import { AuthContext } from "../../AuthContext";
 import LSearch from "./Components/Links/LSearch";
 import LProfile from "./Components/Links/LProfile";
 import LChat from "./Components/Links/LChat";
-// function NavBar() {
-//   // const classes = useStyles();
-//   const [, authContext] = useContext(AuthContext);
-
-//   return (
-//     <div>
-//       <AppBar position="static" className={classes.bar}>
-//         <Toolbar>
-//           {authContext.isAuth ? <DrawerNavigator /> : null}
-//           <Typography variant="h6" className={classes.title}>
-//             Matcha
-//           </Typography>
-//           <MenuItem>
-//             {authContext.isAuth ? <NotificationBell /> : null}
-//           </MenuItem>
-//         </Toolbar>
-//       </AppBar>
-//     </div>
-//   );
-// }
 
 function NavBar() {
   const [, authContext] = useContext(AuthContext);
@@ -52,7 +32,7 @@ function NavBar() {
                 <LSearch />
                 <LProfile />
                 <LChat />
-                <NotificationBell />
+                {/* <NotificationBell /> */}
                 <DiscoButton />
               </React.Fragment>
             ) : (

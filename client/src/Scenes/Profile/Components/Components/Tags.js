@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Tag } from "antd";
 import { ProfileFormContext } from "./../ProfileFormContext";
 
-const hobbiesList = [
+const hobbiesListSet = new Set([
   "La lecture",
   "Les jeux de société et jeux de réflexion",
   "La promenade",
@@ -53,7 +53,9 @@ const hobbiesList = [
   "Le repassage",
   "La poterie",
   "La randonnée"
-];
+]);
+
+const hobbiesList = [...hobbiesListSet];
 
 export const Tags = props => {
   const [state, setState] = useContext(ProfileFormContext);

@@ -8,6 +8,18 @@ const Search = () => {
   const [gender, setGender] = useState("both");
   const [age, setAge] = useState([18, 100]);
 
+  // const userData = JSON.parse(sessionStorage.data);
+  // if (!userData.isComplete) window.location = "/Profile";
+
+  // function verifyUsertoken() {
+  //   const token = sessionStorage.jwt;
+  //   if (!token) {
+  //     sessionStorage.data = null;
+  //     window.location.href = "http://www.w3schools.com";
+  //   }
+  // }
+  // verifyUsertoken();
+
   const handleChange = (event, newAge) => {
     if (event.target.name === "gender") setGender(event.target.value);
     else {
