@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import User from "./User";
 import { UsersContext } from "./UsersContext";
 // import { makeStyles } from "@material-ui/core/styles";
@@ -26,14 +26,16 @@ const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
   const filteredUserList = filterUsers(props, users);
-  console.log("UserList Triggered", users, "filtered  ", filteredUserList);
 
   return (
     <div className="containerUL">
-      {filteredUserList.map((user, index) => {
-        // console.log(user);
+      {filteredUserList.map(user => {
         return (
-          <UserCardProvider key={`Card${index}`} user={user} session={session}>
+          <UserCardProvider
+            key={user.user_id || user.uuid}
+            user={user}
+            session={session}
+          >
             <User />
           </UserCardProvider>
         );
