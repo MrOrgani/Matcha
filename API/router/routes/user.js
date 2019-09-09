@@ -12,6 +12,7 @@ const cryptNObject = require(`${ctrlUsr}/middleware/cryptAndObjectify`);
 const existLogOrEmail = require(`${ctrlUsr}/middleware/ExistLogOrEmail`);
 const dataProfileVal = require(`./${ctrlUsr}/validation/dataProfileVal`);
 const dataRegisterVal = require(`./${ctrlUsr}/validation/dataRegisterVal`);
+const dataResetVal = require(`./${ctrlUsr}/validation/dataResetVal`);
 const dataLoginVal = require(`./${ctrlUsr}/validation/dataLoginVal`);
 const changePass = require(`./${ctrlUsr}/validation/changePass`);
 
@@ -21,6 +22,7 @@ const { addTagNCity } = require("../../controlers/seed/addHobbiesAndCity");
 const createUser = require(`${ctrlUsr}/createUser`);
 const loginUser = require(`${ctrlUsr}/loginUser`);
 const forgotPass = require(`${ctrlUsr}/forgotPass`);
+const resetPass = require(`${ctrlUsr}/resetPass`);
 const { updateProfile } = require("../../controlers/profile/updateProfile");
 const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
 const findOne = require("../../controlers/user/findOne");
@@ -57,27 +59,17 @@ router.route("/forgot").post((req, res) => {
 });
 
 router
+  .route("/forgot/:id")
+  .patch(dataResetVal, cryptNObject, (req, res) => resetPass(req, res));
+
+router
   .route("/profile")
-  // .post(userVerif, (req, res) => {
-  // addPicture(req, res);
-  // })
-  .patch(
-    userVerif,
-    changePass,
-    cryptNObject,
-    // dataProfileVal,
-    (req, res) => {
-      updateProfile(req, res);
-    }
-  );
+  .patch(userVerif, changePass, dataProfileVal, cryptNObject, (req, res) => {
+    updateProfile(req, res);
+  });
 
 router.route("/findOne").get(userVerif, (req, res) => {
   findOne(req, res);
 });
-
-// router.route("/generate");
-// .post((req, res) => {
-//   req.body.value ? gUsers(req, res) : delUsers(req, res);
-// })
 
 module.exports = router;

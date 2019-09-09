@@ -1,29 +1,59 @@
+
+
+MORGANI   
+
 [x] : Recoder controlller/user
 https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 [x] : mail de confirmation
-   [x] : installation de nodemailer
-   [x] : creation  d’un compte ethreal
-   [x] : envoi de l’email au nouvel utilisateur
----------> Pour l’auth de l’utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
-   [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
-[x] : Revoir Validation du mots de passe, etc.
-[x] : Mail de reinitialisation
-   [x] : refonte de la dialogue box
-       [x] : dialoge ou j’importe register/Login/Init MDP
-           [x]: register
-           [x] : Login
-           [x] : init MDP
-   [x] : verifier le chemin
-   [x] : verifier le mdp en back
-   [x] : chiffrer
-   [x] : mette les infos dans la database
-[x] : deconnexion du site en un clic
-[x] : finir front navbar
-[x]: Enregistrement Nom Prenom + Validation des inputs
-[] : Verrifeir poiur les photos
-[] : finir notif de like, visite ou dislike
+    [x] : installation de nodemailer
+    [x] : creation  d'un compte ethreal
+    [x] : envoi de l'email au nouvel utilisateur
+---------> Pour l'auth de l'utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
+    [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
 
+
+[x] : Revoir Validation du mots de passe, etc.
+
+[x] : Mail de reinitialisation
+    [x] : refonte de la dialogue box
+        [x] : dialoge ou j'importe register/Login/Init MDP
+            [x]: register
+            [x] : Login
+            [x] : init MDP
+    [x] : verifier le chemin
+    [x] : verifier le mdp en back
+    [x] : chiffrer
+    [x] : mette les infos dans la database
+
+
+[x] : deconnexion du site en un clic
+
+[x] : finir front navbar
+
+[x]: Enregistrement Nom Prenom + Validation des inputs
+
+[x] : Verrifeir poiur les photos
+
+[x] : Creer les lien Practice sur les activites a la modifiction des tags dans le profile
+    [x] : supprimer les liens existant
+    [x] : en creer de nouveau
+
+[x] : Empecher le user d'acceder au site si compte non comfirmé
+
+[x] : empeche le user de naviguer si le profile nest pas complet
+
+[x] : Verifier les infos en back
+    [x] : confirmer le remplissage des infos
+    [x] : mettre l'affchage de la barre rouge sur profile en conditionnel
+
+[] : Jai remis en place le uuid, a verifier si on en a besoin ans modelUpateProfile
+
+[] : MEttre typ  password a tous les inputs parssword
 VAL
+
 [] : score de popularité
-[] : revoir le tri (froont ou back) pour inclure tous les criteres + le block
+
+[] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
+
 [] : ameliorer les infos sur le profil
+

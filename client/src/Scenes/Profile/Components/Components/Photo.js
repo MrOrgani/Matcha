@@ -25,12 +25,12 @@ export const Photo = props => {
       setState({
         ...state,
         pics: notDeletedPhotos,
-        indexOfPP: state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
+        indexOfPP: state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
       });
       props.setFieldValue("pics", notDeletedPhotos);
       props.setFieldValue(
         "indexOfPP",
-        state.indexOfPP - 1 ? 0 : state.indexOfPP - 1
+        state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
       );
     } else {
       setState({ ...state, pics: notDeletedPhotos });
@@ -42,7 +42,7 @@ export const Photo = props => {
     setState({ ...state, indexOfPP: index });
     props.setFieldValue("indexOfPP", index);
   }
-  console.log("state length", pics.length, state.indexOfPP);
+  // console.log("state length", state, pics.length, state.indexOfPP);
   return (
     <React.Fragment>
       <div className="gridPhotos">

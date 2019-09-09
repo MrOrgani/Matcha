@@ -26,7 +26,7 @@ module.exports = function(socket, io) {
         type: "message",
         uuidSource: msg.uuidSource
       };
-      require("./newNotif")(io, notif);
+      require("./newNotif")(socket, io, notif);
     }
   });
 };
