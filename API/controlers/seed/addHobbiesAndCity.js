@@ -62,7 +62,6 @@ async function addCityCoords(json) {
       const locat_json = await locat.json();
       element.coords = [locat_json[0].lat, locat_json[0].lon];
       element.baseScore = baseScore;
-      // console.log("elem", element.login);
     }
     return json;
   } catch (err) {
@@ -78,7 +77,6 @@ async function addTagNCity(req, res) {
   const usersWithHobbies = await addHobbies(json);
   // const usersWithImg = await addImg(usersWithHobbies);
   const usersWithCoord = await addCityCoords(usersWithHobbies); // AMODIFIER POUR UNSPLASH
-  console.log("result of the map", usersWithCoord);
   res.send(usersWithCoord);
 }
 

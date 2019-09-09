@@ -1,8 +1,7 @@
 const modelUser = require("../../models/modelSeed/modelUser");
-const uuid = require("uuid/v4");
 
 exports.gUsers = async (req, res) => {
-  modelUser.gUsers(req);
+  modelUser.gUsers();
   res.status(200).end();
 };
 
