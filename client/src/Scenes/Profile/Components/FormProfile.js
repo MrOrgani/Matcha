@@ -30,7 +30,7 @@ function FormProfile() {
       onSubmit={async values => {
         const userValues = JSON.parse(sessionStorage.getItem("data"));
         console.log("userValues", userValues);
-        const api = `http://localhost:9000/api/user/profile?userSource=${userValues.login}&jwt=${userValues.jwt}`;
+        const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
         console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
@@ -48,7 +48,7 @@ function FormProfile() {
           // console.log(newData.data);
           // authContext.setData(newData.data);
           // authContext.setIsAuth(1);
-          console.log("NEW DATA", newData.data);
+          // console.log("NEW DATA", newData.data);
           sessionStorage.setItem("data", JSON.stringify(newData.data));
           notify.show("Your profile has been updated !", "success");
         } else {

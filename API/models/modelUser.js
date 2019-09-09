@@ -65,10 +65,10 @@ async function gUsers() {
               u.password = user.login.password,
               u.location = [user.location.coordinates.latitude, user.location.coordinates.longitude],
               u.cell = user.cell,
-              u.picMedium = user.picture.medium,
-              u.picLarge = user.picture.large,
+              u.pics = [user.picture.medium],
+              u.indexOfPP = 0,
               u.email = user.email,
-              u.isComplete = 1
+              u.isComplete = true
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))`

@@ -19,8 +19,8 @@ export default function UserCard() {
     UserCardContext
   );
 
-  console.log(JSON.parse(userInfo.score));
-  console.log(userInfo.score);
+  // console.log(JSON.parse(userInfo.score));
+  // console.log(userInfo.score);
   return (
     <React.Fragment>
       <Card
@@ -29,7 +29,10 @@ export default function UserCard() {
           // console.log(userInfo);
         }}
       >
-        <CardMedia className={classes.media} image={userInfo.picLarge} />
+        <CardMedia
+          className={classes.media}
+          image={userInfo.pics[userInfo.indexOfPP.low]}
+        />
         <CardHeader
           avatar={
             <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />

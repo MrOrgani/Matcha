@@ -7,7 +7,7 @@ async function gUsers(req) {
       `CALL apoc.load.json('http://localhost:9000/api/user/')
           YIELD value AS data
           UNWIND data.results AS user
-          MERGE (u:User)
+          MERGE (u:User {uuid: user.login.uuid})
           ON CREATE SET u.firstName = user.name.first,
             u.lastName = user.name.last,
               u.age = user.dob.age,
@@ -16,8 +16,8 @@ async function gUsers(req) {
               u.login = user.login.username,
               u.password = user.login.password,
               u.cell = user.cell,
-              u.picMedium = user.picture.medium,
-              u.picLarge = user.picture.large,
+              u.pics = [user.picture.large],
+              u.indexOfPP = 0,
               u.email = user.email,
               u.city = user.location.city,
               u.location = user.coords,
@@ -25,8 +25,7 @@ async function gUsers(req) {
               u.messages = [],
               u.notifs = [],
               u.isComplete = true,
-              u.score = user.baseScore,
-              u.uuid = user.login.uuid
+              u.score = user.baseScore
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))
