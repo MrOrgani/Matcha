@@ -1,13 +1,13 @@
 const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
-async function gUsers(req) {
+async function gUsers() {
   try {
     const test = await session.run(
       `CALL apoc.load.json('http://localhost:9000/api/user/')
           YIELD value AS data
           UNWIND data.results AS user
-          MERGE (u:User)
+          MERGE (u:User {uuid: user.login.uuid})
           ON CREATE SET u.firstName = user.name.first,
             u.lastName = user.name.last,
               u.age = user.dob.age,
@@ -25,14 +25,12 @@ async function gUsers(req) {
               u.messages = [],
               u.notifs = [],
               u.isComplete = true,
-              u.score = user.baseScore,
-              u.uuid = user.login.uuid
+              u.score = user.baseScore
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))
           `
     );
-    console.log("TEST MODEL USER", test);
   } catch (err) {
     console.log("gUsers error", err);
   }

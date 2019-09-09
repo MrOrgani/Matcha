@@ -3,7 +3,6 @@ const nodemailer = require("nodemailer");
 module.exports = async function sendMail(email, np = false, key) {
   // let testAccount = await nodemailer.createTestAccount();
 
-  console.log("in Sendemail");
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
