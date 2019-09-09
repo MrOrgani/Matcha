@@ -13,7 +13,7 @@ router
   .get("/", function(req, res) {
     const result = [];
     session
-      .run("MATCH (u:User {isComplete: 1}) RETURN u")
+      .run("MATCH (u:User {isComplete=true}) RETURN u")
       .then(nodes => {
         nodes.records.forEach(record => {
           result.push(record._fields[0].properties);
