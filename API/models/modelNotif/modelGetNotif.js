@@ -3,9 +3,16 @@ const session = initNeo4j();
 
 async function modelGetNotif(req) {
   //   console.log(req);
+  // try {
+  //   const data = await session.run(
+  //     `MATCH (u:User {uuid:{uuidSource}})
+  //     RETURN u.notifs`,
+  //     req
+  //   );
   try {
+    console.log("modelGetNotif req", req);
     const data = await session.run(
-      `MATCH (u:User {uuid:{uuidSource}})
+      `MATCH (u:User {login:{userSource}})
       RETURN u.notifs`,
       req
     );

@@ -48,6 +48,8 @@ function FormProfile() {
           // console.log(newData.data);
           // authContext.setData(newData.data);
           // authContext.setIsAuth(1);
+          console.log("NEW DATA", newData.data);
+          sessionStorage.setItem("data", JSON.stringify(newData.data));
           notify.show("Your profile has been updated !", "success");
         } else {
           // const errjson = await newData.json();
@@ -66,9 +68,8 @@ function FormProfile() {
           // setTextError(errorStr.trim());
         }
         // console.log("newData", newData);
-        sessionStorage.setItem("data", JSON.stringify(newData.data));
       }}
-      // validate={ProfileValidation}
+      validate={ProfileValidation}
     >
       {({
         values,

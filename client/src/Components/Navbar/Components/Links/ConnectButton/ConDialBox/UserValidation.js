@@ -124,9 +124,9 @@ export const ProfileValidation = values => {
     errors.gender = "Gender is required";
   }
 
-  if (!values.hobbies || values.hobbies.length < 5) {
-    errors.hobbies = "You must select at least 5 hobbies";
-  }
+  // if (!values.hobbies || values.hobbies.length < 5) {
+  //   errors.hobbies = "You must select at least 5 hobbies";
+  // }
 
   if (!values.lastName) {
     errors.lastName = "A lastname is required";
@@ -158,9 +158,9 @@ export const ProfileValidation = values => {
     }
   }
 
-  if (!values.pics || values.pics.length < 1) {
-    errors.pics = "You must upload at least 1 pic";
-  }
+  // if (!values.pics || values.pics.length < 1) {
+  //   errors.pics = "You must upload at least 1 pic";
+  // }
 
   if (!values.sexualOrientation) {
     errors.sexualOrientation = "Your sexual orientation is required";
