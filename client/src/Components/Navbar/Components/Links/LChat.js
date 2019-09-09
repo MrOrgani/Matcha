@@ -11,7 +11,7 @@ export default function LChat() {
     >
       {props => (
         <div style={props}>
-          <Link to="/TempChat" className="link">
+          <Link to="/Chat" className="link">
             CHAT
           </Link>
         </div>

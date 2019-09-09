@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import "../ChatApp.css";
-import { TempChatContext } from "../../../TempChatContext";
+import { ChatContext } from "../../../ChatContext";
 import Avatar from "@material-ui/core/Avatar";
 
 const Message = props => {
-  const [chatAppContext] = useContext(TempChatContext);
+  const [chatAppContext] = useContext(ChatContext);
   let fromMe = "";
   let displayName = "";
   // console.log(props);
@@ -13,13 +13,17 @@ const Message = props => {
 
   return (
     <div className={`pictureAndMessage ${fromMe}`}>
-      <Avatar
-        className="avatar"
-        alt={displayName}
-        src={chatAppContext.chatTarget.picture}
-      />
+      {chatAppContext.chatTarget.matched ? (
+        <Avatar
+          className="avatar"
+          alt={displayName}
+          src={chatAppContext.chatTarget.picture}
+        />
+      ) : null}
       <div className={`message ${fromMe}`}>
-        <div className="username">{displayName}</div>
+        {chatAppContext.chatTarget.matched ? (
+          <div className="username">{displayName}</div>
+        ) : null}
         <div className="message-body">{props.content}</div>
       </div>
     </div>

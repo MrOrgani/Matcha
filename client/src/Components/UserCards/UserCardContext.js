@@ -8,8 +8,9 @@ export const UserCardProvider = props => {
   const [isLiked, setLiked] = useState(false);
   const [isBlocked, setBlocked] = useState(false);
   const [userInfo] = useState([props.user][0]);
-  const [socketContext, authContext] = useContext(AuthContext);
+  const [socketContext] = useContext(AuthContext);
 
+  // console.log(props);
   const handleLike = () => {
     console.log("in handle like", props.session);
     axios
@@ -103,7 +104,7 @@ export const UserCardProvider = props => {
 
     getBlock();
     getLike();
-  });
+  }, [props.session, userInfo.login]);
 
   return (
     <UserCardContext.Provider
