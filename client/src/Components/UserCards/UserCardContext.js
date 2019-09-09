@@ -64,7 +64,7 @@ export const UserCardProvider = props => {
 
     getBlock();
     getLike();
-  });
+  }, [props.session, userInfo.login]);
 
   return (
     <UserCardContext.Provider
