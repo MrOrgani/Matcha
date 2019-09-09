@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import User from "./User";
 import { UsersContext } from "./UsersContext";
 // import { makeStyles } from "@material-ui/core/styles";
@@ -30,11 +30,14 @@ const UserList = props => {
 
   return (
     <div className="containerUL">
-      {filteredUserList.map((user, index) => (
-        <UserCardProvider key={`Card${index}`} user={user} session={session}>
-          <User />
-        </UserCardProvider>
-      ))}
+      {filteredUserList.map((user, index) => {
+        // console.log(user);
+        return (
+          <UserCardProvider key={`Card${index}`} user={user} session={session}>
+            <User />
+          </UserCardProvider>
+        );
+      })}
     </div>
   );
 };
