@@ -63,6 +63,7 @@ function NotificationBell() {
   // SOCKET LISTNER
   useEffect(() => {
     socketContext.socket.on("newNotif", newNotif => {
+      console.log("new notif", newNotif);
       notifArray.push(newNotif);
       setNbNotif(notifArray.length);
     });
