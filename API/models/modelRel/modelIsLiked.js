@@ -4,7 +4,7 @@ const session = initNeo4j();
 async function modelIsLiked(req) {
   try {
     const data = await session.run(
-      `MATCH (u:User {login:{userSource}})-[r:LIKED]->(n:User {login:{
+      `MATCH (u:User {uuid:{uuidSource}})-[r:LIKED]->(n:User {login:{
       target}}) RETURN r`,
       req
     );

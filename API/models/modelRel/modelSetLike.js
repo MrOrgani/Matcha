@@ -3,8 +3,9 @@ const session = initNeo4j();
 
 async function modelSetLike(req) {
   try {
+    console.log("req model SetLike", req);
     const data = await session.run(
-      `MATCH (s:User {login:{userSource}}), (t:User {login:{target}})
+      `MATCH (s:User {uuid:{uuidSource}}), (t:User {login:{target}})
     CREATE (s)-[r:LIKED]->(t)
     RETURN r`,
       req

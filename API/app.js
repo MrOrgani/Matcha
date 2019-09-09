@@ -32,7 +32,7 @@ io.sockets.on("connect", socket => {
   onJoinRoom(socket);
   // require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
-  // require("./Sockets/newNotif")(socket, io);
+  require("./Sockets/newNotif")(socket, io);
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };

@@ -9,20 +9,21 @@ const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
   try {
+    // console.log("req mdoelUserVerif", req);
     if (!req.jwt) return false;
     const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
-    const result = await session
-      .run(`MATCH (u:User {login: {userSource}, uuid:{uuid}}) RETURN u`, {
-        userSource: req.userSource,
-        uuid: verified.uuid
-      })
-      .catch(err => {
-        console.log("err on modelUserVerif, find user: ", err);
-      });
-
-    return result.records.length > 0 ? true : false;
+    // const result = await session.run(
+    //   `MATCH (u:User {login: {uuidSource}, uuid:{uuid}}) RETURN u`,
+    //   {
+    //     uuidSource: req.uuidSource,
+    //     uuid: verified.uuid
+    //   }
+    // );
+    console.log("result ModelUserVerif", req.uuidSource === verified.uuid);
+    // return result.records.length > 0 ? true : false;
+    return req.uuidSource === verified.uuid;
   } catch (err) {
-    console.log(err);
+    console.log("err on modelUserVerif, find user: ", err);
   }
 }
 
