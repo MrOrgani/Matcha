@@ -35,7 +35,7 @@ module.exports = function dataProfileVal(req, res, next) {
 
   if (!req.body.values.bio) {
     errors.bio = "A bio is required";
-  } else if (!/^[A-Z0-9]+$/i.test(req.body.values.bio))
+  } else if (!/^[A-Z 0-9]+$/i.test(req.body.values.bio))
     errors.firstName = "Your bio can only contain letters and numbers";
   if (!req.body.values.gender) {
     errors.gender = "Gender is required";

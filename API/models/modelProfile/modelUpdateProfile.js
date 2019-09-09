@@ -4,16 +4,16 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  // console.log("values MODELUPDATEPROFILE are", req.body.values);
+  console.log("values MODELUPDATEPROFILE are", req.query);
   try {
     if (req.body.values.newpassword) {
       console.log("THE PASSWORD WAS UPDATED", req.body.values);
       await session
         .run(
-          `MATCH (u:User {login: {userSource}})
+          `MATCH (u:User {uuid: {uuidSource}})
           SET u.password = {newpassword}`,
           {
-            userSource: req.query.userSource,
+            uuidSource: req.query.uuidSource,
             newpassword: req.body.values.newpassword
           }
         )
@@ -21,7 +21,7 @@ async function modelUpdateProfile(req) {
     }
     const userData = await session
       .run(
-        `MATCH (u:User {login: {userSource}})
+        `MATCH (u:User {uuid: {uuidSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
               u.age = {age},
@@ -38,7 +38,7 @@ async function modelUpdateProfile(req) {
               RETURN u
               `,
         {
-          userSource: req.query.userSource,
+          uuidSource: req.query.uuidSource,
           firstName: req.body.values.firstName,
           lastName: req.body.values.lastName,
           age: req.body.values.age,
@@ -56,7 +56,7 @@ async function modelUpdateProfile(req) {
       .catch(err => console.log(err));
 
     await handlePracticeHobbies(req);
-    console.log("THE NEW USER DATA", userData);
+    // console.log("THE NEW USER DATA", userData);
 
     //// ********************* JWT auth token
     const token = jwt.sign(
@@ -81,10 +81,10 @@ async function modelUpdateProfile(req) {
 async function handlePracticeHobbies(req) {
   await session
     .run(
-      `MATCH (u:User {login: {userSource}})-[r:PRACTICE]->(h:Hobby)
+      `MATCH (u:User {uuid: {uuidSource}})-[r:PRACTICE]->(h:Hobby)
                 DETACH DELETE r`,
       {
-        userSource: req.query.userSource
+        uuidSource: req.query.uuidSource
       }
     )
     .catch(err => console.log("err on delete practice: ", err));
@@ -92,10 +92,10 @@ async function handlePracticeHobbies(req) {
     // console.log("hobby is ", hobby);
     await session
       .run(
-        `MATCH (u:User {login: {userSource}}),(h:Hobby {name:{hobby}})
+        `MATCH (u:User {uuid: {uuidSource}}),(h:Hobby {name:{hobby}})
       CREATE (u)-[r:PRACTICE]->(h)`,
         {
-          userSource: req.query.userSource,
+          uuidSource: req.query.uuidSource,
           hobby: hobby
         }
       )

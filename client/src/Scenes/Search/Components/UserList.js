@@ -26,6 +26,7 @@ const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
   const filteredUserList = filterUsers(props, users);
+  console.log("users in UserList", filteredUserList);
 
   return (
     <div className="containerUL">

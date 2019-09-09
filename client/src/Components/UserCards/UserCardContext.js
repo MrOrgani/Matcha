@@ -10,7 +10,7 @@ export const UserCardProvider = props => {
   const [userInfo] = useState([props.user][0]);
   const [socketContext] = useContext(AuthContext);
 
-  // console.log(props);
+  console.log("le truc bizarre [props.user][0]", [props.user][0]);
   const handleLike = () => {
     console.log("in handle like", props.session);
     axios
