@@ -10,7 +10,7 @@ async function modelGetNotif(req) {
       req
     );
     // console.log("in modelGetNotif, result: ", data.records[0]._fields[0]);
-    return data.records[0]._fields[0];
+    return data.records[0] && data.records[0]._fields[0];
   } catch (err) {
     console.log(err);
   }

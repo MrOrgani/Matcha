@@ -9,13 +9,19 @@ const Search = () => {
   const [age, setAge] = useState([18, 100]);
 
   const handleChange = (event, newAge) => {
-    console.log(event.target);
     if (event.target.name === "gender") setGender(event.target.value);
     else {
       setAge(newAge);
     }
   };
 
+  // console.log(
+  //   JSON.stringify({
+  //     like: 0,
+  //     chat: 0,
+  //     block: 0
+  //   })
+  // );
   return (
     <div>
       <UsersProvider>
