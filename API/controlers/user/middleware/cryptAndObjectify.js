@@ -15,11 +15,11 @@ module.exports = async function cryptNObject(req, res, next) {
       console.log("NEWPASS AND CONFNEW EXIST");
     }
     // console.log("crypt wht are in req", req.body);
-    if (req.body.password && req.body.confNewPass) {
+    if (req.body.password) {
       password = req.body.password;
       const hashPassword = await bcrypt.hash(password, salt);
       req.body.password = hashPassword;
-      delete req.body.confNewPass;
+      if (req.body.confNewPass) delete req.body.confNewPass;
     }
     next();
   } catch (err) {
