@@ -6,7 +6,7 @@ import Search from "./Scenes/Search/Search";
 import Profile from "./Scenes/Profile/Profile";
 import Social from "./Scenes/Social/Social";
 import handleUsers from "./Scenes/handleUsers/handleUsers";
-import TempChat from "./Scenes/TempChat/TempChat";
+import Chat from "./Scenes/Chat/Chat";
 import Navbar from "./Components/Navbar/NavBar";
 import Confirm from "./Scenes/Confirm/Confirmation";
 import Reset from "./Scenes/Forgot/Reset";
@@ -26,7 +26,7 @@ export function App() {
           <SecureRoute path="/Search" component={Search} />
           <SecureRoute path="/Profile" component={Profile} />
           <SecureRoute path="/Social" component={Social} />
-          <SecureRoute path="/TempChat" component={TempChat} />
+          <SecureRoute path="/Chat" component={Chat} />
           <Route path="/handleUsers" component={handleUsers} />
         </Switch>
       </Router>

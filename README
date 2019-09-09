@@ -3,7 +3,6 @@
 MORGANI   
 
 [x] : Recoder controlller/user
-
 https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 [x] : mail de confirmation
     [x] : installation de nodemailer
@@ -57,6 +56,4 @@ VAL
 [] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
 
 [] : ameliorer les infos sur le profil
-
-[] : finir notif de like, visite ou dislike 
 

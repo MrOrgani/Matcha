@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Menu, Icon } from "antd";
 import { ChatMenuContext } from "../../ChatMenuContext";
 import "./ChatMenu.css";
@@ -10,16 +10,13 @@ const MenuChat = () => {
   const [MenuContext] = useContext(ChatMenuContext);
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
-  useEffect(() => {
-    MenuContext.getIMatched();
-    MenuContext.getLikedMe();
-    MenuContext.getILiked();
-    MenuContext.getVisitedMe();
-    MenuContext.getIVisited();
-    MenuContext.getIBlocked();
-  }, []);
-
   const onOpenChange = async OKeys => {
+    MenuContext.getIBlocked();
+    MenuContext.getIMatched();
+    MenuContext.getIVisited();
+    MenuContext.getILiked();
+    MenuContext.getLikedMe();
+    MenuContext.getVisitedMe();
     const latestOpenKey = OKeys.find(
       key => MenuContext.openKeys.indexOf(key) === -1
     );
@@ -51,7 +48,7 @@ const MenuChat = () => {
           // console.log(el);
           return (
             <Menu.Item key={el.uuid + "iMatched"}>
-              <UserInMenu data={el} />
+              <UserInMenu data={el} matched={true} />
             </Menu.Item>
           );
         })}

@@ -29,12 +29,11 @@ export default function TemporaryDrawer() {
 
   // CHECKS IF USER IS AUTH
   const menuItems = [{ text: "Home", link: "/" }];
-  // console.log(sessionStorage);
   if (sessionStorage.data && sessionStorage.isAuth !== 0) {
     menuItems.push(
       { text: "My Account", link: "/Profile" },
       { text: "Search", link: "/Search" },
-      { text: "TempChat", link: "/TempChat" },
+      { text: "Chat", link: "/Chat" },
       { text: "Disconnect", link: "/" } // Disconnect process happens in Icons and Links
     );
   } else {

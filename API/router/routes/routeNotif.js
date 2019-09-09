@@ -13,7 +13,7 @@ router
     newNotif(req, res);
   })
   .get(userVerif, (req, res) => {
-    console.log("route", req.query);
+    // console.log("route", req.query);
     getNotif(req, res);
   });
 

@@ -1,8 +1,8 @@
-const { modelTempChat } = require("../../models/modelTempChat/modelTempChat");
+const { modelChat } = require("../../models/modelChat/modelChat");
 
-exports.tempChat = async (req, res) => {
+exports.Chat = async (req, res) => {
   try {
-    const result = await modelTempChat(req.query);
+    const result = await modelChat(req.query);
     let usersFound = [];
     if (result.length > 0) {
       result.map(item => usersFound.push(item._fields[0].properties));

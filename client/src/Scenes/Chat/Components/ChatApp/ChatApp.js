@@ -3,12 +3,12 @@ import Messages from "./Components/Messages";
 import ChatInput from "./Components/ChatInput";
 import { AuthContext } from "../../../../AuthContext";
 import "./ChatApp.css";
-import { TempChatContext } from "../../TempChatContext";
+import { ChatContext } from "../../ChatContext";
 
 // Inspiration https://medium.com/@coderacademy/you-can-build-an-fb-messenger-style-chat-app-with-reactjs-heres-how-intermediate-211b523838ad
 const ChatApp = () => {
   const [socketContext, authContext] = useContext(AuthContext);
-  const [chatAppContext] = useContext(TempChatContext);
+  const [chatAppContext] = useContext(ChatContext);
 
   const sendHandler = content => {
     let msg = {
@@ -16,11 +16,10 @@ const ChatApp = () => {
       uuidSource: authContext.data.uuid,
       content: content
     };
-    // console.log("chatMessage sent from client");
     socketContext.socket.emit("chatMessage", msg);
   };
 
-  socketContext.socket.off("chatMessage"); //unsubscribe to all previous listeners in case the context made reruns
+  socketContext.socket && socketContext.socket.off("chatMessage"); //unsubscribe to all previous listeners in case the context made reruns
   socketContext.socket.on("chatMessage", msg => {
     let newMessage = {
       uuidSource: msg.uuidSource,
@@ -36,7 +35,6 @@ const ChatApp = () => {
 
   return (
     <div className="ChatAppContainer">
-      <h3>CHAT TITLE</h3>
       <Messages className="messages" />
       <ChatInput onSend={sendHandler} />
     </div>

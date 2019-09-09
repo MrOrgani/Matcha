@@ -27,6 +27,13 @@ const Search = () => {
     }
   };
 
+  // console.log(
+  //   JSON.stringify({
+  //     like: 0,
+  //     chat: 0,
+  //     block: 0
+  //   })
+  // );
   return (
     <div>
       <UsersProvider>
