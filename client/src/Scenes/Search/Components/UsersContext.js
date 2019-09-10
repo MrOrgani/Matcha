@@ -8,6 +8,18 @@ export const UsersProvider = props => {
   const [gender, setGender] = useState("both");
   const [age, setAge] = useState([18, 100]);
   const [pop, setPop] = useState([50, 100]);
+  const usersValue = {
+    users,
+    setUsers
+  };
+  const filtersValue = {
+    gender,
+    setGender,
+    age,
+    setAge,
+    pop,
+    setPop
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,10 +33,7 @@ export const UsersProvider = props => {
   }, []);
 
   return (
-    <UsersContext.Provider
-      usersValue={[users, setUsers]}
-      filterValues={[gender, setGender, age, setAge, pop, setPop]}
-    >
+    <UsersContext.Provider value={[usersValue, filtersValue]}>
       {props.children}
     </UsersContext.Provider>
   );
