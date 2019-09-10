@@ -9,7 +9,8 @@ const jwt = require("jsonwebtoken");
 
 async function modelUserVerif(req) {
   try {
-    // console.log("req mdoelUserVerif", req);
+    // if (req.type == "notifDelete") console.log("req mdoelUserVerif", req);
+    if (req.uuidSource) req.uuid = req.uuidSource;
     if (!req.jwt) return false;
     const verified = await jwt.verify(req.jwt, process.env.TOKEN_SECRET);
     // const result = await session.run(
@@ -21,9 +22,9 @@ async function modelUserVerif(req) {
     // );
     // console.log("result ModelUserVerif", req.uuidSource === verified.uuid);
     // return result.records.length > 0 ? true : false;
-    return req.uuidSource === verified.uuid;
+    return req.uuid === verified.uuid;
   } catch (err) {
-    console.log("err on modelUserVerif, find user: ", err);
+    console.log("err on modelUserVerif, find user: ", err, req);
   }
 }
 

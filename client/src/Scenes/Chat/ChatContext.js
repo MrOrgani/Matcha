@@ -26,7 +26,7 @@ const ChatProvider = props => {
           `http://localhost:9000/api/chatMessages?uuidSource=${authContext.data.uuid}&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
         );
         console.log("result fetch messages", result);
-        return result.data.length > 0 ? result.data : [basicContent];
+        return result.data ? result.data : [basicContent];
       };
       chatTarget.uuid && fetchMsg().then(setMessages);
       socketContext.socket.emit("joinRoom", chatTarget);
@@ -42,7 +42,7 @@ const ChatProvider = props => {
     setMessages
   };
 
-  console.log("ChatAppContext", chatAppContext);
+  // console.log("ChatAppContext", chatAppContext);
 
   return (
     <ChatContext.Provider value={[chatAppContext]}>

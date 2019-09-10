@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import UserList from "./Components/UserList";
 import { UsersProvider } from "./Components/UsersContext";
 import "./public/stylesheet/style.css";

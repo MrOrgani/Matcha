@@ -27,6 +27,7 @@ const ChatMenuProvider = props => {
 
   const getILiked = useCallback(async () => {
     const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
+    console.log(result.data);
     setILiked(result.data);
   }, [api]);
 

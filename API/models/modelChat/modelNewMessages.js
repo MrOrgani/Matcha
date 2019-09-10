@@ -11,7 +11,7 @@ async function modelNewMessages(req) {
   };
   req.newMessage = [JSON.stringify(messageJSON)];
   // const arrayMessages = [JSON.stringify(messageJSON)];
-  // console.log(req);
+  console.log("req in model NewMessage", req);
   try {
     const data = await session.run(
       `MATCH (s:User {uuid:{uuidSource}})-[r:MESSAGED]-(t:User {uuid:{target}})
@@ -21,7 +21,7 @@ async function modelNewMessages(req) {
     // console.log(data.records);
     return data.records;
   } catch (err) {
-    console.log(err);
+    console.log("error in modelNewMessages", err);
   }
 }
 

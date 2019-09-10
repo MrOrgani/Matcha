@@ -2,7 +2,6 @@ const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
 async function modelDeleteNotif(req) {
-  // console.log(req);
   try {
     const data = await session.run(
       `MATCH (u:User {uuid:{uuidSource}})
@@ -12,7 +11,7 @@ async function modelDeleteNotif(req) {
     // console.log(data.records);
     return data.records;
   } catch (err) {
-    console.log(err);
+    console.log("modelDeleteNotif", err, req);
   }
 }
 

@@ -14,29 +14,17 @@ const UserList = () => {
   const [usersValue, filtersValue] = useContext(UsersContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
 
-  // const [gender, age, pop] = filtersValue;
-  // console.log(filtersValue.age);
-  // const filteredUserList = filterUsers(
-  // [filtersValue.gender, filtersValue.age, filtersValue.pop], usersValue.users;
-  // );
-
   useEffect(() => {
     const filterUsers = (filters, users) => {
-      // console.log(filters);
-      // console.log(users);
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
 
-      // const ageFiltered = genderFiltered.filter(
-      //   user => user.age.low >= filters[1][0] && user.age.low <= filters[1][1]
-      // );
       setFilteredUserList(
         genderFiltered
           .filter(
-            user =>
-              user.age.low >= filters[1][0] && user.age.low <= filters[1][1]
+            user => user.age >= filters[1][0] && user.age <= filters[1][1]
           )
           .filter(
             user =>
@@ -50,6 +38,7 @@ const UserList = () => {
     );
   }, [filtersValue, usersValue]);
 
+  // console.log("USERLIST filtereduserlist", filteredUserList);
   return (
     <div className="containerUL">
       {filteredUserList.map(user => {

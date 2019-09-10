@@ -13,46 +13,42 @@ const UserInMenu = props => {
   function capFLtr(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  console.log("props matched", props);
-  const picture =
-    // (props.data.pics &&
-    // props.data.pics[0] &&
-    // JSON.parse(props.data.pics[0]).url) ||
-    props.data.pics[props.data.indexOfPP];
+  const picture = props.data.pics[props.data.indexOfPP];
 
   //CARD DISPLAY FOR THE USER CARDS
-  const [, authContext] = useContext(AuthContext);
+  const [socketContext, authContext] = useContext(AuthContext);
   const [expanded, setExpanded] = useState(false);
   const [openCard, setOpenCard] = useState(false);
 
   function handleExpandCard() {
+    socketContext.socket.emit("newNotif", {
+      uuidSource: authContext.data.uuid,
+      targetUuid: props.data.uuid,
+      jwt: authContext.data.jwt,
+      type: "visited"
+    });
     setExpanded(!expanded);
     setOpenCard(true);
   }
   function handleCloseCard() {
     setOpenCard(false);
   }
-  // console.log(
-  //   "inuserMenu, available info is:",
-  //   props.data,
-  //   "available session data",
-  //   authContext.data
-  // );
 
-  // console.log(JSON.parse(props.data.pics[0]).url);
   return (
     <div
       style={{ display: "flex" }}
       onClick={async () => {
-        // console.log(props.data);
-        await chatAppContext.setChatTarget({
-          matched: props.matched ? true : false,
-          uuid: props.data.uuid,
-          displayName:
-            capFLtr(props.data.firstName) + " " + capFLtr(props.data.lastName),
-          picture: picture
-        });
-        if (!props.matched) handleExpandCard();
+        if (props.matched) {
+          await chatAppContext.setChatTarget({
+            matched: props.matched ? true : false,
+            uuid: props.data.uuid,
+            displayName:
+              capFLtr(props.data.firstName) +
+              " " +
+              capFLtr(props.data.lastName),
+            picture: picture
+          });
+        } else handleExpandCard();
       }}
     >
       <img
@@ -71,20 +67,9 @@ const UserInMenu = props => {
           border: "solid grey 2px"
         }}
       />
-      <div
-      // style={{
-      //   alignSelf: "flex-end",
-      //   fontFamily: "Raleway",
-      //   fontSize: "2em",
-      //   paddingLeft: "1em",
-      //   fontStyle: "italic",
-      //   background: "black"
-      // }}
-      >
+      <div>
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}
-        {/* <UserCardProvider user={} session={}>
-         */}
         {!props.matched ? (
           <UserCardProvider user={props.data} session={authContext.data}>
             <Dialog open={openCard} onClose={handleCloseCard}>
