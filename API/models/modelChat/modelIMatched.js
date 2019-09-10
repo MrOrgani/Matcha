@@ -11,7 +11,7 @@ async function modelIMatched(req) {
     // console.log(data.records);
     return data.records;
   } catch (err) {
-    console.log(err);
+    console.log("error in modelMatched", err);
   }
 }
 

@@ -12,13 +12,13 @@ export const UserCardProvider = props => {
 
   // console.log("le truc bizarre [props.user][0]", [props.user][0]);
   const handleLike = () => {
-    // console.log("in handle like");
+    console.log("in handle like", userInfo);
     axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
         {
           uuidSource: props.session.uuid,
-          target: userInfo.login,
+          target: userInfo.uuid,
           jwt: props.session.jwt,
           liked: isLiked
         }

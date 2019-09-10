@@ -5,14 +5,19 @@ const {
 } = require("../../models/modelRel/score/modelChangeScore");
 
 async function setLike(req, res) {
+  // console.log("in SetLiked");
   try {
-    const result = !req.body.liked
-      ? modelChangeScore(req.body, 5) && (await modelSetLike(req.body))
-      : (await modelSetUnlike(req.body)) && modelChangeScore(req.body, -5);
-    return result.records.length > 0
-      ? res.status(200).send(result.records)
-      : res.status(201).end();
+    if (!req.body.liked) {
+      modelChangeScore(req.body, 5);
+      await modelSetLike(req.body);
+      res.status(200).send();
+    } else {
+      modelChangeScore(req.body, -5);
+      await modelSetUnlike(req.body);
+      res.status(201).send();
+    }
   } catch (err) {
+    console.log("err in setLike", err, req.body);
     res.status(406).send(err);
   }
 }

@@ -23,6 +23,7 @@ module.exports = async function modelCreateUser(req) {
               pics: [],
               notifs: [], 
               indexOfPP: 0,
+              score: 50,
               isComplete: false,
               isConfirmed: true
             }) 

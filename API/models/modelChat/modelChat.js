@@ -13,6 +13,6 @@ exports.modelChat = async req => {
     const result = await session.run(cypher, req);
     return result.records;
   } catch (err) {
-    console.log(err);
+    console.log("error in modelChat", err);
   }
 };

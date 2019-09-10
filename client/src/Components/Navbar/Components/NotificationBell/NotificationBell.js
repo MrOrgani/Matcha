@@ -38,11 +38,12 @@ function NotificationBell() {
       const brutNotif = await axios.get(
         `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${authContext.data.uuid}&category=uuid`
       );
-      console.log("BRRRRUUUUUUTNOTIF", brutNotif);
+      // console.log("BRRRRUUUUUUTNOTIF", brutNotif);
       if (brutNotif.data.length > 0)
         await brutNotif.data.forEach(elem => {
           notifArray.push(JSON.parse(elem));
         });
+      // console.log(notifArray);
       setNbNotif(notifArray.length);
     };
 
@@ -52,6 +53,7 @@ function NotificationBell() {
       const results = await Promise.all(notifArray.map(fetchUserData));
       filledNotifArray.length = 0;
       await results.forEach((elem, index) => {
+        // console.log(elem.data);
         filledNotifArray.push({
           source: elem.data[0]._fields[0].properties,
           info: notifArray[index]
@@ -64,11 +66,11 @@ function NotificationBell() {
   // SOCKET LISTNER
   useEffect(() => {
     socketContext.socket.on("newNotif", newNotif => {
-      console.log("new notif", newNotif);
+      // console.log("new notif", newNotif);
       notifArray.push(newNotif);
-      console.log("notif array", notifArray);
+      // console.log("notif array", notifArray);
       setNbNotif(notifArray.length);
-      console.log("notif array", nbNotif);
+      // console.log("notif array", nbNotif);
     });
     return () => socketContext.socket.off("newNotif");
   }, [notifArray, socketContext]);
@@ -90,10 +92,13 @@ function NotificationBell() {
     if (open) {
       notifArray.length = 0;
       filledNotifArray.length = 0;
+      // console.log("delete notif", authContext.data.jwt, authContext.data.uuid);
       axios.post("http://localhost:9000/api/notif/delete", {
         jwt: authContext.data.jwt,
-        uuidSource: authContext.data.uuid
+        uuidSource: authContext.data.uuid,
+        type: "notifDelete"
       });
+      // notifArray.length = 0;
       setNbNotif(0);
     }
     setOpen(false);

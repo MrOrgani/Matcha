@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UserCard from "../../../Components/UserCards/UserCard";
+import { AuthContext } from "../../../AuthContext";
 import { UserCardContext } from "../../../Components/UserCards/UserCardContext";
 
 const useStyles = makeStyles(theme => ({
@@ -45,13 +46,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const User = props => {
+const User = () => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [isLiked, handleLike, , , userInfo] = useContext(UserCardContext);
 
+  const [socketContext, authContext] = useContext(AuthContext);
   function handleClick() {
+    socketContext.socket.emit("newNotif", {
+      uuidSource: authContext.data.uuid,
+      targetUuid: userInfo.uuid,
+      jwt: authContext.data.jwt,
+      type: "visited"
+    });
     setExpanded(!expanded);
     setOpenCard(true);
   }
@@ -60,7 +68,6 @@ const User = props => {
     setOpenCard(false);
   }
 
-  // console.log("User", userInfo);
   return (
     <React.Fragment>
       <CardMedia

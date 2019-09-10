@@ -61,6 +61,7 @@ router
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
         const now = new Date();
+        // console.log(oneUser);
         oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
         oneUser.age = oneUser.age.low ? oneUser.age.low : oneUser.age;
         oneUser.indexOfPP =
