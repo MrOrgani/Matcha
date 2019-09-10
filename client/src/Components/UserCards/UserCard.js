@@ -19,8 +19,8 @@ export default function UserCard() {
     UserCardContext
   );
 
-  console.log(JSON.parse(userInfo.score));
-  console.log(userInfo.score);
+  // console.log(JSON.parse(userInfo.score));
+  // console.log(userInfo.score);
   return (
     <React.Fragment>
       <Card
@@ -39,8 +39,8 @@ export default function UserCard() {
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {`I love watching facebook until I forget I exists`}
-            {`Popularity Score: ${userInfo.score}`}
+            {`I love watching facebook until I forget I exists\n`}
+            {`Popularity Score: ${userInfo.score.low}`}
           </Typography>
           <ul>
             {userInfo.hobbies.map(hobby => (

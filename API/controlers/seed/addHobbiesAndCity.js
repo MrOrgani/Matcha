@@ -44,12 +44,6 @@ async function addHobbies(json) {
 // }
 
 async function addCityCoords(json) {
-  const baseScore = JSON.stringify({
-    like: 0,
-    visit: 0,
-    block: 0
-  });
-
   try {
     for (let element of json.results) {
       const cityQuery = encodeURI(
@@ -61,7 +55,6 @@ async function addCityCoords(json) {
 
       const locat_json = await locat.json();
       element.coords = [locat_json[0].lat, locat_json[0].lon];
-      element.baseScore = baseScore;
     }
     return json;
   } catch (err) {

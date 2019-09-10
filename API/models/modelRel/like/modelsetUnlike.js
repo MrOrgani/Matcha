@@ -1,4 +1,4 @@
-const { initNeo4j } = require("../initNeo4j");
+const { initNeo4j } = require("../../initNeo4j");
 const session = initNeo4j();
 
 exports.modelSetUnlike = async req => {

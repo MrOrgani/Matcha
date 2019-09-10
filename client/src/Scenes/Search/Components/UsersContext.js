@@ -5,6 +5,9 @@ export const UsersContext = createContext();
 
 export const UsersProvider = props => {
   const [users, setUsers] = useState([]);
+  const [gender, setGender] = useState("both");
+  const [age, setAge] = useState([18, 100]);
+  const [pop, setPop] = useState([50, 100]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +21,10 @@ export const UsersProvider = props => {
   }, []);
 
   return (
-    <UsersContext.Provider value={[users, setUsers]}>
+    <UsersContext.Provider
+      usersValue={[users, setUsers]}
+      filterValues={[gender, setGender, age, setAge, pop, setPop]}
+    >
       {props.children}
     </UsersContext.Provider>
   );

@@ -12,7 +12,7 @@ export const UserCardProvider = props => {
 
   // console.log(props);
   const handleLike = () => {
-    console.log("in handle like");
+    // console.log("in handle like");
     axios
       .post("http://localhost:9000/api/rel/like", {
         userSource: props.session.login,
