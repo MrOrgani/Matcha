@@ -10,16 +10,25 @@ export const UserCardProvider = props => {
   const [userInfo] = useState([props.user][0]);
   const [socketContext] = useContext(AuthContext);
 
-  // console.log(props);
+  // console.log("le truc bizarre [props.user][0]", [props.user][0]);
   const handleLike = () => {
     // console.log("in handle like");
     axios
-      .post("http://localhost:9000/api/rel/like", {
-        userSource: props.session.login,
-        target: userInfo.login,
-        jwt: props.session.jwt,
-        liked: isLiked
-      })
+      .post(
+        `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
+        {
+          uuidSource: props.session.uuid,
+          target: userInfo.login,
+          jwt: props.session.jwt,
+          liked: isLiked
+        }
+      )
+      // .post("http://localhost:9000/api/rel/like", {
+      //   uuidSource: props.session.uuid,
+      //   target: userInfo.login,
+      //   jwt: props.session.jwt,
+      //   liked: isLiked
+      // })
       .then(res => {
         if (res.status === 200) {
           console.log("in handle like ret 200", userInfo.uuid);
@@ -45,6 +54,20 @@ export const UserCardProvider = props => {
       });
   };
 
+  // socketContext.socket.on("newNotif", msg => {
+  //   console.log("userCardContext", msg);
+  //   let newMessage = {
+  //     uuidSource: msg.uuidSource,
+  //     target: msg.target,
+  //     jwt: authContext.data.jwt,
+  //     content: msg.content,
+  //     h: msg.h,
+  //     m: msg.m
+  //   };
+  //   // console.log("front sends message to controller", msg, authContext.data.jwt);
+  //   // chatAppContext.setMessages(chatAppContext.messages.concat(newMessage));
+  // });
+
   const handleBlock = () => {
     axios
       .post("http://localhost:9000/api/rel/block", {
@@ -67,7 +90,7 @@ export const UserCardProvider = props => {
 
   useEffect(() => {
     const api1 = `http://localhost:9000/api/rel/`;
-    const api2 = `?userSource=${props.session.login}&target=${userInfo.login}&jwt=${props.session.jwt}`;
+    const api2 = `?uuidSource=${props.session.uuid}&target=${userInfo.login}&jwt=${props.session.jwt}`;
 
     const getLike = async () => {
       const result = await axios.get(`${api1}like${api2}`);

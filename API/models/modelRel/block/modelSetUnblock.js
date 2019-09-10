@@ -3,7 +3,7 @@ const session = initNeo4j();
 
 async function modelSetUnblock(req) {
   const data = await session.run(
-    `MATCH (s:User {login:{userSource}})-[r:BLOCKED]->(t:User {login:{target}})
+    `MATCH (s:User {uuid:{uuidSource}})-[r:BLOCKED]->(t:User {login:{target}})
     DELETE r`,
     req
   );

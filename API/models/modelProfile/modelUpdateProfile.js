@@ -4,24 +4,21 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  // console.log("values MODELUPDATEPROFILE are", req.body.values);
+  // console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
   try {
     if (req.body.values.newpassword) {
       console.log("THE PASSWORD WAS UPDATED", req.body.values);
-      await session
-        .run(
-          `MATCH (u:User {login: {userSource}})
+      await session.run(
+        `MATCH (u:User {uuid: {uuidSource}})
           SET u.password = {newpassword}`,
-          {
-            userSource: req.query.userSource,
-            newpassword: req.body.values.newpassword
-          }
-        )
-        .catch(err => console.log(err));
+        {
+          uuidSource: req.query.uuidSource,
+          newpassword: req.body.values.newpassword
+        }
+      );
     }
-    const userData = await session
-      .run(
-        `MATCH (u:User {login: {userSource}})
+    const userData = await session.run(
+      `MATCH (u:User {uuid: {uuidSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
               u.age = {age},
@@ -37,26 +34,28 @@ async function modelUpdateProfile(req) {
               u.isComplete = true
               RETURN u
               `,
-        {
-          userSource: req.query.userSource,
-          firstName: req.body.values.firstName,
-          lastName: req.body.values.lastName,
-          age: req.body.values.age,
-          gender: req.body.values.gender,
-          sexualOrientation: req.body.values.sexualOrientation,
-          login: req.body.values.login,
-          email: req.body.values.email,
-          bio: req.body.values.bio,
-          pics: req.body.values.pics,
-          indexOfPP: req.body.values.indexOfPP,
-          hobbies: req.body.values.hobbies,
-          location: req.body.values.location
-        }
-      )
-      .catch(err => console.log(err));
+      {
+        uuidSource: req.query.uuidSource,
+        firstName: req.body.values.firstName,
+        lastName: req.body.values.lastName,
+        age: req.body.values.age,
+        gender: req.body.values.gender,
+        sexualOrientation: req.body.values.sexualOrientation,
+        login: req.body.values.login,
+        email: req.body.values.email,
+        bio: req.body.values.bio,
+        pics: req.body.values.pics,
+        indexOfPP: req.body.values.indexOfPP,
+        hobbies: req.body.values.hobbies,
+        location: req.body.values.location
+      }
+    );
 
     await handlePracticeHobbies(req);
-    console.log("THE NEW USER DATA", userData);
+    // console.log(
+    //   "THE NEW USER DATA",
+    //   userData.records[0]._fields[0].properties.indexOfPP
+    // );
 
     //// ********************* JWT auth token
     const token = jwt.sign(
@@ -81,10 +80,10 @@ async function modelUpdateProfile(req) {
 async function handlePracticeHobbies(req) {
   await session
     .run(
-      `MATCH (u:User {login: {userSource}})-[r:PRACTICE]->(h:Hobby)
+      `MATCH (u:User {uuid: {uuidSource}})-[r:PRACTICE]->(h:Hobby)
                 DETACH DELETE r`,
       {
-        userSource: req.query.userSource
+        uuidSource: req.query.uuidSource
       }
     )
     .catch(err => console.log("err on delete practice: ", err));
@@ -92,10 +91,10 @@ async function handlePracticeHobbies(req) {
     // console.log("hobby is ", hobby);
     await session
       .run(
-        `MATCH (u:User {login: {userSource}}),(h:Hobby {name:{hobby}})
+        `MATCH (u:User {uuid: {uuidSource}}),(h:Hobby {name:{hobby}})
       CREATE (u)-[r:PRACTICE]->(h)`,
         {
-          userSource: req.query.userSource,
+          uuidSource: req.query.uuidSource,
           hobby: hobby
         }
       )

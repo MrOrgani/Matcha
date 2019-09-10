@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../../AuthContext";
 const Messages = () => {
   const [chatAppContext] = useContext(ChatContext);
   const [, authContext] = useContext(AuthContext);
-  // console.log(chatAppContext.messages);
+  console.log("Messages", chatAppContext.messages);
   const messagesDiv = chatAppContext.messages.map((message, i) => {
     // console.log(message);
     return (

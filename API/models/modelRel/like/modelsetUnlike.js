@@ -4,7 +4,7 @@ const session = initNeo4j();
 exports.modelSetUnlike = async req => {
   try {
     const data = await session.run(
-      `MATCH (s:User {login:{userSource}})-[r:LIKED]->(t:User {login:{target}})
+      `MATCH (s:User {uuid:{uuidSource}})-[r:LIKED]->(t:User {login:{target}})
     DELETE r`,
       req
     );

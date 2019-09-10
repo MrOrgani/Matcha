@@ -65,7 +65,7 @@ const User = props => {
     <React.Fragment>
       <CardMedia
         className="card"
-        image={userInfo.picLarge || userInfo.pics[userInfo.indexOfPP]}
+        image={userInfo.pics[userInfo.indexOfPP.low || userInfo.indexOfPP]}
       >
         <div className={classes.root}>
           <IconButton

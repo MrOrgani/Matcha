@@ -9,7 +9,7 @@ const io = require("socket.io")(server);
 const bodyParser = require("body-parser");
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
-const onJoinRoom = require("./Sockets/onJoinRoom");
+// const onJoinRoom = require("./Sockets/onJoinRoom");
 
 // SERVER LISTENS
 server.listen(9000, () => console.log("listening on 9000"));
@@ -29,10 +29,10 @@ app.use("/", router);
 io.sockets.on("connect", socket => {
   const connectedUsrs = {};
   connectedUsrs[socket.id] = socket.handshake.query;
-  onJoinRoom(socket);
-  // require("./Sockets/onJoinRoom")(socket);
+  // onJoinRoom(socket);
+  require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
-  // require("./Sockets/newNotif")(socket, io);
+  require("./Sockets/newNotif")(socket, io);
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
   };
