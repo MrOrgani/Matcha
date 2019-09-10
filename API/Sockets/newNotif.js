@@ -14,9 +14,10 @@ module.exports = async function(socket, io, notif) {
     // if (socket.chatTarget.uuid && msg.uuidSource) {
     //   axios.post("http://localhost:9000/api/chatMessages/", msg);
     // console.log(msg);
-    console.log("emiting a chatMessage to all clients in room ");
+    console.log("emiting a a new notif ");
     Object.keys(io.sockets.connected).map(key => {
       let elem = io.sockets.connected[key].handshake.query;
+      console.log("elem uuid", elem.uuid, "data.target", data.targetUuid);
       if (elem.uuid === data.targetUuid) {
         console.log(
           "NEWNOTIF emited from the back, via socket to",
@@ -59,10 +60,10 @@ module.exports = async function(socket, io, notif) {
 // notif.m = date.getMinutes();
 // notif.d = date.getDay();
 
-// PUT IT IN THE DB
+// // PUT IT IN THE DB
 // modelNewNotif(notif);
 
-// TELL THE BROWSER IN RT IF CONNECTED
+// // TELL THE BROWSER IN RT IF CONNECTED
 // Object.keys(io.sockets.connected).map(key => {
 //   let elem = io.sockets.connected[key].handshake.query;
 //   if (elem.uuid === notif.targetUuid) {
@@ -76,23 +77,4 @@ module.exports = async function(socket, io, notif) {
 // });
 // console.log("newNotif socket", socket);
 
-// let roomID =
-//   socket.chatTarget.uuid > msg.uuidSource
-//     ? socket.chatTarget.uuid + msg.uuidSource
-//     : msg.uuidSource + socket.chatTarget.uuid;
-// if (socket.chatTarget.uuid && msg.uuidSource) {
-//   axios.post("http://localhost:9000/api/chatMessages/", msg);
-//   // console.log(msg);
-//   console.log("emiting a chatMessage to all clients in room ", roomID);
-//   io.to(roomID).emit("chatMessage", msg);
-
-//   //NOTIF CORNER
-//   const notif = {
-//     targetUuid: socket.chatTarget.uuid,
-//     type: "message",
-//     uuidSource: msg.uuidSource
-//   };
-//   require("./newNotif")(io, notif);
-// }
-//   });
 // };

@@ -25,7 +25,8 @@ const ChatProvider = props => {
         const result = await axios(
           `http://localhost:9000/api/chatMessages?uuidSource=${authContext.data.uuid}&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
         );
-        return result.data ? result.data : [basicContent];
+        console.log("result fetch messages", result);
+        return result.data.length > 0 ? result.data : [basicContent];
       };
       chatTarget.uuid && fetchMsg().then(setMessages);
       socketContext.socket.emit("joinRoom", chatTarget);
@@ -40,6 +41,8 @@ const ChatProvider = props => {
     messages,
     setMessages
   };
+
+  console.log("ChatAppContext", chatAppContext);
 
   return (
     <ChatContext.Provider value={[chatAppContext]}>

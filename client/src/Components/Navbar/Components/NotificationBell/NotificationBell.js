@@ -38,8 +38,8 @@ function NotificationBell() {
       const brutNotif = await axios.get(
         `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${authContext.data.uuid}&category=uuid`
       );
-      // console.log(brutNotif);
-      if (brutNotif.length > 0)
+      console.log("BRRRRUUUUUUTNOTIF", brutNotif);
+      if (brutNotif.data.length > 0)
         await brutNotif.data.forEach(elem => {
           notifArray.push(JSON.parse(elem));
         });
@@ -66,7 +66,9 @@ function NotificationBell() {
     socketContext.socket.on("newNotif", newNotif => {
       console.log("new notif", newNotif);
       notifArray.push(newNotif);
+      console.log("notif array", notifArray);
       setNbNotif(notifArray.length);
+      console.log("notif array", nbNotif);
     });
     return () => socketContext.socket.off("newNotif");
   }, [notifArray, socketContext]);

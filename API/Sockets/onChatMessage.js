@@ -26,7 +26,11 @@ module.exports = function(socket, io) {
         type: "message",
         uuidSource: msg.uuidSource
       };
-      require("./newNotif")(socket, io, notif);
+      console.log();
+      io.sockets.connected[0] &&
+        io.to(io.sockets.connected[0]).emit("newNotif", notif);
+      // io.to(roomID).emit("newNotif", notif);
+      // require("./newNotif")(socket, io, notif);
     }
   });
 };

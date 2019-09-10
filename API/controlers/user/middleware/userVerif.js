@@ -2,7 +2,7 @@ const { modelUserVerif } = require("../../../models/modelUser/modelUserVerif");
 
 module.exports = async function userVerif(req, res, next) {
   try {
-    console.log("userverif", req.query);
+    // console.log("userverif", req.query);
     if (
       (req.query.jwt && req.query.uuidSource && modelUserVerif(req.query)) ||
       (req.body.values.jwt &&
@@ -10,7 +10,7 @@ module.exports = async function userVerif(req, res, next) {
         modelUserVerif(req.body.values)) ||
       (req.body.jwt && req.body.login && modelUserVerif(req.body))
     ) {
-      console.log("userVerif -> Was in modelUserverif -> return next()");
+      // console.log("userVerif -> Was in modelUserverif -> return next()");
       return next();
     }
     // console.log();

@@ -10,9 +10,9 @@ export const UserCardProvider = props => {
   const [userInfo] = useState([props.user][0]);
   const [socketContext] = useContext(AuthContext);
 
-  console.log("le truc bizarre [props.user][0]", [props.user][0]);
+  // console.log("le truc bizarre [props.user][0]", [props.user][0]);
   const handleLike = () => {
-    console.log("in handle like", props.session);
+    // console.log("in handle like", props.session);
     axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,

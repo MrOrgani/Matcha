@@ -4,24 +4,21 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  console.log("values MODELUPDATEPROFILE are", req.query);
+  // console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
   try {
     if (req.body.values.newpassword) {
       console.log("THE PASSWORD WAS UPDATED", req.body.values);
-      await session
-        .run(
-          `MATCH (u:User {uuid: {uuidSource}})
-          SET u.password = {newpassword}`,
-          {
-            uuidSource: req.query.uuidSource,
-            newpassword: req.body.values.newpassword
-          }
-        )
-        .catch(err => console.log(err));
-    }
-    const userData = await session
-      .run(
+      await session.run(
         `MATCH (u:User {uuid: {uuidSource}})
+          SET u.password = {newpassword}`,
+        {
+          uuidSource: req.query.uuidSource,
+          newpassword: req.body.values.newpassword
+        }
+      );
+    }
+    const userData = await session.run(
+      `MATCH (u:User {uuid: {uuidSource}})
           SET u.firstName = {firstName},
               u.lastName = {lastName},
               u.age = {age},
@@ -37,26 +34,28 @@ async function modelUpdateProfile(req) {
               u.isComplete = true
               RETURN u
               `,
-        {
-          uuidSource: req.query.uuidSource,
-          firstName: req.body.values.firstName,
-          lastName: req.body.values.lastName,
-          age: req.body.values.age,
-          gender: req.body.values.gender,
-          sexualOrientation: req.body.values.sexualOrientation,
-          login: req.body.values.login,
-          email: req.body.values.email,
-          bio: req.body.values.bio,
-          pics: req.body.values.pics,
-          indexOfPP: req.body.values.indexOfPP,
-          hobbies: req.body.values.hobbies,
-          location: req.body.values.location
-        }
-      )
-      .catch(err => console.log(err));
+      {
+        uuidSource: req.query.uuidSource,
+        firstName: req.body.values.firstName,
+        lastName: req.body.values.lastName,
+        age: req.body.values.age,
+        gender: req.body.values.gender,
+        sexualOrientation: req.body.values.sexualOrientation,
+        login: req.body.values.login,
+        email: req.body.values.email,
+        bio: req.body.values.bio,
+        pics: req.body.values.pics,
+        indexOfPP: req.body.values.indexOfPP,
+        hobbies: req.body.values.hobbies,
+        location: req.body.values.location
+      }
+    );
 
     await handlePracticeHobbies(req);
-    // console.log("THE NEW USER DATA", userData);
+    // console.log(
+    //   "THE NEW USER DATA",
+    //   userData.records[0]._fields[0].properties.indexOfPP
+    // );
 
     //// ********************* JWT auth token
     const token = jwt.sign(

@@ -19,7 +19,7 @@ async function modelUserVerif(req) {
     //     uuid: verified.uuid
     //   }
     // );
-    console.log("result ModelUserVerif", req.uuidSource === verified.uuid);
+    // console.log("result ModelUserVerif", req.uuidSource === verified.uuid);
     // return result.records.length > 0 ? true : false;
     return req.uuidSource === verified.uuid;
   } catch (err) {

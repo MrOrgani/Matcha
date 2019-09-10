@@ -31,7 +31,7 @@ export default function UserCard() {
       >
         <CardMedia
           className={classes.media}
-          image={userInfo.pics[userInfo.indexOfPP.low]}
+          image={userInfo.pics[userInfo.indexOfPP]}
         />
         <CardHeader
           avatar={

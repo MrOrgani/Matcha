@@ -29,45 +29,28 @@ function FormProfile() {
       initialValues={values}
       onSubmit={async values => {
         const userValues = JSON.parse(sessionStorage.getItem("data"));
-        console.log("userValues", userValues);
+        // console.log("userValues", userValues);
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        console.log("ta maman", values);
+        // console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
 
-        console.log(
-          "FormProfile retour patch",
-          // newData,
-          newData.status,
-          newData
-        );
+        // console.log(
+        //   "FormProfile retour patch",
+        //   // newData,
+        //   newData.status,
+        //   newData
+        // );
         if (newData.status === 200) {
-          // setSubmitionCompleted(true);
-          // socketContext.socket && socketContext.socket.emit("logOut");
-          // console.log(newData.data);
-          // authContext.setData(newData.data);
-          // authContext.setIsAuth(1);
           // console.log("NEW DATA", newData.data);
           sessionStorage.setItem("data", JSON.stringify(newData.data));
           notify.show("Your profile has been updated !", "success");
         } else {
-          // const errjson = await newData.json();
           for (let error in newData.data) {
             notify.show(newData.data[error], "error");
           }
-          // setSubmitionCompleted(true);
-          // setValid(false);
-          // if (typeof newData.data !== "string") {
-          //   for (let strKey in newData.data) {
-          //     errorStr += newData.data[strKey] + "\n";
-          //   }
-          // } else {
-          //   errorStr = newData.data;
-          // }
-          // setTextError(errorStr.trim());
         }
-        // console.log("newData", newData);
       }}
       validate={ProfileValidation}
     >

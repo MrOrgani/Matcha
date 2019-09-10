@@ -13,8 +13,7 @@ const filterUsers = (props, users) => {
       : users.filter(user => user.gender === props.filters[0]);
 
   const ageFiltered = genderFiltered.filter(
-    user =>
-      user.age.low >= props.filters[1][0] && user.age.low <= props.filters[1][1]
+    user => user.age >= props.filters[1][0] && user.age <= props.filters[1][1]
   );
   return ageFiltered;
 };
@@ -26,7 +25,7 @@ const UserList = props => {
   const session = JSON.parse(sessionStorage.data);
   const [users] = useContext(UsersContext);
   const filteredUserList = filterUsers(props, users);
-  console.log("users in UserList", filteredUserList);
+  // console.log("users in UserList", filteredUserList);
 
   return (
     <div className="containerUL">
