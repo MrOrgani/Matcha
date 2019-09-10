@@ -24,7 +24,8 @@ async function modelCreateUser(req) {
               bio:'',
               tag: [],
               notifs: [],
-              fileList: []
+              fileList: [],
+              score: 50
             }) 
               RETURN u`,
       req
@@ -68,7 +69,8 @@ async function gUsers() {
               u.picMedium = user.picture.medium,
               u.picLarge = user.picture.large,
               u.email = user.email,
-              u.isComplete = 1
+              u.score = score,
+              u.isComplete = true
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
           MERGE (u)-[:PRACTICE]->(hob))`

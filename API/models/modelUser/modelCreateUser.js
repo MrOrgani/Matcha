@@ -24,7 +24,7 @@ module.exports = async function modelCreateUser(req) {
               notifs: [], 
               indexOfPP: 0,
               isComplete: false,
-              isConfirmed: false
+              isConfirmed: true
             }) 
               RETURN u`,
       {

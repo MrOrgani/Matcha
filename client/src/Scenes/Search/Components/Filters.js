@@ -30,6 +30,11 @@ const useStyles = makeStyles(theme => ({
 export default function Filters(props) {
   const classes = useStyles();
   // console.log("filters", props);
+
+  // const onChangeAge = function (newValue) {
+
+  // }
+
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
@@ -57,6 +62,21 @@ export default function Filters(props) {
             name="age"
             // min="18"
             // max="100"
+            // AriaValueText={valuetext}
+          />
+        </div>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Pop</FormLabel>
+        <div className={classes.slider}>
+          <Slider
+            value={props.value[2]}
+            onChange={props.onChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            name="pop"
+            min={0}
+            max={100}
             // AriaValueText={valuetext}
           />
         </div>

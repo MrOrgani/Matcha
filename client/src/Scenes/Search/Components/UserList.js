@@ -7,6 +7,7 @@ import { UserCardProvider } from "../../../Components/UserCards/UserCardContext"
 import "./UserList.css";
 
 const filterUsers = (props, users) => {
+  console.log(props);
   const genderFiltered =
     !props.filters[0] || props.filters[0] === "both"
       ? users

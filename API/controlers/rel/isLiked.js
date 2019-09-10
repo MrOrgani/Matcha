@@ -1,4 +1,4 @@
-const { modelIsLiked } = require("../../models/modelRel/modelIsLiked");
+const { modelIsLiked } = require("../../models/modelRel/like/modelIsLiked");
 
 async function isLiked(req, res) {
   try {

@@ -60,7 +60,7 @@ const User = props => {
     setOpenCard(false);
   }
 
-  console.log("User", userInfo);
+  // console.log("User", userInfo);
   return (
     <React.Fragment>
       <CardMedia
