@@ -31,7 +31,7 @@ async function gUsers(req) {
           MERGE (u)-[:PRACTICE]->(hob))
           `
     );
-    console.log("TEST MODEL USER", test);
+    // console.log("TEST MODEL USER", test);
   } catch (err) {
     console.log("gUsers error", err);
   }

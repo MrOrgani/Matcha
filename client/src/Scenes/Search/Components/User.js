@@ -60,10 +60,13 @@ const User = props => {
     setOpenCard(false);
   }
 
-  console.log("User", userInfo);
+  // console.log("User", userInfo);
   return (
     <React.Fragment>
-      <CardMedia className="card" image={userInfo.pics[userInfo.indexOfPP.low]}>
+      <CardMedia
+        className="card"
+        image={userInfo.pics[userInfo.indexOfPP.low || userInfo.indexOfPP]}
+      >
         <div className={classes.root}>
           <IconButton
             className={
