@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -8,6 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 // import { FiltersContext } from "./FiltersContext";
 import Slider from "@material-ui/core/Slider";
+import { UsersContext } from "./UsersContext";
 
 // import RangeSlider from './Components/Slider2'
 
@@ -28,13 +29,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Filters(props) {
+  const [, filtersValue] = useContext(UsersContext);
   const classes = useStyles();
-  // console.log("filters", props);
-
-  // const onChangeAge = function (newValue) {
-
-  // }
-
+  // console.log(filtersValue.gender);
+  const handleGenderChange = (e, value) => {
+    filtersValue.setGender(value);
+  };
+  const handleAgeChange = (e, value) => {
+    filtersValue.setAge(value);
+  };
+  const handlePopChange = (e, value) => {
+    filtersValue.setPop(value);
+  };
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
@@ -43,8 +49,8 @@ export default function Filters(props) {
           aria-label="Gender"
           name="gender"
           className={classes.group}
-          value={props.value[0]}
-          onChange={props.onChange}
+          value={filtersValue.gender}
+          onChange={handleGenderChange}
         >
           <FormControlLabel value="female" control={<Radio />} label="Female" />
           <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -55,8 +61,8 @@ export default function Filters(props) {
         <FormLabel component="legend">Age</FormLabel>
         <div className={classes.slider}>
           <Slider
-            value={props.value[1]}
-            onChange={props.onChange}
+            value={filtersValue.age}
+            onChange={handleAgeChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             name="age"
@@ -70,8 +76,8 @@ export default function Filters(props) {
         <FormLabel component="legend">Pop</FormLabel>
         <div className={classes.slider}>
           <Slider
-            value={props.value[2]}
-            onChange={props.onChange}
+            value={filtersValue.pop}
+            onChange={handlePopChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             name="pop"
