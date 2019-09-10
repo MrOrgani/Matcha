@@ -2,8 +2,8 @@ const modelFindOne = require("./../../../models/modelUser/modelFindOne");
 
 module.exports = async function ExistLogOrEmail(req, res, next) {
   try {
-    // console.log("ExistKig Or Email");
     let data = await modelFindOne(req.body.login, "login");
+    // console.log("ExistKig Or Email", data);
     if (data.length > 0) res.status(201).send("Login already taken.");
     else {
       data = await modelFindOne(req.body.email, "email");

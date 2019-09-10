@@ -12,7 +12,7 @@ async function modelGetNotif(req) {
   try {
     console.log("modelGetNotif req", req);
     const data = await session.run(
-      `MATCH (u:User {login:{userSource}})
+      `MATCH (u:User {uuid:{uuidSource}})
       RETURN u.notifs`,
       req
     );

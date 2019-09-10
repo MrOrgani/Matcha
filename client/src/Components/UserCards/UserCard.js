@@ -29,7 +29,10 @@ export default function UserCard() {
           // console.log(userInfo);
         }}
       >
-        <CardMedia className={classes.media} image={userInfo.picLarge} />
+        <CardMedia
+          className={classes.media}
+          image={userInfo.pics[userInfo.indexOfPP]}
+        />
         <CardHeader
           avatar={
             <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />

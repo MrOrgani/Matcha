@@ -32,7 +32,7 @@ function NavBar() {
                 <LSearch />
                 <LProfile />
                 <LChat />
-                {/* <NotificationBell /> */}
+                <NotificationBell />
                 <DiscoButton />
               </React.Fragment>
             ) : (
