@@ -23,7 +23,10 @@ const createUser = require(`${ctrlUsr}/createUser`);
 const loginUser = require(`${ctrlUsr}/loginUser`);
 const forgotPass = require(`${ctrlUsr}/forgotPass`);
 const resetPass = require(`${ctrlUsr}/resetPass`);
-const { updateProfile } = require("../../controlers/profile/updateProfile");
+const {
+  updateProfile,
+  updateLocation
+} = require("../../controlers/profile/updateProfile");
 const confirmEmail = require("../../controlers/confirm/confirmEmail.js");
 const findOne = require("../../controlers/user/findOne");
 
@@ -66,7 +69,13 @@ router
   .route("/profile")
   .patch(userVerif, changePass, dataProfileVal, cryptNObject, (req, res) => {
     updateProfile(req, res);
-  });
+  })
+  .put(
+    // userVerif,
+    (req, res) => {
+      updateLocation(req, res);
+    }
+  );
 
 router.route("/findOne").get(userVerif, (req, res) => {
   findOne(req, res);

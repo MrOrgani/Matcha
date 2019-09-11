@@ -16,10 +16,12 @@ function Login() {
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
 
-  const initialState = {
+  const [initialState, setInitialState] = useState({
     login: "",
-    password: ""
-  };
+    password: "",
+    lat: "",
+    lon: ""
+  });
 
   return (
     <React.Fragment>
@@ -27,7 +29,7 @@ function Login() {
         {!isSubmitionCompleted ? (
           <Formik
             initialValues={initialState}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(true);
               axios
                 .post("http://localhost:9000/api/user/login", values, {
