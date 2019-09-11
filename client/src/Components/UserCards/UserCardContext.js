@@ -71,8 +71,8 @@ export const UserCardProvider = props => {
   const handleBlock = () => {
     axios
       .post("http://localhost:9000/api/rel/block", {
-        userSource: props.session.login,
-        target: userInfo.login,
+        uuidSource: props.session.uuid,
+        target: userInfo.uuid,
         jwt: props.session.jwt,
         blocked: isBlocked
       })

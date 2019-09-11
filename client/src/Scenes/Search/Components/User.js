@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UserCard from "../../../Components/UserCards/UserCard";
 import { AuthContext } from "../../../AuthContext";
 import { UserCardContext } from "../../../Components/UserCards/UserCardContext";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,6 +60,11 @@ const User = () => {
       targetUuid: userInfo.uuid,
       jwt: authContext.data.jwt,
       type: "visited"
+    });
+    axios.post("http://localhost:9000/api/rel/visit", {
+      jwt: authContext.data.jwt,
+      uuidSource: authContext.data.uuid,
+      target: userInfo.uuid
     });
     setExpanded(!expanded);
     setOpenCard(true);

@@ -6,6 +6,7 @@ const { isLiked } = require("../../controlers/rel/isLiked");
 const { setLike } = require("../../controlers/rel/setLike");
 const { isBlocked } = require("../../controlers/rel/isBlocked");
 const { setBlock } = require("../../controlers/rel/setBlock");
+const { newVisit } = require("../../controlers/rel/newVisit");
 
 router
   .route("/like")
@@ -24,5 +25,9 @@ router
   .get((req, res) => {
     isBlocked(req, res);
   });
+
+router.route("/visit").post(userVerif, (req, res) => {
+  newVisit(req, res);
+});
 
 module.exports = router;

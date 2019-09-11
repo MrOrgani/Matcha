@@ -26,7 +26,6 @@ function NotificationBell() {
   //   recipient: filledNotifArray
   //   getter: fetchUserData
   // USE EFFECT TO GET PROFILE OF USERS ON EVERy NEW NOTIF
-
   useEffect(() => {
     function fetchUserData(elem) {
       return axios.get(
@@ -38,22 +37,18 @@ function NotificationBell() {
       const brutNotif = await axios.get(
         `http://localhost:9000/api/notif?jwt=${authContext.data.jwt}&uuidSource=${authContext.data.uuid}&category=uuid`
       );
-      // console.log("BRRRRUUUUUUTNOTIF", brutNotif);
       if (brutNotif.data.length > 0)
         await brutNotif.data.forEach(elem => {
           notifArray.push(JSON.parse(elem));
         });
-      // console.log(notifArray);
       setNbNotif(notifArray.length);
     };
 
-    // console.log("use effect for augmented data: notifArray", notifArray);
     const fetchData = async _ => {
       if (notifArray.length === 0) await fetchDbNotif();
       const results = await Promise.all(notifArray.map(fetchUserData));
       filledNotifArray.length = 0;
       await results.forEach((elem, index) => {
-        // console.log(elem.data);
         filledNotifArray.push({
           source: elem.data[0]._fields[0].properties,
           info: notifArray[index]
@@ -66,11 +61,8 @@ function NotificationBell() {
   // SOCKET LISTNER
   useEffect(() => {
     socketContext.socket.on("newNotif", newNotif => {
-      // console.log("new notif", newNotif);
       notifArray.push(newNotif);
-      // console.log("notif array", notifArray);
       setNbNotif(notifArray.length);
-      // console.log("notif array", nbNotif);
     });
     return () => socketContext.socket.off("newNotif");
   }, [notifArray, socketContext]);
@@ -80,8 +72,17 @@ function NotificationBell() {
   const [open, setOpen] = useState(false);
   const id = open ? "simple-popper" : undefined;
 
+  const eraseNotif = () => {
+    notifArray.length = 0;
+    filledNotifArray.length = 0;
+    axios.post("http://localhost:9000/api/notif/delete", {
+      jwt: authContext.data.jwt,
+      uuidSource: authContext.data.uuid
+    });
+    setNbNotif(0);
+  };
+
   const handleNotif = e => {
-    // console.log("onclick, fillednotif :", filledNotifArray);
     if (nbNotif > 0) {
       setAnchorEl(e.currentTarget);
       setOpen(true);
@@ -90,18 +91,9 @@ function NotificationBell() {
 
   const handleClickAway = () => {
     if (open) {
-      notifArray.length = 0;
-      filledNotifArray.length = 0;
-      // console.log("delete notif", authContext.data.jwt, authContext.data.uuid);
-      axios.post("http://localhost:9000/api/notif/delete", {
-        jwt: authContext.data.jwt,
-        uuidSource: authContext.data.uuid,
-        type: "notifDelete"
-      });
-      // notifArray.length = 0;
-      setNbNotif(0);
+      setOpen(false);
+      eraseNotif();
     }
-    setOpen(false);
   };
 
   return (
@@ -114,7 +106,6 @@ function NotificationBell() {
           <Badge badgeContent={nbNotif} className="bell">
             <NotificationsIcon color="action" />
           </Badge>
-
           <Popper id={id} open={open} anchorEl={anchorEl} transition>
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
