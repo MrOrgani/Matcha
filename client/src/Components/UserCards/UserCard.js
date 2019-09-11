@@ -12,6 +12,8 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import Button from "@material-ui/core/Button";
+import "./UserCard.css";
+import { Spring } from "react-spring/renderprops";
 
 export default function UserCard() {
   const classes = useStyles();
@@ -19,57 +21,80 @@ export default function UserCard() {
     UserCardContext
   );
 
-  // console.log(JSON.parse(userInfo.score));
-  // console.log(userInfo.score);
   return (
     <React.Fragment>
-      <Card
-        className={classes.card}
-        onClick={() => {
-          // console.log(userInfo);
-        }}
-      >
-        <CardMedia
-          className={classes.media}
-          image={userInfo.pics[userInfo.indexOfPP]}
-        />
-        <CardHeader
-          avatar={
-            <Avatar src={userInfo.picLarge} className={classes.avatarPicture} />
-          }
-          title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
-          subheader={`Last connection: ${userInfo.lastConnection}\n ${userInfo.firstName} did not notice you yet `}
-        />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {`I love watching facebook until I forget I exists\n`}
-            {`Popularity Score: ${userInfo.score.low}`}
-          </Typography>
-          <ul>
-            {userInfo.hobbies.map(hobby => (
-              <li key={hobby}>{hobby}</li>
-            ))}
-          </ul>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton
-            onClick={setLiked}
-            className={
-              !isLiked ? classes.isNotLikedColor : classes.isLikedColor
-            }
+      <Card onClick={() => {}}>
+        <div
+          style={{
+            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP]})`
+          }}
+          className="mainCard"
+        >
+          <Spring
+            from={{ opacity: 0, marginTop: -5000 }}
+            to={{ opacity: 1, marginTop: 0 }}
+            // to={{
+            // transform: `scale(${this.state.hovered ? 1.2 : 1})`
+            // boxShadow: this.state.hovered ? hoverBoxShadow : normalBoxShadow
+            // }}
           >
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton
-            onClick={setBlocked}
-            className={
-              !isBlocked ? classes.isNotBlockedColor : classes.isBlockedColor
-            }
-          >
-            <HighlightOffIcon />
-          </IconButton>
-          <Button className={classes.button}>FAKE ACCOUNT</Button>
-        </CardActions>
+            {props => (
+              <div style={props}>
+                <div className="elemCard">
+                  <CardHeader
+                    title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
+                    subheader={`Last connection: ${userInfo.lastConnection}\n ${userInfo.firstName} did not notice you yet `}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {`I love watching facebook until I forget I exists\n`}
+                    </Typography>
+                    {`Popularity Score: ${userInfo.score.low}`}
+                    {userInfo.hobbies.map(hobby => (
+                      <div class="tag">
+                        {/* <input type="checkbox" /> */}
+                        <label for="">{hobby}</label>
+                      </div>
+                    ))}
+
+                    {/* <ul>
+              {userInfo.hobbies.map(hobby => (
+                  <li key={hobby}>{hobby}</li>
+                ))}
+              </ul> */}
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton
+                      onClick={setLiked}
+                      className={
+                        !isLiked
+                          ? classes.isNotLikedColor
+                          : classes.isLikedColor
+                      }
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={setBlocked}
+                      className={
+                        !isBlocked
+                          ? classes.isNotBlockedColor
+                          : classes.isBlockedColor
+                      }
+                    >
+                      <HighlightOffIcon />
+                    </IconButton>
+                    <Button className={classes.button}>FAKE ACCOUNT</Button>
+                  </CardActions>
+                </div>
+              </div>
+            )}
+          </Spring>
+        </div>
       </Card>
     </React.Fragment>
   );
