@@ -49,6 +49,9 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 [] : Jai remis en place le uuid, a verifier si on en a besoin ans modelUpateProfile
 
 [] : MEttre typ  password a tous les inputs parssword
+
+[] : Verifier que les activites ne soient pas choisies en double lors de la creation de la seed
+
 VAL
 
 [] : score de popularité
