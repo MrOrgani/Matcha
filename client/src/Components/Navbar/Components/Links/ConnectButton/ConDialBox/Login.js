@@ -23,16 +23,6 @@ function Login() {
     lon: ""
   });
 
-  (async function() {
-    const api = await fetch("https://ipapi.co/json");
-    const api_json = await api.json();
-    setInitialState({
-      ...initialState,
-      lat: api_json.latitude,
-      lon: api_json.longitude
-    });
-  })();
-
   return (
     <React.Fragment>
       <DialogContent>
