@@ -1,21 +1,21 @@
 const { initNeo4j } = require("../../initNeo4j");
 const session = initNeo4j();
 
-async function modelIsLiked(req) {
-  // console.log("in model is Liked", req);
+async function modelIsMatched(req) {
   try {
     const data = await session.run(
-      `MATCH (u:User {uuid:{uuidSource}})-[r:LIKED]->(n:User {uuid:{
-      target}}) RETURN r`,
+      `MATCH (u:User {uuid:{uuidSource}})
+        -[r:MATCHED]-(n:User {uuid:{
+        target}}) RETURN r`,
       req
     );
     // REPLACED BY A BOOLEAN ANSWER
     return data.records.length > 0 ? true : false;
   } catch (err) {
-    console.log("error in Model Is Liked", err, req);
+    console.log(err);
   }
 }
 
 module.exports = {
-  modelIsLiked
+  modelIsMatched
 };
