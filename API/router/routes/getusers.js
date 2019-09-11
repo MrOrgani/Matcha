@@ -23,7 +23,7 @@ router
         res.send(result);
       })
       .catch(function(err) {
-        console.log(err);
+        // console.log(err);
       });
   })
   .get("/withhobbies", async function(req, res) {

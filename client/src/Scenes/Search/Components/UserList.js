@@ -22,14 +22,13 @@ const UserList = () => {
           : users.filter(user => user.gender === filters[0]);
 
       setFilteredUserList(
-        genderFiltered
-          .filter(
-            user => user.age >= filters[1][0] && user.age <= filters[1][1]
-          )
-          .filter(
-            user =>
-              user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
-          )
+        genderFiltered.filter(
+          user => user.age >= filters[1][0] && user.age <= filters[1][1]
+        )
+        // .filter(
+        //   user =>
+        //     user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
+        // )
       );
     };
     filterUsers(
@@ -38,7 +37,7 @@ const UserList = () => {
     );
   }, [filtersValue, usersValue]);
 
-  // console.log("USERLIST filtereduserlist", filteredUserList);
+  console.log("USERLIST filtereduserlist", filteredUserList);
   return (
     <div className="containerUL">
       {filteredUserList.map(user => {
