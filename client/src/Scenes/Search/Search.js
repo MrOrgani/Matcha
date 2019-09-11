@@ -12,8 +12,6 @@ const Search = () => {
   });
   const data = JSON.parse(sessionStorage.getItem("data"));
 
-  console.log("SEARCH DATA STORAGE", data, state);
-
   useEffect(
     () =>
       navigator.geolocation.getCurrentPosition(
@@ -43,10 +41,12 @@ const Search = () => {
           state
         )
         .catch(err => console.log(err));
+
       console.log(
         `%c Got User location: ${userData.data.location}`,
         "color: green; font-size: 16px"
       );
+
       sessionStorage.setItem("data", JSON.stringify(userData.data));
     }
     if (state.lat !== "") updateLocation();
