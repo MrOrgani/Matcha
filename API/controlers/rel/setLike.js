@@ -16,8 +16,8 @@ async function setLike(req, res) {
   try {
     console.log("in setLike");
     if (!(await modelIsLiked(req.body))) {
-      console.log("liking");
       modelChangeScore(req.body, 5);
+      console.log("liking");
       modelSetLike(req.body);
       if (!(await modelIsMatched(req))) {
         modelChangeScore(req.body, 15);
@@ -25,8 +25,8 @@ async function setLike(req, res) {
       }
       res.status(200).send();
     } else {
-      console.log("unliking");
       modelChangeScore(req.body, -5);
+      console.log("unliking");
       modelSetUnlike(req.body);
       if (await modelIsMatched(req.body)) {
         modelChangeScore(req.body, -15);
