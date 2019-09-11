@@ -13,7 +13,7 @@ async function addHobbies(json) {
           hobbiesExample[Math.floor(Math.random() * (49 - 0 + 1))]
         );
       }
-      element.hobbies = hobbyUser;
+      element.hobbies = [...new Set(hobbyUser)];
       element.index = index;
     });
     return json;
