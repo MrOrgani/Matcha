@@ -49,6 +49,10 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 [] : Jai remis en place le uuid, a verifier si on en a besoin ans modelUpateProfile
 
 [] : MEttre typ  password a tous les inputs parssword
+
+[] : Rajouter la detection de la localisation qunad l'utilisateur se connecte
+
+[] : Rajouter le filtre de distance
 VAL
 
 [] : score de popularité
