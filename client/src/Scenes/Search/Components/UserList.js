@@ -27,6 +27,7 @@ const UserList = () => {
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
+
       let filtersfiltered = genderFiltered
         .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
@@ -38,13 +39,15 @@ const UserList = () => {
             distFrom(session.location).to(user.location).distance.v <=
             filters[3]
         );
-      console.log("filiter6", filters[6]);
+      // console.log("filiter6", filters[6]);
+      // console.log("filtersValue.tags", filtersValue.tags);
       if (filtersValue.tags.length > 0) {
-        filtersfiltered = filtersfiltered.filter(
-          user => user.hobbies.indexOf(filters[6][0]) > -1
+        filtersfiltered = filtersfiltered.filter(elem =>
+          filters[6].every(tag => elem.hobbies.includes(tag))
         );
-        console.log(filtersfiltered);
       }
+      // console.log(filtersfiltered);
+
       if (filtersValue.sort) {
         if (filters[4] === "age")
           setFilteredUserList(
