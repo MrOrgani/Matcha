@@ -4,7 +4,7 @@ const session = initNeo4j();
 async function modelIsBlocked(req) {
   try {
     const data = await session.run(
-      `MATCH (u:User {uuid:{uuidSource}})-[r:BLOCKED]->(n:User {login:{
+      `MATCH (u:User {uuid:{uuidSource}})-[r:BLOCKED]->(n:User {uuid:{
       target}}) RETURN r`,
       req
     );
