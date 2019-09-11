@@ -31,8 +31,8 @@ export default function UserCard() {
           className="mainCard"
         >
           <Spring
-            from={{ opacity: 0, marginTop: -5000 }}
-            to={{ opacity: 1, marginTop: 0 }}
+            from={{ opacity: 0, marginBottom: -500 }}
+            to={{ opacity: 1, marginBottom: 0 }}
             // to={{
             // transform: `scale(${this.state.hovered ? 1.2 : 1})`
             // boxShadow: this.state.hovered ? hoverBoxShadow : normalBoxShadow
@@ -54,10 +54,10 @@ export default function UserCard() {
                       {`I love watching facebook until I forget I exists\n`}
                     </Typography>
                     {`Popularity Score: ${userInfo.score.low}`}
-                    {userInfo.hobbies.map(hobby => (
-                      <div class="tag">
+                    {userInfo.hobbies.map((hobby, index) => (
+                      <div key={hobby + index} className="tag">
                         {/* <input type="checkbox" /> */}
-                        <label for="">{hobby}</label>
+                        <label>{hobby}</label>
                       </div>
                     ))}
 
