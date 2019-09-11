@@ -12,7 +12,9 @@
 }
 
 .elemCard {
+  opacity: 0;
   background: linear-gradient(transparent, white 100%);
+  -webkit-transition: opacity 1s;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -45,4 +47,8 @@
   border-radius: 16px;
   background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
   transition: all 0.08s ease-in;
+}
+
+.elemCard:hover {
+  opacity: 1;
 }
