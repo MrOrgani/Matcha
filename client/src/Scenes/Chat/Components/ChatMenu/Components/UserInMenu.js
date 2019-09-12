@@ -64,7 +64,7 @@ const UserInMenu = props => {
           border: "solid grey 2px"
         }}
       />
-      <AugmentedAvatar alt={props.data.firstName} src={picture} />
+      <AugmentedAvatar targetUuid={props.data.uuid} src={picture} />
       <div>
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}
