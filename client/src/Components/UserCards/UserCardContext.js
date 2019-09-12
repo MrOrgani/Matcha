@@ -1,7 +1,6 @@
 import React, { useState, createContext, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "./../../AuthContext";
-
 export const UserCardContext = createContext();
 
 export const UserCardProvider = props => {
@@ -10,9 +9,8 @@ export const UserCardProvider = props => {
   const [userInfo] = useState([props.user][0]);
   const [socketContext] = useContext(AuthContext);
 
-  // console.log("le truc bizarre [props.user][0]", [props.user][0]);
   const handleLike = () => {
-    console.log("in handle like", userInfo);
+    // console.log("in handle like", userInfo);
     axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
@@ -54,20 +52,6 @@ export const UserCardProvider = props => {
       });
   };
 
-  // socketContext.socket.on("newNotif", msg => {
-  //   console.log("userCardContext", msg);
-  //   let newMessage = {
-  //     uuidSource: msg.uuidSource,
-  //     target: msg.target,
-  //     jwt: authContext.data.jwt,
-  //     content: msg.content,
-  //     h: msg.h,
-  //     m: msg.m
-  //   };
-  //   // console.log("front sends message to controller", msg, authContext.data.jwt);
-  //   // chatAppContext.setMessages(chatAppContext.messages.concat(newMessage));
-  // });
-
   const handleBlock = () => {
     axios
       .post("http://localhost:9000/api/rel/block", {
@@ -104,7 +88,7 @@ export const UserCardProvider = props => {
 
     getBlock();
     getLike();
-  }, [props.session, userInfo.login]);
+  }, [props.session, userInfo.uuid]);
 
   return (
     <UserCardContext.Provider

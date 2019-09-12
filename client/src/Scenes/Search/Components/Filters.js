@@ -2,18 +2,14 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-// import { FiltersContext } from "./FiltersContext";
 import Slider from "@material-ui/core/Slider";
 import { UsersContext } from "./UsersContext";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Select from "@material-ui/core/Select";
-// import RangeSlider from './Components/Slider2'
 import { Tag } from "antd";
 const { CheckableTag } = Tag;
 
