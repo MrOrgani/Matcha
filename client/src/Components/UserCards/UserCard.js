@@ -30,16 +30,16 @@ export default function UserCard() {
           }}
           className="mainCard"
         >
-          <Spring
-            from={{ opacity: 0, marginBottom: -500 }}
-            to={{ opacity: 1, marginBottom: 0 }}
+          {/* <Spring
+            from={{ opacity: 0}}
+            to={{ opacity: 1 }}
             // to={{
             // transform: `scale(${this.state.hovered ? 1.2 : 1})`
             // boxShadow: this.state.hovered ? hoverBoxShadow : normalBoxShadow
             // }}
           >
             {props => (
-              <div style={props}>
+              <div style={props}> */}
                 <div className="elemCard">
                   <CardHeader
                     title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
@@ -92,9 +92,8 @@ export default function UserCard() {
                   </CardActions>
                 </div>
               </div>
-            )}
-          </Spring>
-        </div>
+                {/* </Spring>
+        </div> */}
       </Card>
     </React.Fragment>
   );
