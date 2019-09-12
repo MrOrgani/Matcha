@@ -40,59 +40,54 @@ export default function UserCard() {
           >
             {props => (
               <div style={props}> */}
-                <div className="elemCard">
-                  <CardHeader
-                    title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
-                    subheader={`Last connection: ${userInfo.lastConnection}\n ${userInfo.firstName} did not notice you yet `}
-                  />
-                  <CardContent>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {`I love watching facebook until I forget I exists\n`}
-                    </Typography>
-                    {`Popularity Score: ${userInfo.score.low}`}
-                    {userInfo.hobbies.map((hobby, index) => (
-                      <div key={hobby + index} className="tag">
-                        {/* <input type="checkbox" /> */}
-                        <label>{hobby}</label>
-                      </div>
-                    ))}
+          <div className="elemCard">
+            <CardHeader
+              className="cardHeader"
+              title={`${userInfo.firstName} ${userInfo.lastName[0]}.`}
+              // subheader={`Last connection: ${userInfo.lastConnection}\n ${userInfo.firstName} did not notice you yet `}
+            />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {`I love watching facebook until I forget I exists\n`}
+              </Typography>
+              {`Popularity Score: ${userInfo.score.low}`}
+              {userInfo.hobbies.map((hobby, index) => (
+                <div key={hobby + index} className="tag">
+                  {/* <input type="checkbox" /> */}
+                  <label>{hobby}</label>
+                </div>
+              ))}
 
-                    {/* <ul>
+              {/* <ul>
               {userInfo.hobbies.map(hobby => (
                   <li key={hobby}>{hobby}</li>
                 ))}
               </ul> */}
-                  </CardContent>
-                  <CardActions disableSpacing>
-                    <IconButton
-                      onClick={setLiked}
-                      className={
-                        !isLiked
-                          ? classes.isNotLikedColor
-                          : classes.isLikedColor
-                      }
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      onClick={setBlocked}
-                      className={
-                        !isBlocked
-                          ? classes.isNotBlockedColor
-                          : classes.isBlockedColor
-                      }
-                    >
-                      <HighlightOffIcon />
-                    </IconButton>
-                    <Button className={classes.button}>FAKE ACCOUNT</Button>
-                  </CardActions>
-                </div>
-              </div>
-                {/* </Spring>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton
+                onClick={setLiked}
+                className={
+                  !isLiked ? classes.isNotLikedColor : classes.isLikedColor
+                }
+              >
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton
+                onClick={setBlocked}
+                className={
+                  !isBlocked
+                    ? classes.isNotBlockedColor
+                    : classes.isBlockedColor
+                }
+              >
+                <HighlightOffIcon />
+              </IconButton>
+              <Button className={classes.button}>FAKE ACCOUNT</Button>
+            </CardActions>
+          </div>
+        </div>
+        {/* </Spring>
         </div> */}
       </Card>
     </React.Fragment>

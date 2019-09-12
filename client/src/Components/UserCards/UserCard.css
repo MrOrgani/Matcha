@@ -52,5 +52,9 @@
 
 .elemCard:hover {
   opacity: 1;
-  bottom: 0px
+  bottom: 0px;
+}
+
+.cardHeader {
+  background: yellow;
 }
