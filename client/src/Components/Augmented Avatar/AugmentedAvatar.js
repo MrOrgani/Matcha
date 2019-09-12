@@ -8,7 +8,7 @@ const AugmentedAvatar = props => {
   const [dot, setDot] = useState("redDot");
 
   useEffect(() => {
-    console.log("useEffect in the AugmentedAvatar component");
+    // console.log("useEffect in the AugmentedAvatar component");
     setDot(
       socketContext.connectedUsrs.includes(props.targetUuid)
         ? "greenDot"
@@ -17,7 +17,8 @@ const AugmentedAvatar = props => {
     socketContext.socket.on("newConnection", connectedUsrs => {
       setDot(connectedUsrs.includes(props.targetUuid) ? "greenDot" : "redDot");
     });
-  }, [socketContext.connectedUsrs, dot]);
+    return () => socketContext.socket.off("newConnection");
+  }, [socketContext, dot, props.targetUuid]);
 
   return (
     <div className="frame">

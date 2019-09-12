@@ -6,6 +6,7 @@ const { modelIsMatched } = require(`${pathToModels}match/modelIsMatched`);
 const { modelSetMatched } = require(`${pathToModels}match/modelSetMatched`);
 const { modelSetUnMatched } = require(`${pathToModels}match/modelSetUnMatched`);
 const { modelChangeScore } = require(`${pathToModels}score/modelChangeScore`);
+const { notify } = require("../../Sockets/newNotif");
 
 async function setLike(req, res) {
   // console.log(`in SetLiked", req);
@@ -19,7 +20,7 @@ async function setLike(req, res) {
       modelChangeScore(req.body, 5);
       // console.log("liking");
       modelSetLike(req.body);
-      if (!(await modelIsMatched(req.body))) {
+      if (!(await modelIsLiked(invertReq))) {
         modelChangeScore(req.body, 15);
         modelSetMatched(req.body);
       }
@@ -29,6 +30,9 @@ async function setLike(req, res) {
       // console.log("unliking");
       modelSetUnlike(req.body);
       if (await modelIsMatched(req.body)) {
+        // notify({
+
+        // })
         modelChangeScore(req.body, -15);
         modelSetUnMatched(req.body);
       }

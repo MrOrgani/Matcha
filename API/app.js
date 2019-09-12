@@ -37,7 +37,7 @@ io.sockets.on("connect", socket => {
   connectedUsrs[socket.id] = socket.handshake.query;
   require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
-  require("./Sockets/newNotif")(socket, io);
+  require("./Sockets/newNotif").newNotifListener(socket, io);
   connectionEmit(io, connectedUsrs);
   socket.on("logOut", disconnectUser).on("disconnect", disconnectUser);
 });
