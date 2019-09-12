@@ -166,7 +166,7 @@ export const ProfileValidation = values => {
     errors.sexualOrientation = "Your sexual orientation is required";
   }
 
-  console.log("fuking errors", errors);
+  // console.log("fuking errors", errors);
   return errors;
 };
 

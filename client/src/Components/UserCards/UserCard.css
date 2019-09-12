@@ -1,7 +1,7 @@
 .mainCard {
   background-repeat: no-repeat;
-  height: 50vh;
-  width: 20vw;
+  height: 700px;
+  width: 500px;
   background-size: cover;
   background-position: center center;
   display: flex;
@@ -13,6 +13,7 @@
 
 .elemCard {
   opacity: 0;
+  /* bottom: -300px; */
   background: linear-gradient(transparent, white 100%);
   -webkit-transition: opacity 1s;
   display: flex;
@@ -29,7 +30,7 @@
 }
 
 .tag input[type="checkbox"] {
-  opacity: 0;
+  /* opacity: 0; */
   position: absolute;
   z-index: 300;
   cursor: pointer;
@@ -51,4 +52,5 @@
 
 .elemCard:hover {
   opacity: 1;
+  bottom: 0px
 }

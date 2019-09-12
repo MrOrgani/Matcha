@@ -36,7 +36,9 @@ router
         //     RETURN u, collect(hobby)`
         // )
         .run(
-          `MATCH (u:User {isComplete:true}) WHERE u.uuid <> '${req.query.uuidSource}' RETURN u`
+          `MATCH (u:User {isComplete:true}) 
+          WHERE u.uuid = '${req.query.uuidSource}' 
+          RETURN u`
         );
       // .then(nodes => {
       //   nodes.records.forEach(record => {
@@ -70,6 +72,7 @@ router
             : oneUser.indexOfPP;
         result.push(oneUser);
       });
+      // console.log(result)
       res.status(200).send(result);
     } catch (err) {
       console.log("err getuser: ", err);
