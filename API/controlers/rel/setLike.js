@@ -14,10 +14,10 @@ async function setLike(req, res) {
     target: req.body.uuidSource
   };
   try {
-    console.log("in setLike");
+    // console.log("in setLike");
     if (!(await modelIsLiked(req.body))) {
       modelChangeScore(req.body, 5);
-      console.log("liking");
+      // console.log("liking");
       modelSetLike(req.body);
       if (!(await modelIsMatched(req))) {
         modelChangeScore(req.body, 15);
@@ -26,7 +26,7 @@ async function setLike(req, res) {
       res.status(200).send();
     } else {
       modelChangeScore(req.body, -5);
-      console.log("unliking");
+      // console.log("unliking");
       modelSetUnlike(req.body);
       if (await modelIsMatched(req.body)) {
         modelChangeScore(req.body, -15);
