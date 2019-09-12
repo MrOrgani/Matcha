@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import User from "./User";
 import { UsersContext } from "./UsersContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
-// import { AuthContext } from "../../../AuthContext";
 import "./UserList.css";
 const distFrom = require("distance-from");
 
@@ -16,6 +15,7 @@ const UserList = () => {
 
   useEffect(() => {
     const filterUsers = (filters, users) => {
+      const location = JSON.parse(sessionStorage.data).location;
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
@@ -28,9 +28,7 @@ const UserList = () => {
             user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
         )
         .filter(
-          user =>
-            distFrom(session.location).to(user.location).distance.v <=
-            filters[3]
+          user => distFrom(location).to(location).distance.v <= filters[3]
         );
       if (filtersValue.tags.length > 0) {
         filtersfiltered = filtersfiltered.filter(elem =>
@@ -59,18 +57,10 @@ const UserList = () => {
           setFilteredUserList(
             filtersfiltered.sort((a, b) =>
               filters[5]
-                ? parseFloat(
-                    distFrom(session.location).to(a.location).distance.v
-                  ) -
-                  parseFloat(
-                    distFrom(session.location).to(b.location).distance.v
-                  )
-                : parseFloat(
-                    distFrom(session.location).to(b.location).distance.v
-                  ) -
-                  parseFloat(
-                    distFrom(session.location).to(a.location).distance.v
-                  )
+                ? parseFloat(distFrom(location).to(location).distance.v) -
+                  parseFloat(distFrom(location).to(location).distance.v)
+                : parseFloat(distFrom(location).to(location).distance.v) -
+                  parseFloat(distFrom(location).to(location).distance.v)
             )
           );
       } else setFilteredUserList(filtersfiltered);
@@ -87,7 +77,7 @@ const UserList = () => {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue, session.location]);
+  }, [filtersValue, usersValue]);
 
   return (
     <div className="containerUL">

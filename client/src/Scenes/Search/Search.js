@@ -48,7 +48,7 @@ const Search = () => {
       sessionStorage.setItem("data", JSON.stringify(userData.data));
     }
     if (state.lat !== "") updateLocation();
-  }, [state]);
+  }, [state, data.uuid]);
 
   return (
     <div>

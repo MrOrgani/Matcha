@@ -53,6 +53,7 @@ const ChatMenuProvider = props => {
     getVisitedMe();
     getIVisited();
     getIBlocked();
+    // console.log("useEffect to get all the stuff");
   }, [
     getIMatched,
     getLikedMe,
@@ -78,7 +79,6 @@ const ChatMenuProvider = props => {
     openKeys,
     setOpenKeys
   };
-  // console.log("TEMP CHAT CONTECT liked me", likedMe);
   return (
     <ChatMenuContext.Provider value={[MenuContext]}>
       {props.children}

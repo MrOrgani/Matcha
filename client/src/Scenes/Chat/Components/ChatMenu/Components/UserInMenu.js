@@ -5,7 +5,7 @@ import { UserCardProvider } from "../../../../../Components/UserCards/UserCardCo
 import Dialog from "@material-ui/core/Dialog";
 import UserCard from "../../../../../Components/UserCards/UserCard";
 import { AuthContext } from "../../../../../AuthContext";
-// import { AuthContext } from "../../../../../AuthContext";
+import AugmentedAvatar from "../../../../../Components/Augmented Avatar/AugmentedAvatar";
 
 const UserInMenu = props => {
   //BASIC DISPLAY fOR THE USER NAME AND PIC
@@ -13,7 +13,9 @@ const UserInMenu = props => {
   function capFLtr(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  const picture = props.data.pics[props.data.indexOfPP];
+  const picture = Number.isInteger(props.data.indexOfPP.low)
+    ? props.data.pics[props.data.indexOfPP.low]
+    : props.data.pics[props.data.indexOfPP];
 
   //CARD DISPLAY FOR THE USER CARDS
   const [socketContext, authContext] = useContext(AuthContext);
@@ -51,11 +53,6 @@ const UserInMenu = props => {
         } else handleExpandCard();
       }}
     >
-      <img
-        style={{ borderRadius: "50%", width: "20%", height: "20%" }}
-        alt=""
-        src={picture}
-      />
       <div
         style={{
           width: "10px",
@@ -67,6 +64,7 @@ const UserInMenu = props => {
           border: "solid grey 2px"
         }}
       />
+      <AugmentedAvatar alt={props.data.firstName} src={picture} />
       <div>
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}

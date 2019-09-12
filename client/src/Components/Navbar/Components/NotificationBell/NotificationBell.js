@@ -42,7 +42,6 @@ function NotificationBell() {
           notifArray.push(JSON.parse(elem));
         });
       setNbNotif(notifArray.length);
-      console.log("number of notif was reset");
     };
 
     const fetchData = async _ => {
@@ -73,13 +72,12 @@ function NotificationBell() {
   const [open, setOpen] = useState(false);
   const id = open ? "simple-popper" : undefined;
 
-  const eraseNotif = () => {
-    notifArray.length = 0;
-    filledNotifArray.length = 0;
-    axios.post("http://localhost:9000/api/notif/delete", {
+  const eraseNotif = async () => {
+    await axios.post("http://localhost:9000/api/notif/delete", {
       jwt: authContext.data.jwt,
       uuidSource: authContext.data.uuid
     });
+    notifArray.length = 0;
     setNbNotif(0);
   };
 
@@ -91,10 +89,8 @@ function NotificationBell() {
   };
 
   const handleClickAway = () => {
-    console.log("handle click Away");
     if (open) {
       setOpen(false);
-      console.log("handle click Away, going to close it");
       eraseNotif();
     }
   };
@@ -114,15 +110,9 @@ function NotificationBell() {
               <Fade {...TransitionProps} timeout={350}>
                 <Paper>
                   <List>
-                    {filledNotifArray.map((el, index) => {
-                      // return filledNotifArray[index + 1] &&
-                      //   filledNotifArray[index].props.notif.info.type ==
-                      //     filledNotifArray[index + 1].props.notif.info
-                      //       .type ? null : (
-                      //   <NotificationCard notif={el} key={index} />
-                      // ); //TRYING TO FILTER NOTIFICATIONS
-                      return <NotificationCard notif={el} key={index} />;
-                    })}
+                    {filledNotifArray.map((el, index) => (
+                      <NotificationCard notif={el} key={index} />
+                    ))}
                   </List>
                 </Paper>
               </Fade>

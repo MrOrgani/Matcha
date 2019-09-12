@@ -11,6 +11,7 @@ const MenuChat = () => {
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
   const onOpenChange = async OKeys => {
+    // console.log("on open change");
     MenuContext.getIBlocked();
     MenuContext.getIMatched();
     MenuContext.getIVisited();
@@ -45,7 +46,6 @@ const MenuChat = () => {
         }
       >
         {MenuContext.iMatched.map(el => {
-          // console.log(el);
           return (
             <Menu.Item key={el.uuid + "iMatched"}>
               <UserInMenu data={el} matched={true} />
