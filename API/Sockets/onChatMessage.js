@@ -7,7 +7,7 @@ module.exports = function(socket, io) {
     date = new Date();
     msg.h = date.getHours();
     msg.m = date.getMinutes();
-    console.log(socket.chatTarget);
+    // console.log(socket.chatTarget);
 
     msg.target = socket.chatTarget.uuid;
 
@@ -16,7 +16,7 @@ module.exports = function(socket, io) {
         ? socket.chatTarget.uuid + msg.uuidSource
         : msg.uuidSource + socket.chatTarget.uuid;
     if (socket.chatTarget.uuid && msg.uuidSource) {
-      console.log("emiting a chatMessage to all clients in room ", roomID);
+      // console.log("emiting a chatMessage to all clients in room ", roomID);
       modelNewMessages(msg); // DB
       // axios
       //   .post("http://localhost:9000/api/chatMessages/", msg)
