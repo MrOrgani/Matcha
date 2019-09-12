@@ -1,0 +1,27 @@
+.frame {
+  position: relative;
+}
+
+.under {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 0;
+}
+
+.over {
+  position: absolute;
+  /* top: 0px; */
+  /* left: 0px; */
+  right: 0px;
+  bottom: 15px;
+  z-index: 1;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  background-color: red;
+  border-radius: 50%;
+  /* display: inline-block; */
+}
