@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import User from "./User";
 import { UsersContext } from "./UsersContext";
-// import { makeStyles } from "@material-ui/core/styles";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 // import { AuthContext } from "../../../AuthContext";
 import "./UserList.css";
@@ -33,14 +32,11 @@ const UserList = () => {
             distFrom(session.location).to(user.location).distance.v <=
             filters[3]
         );
-      // console.log("filiter6", filters[6]);
-      // console.log("filtersValue.tags", filtersValue.tags);
       if (filtersValue.tags.length > 0) {
         filtersfiltered = filtersfiltered.filter(elem =>
           filters[6].every(tag => elem.hobbies.includes(tag))
         );
       }
-      // console.log(filtersfiltered);
 
       if (filtersValue.sort) {
         if (filters[4] === "age")
@@ -91,11 +87,8 @@ const UserList = () => {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue]);
+  }, [filtersValue, usersValue, session.location]);
 
-  // filteredUserList.map(user =>
-  //   console.log(distFrom(session.location).to(user.location).distance.v)
-  // );
   return (
     <div className="containerUL">
       {filteredUserList.map(user => {

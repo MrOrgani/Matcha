@@ -41,12 +41,10 @@ const Search = () => {
           state
         )
         .catch(err => console.log(err));
-
-      console.log(
-        `%c Got User location: ${userData.data.location}`,
-        "color: green; font-size: 16px"
-      );
-
+      // console.log(
+      //   `%c Got User location: ${userData.data.location}`,
+      //   "color: green; font-size: 16px"
+      // );
       sessionStorage.setItem("data", JSON.stringify(userData.data));
     }
     if (state.lat !== "") updateLocation();

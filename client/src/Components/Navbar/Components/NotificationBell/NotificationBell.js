@@ -42,6 +42,7 @@ function NotificationBell() {
           notifArray.push(JSON.parse(elem));
         });
       setNbNotif(notifArray.length);
+      console.log("number of notif was reset");
     };
 
     const fetchData = async _ => {
@@ -90,8 +91,10 @@ function NotificationBell() {
   };
 
   const handleClickAway = () => {
+    console.log("handle click Away");
     if (open) {
       setOpen(false);
+      console.log("handle click Away, going to close it");
       eraseNotif();
     }
   };

@@ -5,7 +5,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import axios from "axios";
 import { Formik } from "formik";
-// import { LoginValidation } from "./UserValidation";
 import { AuthContext } from "../../../../../../AuthContext";
 import "../../../../NavBar.css";
 import { Result } from "antd";
@@ -15,13 +14,12 @@ function Login() {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-
-  const [initialState, setInitialState] = useState({
+  const initialState = {
     login: "",
     password: "",
     lat: "",
     lon: ""
-  });
+  };
 
   return (
     <React.Fragment>
@@ -41,7 +39,7 @@ function Login() {
                   if (res.status === 200) {
                     setSubmitionCompleted(true);
                     socketContext.socket && socketContext.socket.emit("logOut");
-                    console.log(res.data);
+                    // console.log(res.data);
                     authContext.setData(res.data);
                     authContext.setIsAuth(1);
                   } else {

@@ -10,8 +10,6 @@ import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
 import { AuthContext } from "../../../../AuthContext";
-// import { AuthContext } from "../../../../AuthContext";
-// import { socket } from "../../../../Components/Navbar/NavBar";
 
 function Login() {
   const [open, setOpen] = useState(false);
@@ -66,7 +64,7 @@ function Login() {
                         socketContext.socket &&
                           socketContext.socket.emit("logOut");
                         // sessionStorage.data = JSON.stringify(res.data);
-                        console.log(res.data);
+                        // console.log(res.data);
                         authContext.setData(res.data);
                         authContext.setIsAuth(1);
                         // sessionStorage.isAuth = 1;
