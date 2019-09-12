@@ -1,3 +1,7 @@
 module.exports = async function(io, connectedUsrs) {
-  io.emit("connection", connectedUsrs);
+  const uuidConnectedUsrs = Object.keys(connectedUsrs).map(key => {
+    return connectedUsrs[key].uuid;
+  });
+  console.log("connection change, sending to the front: ", uuidConnectedUsrs);
+  io.emit("newConnection", uuidConnectedUsrs);
 };

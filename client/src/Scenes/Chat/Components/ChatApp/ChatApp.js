@@ -29,10 +29,8 @@ const ChatApp = () => {
       type: "message",
       uuidSource: authContext.data.uuid
     };
-    console.log("in chatapp sends notif : ", notif);
     socketContext.socket.emit("newNotif", notif);
   };
-  // console.log("chatTaregt", chatAppContext.chatTarget);
 
   socketContext.socket && socketContext.socket.off("chatMessage"); //unsubscribe to all previous listeners in case the context made reruns
   socketContext.socket.on("chatMessage", msg => {
@@ -44,7 +42,6 @@ const ChatApp = () => {
       h: msg.h,
       m: msg.m
     };
-    console.log("front receives message from controller", msg);
     chatAppContext.setMessages(chatAppContext.messages.concat(newMessage));
   });
 
