@@ -3,6 +3,7 @@ const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
 module.exports = async function modelFindOne(value, category, option = "") {
+  // console.log("in Model findOne");
   try {
     const data = await session.run(
       `WITH {category} AS propname
