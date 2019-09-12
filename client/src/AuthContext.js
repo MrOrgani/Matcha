@@ -36,15 +36,12 @@ export const AuthProvider = ({ children }) => {
       requestTimeout: 5000, // IN CASE OF FIRE BREACK GLASS
       upgrade: false,
       query: {
-        // token: this.state.userToken
         login: data.login,
         uuid: data.uuid
-        // room_id: this.state.room_id
       }
     });
 
     socketContext.socket = socket;
-    // socketContext.notifArray = notifArray;
   }
 
   return (

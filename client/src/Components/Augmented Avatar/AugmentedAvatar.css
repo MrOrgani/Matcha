@@ -18,10 +18,16 @@
   z-index: 1;
 }
 
-.dot {
+.redDot {
   height: 7px;
   width: 7px;
   background-color: red;
   border-radius: 50%;
-  /* display: inline-block; */
+}
+
+.greenDot {
+  height: 7px;
+  width: 7px;
+  background-color: greenyellow;
+  border-radius: 50%;
 }
