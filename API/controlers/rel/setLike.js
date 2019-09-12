@@ -19,7 +19,7 @@ async function setLike(req, res) {
       modelChangeScore(req.body, 5);
       // console.log("liking");
       modelSetLike(req.body);
-      if (!(await modelIsMatched(req))) {
+      if (!(await modelIsMatched(req.body))) {
         modelChangeScore(req.body, 15);
         modelSetMatched(req.body);
       }
