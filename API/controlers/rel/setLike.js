@@ -20,8 +20,18 @@ async function setLike(req, res) {
       modelChangeScore(req.body, 5);
       // console.log("liking");
       modelSetLike(req.body);
-      if (!(await modelIsLiked(invertReq))) {
+      if (await modelIsLiked(invertReq)) {
         modelChangeScore(req.body, 15);
+        notify({
+          targetUuid: req.body.target,
+          uuidSource: req.body.uuidSource,
+          type: "matched"
+        });
+        notify({
+          targetUuid: req.body.uuidSource,
+          uuidSource: req.body.target,
+          type: "matched"
+        });
         modelSetMatched(req.body);
       }
       res.status(200).send();
@@ -30,9 +40,11 @@ async function setLike(req, res) {
       // console.log("unliking");
       modelSetUnlike(req.body);
       if (await modelIsMatched(req.body)) {
-        // notify({
-
-        // })
+        notify({
+          targetUuid: req.body.target,
+          uuidSource: req.body.uuidSource,
+          type: "unmatched"
+        });
         modelChangeScore(req.body, -15);
         modelSetUnMatched(req.body);
       }

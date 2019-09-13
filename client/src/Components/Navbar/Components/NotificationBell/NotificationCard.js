@@ -10,12 +10,14 @@ export default function NotificationCard(props) {
     : props.notif.source.pics[props.notif.source.indexOfPP];
 
   display.time = `${props.notif.info.d}:${props.notif.info.h}:${props.notif.info.m}`;
-  if (props.notif.info.type === "message") display.type = "sent you a message.";
+  if (props.notif.info.type === "message") display.type = "sent you a message";
   else if (props.notif.info.type === "visited")
     display.type = "checked you out";
-  else if (props.notif.info.type === "disliked")
-    display.type = "does not like you anymore";
   else if (props.notif.info.type === "liked") display.type = "likes you";
+  else if (props.notif.info.type === "unmatched")
+    display.type = "unmatched you";
+  else if (props.notif.info.type === "matched")
+    display.type = "and you are now matched!";
   // console.log(props.notif.info);
 
   return (

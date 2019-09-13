@@ -29,7 +29,7 @@ export const UserCardProvider = props => {
       // })
       .then(res => {
         if (res.status === 200) {
-          console.log("in handle like ret 200", userInfo.uuid);
+          // console.log("in handle like ret 200", userInfo.uuid);
           setLiked(true);
           socketContext.socket.emit("newNotif", {
             uuidSource: props.session.uuid,
@@ -39,12 +39,6 @@ export const UserCardProvider = props => {
           });
         } else if (res.status === 201) {
           setLiked(false);
-          socketContext.socket.emit("newNotif", {
-            uuidSource: props.session.uuid,
-            targetUuid: userInfo.uuid,
-            jwt: props.session.jwt,
-            type: "disliked"
-          });
         } else alert("JWT eror");
       })
       .catch(err => {
