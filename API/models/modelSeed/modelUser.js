@@ -25,6 +25,7 @@ async function gUsers() {
               u.messages = [],
               u.notifs = [],
               u.isComplete = true,
+              u.bio = user.bio,
               u.score = 50
           FOREACH (t in user.hobbies |
           MERGE (hob:Hobby {name: t})
