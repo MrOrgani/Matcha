@@ -4,6 +4,7 @@ import { UsersProvider } from "./Components/UsersContext";
 import "./public/stylesheet/style.css";
 import Filters from "./Components/Filters";
 import axios from "axios";
+import Notifications from "react-notify-toast";
 
 const Search = () => {
   const [state, setState] = useState({
@@ -53,6 +54,7 @@ const Search = () => {
   return (
     <div>
       <UsersProvider>
+        <Notifications />
         <div className="app">
           <Filters />
           <UserList />

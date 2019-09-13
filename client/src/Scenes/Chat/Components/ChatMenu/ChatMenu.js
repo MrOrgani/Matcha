@@ -3,7 +3,7 @@ import { Menu, Icon } from "antd";
 import { ChatMenuContext } from "../../ChatMenuContext";
 import "./ChatMenu.css";
 import UserInMenu from "./Components/UserInMenu";
-
+import Notifications from "react-notify-toast";
 const { SubMenu, Item } = Menu;
 
 const MenuChat = () => {
@@ -11,7 +11,6 @@ const MenuChat = () => {
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
   const onOpenChange = async OKeys => {
-    // console.log("on open change");
     MenuContext.getIBlocked();
     MenuContext.getIMatched();
     MenuContext.getIVisited();
@@ -36,6 +35,7 @@ const MenuChat = () => {
       className="Menu"
       style={{ width: "30%" }} // avirer pour avoir la bonne taille
     >
+      <Notifications />
       <SubMenu
         key="sub1"
         title={
