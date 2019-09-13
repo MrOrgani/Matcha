@@ -4,10 +4,10 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
+  // console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
   try {
     if (req.body.values.newpassword) {
-      console.log("THE PASSWORD WAS UPDATED", req.body.values);
+      // console.log("THE PASSWORD WAS UPDATED", req.body.values);
       await session.run(
         `MATCH (u:User {uuid: {uuidSource}})
           SET u.password = {newpassword}`,
@@ -45,17 +45,17 @@ async function modelUpdateProfile(req) {
         email: req.body.values.email,
         bio: req.body.values.bio,
         pics: req.body.values.pics,
-        indexOfPP: req.body.values.indexOfPP.low,
+        indexOfPP: req.body.values.indexOfPP,
         hobbies: req.body.values.hobbies,
         location: req.body.values.location
       }
     );
 
     await handlePracticeHobbies(req);
-    console.log(
-      "THE NEW USER DATA",
-      userData.records[0]._fields[0].properties.indexOfPP
-    );
+    // console.log(
+    //   "THE NEW USER DATA",
+    //   userData.records[0]._fields[0].properties.indexOfPP
+    // );
 
     //// ********************* JWT auth token
     const token = jwt.sign(
@@ -74,7 +74,7 @@ async function modelUpdateProfile(req) {
     return userData.records[0]._fields[0].properties;
   } catch (err) {
     delete req.body.pics;
-    console.log("we have an error in model update profile", err, req.body);
+    console.log("we have an error in model update profile", err);
   }
 }
 

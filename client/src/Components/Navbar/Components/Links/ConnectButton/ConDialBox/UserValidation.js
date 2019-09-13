@@ -101,11 +101,11 @@ export const ProfileValidation = values => {
 
   if (!values.bio) {
     errors.bio = "A bio is required";
-  } else if (!/^[A-Z 0-9]+$/i.test(values.bio))
-    errors.firstName = "Your bio can only contain letters and numbers";
-  if (!values.gender) {
-    errors.gender = "Gender is required";
-  }
+  } else if (!/^[A-Z ,.!?0-9]+$/i.test(values.bio))
+    errors.bio = "Your bio can only contain letters and numbers";
+  // if (!values.gender) {
+  //   errors.gender = "Gender is required";
+  // }
 
   //city
 
