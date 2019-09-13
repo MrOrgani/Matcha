@@ -5,7 +5,7 @@ require("dotenv").config(); //STORE PASSWORD AND LOGIN IN .ENV
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const formData = require("express-form-data");
-const io = require("socket.io")(server);
+global.io = require("socket.io")(server);
 const bodyParser = require("body-parser");
 const connectionEmit = require("./Sockets/connectedUsers");
 app.use(bodyParser.json({ limit: "10mb", extended: true }));

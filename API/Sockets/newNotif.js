@@ -1,5 +1,4 @@
 const { modelNewNotif } = require("../models/modelNotif/modelNewNotif");
-
 //data is emited from front or from controllers
 //it contains
 //    - targetUuid, target of action
@@ -7,7 +6,7 @@ const { modelNewNotif } = require("../models/modelNotif/modelNewNotif");
 //    - uuidSource, source of the action
 
 //NOTIFY CAN BE USED IN CONTROLLERS IN THE BACK
-const notify = (data, io) => {
+const notify = data => {
   // console.log(data);
   date = new Date();
   data.h = date.getHours();
@@ -32,8 +31,8 @@ const notify = (data, io) => {
 };
 
 //ACTUAL LISTENER FOR FRONT SENT DATA
-const newNotifListener = async function(socket, io) {
-  socket.on("newNotif", data => notify(data, io));
+const newNotifListener = async function(socket) {
+  socket.on("newNotif", data => notify(data));
 };
 
 module.exports = {
