@@ -91,7 +91,7 @@ export default function UserCard() {
                   <span
                     role="img"
                     aria-label="disconnected"
-                    style={{ color: "red" }}
+                    style={{ color: "grey" }}
                   >
                     🔴 {userInfo.lastConnection}
                   </span>
