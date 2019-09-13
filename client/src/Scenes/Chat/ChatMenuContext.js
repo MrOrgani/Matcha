@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
-
+import { AuthContext } from "../../AuthContext";
 const ChatMenuContext = React.createContext([{}, () => {}]);
 
 const ChatMenuProvider = props => {
+  const [socketContext] = useContext(AuthContext);
   const [iMatched, setIMatched] = useState([]);
   const [likedMe, setLikedMe] = useState([]);
   const [iLiked, setILiked] = useState([]);
@@ -27,7 +28,6 @@ const ChatMenuProvider = props => {
 
   const getILiked = useCallback(async () => {
     const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
-    console.log(result.data);
     setILiked(result.data);
   }, [api]);
 
@@ -53,7 +53,6 @@ const ChatMenuProvider = props => {
     getVisitedMe();
     getIVisited();
     getIBlocked();
-    // console.log("useEffect to get all the stuff");
   }, [
     getIMatched,
     getLikedMe,
@@ -62,6 +61,13 @@ const ChatMenuProvider = props => {
     getIVisited,
     getIBlocked
   ]);
+
+  //in case of block update the list and re render the elements
+  useEffect(() => {
+    socketContext.socket.on("unmatched", () => {
+      getIMatched();
+    });
+  }, [socketContext.socket, getIMatched]);
 
   const MenuContext = {
     iMatched,
