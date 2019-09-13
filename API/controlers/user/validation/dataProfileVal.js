@@ -94,9 +94,9 @@ module.exports = function dataProfileVal(req, res, next) {
     }
   }
 
-  // if (!req.body.values.pics || req.body.values.pics.length < 1) {
-  //   errors.pics = "You must upload at least 1 pic";
-  // }
+  if (!req.body.values.pics || req.body.values.pics.length < 1) {
+    errors.pics = "You must upload at least 1 pic";
+  }
 
   if (!req.body.values.sexualOrientation) {
     errors.sexualOrientation = "Your sexual orientation is required";

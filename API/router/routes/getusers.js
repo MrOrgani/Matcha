@@ -30,16 +30,11 @@ router
     try {
       // console.log("req query GETUSERS", req.query);
       const result = [];
-      const user = await session
-        // .run(
-        //   `MATCH (u:User)-[:PRACTICE]-(hobby)
-        //     RETURN u, collect(hobby)`
-        // )
-        .run(
-          `MATCH (u:User {isComplete:true}) 
-          WHERE u.uuid = '${req.query.uuidSource}' 
+      const user = await session.run(
+        `MATCH (u:User {isComplete:true}) 
+          WHERE u.uuid <> '${req.query.uuidSource}' 
           RETURN u`
-        );
+      );
       // .then(nodes => {
       //   nodes.records.forEach(record => {
       //     const user = record._fields[0].properties;
