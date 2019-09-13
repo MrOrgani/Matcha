@@ -8,6 +8,10 @@ export const UsersProvider = props => {
   const [gender, setGender] = useState("both");
   const [age, setAge] = useState([18, 100]);
   const [pop, setPop] = useState([50, 100]);
+  const [dist, setDist] = useState(1000);
+  const [sort, setSort] = useState("");
+  const [ord, setOrd] = useState(true);
+  const [tags, setTags] = useState([]);
   const usersValue = {
     users,
     setUsers
@@ -18,7 +22,15 @@ export const UsersProvider = props => {
     age,
     setAge,
     pop,
-    setPop
+    setPop,
+    dist,
+    setDist,
+    sort,
+    setSort,
+    ord,
+    setOrd,
+    tags,
+    setTags
   };
 
   const data = JSON.parse(sessionStorage.getItem("data"));
@@ -28,7 +40,7 @@ export const UsersProvider = props => {
       const result = await axios(
         `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}`
       );
-      // console.log("User with hobbies", result.data);
+      console.log("User with hobbies", result.data);
       await setUsers(result.data);
     };
     fetchData();
