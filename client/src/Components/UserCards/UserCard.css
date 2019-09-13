@@ -102,3 +102,9 @@
   display: block;
   border-radius: 100px;
 }
+
+.interButt {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
