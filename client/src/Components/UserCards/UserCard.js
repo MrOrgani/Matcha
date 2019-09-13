@@ -13,6 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import Button from "@material-ui/core/Button";
 import "./UserCard.css";
+import { AuthContext } from "../../AuthContext";
 // import { Spring } from "react-spring/renderprops";
 
 export default function UserCard() {
@@ -20,7 +21,8 @@ export default function UserCard() {
   const [isLiked, setLiked, isBlocked, setBlocked, userInfo] = useContext(
     UserCardContext
   );
-  console.log("userInfo", userInfo);
+  const [socketContext] = useContext(AuthContext);
+  console.log("userInfo", userInfo, socketContext.connectedUsers);
   return (
     <React.Fragment>
       <Card className="theCard">
@@ -75,6 +77,7 @@ export default function UserCard() {
                 <HighlightOffIcon />
               </IconButton>
               <Button className={classes.button}>FAKE ACCOUNT</Button>
+              {userInfo.lastConnection}
             </div>
           </div>
         </div>
