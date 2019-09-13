@@ -90,7 +90,7 @@ export const UserCardProvider = props => {
 
   useEffect(() => {
     const api1 = `http://localhost:9000/api/rel/`;
-    const api2 = `?uuidSource=${props.session.uuid}&target=${userInfo.login}&jwt=${props.session.jwt}`;
+    const api2 = `?uuidSource=${props.session.uuid}&target=${userInfo.uuid}&jwt=${props.session.jwt}`;
 
     const getLike = async () => {
       const result = await axios.get(`${api1}like${api2}`);
