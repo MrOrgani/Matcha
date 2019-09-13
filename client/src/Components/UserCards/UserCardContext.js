@@ -1,8 +1,9 @@
 import React, { useState, createContext, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "./../../AuthContext";
-export const UserCardContext = createContext();
+import { notify } from "react-notify-toast";
 
+export const UserCardContext = createContext();
 export const UserCardProvider = props => {
   const [isLiked, setLiked] = useState(false);
   const [isBlocked, setBlocked] = useState(false);
@@ -10,26 +11,17 @@ export const UserCardProvider = props => {
   const [socketContext] = useContext(AuthContext);
 
   const handleLike = () => {
-    // console.log("in handle like", userInfo);
     axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
         {
           uuidSource: props.session.uuid,
           target: userInfo.uuid,
-          jwt: props.session.jwt,
-          liked: isLiked
+          jwt: props.session.jwt
         }
       )
-      // .post("http://localhost:9000/api/rel/like", {
-      //   uuidSource: props.session.uuid,
-      //   target: userInfo.login,
-      //   jwt: props.session.jwt,
-      //   liked: isLiked
-      // })
       .then(res => {
-        if (res.status === 200) {
-          // console.log("in handle like ret 200", userInfo.uuid);
+        if (res.status === 200 && res.data.liked) {
           setLiked(true);
           socketContext.socket.emit("newNotif", {
             uuidSource: props.session.uuid,
@@ -37,13 +29,13 @@ export const UserCardProvider = props => {
             jwt: props.session.jwt,
             type: "liked"
           });
-        } else if (res.status === 201) {
+        } else {
+          res.data.blocked &&
+            notify.show("You cannot like someone you blocked", "error");
           setLiked(false);
-        } else alert("JWT eror");
+        }
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   };
 
   const handleBlock = () => {
@@ -51,19 +43,15 @@ export const UserCardProvider = props => {
       .post("http://localhost:9000/api/rel/block", {
         uuidSource: props.session.uuid,
         target: userInfo.uuid,
-        jwt: props.session.jwt,
-        blocked: isBlocked
+        jwt: props.session.jwt
       })
       .then(res => {
-        if (res.status === 200) {
-          setBlocked(true);
-        } else if (res.status === 201) {
-          setBlocked(false);
-        } else alert("JWT eror, it looks like you are trying to fuck us :)");
+        console.log(res.status, res.data);
+        setLiked(false); //long story short, the work is done in the back
+        if (res.status === 200 && res.data.blocked) setBlocked(true);
+        else setBlocked(false);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
