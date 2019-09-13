@@ -1,0 +1,104 @@
+.mainCard {
+  background-repeat: no-repeat;
+  height: 700px;
+  width: 500px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.tag {
+  display: inline-block;
+  position: relative;
+  margin: 5px 10px 5px 0px;
+}
+
+.tag input[type="checkbox"] {
+  position: absolute;
+  z-index: 300;
+  cursor: pointer;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tag label {
+  padding: 0px 10px 1px 10px;
+  font-family: "Futura";
+  z-index: 200;
+  color: white;
+  display: block;
+  border-radius: 16px;
+  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  transition: all 0.08s ease-in;
+}
+
+.backRect {
+  position: absolute;
+  width: 420px;
+  height: 370px;
+
+  background: linear-gradient(
+    124.3deg,
+    rgba(254, 107, 139, 0.73) 0%,
+    #ff8e53 100%
+  );
+  border-radius: 39px 39px 0px 0px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: xx-large;
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 1%;
+  color: white;
+}
+
+.whiteRect {
+  position: absolute;
+  width: 400px;
+  height: 310px;
+
+  background: #ffffff;
+  padding-left: 3%;
+  padding-right: 1%;
+  padding-top: 4%;
+  border-radius: 39px 39px 0px 0px;
+}
+
+.userBio {
+  overflow: auto;
+  height: 83%;
+}
+
+.userName {
+  font-size: 80px;
+  mix-blend-mode: normal;
+  position: absolute;
+  top: 30%;
+  background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.showHim {
+  opacity: 0.2;
+  width: inherit;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  align-items: center;
+  -webkit-transition: opacity 1s;
+}
+
+.mainCard:hover .showHim {
+  opacity: 1;
+}
+
+.theCard {
+  display: block;
+  border-radius: 100px;
+}

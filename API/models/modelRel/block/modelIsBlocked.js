@@ -11,7 +11,7 @@ async function modelIsBlocked(req) {
     // REPLACED BY A BOOLEAN ANSWER
     return data.records.length > 0 ? true : false;
   } catch (err) {
-    console.log("modelisBlocked", err, req);
+    console.log("modelisBlocked", err);
   }
 }
 

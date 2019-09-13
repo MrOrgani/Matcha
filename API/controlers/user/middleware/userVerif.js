@@ -14,7 +14,7 @@ module.exports = async function userVerif(req, res, next) {
       // console.log("userVerif -> Was in modelUserverif -> return next()");
       return next();
     }
-    console.log("user not verified", req.body);
+    // console.log("user not verified", req.body);
     res.status(203).send("User not verified");
   } catch (err) {
     console.log("error in the userVerifDepartment", err);
