@@ -38,12 +38,10 @@ async function gUsers() {
 
 async function delUsers() {
   try {
-    session
-      .run(
-        `MATCH (n)
+    session.run(
+      `MATCH (n)
         DETACH DELETE n`
-      )
-      .catch(err => console.log(err));
+    );
   } catch (err) {
     console.log(err);
   }
@@ -51,10 +49,7 @@ async function delUsers() {
 
 async function getUsers(req, res) {
   try {
-    session
-      .run(`MATCH (n:User) RETURN n`)
-      .then(data => res.send(data))
-      .catch(err => console.log(err));
+    session.run(`MATCH (n:User) RETURN n`).then(data => res.send(data));
   } catch (err) {
     res.status(206).send(err);
     console.log(err);

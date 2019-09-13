@@ -50,9 +50,13 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [] : MEttre typ  password a tous les inputs parssword
 
-[] : Rajouter la detection de la localisation qunad l'utilisateur se connecte
+[x] : Rajouter la detection de la localisation qunad l'utilisateur se connecte
 
 [x] : Rajouter le filtre de distance
+
+[] : Un compte bloque ne doit plus apparaitre dans les res de recherche
+
+[] : User card online or when was.
 
 [x] : Verifier que les activites ne soient pas choisies en double lors de la creation de la seed
 
