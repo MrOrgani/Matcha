@@ -11,7 +11,7 @@ async function modelSetBlock(req) {
     );
     return data;
   } catch (err) {
-    console.log(err);
+    console.log("erro in modelSetBlock");
   }
 }
 
