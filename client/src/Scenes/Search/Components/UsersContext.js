@@ -46,7 +46,7 @@ export const UsersProvider = props => {
     fetchData();
   }, [data.uuid]);
 
-  console.log('users', users)
+  // console.log('users', users)
   return (
     <UsersContext.Provider value={[usersValue, filtersValue]}>
       {props.children}

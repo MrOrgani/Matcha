@@ -56,15 +56,35 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [] : Un compte bloque ne doit plus apparaitre dans les res de recherche
 
-[] : User card online or when was.
+
 
 [x] : Verifier que les activites ne soient pas choisies en double lors de la creation de la seed
 
 VAL
 
-[] : score de popularité
+[x] : score de popularité
 
-[] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
+[x] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
 
-[] : ameliorer les infos sur le profil
+[x] : ameliorer les infos sur le profil
 
+
+
+
+BONUS
+
+[] : matcheur
+
+[] : Oauth
+
+[x] : Design
+
+[] : Animations (Pour le switch des photos, pour les nouvelles notifications)
+
+[] : Carte interactive
+
+
+
+
+
+TEST DE SECURITE
