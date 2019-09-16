@@ -6,7 +6,7 @@ async function addHobbies(json) {
   try {
     let hobbiesExample = hobby.hobbiesExample();
 
-    json.results.forEach((element, index) => {
+    json.results.forEach(async (element, index) => {
       let hobbyUser = [];
       for (let y = 0; y < 6; y++) {
         hobbyUser.push(
@@ -16,6 +16,7 @@ async function addHobbies(json) {
       element.hobbies = [...new Set(hobbyUser)];
       element.index = index;
     });
+    console.log(json.results);
     return json;
   } catch (error) {
     console.log(error);
@@ -55,6 +56,16 @@ async function addCityCoords(json) {
 
       const locat_json = await locat.json();
       element.coords = [locat_json[0].lat, locat_json[0].lon];
+
+      element.location.city =
+        element.location.city.charAt(0).toUpperCase() +
+        element.location.city.slice(1);
+
+      let fakeBio = await fetch(
+        "http://loremricksum.com/api/?paragraphs=3&quotes=1"
+      );
+      let fakeBio_json = await fakeBio.json();
+      element.bio = fakeBio_json.data;
     }
     return json;
   } catch (err) {
