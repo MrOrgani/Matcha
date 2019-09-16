@@ -10,6 +10,7 @@ import { AuthContext } from "../../../../AuthContext";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import "./NotificationBell.css";
 
 const filledNotifArray = [];
 
@@ -98,20 +99,28 @@ function NotificationBell() {
   return (
     <div>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <IconButton
-          aria-label="show 17 new notifications"
-          onClick={handleNotif}
-        >
-          <Badge badgeContent={nbNotif} className="bell">
-            <NotificationsIcon color="action" />
+        <IconButton onClick={handleNotif} className="BellIcon">
+          <Badge badgeContent={nbNotif} className="NotifBadge">
+            <NotificationsIcon className="bell" />
           </Badge>
-          <Popper id={id} open={open} anchorEl={anchorEl} transition>
+          <Popper
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            transition
+            className={"popper"}
+          >
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
-                <Paper>
+                <Paper className="notificationCard">
                   <List>
-                    {filledNotifArray.map((el, index) => (
-                      <NotificationCard notif={el} key={index} />
+                    {filledNotifArray.map((el, index, nbNotif) => (
+                      <NotificationCard
+                        notif={el}
+                        index={index}
+                        key={index}
+                        nbNotif={nbNotif}
+                      />
                     ))}
                   </List>
                 </Paper>

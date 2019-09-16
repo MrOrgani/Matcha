@@ -1,6 +1,7 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
 import { Link } from "react-router-dom";
+import "../NotificationBell/NotificationBell.css";
 
 export default function LSearch() {
   return (
