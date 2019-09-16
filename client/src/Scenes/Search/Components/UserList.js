@@ -3,19 +3,22 @@ import User from "./User";
 import { UsersContext } from "./UsersContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import "./UserList.css";
+const { AuthContext } = require("../../../AuthContext");
 const distFrom = require("distance-from");
 
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
 // fait qu'on attende la reponse de l'api dans UsersContext;
 // const session = JSON.parse(sessionStorage.getItem("data"));
 const UserList = () => {
-  const session = JSON.parse(sessionStorage.data);
+  // const session = JSON.parse(sessionStorage.data);
+  const [, authContext] = useContext(AuthContext);
   const [usersValue, filtersValue] = useContext(UsersContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
 
+  // console.log("authcontex", authContext);
   useEffect(() => {
     const filterUsers = (filters, users) => {
-      const location = JSON.parse(sessionStorage.data).location;
+      // const location = JSON.parse(sessionStorage.data).location;
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
@@ -28,7 +31,9 @@ const UserList = () => {
             user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
         )
         .filter(
-          user => distFrom(location).to(location).distance.v <= filters[3]
+          user =>
+            distFrom(authContext.data.location).to(user.location).distance.v <=
+            filters[3]
         );
       if (filtersValue.tags.length > 0) {
         filtersfiltered = filtersfiltered.filter(elem =>
@@ -53,16 +58,29 @@ const UserList = () => {
                 : parseFloat(b.score.low) - parseFloat(a.score.low)
             )
           );
-        else if (filters[4] === "dist")
+        else if (filters[4] === "dist") {
           setFilteredUserList(
             filtersfiltered.sort((a, b) =>
               filters[5]
-                ? parseFloat(distFrom(location).to(location).distance.v) -
-                  parseFloat(distFrom(location).to(location).distance.v)
-                : parseFloat(distFrom(location).to(location).distance.v) -
-                  parseFloat(distFrom(location).to(location).distance.v)
+                ? parseFloat(
+                    distFrom(authContext.data.location).to(a.location).distance
+                      .v
+                  ) -
+                  parseFloat(
+                    distFrom(authContext.data.location).to(b.location).distance
+                      .v
+                  )
+                : parseFloat(
+                    distFrom(authContext.data.location).to(b.location).distance
+                      .v
+                  ) -
+                  parseFloat(
+                    distFrom(authContext.data.location).to(a.location).distance
+                      .v
+                  )
             )
           );
+        }
       } else setFilteredUserList(filtersfiltered);
     };
     filterUsers(
@@ -86,7 +104,7 @@ const UserList = () => {
           <UserCardProvider
             key={user.user_id || user.uuid}
             user={user}
-            session={session}
+            session={authContext.data}
           >
             <User />
           </UserCardProvider>
