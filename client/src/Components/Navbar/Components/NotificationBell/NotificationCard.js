@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import AugmentedAvatar from "../../../Augmented Avatar/AugmentedAvatar";
+import "./NotificationBell.css";
 
 export default function NotificationCard(props) {
   const display = {};
@@ -18,7 +19,6 @@ export default function NotificationCard(props) {
     display.type = "unmatched you";
   else if (props.notif.info.type === "matched")
     display.type = "and you are now matched!";
-  // console.log(props.notif.info);
 
   return (
     <div className="notificationCard">
@@ -29,7 +29,9 @@ export default function NotificationCard(props) {
       />
       <Typography>{display.time}</Typography>
       <Typography>{display.type}</Typography>
-      <Divider />
+      <Divider
+        className={props.index === props.nbNotif.length - 1 ? "noDisplay" : ""}
+      />
     </div>
   );
 }

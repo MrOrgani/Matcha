@@ -1,0 +1,31 @@
+.popper {
+  clip-path: circle(20% at 50% 0%);
+  transition: clip-path 0.5s;
+}
+
+.popper:hover {
+  clip-path: circle(75%);
+}
+
+.noDisplay {
+  display: none;
+}
+
+.bell {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-family: Futura;
+  transition: color 0.5s;
+}
+
+.bell:hover {
+  color: #fe6b8b;
+}
+
+.notificationCard {
+  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  color: white;
+}
