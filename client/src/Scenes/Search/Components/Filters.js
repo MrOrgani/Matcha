@@ -15,7 +15,13 @@ const { CheckableTag } = Tag;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // display: "flex"
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginLeft: "5%",
+    marginBottom: "2%",
+    marginRight: "5%"
   },
   formControl: {
     margin: theme.spacing(3)
@@ -60,6 +66,14 @@ export default function Filters(props) {
 
   return (
     <div className={classes.root}>
+      <span
+        role="img"
+        aria-label="wordlmap"
+        style={{ fontSize: "60px", cursor: "pointer" }}
+        onClick={props.onClick}
+      >
+        🌍
+      </span>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Gender</FormLabel>
         <RadioGroup
@@ -116,21 +130,23 @@ export default function Filters(props) {
           />
         </div>
       </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-simple">Sort</InputLabel>
-        <Select
-          value={filtersValue.sort}
-          onChange={handleSortChange}
-          inputProps={{
-            name: "sort",
-            id: "sort"
-          }}
-        >
-          <MenuItem value={"age"}>Age</MenuItem>
-          <MenuItem value={"pop"}>Score</MenuItem>
-          <MenuItem value={"dist"}>Distance</MenuItem>
-        </Select>
-      </FormControl>
+      {!props.map && (
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="age-simple">Sort</InputLabel>
+          <Select
+            value={filtersValue.sort}
+            onChange={handleSortChange}
+            inputProps={{
+              name: "sort",
+              id: "sort"
+            }}
+          >
+            <MenuItem value={"age"}>Age</MenuItem>
+            <MenuItem value={"pop"}>Score</MenuItem>
+            <MenuItem value={"dist"}>Distance</MenuItem>
+          </Select>
+        </FormControl>
+      )}
       {filtersValue.sort && (
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="age-simple">Order</InputLabel>

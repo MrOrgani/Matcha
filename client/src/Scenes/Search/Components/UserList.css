@@ -13,4 +13,10 @@
   margin-top: 2vh;
   margin-bottom: 2vh;
   text-align: center;
+  display: flex;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-content: center;
+  align-items: flex-end;
 }
