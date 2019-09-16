@@ -22,7 +22,8 @@ export default function UserCard() {
     UserCardContext
   );
   const [socketContext] = useContext(AuthContext);
-  console.log("userInfo", userInfo, socketContext.connectedUsers);
+
+  console.log("userInfo", userInfo, socketContext.connectedUsrs);
   return (
     <React.Fragment>
       <Card className="theCard">
@@ -58,26 +59,44 @@ export default function UserCard() {
                   ))}
                 </div>
               </div>
-              <IconButton
-                onClick={setLiked}
-                className={
-                  !isLiked ? classes.isNotLikedColor : classes.isLikedColor
-                }
-              >
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton
-                onClick={setBlocked}
-                className={
-                  !isBlocked
-                    ? classes.isNotBlockedColor
-                    : classes.isBlockedColor
-                }
-              >
-                <HighlightOffIcon />
-              </IconButton>
-              <Button className={classes.button}>FAKE ACCOUNT</Button>
-              {userInfo.lastConnection}
+              <div className="interButt">
+                <IconButton
+                  onClick={setLiked}
+                  className={
+                    !isLiked ? classes.isNotLikedColor : classes.isLikedColor
+                  }
+                >
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton
+                  onClick={setBlocked}
+                  className={
+                    !isBlocked
+                      ? classes.isNotBlockedColor
+                      : classes.isBlockedColor
+                  }
+                >
+                  <HighlightOffIcon />
+                </IconButton>
+                <Button className={classes.button}>FAKE ACCOUNT</Button>
+                {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
+                  <span
+                    role="img"
+                    aria-label="connected"
+                    style={{ color: "green" }}
+                  >
+                    ✅ Connected
+                  </span>
+                ) : (
+                  <span
+                    role="img"
+                    aria-label="disconnected"
+                    style={{ color: "grey" }}
+                  >
+                    🔴 {userInfo.lastConnection}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
