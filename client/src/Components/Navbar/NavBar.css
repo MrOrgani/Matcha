@@ -16,7 +16,7 @@
 }
 
 .menuItems {
-  width: 21%;
+  /* width: 21%; */
   justify-content: space-around;
   margin-left: auto;
   display: flex;

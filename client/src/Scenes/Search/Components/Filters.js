@@ -21,7 +21,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     marginLeft: "5%",
     marginBottom: "2%",
-    marginRight: "5%"
+    marginRight: "5%",
+    marginTop: "1%",
+    borderRadius: "20px",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
   },
   formControl: {
     margin: theme.spacing(3)
