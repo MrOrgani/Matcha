@@ -5,13 +5,18 @@ import "./public/stylesheet/style.css";
 import Filters from "./Components/Filters";
 import axios from "axios";
 import Notifications from "react-notify-toast";
+// import { AuthContext } from "../../AuthContext";
+import UserMap from "./Components/UserMap";
 
 const Search = () => {
   const [state, setState] = useState({
     lat: "",
     lon: ""
   });
+  const [map, setMap] = useState(false);
+
   const data = JSON.parse(sessionStorage.getItem("data"));
+  // const [, authContext] = useContext(AuthContext)
 
   useEffect(
     () =>
@@ -42,23 +47,25 @@ const Search = () => {
           state
         )
         .catch(err => console.log(err));
-      // console.log(
-      //   `%c Got User location: ${userData.data.location}`,
-      //   "color: green; font-size: 16px"
-      // );
       sessionStorage.setItem("data", JSON.stringify(userData.data));
     }
     if (state.lat !== "") updateLocation();
   }, [state, data.uuid]);
 
+  function handleClick() {
+    setMap(!map);
+  }
+
+  // console.log("map", map);
+
   return (
     <div>
       <UsersProvider>
         <Notifications />
-        <div className="app">
-          <Filters />
-          <UserList />
+        <div style={{ display: "flex" }}>
+          <Filters onClick={handleClick} map={map} />
         </div>
+        {map ? <UserMap /> : <UserList />}
       </UsersProvider>
     </div>
   );
