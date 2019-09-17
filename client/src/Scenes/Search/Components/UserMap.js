@@ -93,7 +93,8 @@ export default function UserMap() {
       style={{
         display: "grid",
         gridTemplateColumns: "5% auto 5%",
-        height: "50vh"
+        height: "85vh",
+        marginTop: "3vh"
       }}
     >
       <Map center={position} zoom={state.zoom} style={{ gridColumnStart: "2" }}>

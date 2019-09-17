@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     display: "inline"
   },
   slider: {
-    width: 20 + "em"
+    width: "30vw"
   }
 }));
 
@@ -82,7 +82,6 @@ export default function Filters(props) {
     });
   };
 
-  console.log(props);
   return (
     <React.Fragment>
       <div className="buttonSett">
@@ -97,7 +96,7 @@ export default function Filters(props) {
         closable={true}
         onClose={onClose}
         visible={state.visible}
-        className="inDrawer"
+        // className="inDrawer"
         width="75vw"
       >
         <span
