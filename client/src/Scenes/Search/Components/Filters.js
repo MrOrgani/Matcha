@@ -16,7 +16,17 @@ const { CheckableTag } = Tag;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    textAlign: "center"
+    textAlign: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginLeft: "5%",
+    marginBottom: "2%",
+    marginRight: "5%",
+    marginTop: "1%",
+    borderRadius: "20px",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
   },
   formControl: {
     margin: theme.spacing(3)
@@ -72,6 +82,7 @@ export default function Filters(props) {
     });
   };
 
+  console.log(props);
   return (
     <React.Fragment>
       <div className="buttonSett">
@@ -89,6 +100,14 @@ export default function Filters(props) {
         className="inDrawer"
         width="75vw"
       >
+        <span
+          role="img"
+          aria-label="wordlmap"
+          style={{ fontSize: "60px", cursor: "pointer" }}
+          onClick={props.onClick}
+        >
+          🌍
+        </span>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Gender</FormLabel>
           <RadioGroup
@@ -109,7 +128,7 @@ export default function Filters(props) {
         </FormControl>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Age</FormLabel>
-          <div className="slider">
+          <div className={classes.slider}>
             <Slider
               value={filtersValue.age}
               onChange={handleAgeChange}
@@ -124,7 +143,7 @@ export default function Filters(props) {
         </FormControl>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Pop</FormLabel>
-          <div className="slider">
+          <div className={classes.slider}>
             <Slider
               value={filtersValue.pop}
               onChange={handlePopChange}
@@ -139,7 +158,7 @@ export default function Filters(props) {
         </FormControl>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Distance</FormLabel>
-          <div className="slider">
+          <div className={classes.slider}>
             <Slider
               value={filtersValue.dist}
               onChange={handleDistChange}
@@ -149,21 +168,23 @@ export default function Filters(props) {
             />
           </div>
         </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">Sort</InputLabel>
-          <Select
-            value={filtersValue.sort}
-            onChange={handleSortChange}
-            inputProps={{
-              name: "sort",
-              id: "sort"
-            }}
-          >
-            <MenuItem value={"age"}>Age</MenuItem>
-            <MenuItem value={"pop"}>Score</MenuItem>
-            <MenuItem value={"dist"}>Distance</MenuItem>
-          </Select>
-        </FormControl>
+        {!props.map && (
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-simple">Sort</InputLabel>
+            <Select
+              value={filtersValue.sort}
+              onChange={handleSortChange}
+              inputProps={{
+                name: "sort",
+                id: "sort"
+              }}
+            >
+              <MenuItem value={"age"}>Age</MenuItem>
+              <MenuItem value={"pop"}>Score</MenuItem>
+              <MenuItem value={"dist"}>Distance</MenuItem>
+            </Select>
+          </FormControl>
+        )}
         {filtersValue.sort && (
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-simple">Order</InputLabel>

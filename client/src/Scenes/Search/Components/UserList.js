@@ -3,7 +3,7 @@ import User from "./User";
 import { UsersContext } from "./UsersContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import "./UserList.css";
-const { AuthContext } = require("../../../AuthContext");
+import { AuthContext } from "../../../AuthContext";
 const distFrom = require("distance-from");
 
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
@@ -95,7 +95,7 @@ const UserList = () => {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue]);
+  }, [filtersValue, usersValue, authContext.data.location]);
 
   return (
     <div className="containerUL">
