@@ -3,6 +3,7 @@
   position: fixed;
   bottom: 2em;
   right: 2em;
+  z-index: 999;
 }
 
 .mainCard {
@@ -11,6 +12,10 @@
   width: 500px;
   background-size: cover;
   background-position: center center;
+}
+
+.theDrawer {
+  display: none;
 }
 
 .tag {
