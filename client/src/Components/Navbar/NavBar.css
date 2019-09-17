@@ -16,7 +16,7 @@
 }
 
 .menuItems {
-  width: 21%;
+  /* width: 21%; */
   justify-content: space-around;
   margin-left: auto;
   display: flex;
@@ -78,4 +78,17 @@
 
 .menuIcon {
   display: none;
+}
+
+.drawerButton {
+  display: none;
+}
+
+@media (max-width: 1020px) {
+  .drawerButton {
+    display: block;
+  }
+  .link {
+    display: none;
+  }
 }

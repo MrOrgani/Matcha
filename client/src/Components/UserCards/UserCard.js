@@ -23,7 +23,7 @@ export default function UserCard() {
   );
   const [socketContext] = useContext(AuthContext);
 
-  console.log("userInfo", userInfo, socketContext.connectedUsrs);
+  // console.log("userInfo", userInfo, socketContext.connectedUsrs);
   return (
     <React.Fragment>
       <Card className="theCard">
