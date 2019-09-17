@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import AugmentedAvatar from "../../../Augmented Avatar/AugmentedAvatar";
+import "./NotificationCard.css";
 
 export default function NotificationCard(props) {
   const display = {};
@@ -23,12 +24,16 @@ export default function NotificationCard(props) {
   return (
     <div className="notificationCard">
       <AugmentedAvatar
-        className="augmentedAvatar"
+        // className="augmentedAvatar"
         targetUuid={props.notif.info.targetUuid}
         src={display.picture}
       />
-      <Typography>{display.time}</Typography>
-      <Typography>{display.type}</Typography>
+      {/* <Typography> */}
+      <div className="actionNotif">{display.type}</div>
+      {/* </Typography> */}
+      {/* <Typography> */}
+      <div className="timeNotif">{display.time}</div>
+      {/* </Typography> */}
       <Divider />
     </div>
   );

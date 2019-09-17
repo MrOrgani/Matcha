@@ -1,9 +1,31 @@
-/* .augmentedAvatar {
-  float: left;
-} */
-
 .notificationCard {
-  /* display: inline-block;
-   */
-  float: left;
+  display: grid;
+  grid-template-areas:
+    "avatar action"
+    "avatar time";
+}
+
+.augmentedAvatar {
+  grid-area: avatar;
+  justify-self: center;
+  position: relative;
+}
+
+.actionNotif {
+  grid-area: action;
+  align-self: end;
+  text-align: center;
+  justify-self: center;
+}
+
+.timeNotif {
+  grid-area: time;
+  justify-self: center;
+  font-size: 10px;
+  color: gray;
+  align-self: start;
+}
+
+.listNotif {
+  width: 120px;
 }

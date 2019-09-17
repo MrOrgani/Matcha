@@ -32,7 +32,7 @@ router
       const result = [];
       const user = await session.run(
         `MATCH (u:User {isComplete:true}) 
-          WHERE u.uuid <> '${req.query.uuidSource}' 
+          WHERE u.uuid = '${req.query.uuidSource}' 
           RETURN u`
       );
       // .then(nodes => {

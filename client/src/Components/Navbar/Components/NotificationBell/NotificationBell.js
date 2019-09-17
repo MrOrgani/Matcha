@@ -109,7 +109,7 @@ function NotificationBell() {
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
                 <Paper>
-                  <List>
+                  <List className="listNotif">
                     {filledNotifArray.map((el, index) => (
                       <NotificationCard notif={el} key={index} />
                     ))}

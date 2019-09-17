@@ -21,7 +21,7 @@ const AugmentedAvatar = props => {
   }, [socketContext, dot, props.targetUuid]);
 
   return (
-    <div className="frame">
+    <div className="augmentedAvatar">
       <Avatar src={props.src} className="under"></Avatar>
       <span className={`${dot} over`} />
     </div>
