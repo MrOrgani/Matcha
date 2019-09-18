@@ -1,0 +1,12 @@
+.wrapperStyles {
+}
+.actionsStyles {
+  display: flex;
+  justify-content: end;
+  margin-top: 12px;
+  justify-content: space-evenly;
+}
+.wrapperMatch {
+  display: flex;
+  justify-content: center;
+}

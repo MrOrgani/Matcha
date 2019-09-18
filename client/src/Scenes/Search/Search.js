@@ -15,7 +15,7 @@ const Search = () => {
     lon: ""
   });
   const [map, setMap] = useState(false);
-  const [fire, setFire] = useState(false);
+  const [fire, setFire] = useState(true);
 
   const data = JSON.parse(sessionStorage.getItem("data"));
   // const [, authContext] = useContext(AuthContext)
