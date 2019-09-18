@@ -1,34 +1,27 @@
 import React, { useState, useContext, useEffect } from "react";
-import Swipeable from "react-swipy";
-
-import Card from "./Components/Card";
-import Button from "./Components/Button";
-import UserCardMatch from "./Components/UserCardMatch";
 
 import { UsersContext } from "./UsersContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import "./UserList.css";
 import { AuthContext } from "../../../AuthContext";
 import "./Components/UserCardMatch.css";
+import FakeSwipComposant from "./Components/FakeSwipComposant";
 
 const distFrom = require("distance-from");
 
 export default function UserMatch() {
-  //import les profile
   const [, authContext] = useContext(AuthContext);
   const [usersValue, filtersValue] = useContext(UsersContext);
-  const [filteredUserList, setFilteredUserList] = useState([]);
+  const [state, setState] = useState([]);
 
-  // console.log("authcontex", authContext);
   useEffect(() => {
     const filterUsers = (filters, users) => {
-      // const location = JSON.parse(sessionStorage.data).location;
-      const genderFiltered =
+      let genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
 
-      let filtersfiltered = genderFiltered
+      genderFiltered = genderFiltered
         .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
           user =>
@@ -38,54 +31,23 @@ export default function UserMatch() {
           user =>
             distFrom(authContext.data.location).to(user.location).distance.v <=
             filters[3]
+        )
+        .sort(
+          (a, b) =>
+            a.score.low * 0.6 +
+            distFrom(authContext.data.location).to(a.location).distance.v -
+            b.score.low * 0.6 +
+            distFrom(authContext.data.location).to(b.location).distance.v
         );
       if (filtersValue.tags.length > 0) {
-        filtersfiltered = filtersfiltered.filter(elem =>
+        genderFiltered = genderFiltered.filter(elem =>
           filters[6].every(tag => elem.hobbies.includes(tag))
         );
       }
 
-      if (filtersValue.sort) {
-        if (filters[4] === "age")
-          setFilteredUserList(
-            filtersfiltered.sort((a, b) =>
-              filters[5]
-                ? parseFloat(a.age) - parseFloat(b.age)
-                : parseFloat(b.age) - parseFloat(a.age)
-            )
-          );
-        else if (filters[4] === "pop")
-          setFilteredUserList(
-            filtersfiltered.sort((a, b) =>
-              filters[5]
-                ? parseFloat(a.score.low) - parseFloat(b.score.low)
-                : parseFloat(b.score.low) - parseFloat(a.score.low)
-            )
-          );
-        else if (filters[4] === "dist") {
-          setFilteredUserList(
-            filtersfiltered.sort((a, b) =>
-              filters[5]
-                ? parseFloat(
-                    distFrom(authContext.data.location).to(a.location).distance
-                      .v
-                  ) -
-                  parseFloat(
-                    distFrom(authContext.data.location).to(b.location).distance
-                      .v
-                  )
-                : parseFloat(
-                    distFrom(authContext.data.location).to(b.location).distance
-                      .v
-                  ) -
-                  parseFloat(
-                    distFrom(authContext.data.location).to(a.location).distance
-                      .v
-                  )
-            )
-          );
-        }
-      } else setFilteredUserList(filtersfiltered);
+      // console.log("We setState this array", [genderFiltered]);
+
+      setState(genderFiltered);
     };
     filterUsers(
       [
@@ -99,13 +61,14 @@ export default function UserMatch() {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue, authContext.data.location]);
+  }, [filtersValue, authContext.data.location, usersValue.users]);
 
   useEffect(() => {
-    setState(filteredUserList);
-  }, [filteredUserList]);
+    // console.log("NEW USERS", usersValue);
+    setState(usersValue.users);
+  }, [usersValue.users]);
 
-  const [state, setState] = useState(filteredUserList);
+  console.log("users in state", state);
 
   function remove() {
     const leftCards = state.slice(1, state.length);
@@ -117,27 +80,17 @@ export default function UserMatch() {
       <div className="wrapperStyles">
         {state.length > 0 ? (
           <div>
-            <Swipeable
-              buttons={({ left, right }) => (
-                <div className="actionsStyles">
-                  <Button onClick={left}>Reject</Button>
-                  <Button onClick={right}>Accept</Button>
-                </div>
-              )}
-              onAfterSwipe={remove}
+            <UserCardProvider
+              key={state[0].user_id || state[0].uuid}
+              user={state[0]}
+              session={authContext.data}
             >
-              {/* <Card>{cards[0]}</Card> */}
-              <UserCardProvider
-                key={state[0].user_id || state[0].uuid}
-                user={state[0]}
-                session={authContext.data}
-              >
-                <UserCardMatch />
-              </UserCardProvider>
-            </Swipeable>
+              <FakeSwipComposant remove={remove} />
+            </UserCardProvider>
           </div>
         ) : (
           <img
+            alt="sold out"
             style={{ marginTop: "10px" }}
             src="https://media.giphy.com/media/l3V0C9CT3UFAQ49Jm/giphy.gif"
           />

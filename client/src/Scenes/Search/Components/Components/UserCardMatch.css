@@ -1,10 +1,12 @@
 .wrapperStyles {
+  margin-top: 12px;
 }
 .actionsStyles {
+  position: relative;
   display: flex;
-  justify-content: end;
-  margin-top: 12px;
+  margin-top: -5em;
   justify-content: space-evenly;
+  z-index: 90;
 }
 .wrapperMatch {
   display: flex;
