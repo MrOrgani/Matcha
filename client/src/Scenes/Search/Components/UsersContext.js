@@ -1,5 +1,6 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
+import { AuthContext } from "../../../AuthContext";
 
 export const UsersContext = createContext();
 
@@ -32,19 +33,30 @@ export const UsersProvider = props => {
     tags,
     setTags
   };
-
-  const data = JSON.parse(sessionStorage.getItem("data"));
+  const [, authContext] = useContext(AuthContext);
+  const data = authContext.data;
 
   useEffect(() => {
     const fetchData = async () => {
+      let genderSearched = "all";
+      if (
+        (data.sexualOrientation === "straight" && data.gender === "male") ||
+        (data.sexualOrientation === "gay" && data.gender === "female")
+      ) {
+        genderSearched = "female";
+      } else if (
+        (data.sexualOrientation === "straight" && data.gender === "female") ||
+        (data.sexualOrientation === "gay" && data.gender === "male")
+      ) {
+        genderSearched = "female";
+      }
       const result = await axios(
-        `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}`
+        `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&genderSearched=${genderSearched}`
       );
-      // console.log("User with hobbies", result.data);
       await setUsers(result.data);
     };
     fetchData();
-  }, [data.uuid]);
+  }, [data.uuid, data.gender, data.sexualOrientation]);
 
   // console.log('users', users)
   return (
