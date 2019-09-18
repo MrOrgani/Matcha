@@ -35,25 +35,6 @@ router
           WHERE u.uuid <> '${req.query.uuidSource}' 
           RETURN u`
       );
-      // .then(nodes => {
-      //   nodes.records.forEach(record => {
-      //     const user = record._fields[0].properties;
-      //     const hobbies = [];
-      //     record._fields[1].forEach(hobby => {
-      //       hobbies.push(hobby.properties.name);
-      //     });
-      //     const now = new Date();
-      //     user.hobbies = hobbies;
-      //     user.lastConnection = date.format(now, "ddd MMM DD YYYY");
-      //     result.push(user);
-      //   });
-      // })
-      // .then(() => {
-      //   res.send(result);
-      // })
-      // .catch(function(err) {
-      // console.log(err);
-      // });
 
       user.records.map(record => {
         const oneUser = record._fields[0].properties;

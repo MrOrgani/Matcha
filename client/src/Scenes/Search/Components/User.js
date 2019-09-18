@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Dialog from "@material-ui/core/Dialog";
-import CardMedia from "@material-ui/core/CardMedia";
+// import CardMedia from "@material-ui/core/CardMedia";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -22,9 +22,14 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: "150%" // 16:9
   },
-  root: {
-    marginTop: 150
-  },
+  // root: {
+  //   display: "flex",
+  //   backgroundSize: "cover",
+  //   backgroundRepeat: "no-repeat",
+  //   backgroundPosition: "center",
+  //   justifyContent: "center",
+  //   alignItems: "flex-end"
+  // },
   isNotLikedColor: {
     color: "white",
     "&:hover": {
@@ -76,9 +81,13 @@ const User = () => {
 
   return (
     <React.Fragment>
-      <CardMedia
+      <div
         className="card"
-        image={userInfo.pics[userInfo.indexOfPP.low || userInfo.indexOfPP]}
+        style={{
+          backgroundImage: `url('${
+            userInfo.pics[userInfo.indexOfPP.low || userInfo.indexOfPP]
+          }')`
+        }}
       >
         <div className={classes.root}>
           <IconButton
@@ -101,7 +110,7 @@ const User = () => {
             <ExpandMoreIcon />
           </IconButton>
         </div>
-      </CardMedia>
+      </div>
       <Dialog open={openCard} onClose={handleCloseCard}>
         <UserCard />
       </Dialog>
