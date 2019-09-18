@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import useProfileForm from "./useProfileForm";
 // import { ProfileFormContext } from "./ProfileFormContext";
 import { Formik } from "formik";
 import "./FormProfile.css";
 import axios from "axios";
-
+import { AuthContext } from "../../../AuthContext";
 import { FirstName } from "./Components/FirstName";
 import { LastName } from "./Components/LastName";
 import { Age } from "./Components/Age";
@@ -15,7 +15,7 @@ import { Login } from "./Components/Login";
 import { Passwords } from "./Components/Passwords";
 import { Photo } from "./Components/Photo";
 import { ProfileMap } from "./Components/ProfileMap";
-import { SexualOrientation } from "./Components/SexualOrientation";
+import { LookingFor } from "./Components/LookingFor";
 import { Submit } from "./Components/Submit";
 import { Tags } from "./Components/Tags";
 import { ProfileValidation } from "./../../../../src/Components/Navbar/Components/Links/ConnectButton/ConDialBox/UserValidation";
@@ -23,13 +23,16 @@ import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {
   const { values } = useProfileForm();
+  const [, authContext] = useContext(AuthContext);
 
+  console.log(values.lookingFor);
   return (
     <Formik
       initialValues={values}
       onSubmit={async values => {
-        const userValues = JSON.parse(sessionStorage.getItem("data"));
-        // console.log("userValues", userValues);
+        const userValues = authContext.data;
+        console.log("userValues", userValues);
+
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
         // console.log("ta maman", values);
         let newData = await axios
@@ -43,8 +46,7 @@ function FormProfile() {
         //   newData
         // );
         if (newData.status === 200) {
-          // console.log("NEW DATA", newData.data);
-          sessionStorage.setItem("data", JSON.stringify(newData.data));
+          authContext.setData(newData.data);
           notify.show("Your profile has been updated !", "success");
         } else {
           for (let error in newData.data) {
@@ -97,13 +99,13 @@ function FormProfile() {
                 helperText={[errors.gender, touched.gender, errors.gender]}
               />
               I want to date
-              <SexualOrientation
-                value={values.sexualOrientation}
-                onChange={handleChange("sexualOrientation")}
+              <LookingFor
+                value={values.lookingFor}
+                onChange={handleChange("lookingFor")}
                 helperText={[
-                  errors.sexualOrientation,
-                  touched.sexualOrientation,
-                  errors.sexualOrientation
+                  errors.lookingFor,
+                  touched.lookingFor,
+                  errors.lookingFor
                 ]}
               />
             </div>

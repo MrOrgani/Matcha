@@ -38,20 +38,8 @@ export const UsersProvider = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let genderSearched = "all";
-      if (
-        (data.sexualOrientation === "straight" && data.gender === "male") ||
-        (data.sexualOrientation === "gay" && data.gender === "female")
-      ) {
-        genderSearched = "female";
-      } else if (
-        (data.sexualOrientation === "straight" && data.gender === "female") ||
-        (data.sexualOrientation === "gay" && data.gender === "male")
-      ) {
-        genderSearched = "female";
-      }
       const result = await axios(
-        `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&genderSearched=${genderSearched}`
+        `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}`
       );
       await setUsers(result.data);
     };
