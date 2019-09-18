@@ -56,7 +56,7 @@ function NotificationBell() {
         });
       });
     };
-    console.log("in the notification bell", authContext.data);
+
     fetchData();
   }, [notifArray, authContext.data]);
 

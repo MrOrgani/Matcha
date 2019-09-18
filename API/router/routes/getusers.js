@@ -32,12 +32,14 @@ router
       const result = [];
       const user = await session.run(
         `MATCH (u:User {isComplete:true}) 
-          WHERE u.uuid <> '${req.query.uuidSource}' 
+          WHERE u.uuid <> '${req.query.uuidSource}',
+          u.gender = '${req.query.genderSearched}' 
           RETURN u`
       );
-
+      // console.log(user.records);
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
+        console.log(oneUser.login);
         const now = new Date();
         // console.log(oneUser);
         oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
