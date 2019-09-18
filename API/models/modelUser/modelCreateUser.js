@@ -14,7 +14,7 @@ module.exports = async function modelCreateUser(req) {
               lastName:{lastName},
               age:'',
               gender:'',
-              sexualOrientation:'bi',
+              lookingFor:'',
               city: '',
               location:[48.864716, 2.349014],
               phone:'',

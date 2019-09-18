@@ -31,9 +31,12 @@ router
       // console.log("req query GETUSERS", req.query);
       const result = [];
       const user = await session.run(
-        `MATCH (u:User {isComplete:true}) 
-          WHERE u.uuid <> '${req.query.uuidSource}',
-          u.gender = '${req.query.genderSearched}' 
+        `MATCH (u:User {isComplete:true}),
+          (t:User {uuid:'${req.query.uuidSource}'})
+          WHERE u.uuid <> '${req.query.uuidSource}'
+            AND (u.lookingFor = '${req.query.gender}' 
+              OR u.lookingFor = 'both')
+            AND NOT (u)-->[:BLOCKED]-->(t)
           RETURN u`
       );
       // console.log(user.records);

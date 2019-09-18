@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-export const SexualOrientation = props => {
+export const LookingFor = props => {
   return (
     <TextField
       select
@@ -17,14 +17,14 @@ export const SexualOrientation = props => {
       variant="outlined"
     >
       <MenuItem value="" />
-      <MenuItem key="bi" value="bi">
-        Bi
+      <MenuItem key="bi" value="both">
+        Both
       </MenuItem>
-      <MenuItem key="straight" value="straight">
-        Straight
+      <MenuItem key="straight" value="male">
+        Male
       </MenuItem>
-      <MenuItem key="gay" value="gay">
-        Gay
+      <MenuItem key="gay" value="female">
+        Female
       </MenuItem>
     </TextField>
   );

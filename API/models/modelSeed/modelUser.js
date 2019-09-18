@@ -12,7 +12,7 @@ async function gUsers() {
             u.lastName = user.name.last,
               u.age = user.dob.age,
               u.gender = user.gender,
-              u.sexualOrientation = 'bi',
+              u.lookingFor = 'both',
               u.login = user.login.username,
               u.password = user.login.password,
               u.cell = user.cell,
