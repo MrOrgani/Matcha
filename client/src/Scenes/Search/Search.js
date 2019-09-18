@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserList from "./Components/UserList";
 import { UsersProvider } from "./Components/UsersContext";
 import "./public/stylesheet/style.css";
 import Filters from "./Components/Filters";
 import axios from "axios";
 import Notifications from "react-notify-toast";
-// import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../AuthContext";
 import UserMap from "./Components/UserMap";
 
 const Search = () => {
+  const [, authContext] = useContext(AuthContext);
   const [state, setState] = useState({
     lat: "",
     lon: ""
   });
   const [map, setMap] = useState(false);
-
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  // const [, authContext] = useContext(AuthContext)
+  const data = authContext.data;
+  if (!data.isComplete) window.location = "/Profile";
 
   useEffect(
     () =>

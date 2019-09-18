@@ -7,6 +7,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import ChatIcon from "@material-ui/icons/Chat";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../AuthContext";
 
@@ -26,10 +27,7 @@ function InconsAndLinks({ param }) {
 
   function disconnect() {
     authContext.setData();
-    // sessionStorage.removeItem("data");
-    // console.log(sessionStorage.data);
     authContext.setIsAuth(0);
-    // sessionStorage.isAuth = 0;
     socketContext.socket.emit("logOut");
   }
 
@@ -60,6 +58,11 @@ function InconsAndLinks({ param }) {
         {(text === "Connect" || text === "My Account") && (
           <ListItemIcon>
             <AccountCircleIcon />
+          </ListItemIcon>
+        )}
+        {text === "Chat" && (
+          <ListItemIcon>
+            <ChatIcon />
           </ListItemIcon>
         )}
         <ListItemText>{text}</ListItemText>
