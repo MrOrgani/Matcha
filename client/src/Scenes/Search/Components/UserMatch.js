@@ -57,9 +57,9 @@ export default function UserMatch() {
         filtersValue.ord,
         filtersValue.tags
       ],
-      usersValue.users
+      usersValue.matchUsers
     );
-  }, [filtersValue, authContext.data.location, usersValue.users]);
+  }, [filtersValue, authContext.data.location, usersValue.matchUsers]);
 
   useEffect(() => {
     setState(usersValue.matchUsers);
