@@ -45,8 +45,6 @@ export default function UserMatch() {
         );
       }
 
-      // console.log("We setState this array", [genderFiltered]);
-
       setState(genderFiltered);
     };
     filterUsers(
@@ -64,8 +62,7 @@ export default function UserMatch() {
   }, [filtersValue, authContext.data.location, usersValue.users]);
 
   useEffect(() => {
-    // console.log("NEW USERS", usersValue);
-    setState(usersValue.users);
+    setState(usersValue.matchUsers);
   }, [usersValue.users]);
 
   console.log("users in state", state);
