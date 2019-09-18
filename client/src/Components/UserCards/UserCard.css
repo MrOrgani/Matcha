@@ -24,6 +24,11 @@
   margin: 5px 10px 5px 0px;
 }
 
+.backRect > div {
+  font-size: 2vh;
+  padding-top: 2%;
+}
+
 .tag input[type="checkbox"] {
   position: absolute;
   z-index: 300;

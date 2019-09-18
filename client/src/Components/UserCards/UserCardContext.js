@@ -10,8 +10,9 @@ export const UserCardProvider = props => {
   const [userInfo] = useState([props.user][0]);
   const [socketContext] = useContext(AuthContext);
 
-  const handleLike = () => {
-    axios
+  const handleLike = async () => {
+    console.log("user has been liked");
+    await axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
         {

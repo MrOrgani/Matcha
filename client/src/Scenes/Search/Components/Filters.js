@@ -175,7 +175,7 @@ export default function Filters(props) {
             />
           </div>
         </FormControl>
-        {!props.map && (
+        {!props.map && !props.fire && (
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-simple">Sort</InputLabel>
             <Select

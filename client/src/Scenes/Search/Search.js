@@ -15,7 +15,7 @@ const Search = () => {
     lon: ""
   });
   const [map, setMap] = useState(false);
-  const [fire, setFire] = useState(true);
+  const [fire, setFire] = useState(false);
 
   const data = JSON.parse(sessionStorage.getItem("data"));
   // const [, authContext] = useContext(AuthContext)
@@ -71,7 +71,7 @@ const Search = () => {
       <UsersProvider>
         <Notifications />
         <div style={{ display: "flex" }}>
-          <Filters onClick={handleClick} map={map} />
+          <Filters onClick={handleClick} map={map} fire={fire} />
         </div>
         {map && <UserMap />}
         {fire && <UserMatch />}
