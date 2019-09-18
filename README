@@ -56,7 +56,7 @@ https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
 
 [] : Un compte bloque ne doit plus apparaitre dans les res de recherche
 
-
+[] : erreurs chelous dans le form d'update du profil
 
 [x] : Verifier que les activites ne soient pas choisies en double lors de la creation de la seed
 
@@ -77,13 +77,13 @@ BONUS
 
 [] : matcheur
 
-[] : Oauth
+[x] : Oauth
 
 [x] : Design
 
-[] : Animations (Pour le switch des photos, pour les nouvelles notifications)
+[x] : Animations (Pour le switch des photos, pour les nouvelles notifications)
 
-[] : Carte interactive
+[x] : Carte interactive
 
 
 
