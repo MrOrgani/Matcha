@@ -78,6 +78,7 @@ router
   );
 
 router.route("/findOne").get(userVerif, (req, res) => {
+  // console.log("starting find one with succesfull userVerif", req.query);
   findOne(req, res);
 });
 
