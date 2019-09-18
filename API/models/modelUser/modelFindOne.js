@@ -3,21 +3,20 @@ const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
 module.exports = async function modelFindOne(value, category, option = "") {
-  // console.log("in Model findOne");
+  // FINDING ONE NODE AND RETURNING ITS PROPERTIES
+  // QUERY NEEDS '' IF IT IS MATCHING A STRING
   try {
-    const data = await session.run(
-      `WITH {category} AS propname
+    let cypher = `
     MATCH(u:User)
-    WHERE u[propname] = $value
-    ${option}
-    RETURN u`,
-      {
-        value: value,
-        category: category
-      }
-    );
+    WHERE u.${category} = `;
+    if (typeof value === "string") {
+      cypher += `'${value}' ${option} RETURN u`;
+    } else {
+      cypher += `${value} ${option} RETURN u`;
+    }
+    const data = await session.run(cypher);
     return data.records;
   } catch (err) {
-    console.log(err);
+    console.log(err, "in model findOne");
   }
 };

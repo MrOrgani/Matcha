@@ -7,7 +7,7 @@ function DiscoButton() {
   const [socketContext, authContext] = useContext(AuthContext);
 
   function disconnect() {
-    authContext.setData();
+    authContext.setData("");
     authContext.setIsAuth(0);
     socketContext.socket.emit("logOut");
     window.location = "/";

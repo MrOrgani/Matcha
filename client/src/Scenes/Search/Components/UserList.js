@@ -8,17 +8,14 @@ const distFrom = require("distance-from");
 
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
 // fait qu'on attende la reponse de l'api dans UsersContext;
-// const session = JSON.parse(sessionStorage.getItem("data"));
 const UserList = () => {
-  // const session = JSON.parse(sessionStorage.data);
   const [, authContext] = useContext(AuthContext);
   const [usersValue, filtersValue] = useContext(UsersContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
 
-  // console.log("authcontex", authContext);
   useEffect(() => {
+    console.log("useEffect is triggerred");
     const filterUsers = (filters, users) => {
-      // const location = JSON.parse(sessionStorage.data).location;
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
@@ -95,7 +92,7 @@ const UserList = () => {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue]);
+  }, [filtersValue, usersValue, authContext.data.location]);
 
   return (
     <div className="containerUL">

@@ -10,6 +10,7 @@ import DiscoButton from "./Components/Links/DiscoButton";
 import DrawerNavigator from "./Components/DrawerNavigation/DrawerNavigation";
 import { AuthContext } from "../../AuthContext";
 import LSearch from "./Components/Links/LSearch";
+import Oauth from "./Components/Links/Oauth";
 import LProfile from "./Components/Links/LProfile";
 import LChat from "./Components/Links/LChat";
 
@@ -36,7 +37,10 @@ function NavBar() {
                 <DiscoButton />
               </React.Fragment>
             ) : (
-              <ConnectButton />
+              <React.Fragment>
+                <Oauth />
+                <ConnectButton />
+              </React.Fragment>
             )}
           </div>
         </Toolbar>

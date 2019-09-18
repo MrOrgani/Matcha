@@ -51,11 +51,12 @@ function NotificationBell() {
       filledNotifArray.length = 0;
       await results.forEach((elem, index) => {
         filledNotifArray.push({
-          source: elem.data[0]._fields[0].properties,
+          source: elem.data,
           info: notifArray[index]
         });
       });
     };
+    console.log("in the notification bell", authContext.data);
     fetchData();
   }, [notifArray, authContext.data]);
 
