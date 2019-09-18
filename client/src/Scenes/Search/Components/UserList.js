@@ -14,7 +14,7 @@ const UserList = () => {
   const [filteredUserList, setFilteredUserList] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect is triggerred");
+    // console.log("useEffect is triggerred");
     const filterUsers = (filters, users) => {
       const genderFiltered =
         !filters[0] || filters[0] === "both"

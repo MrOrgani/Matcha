@@ -16,9 +16,9 @@
 .backg {
   background-color: #eff0c538;
   height: 95vh;
-  border-right: solid white 25px;
-  border-left: solid white 25px;
-  border-bottom: solid white 25px;
+  /* border-right: solid white 25px; */
+  /* border-left: solid white 25px; */
+  /* border-bottom: solid white 25px; */
 }
 
 .MuiPaper-elevation4 {

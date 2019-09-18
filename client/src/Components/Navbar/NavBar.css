@@ -5,6 +5,17 @@
   /* flex-grow: 1; */
 }
 
+.duoQuadraButton {
+  margin-right: 2vw;
+  margin-left: 2vw;
+  color: white;
+  /* display: none; */
+}
+
+.Oauth42 {
+  color: white;
+}
+
 .bar {
   display: flex;
   /* background: transparent; */
