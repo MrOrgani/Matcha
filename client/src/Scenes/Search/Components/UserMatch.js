@@ -63,9 +63,9 @@ export default function UserMatch() {
 
   useEffect(() => {
     setState(usersValue.matchUsers);
-  }, [usersValue.users]);
+  }, [usersValue.matchUsers]);
 
-  console.log("users in state", state);
+  // console.log("users in state", state);
 
   function remove() {
     const leftCards = state.slice(1, state.length);
