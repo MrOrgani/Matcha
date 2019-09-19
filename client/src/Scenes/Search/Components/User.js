@@ -79,14 +79,13 @@ const User = () => {
     setOpenCard(false);
   }
 
+  // console.log("userinfo", userInfo);
   return (
     <React.Fragment>
       <div
         className="card"
         style={{
-          backgroundImage: `url('${
-            userInfo.pics[userInfo.indexOfPP.low || userInfo.indexOfPP]
-          }')`
+          backgroundImage: `url('${userInfo.pics[userInfo.indexOfPP.low]}')`
         }}
       >
         <div className={classes.root}>

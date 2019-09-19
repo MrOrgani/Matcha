@@ -22,6 +22,7 @@ export default function CompoContext() {
 
   if (!data.isComplete) window.location = "/Profile";
 
+  console.log("uservalues in CompoContext", usersValue);
   useEffect(
     () =>
       navigator.geolocation.getCurrentPosition(
@@ -51,7 +52,7 @@ export default function CompoContext() {
           state
         )
         .catch(err => console.log(err));
-      sessionStorage.setItem("data", JSON.stringify(userData.data));
+      authContext.setData(userData.data);
     }
     if (state.lat !== "") updateLocation();
   }, [state, data.uuid]);

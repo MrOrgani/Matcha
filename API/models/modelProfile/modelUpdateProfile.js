@@ -45,7 +45,7 @@ async function modelUpdateProfile(req) {
         email: req.body.values.email,
         bio: req.body.values.bio,
         pics: req.body.values.pics,
-        indexOfPP: req.body.values.indexOfPP,
+        indexOfPP: req.body.values.indexOfPP.low,
         hobbies: req.body.values.hobbies,
         location: req.body.values.location
       }

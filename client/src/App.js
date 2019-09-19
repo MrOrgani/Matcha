@@ -11,11 +11,13 @@ import Confirm from "./Scenes/Confirm/Confirmation";
 import Reset from "./Scenes/Forgot/Reset";
 import { AuthProvider } from "./AuthContext";
 import SecureRoute from "./SecureRoute";
+import Notifications from "react-notify-toast";
 
 export function App() {
   return (
     <AuthProvider>
       <Router>
+        <Notifications />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
