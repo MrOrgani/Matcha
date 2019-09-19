@@ -98,11 +98,11 @@ module.exports = function dataProfileVal(req, res, next) {
     errors.pics = "You must upload at least 1 pic";
   }
 
-  if (!req.body.values.sexualOrientation) {
-    errors.sexualOrientation = "Your sexual orientation is required";
+  if (!req.body.values.lookingFor) {
+    errors.lookingFor = "What are you looking for ?";
   }
 
-  // console.log("dataProfileVal no error", errors);
+  console.log("dataProfileVal no error", errors);
   for (let x in errors) return res.status(201).send(errors);
   next();
 };

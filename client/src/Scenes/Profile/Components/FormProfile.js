@@ -34,17 +34,17 @@ function FormProfile() {
         console.log("userValues", userValues);
 
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        // console.log("ta maman", values);
+        console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
 
-        // console.log(
-        //   "FormProfile retour patch",
-        //   // newData,
-        //   newData.status,
-        //   newData
-        // );
+        console.log(
+          "FormProfile retour patch",
+          // newData,
+          newData.status,
+          newData
+        );
         if (newData.status === 200) {
           authContext.setData(newData.data);
           notify.show("Your profile has been updated !", "success");
