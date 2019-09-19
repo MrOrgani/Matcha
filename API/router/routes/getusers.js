@@ -51,6 +51,32 @@ router
       });
       res.status(200).send(result);
     } catch (err) {
+      console.log("err getuser: ", err);
+    }
+  })
+  .get("/matcher", async function(req, res) {
+    try {
+      const result = [];
+      const user = await session.run(
+        ` MATCH (u:User {uuid:'${req.query.uuidSource}', isComplete:true})-[rel]-(other:User)
+          WITH collect(type(rel)) AS rels, other AS user
+          WHERE NOT "LIKED" IN rels
+          RETURN user`
+      );
+
+      user.records.map(record => {
+        const oneUser = record._fields[0].properties;
+        const now = new Date();
+        oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
+        oneUser.age = oneUser.age.low ? oneUser.age.low : oneUser.age;
+        oneUser.indexOfPP =
+          oneUser.indexOfPP.low === 0
+            ? oneUser.indexOfPP.low
+            : oneUser.indexOfPP;
+        result.push(oneUser);
+      });
+      res.status(200).send(result);
+    } catch (err) {
       console.log("err getuser: ", err, req);
     }
   });

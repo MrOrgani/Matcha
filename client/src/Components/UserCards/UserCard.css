@@ -24,6 +24,11 @@
   margin: 5px 10px 5px 0px;
 }
 
+.backRect > div {
+  font-size: 2vh;
+  padding-top: 2%;
+}
+
 .tag input[type="checkbox"] {
   position: absolute;
   z-index: 300;
@@ -123,6 +128,20 @@
 .theCard {
   display: block;
   border-radius: 100px;
+}
+
+.theCardMatch {
+  background: whitesmoke;
+  border-radius: 3;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
 }
 
 .interButt {
