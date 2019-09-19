@@ -12,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { Tag } from "antd";
 import { Drawer, Button } from "antd";
+import { AuthContext } from "../../../AuthContext";
 const { CheckableTag } = Tag;
 
 const useStyles = makeStyles(theme => ({
@@ -42,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Filters(props) {
   const [, filtersValue] = useContext(UsersContext);
+  const [, authContext] = useContext(AuthContext);
   const classes = useStyles();
   // console.log(filtersValue.gender);
   const handleGenderChange = (e, value) => {
@@ -115,7 +117,14 @@ export default function Filters(props) {
         >
           🔥
         </span>
-        <FormControl component="fieldset" className={classes.formControl}>
+        {/* {authContext.data.lookingFor === "both" && ( */}
+        <FormControl
+          component="fieldset"
+          className={classes.formControl}
+          style={{
+            display: authContext.data.lookingFor === "both" ? "block" : "none"
+          }}
+        >
           <FormLabel component="legend">Gender</FormLabel>
           <RadioGroup
             aria-label="Gender"
@@ -133,6 +142,7 @@ export default function Filters(props) {
             <FormControlLabel value="both" control={<Radio />} label="Both" />
           </RadioGroup>
         </FormControl>
+        {/* )} */}
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Age</FormLabel>
           <div className={classes.slider}>

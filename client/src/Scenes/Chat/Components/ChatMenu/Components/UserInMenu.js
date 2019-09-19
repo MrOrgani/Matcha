@@ -13,9 +13,7 @@ const UserInMenu = props => {
   function capFLtr(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  const picture = Number.isInteger(props.data.indexOfPP.low)
-    ? props.data.pics[props.data.indexOfPP.low]
-    : props.data.pics[props.data.indexOfPP];
+  const picture = props.data.pics[props.data.indexOfPP.low];
 
   //CARD DISPLAY FOR THE USER CARDS
   const [socketContext, authContext] = useContext(AuthContext);
@@ -37,23 +35,24 @@ const UserInMenu = props => {
   }
 
   return (
-    <div
-      style={{ display: "flex" }}
-      onClick={async () => {
-        if (props.matched) {
-          await chatAppContext.setChatTarget({
-            matched: props.matched ? true : false,
-            uuid: props.data.uuid,
-            displayName:
-              capFLtr(props.data.firstName) +
-              " " +
-              capFLtr(props.data.lastName),
-            picture: picture
-          });
-        } else handleExpandCard();
-      }}
-    >
+    <>
       <div
+        style={{ display: "flex" }}
+        onClick={async () => {
+          if (props.matched) {
+            await chatAppContext.setChatTarget({
+              matched: props.matched ? true : false,
+              uuid: props.data.uuid,
+              displayName:
+                capFLtr(props.data.firstName) +
+                " " +
+                capFLtr(props.data.lastName),
+              picture: picture
+            });
+          } else handleExpandCard();
+        }}
+      >
+        {/* <div
         style={{
           width: "10px",
           height: "10px",
@@ -63,11 +62,12 @@ const UserInMenu = props => {
           borderRadius: "50%",
           border: "solid grey 2px"
         }}
-      />
-      <AugmentedAvatar targetUuid={props.data.uuid} src={picture} />
-      <div>
+      /> */}
+        <AugmentedAvatar targetUuid={props.data.uuid} src={picture} />
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}
+      </div>
+      <div>
         {!props.matched ? (
           <UserCardProvider user={props.data} session={authContext.data}>
             <Dialog open={openCard} onClose={handleCloseCard}>
@@ -76,7 +76,8 @@ const UserInMenu = props => {
           </UserCardProvider>
         ) : null}
       </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 
