@@ -6,6 +6,7 @@ export const UsersContext = createContext();
 
 export const UsersProvider = props => {
   const [users, setUsers] = useState([]);
+  const [matchUsers, setMatchUsers] = useState([]);
   const [gender, setGender] = useState("both");
   const [age, setAge] = useState([18, 100]);
   const [pop, setPop] = useState([50, 100]);
@@ -15,7 +16,8 @@ export const UsersProvider = props => {
   const [tags, setTags] = useState([]);
   const usersValue = {
     users,
-    setUsers
+    setUsers,
+    matchUsers
   };
   const filtersValue = {
     gender,
@@ -38,10 +40,15 @@ export const UsersProvider = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
+      let result = await axios(
         `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}`
       );
       await setUsers(result.data);
+      result = await axios(
+        `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}`
+      );
+      // console.log("User with hobbies", result.data);
+      await setMatchUsers(result.data);
     };
     fetchData();
   }, [data.uuid, data.gender, data.sexualOrientation]);

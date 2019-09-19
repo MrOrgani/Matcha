@@ -103,9 +103,17 @@ export default function Filters(props) {
           role="img"
           aria-label="wordlmap"
           style={{ fontSize: "60px", cursor: "pointer" }}
-          onClick={props.onClick}
+          onClick={() => props.onClick("map")}
         >
           🌍
+        </span>
+        <span
+          role="img"
+          aria-label="fire"
+          style={{ fontSize: "60px", cursor: "pointer" }}
+          onClick={() => props.onClick("fire")}
+        >
+          🔥
         </span>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Gender</FormLabel>
@@ -167,7 +175,7 @@ export default function Filters(props) {
             />
           </div>
         </FormControl>
-        {!props.map && (
+        {!props.map && !props.fire && (
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-simple">Sort</InputLabel>
             <Select

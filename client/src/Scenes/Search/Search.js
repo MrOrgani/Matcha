@@ -7,6 +7,7 @@ import axios from "axios";
 import Notifications from "react-notify-toast";
 import { AuthContext } from "../../AuthContext";
 import UserMap from "./Components/UserMap";
+import UserMatch from "./Components/UserMatch";
 
 const Search = () => {
   const [, authContext] = useContext(AuthContext);
@@ -15,7 +16,9 @@ const Search = () => {
     lon: ""
   });
   const [map, setMap] = useState(false);
-  const data = authContext.data;
+  const [fire, setFire] = useState(false);
+  const { data } = authContext;
+
   if (!data.isComplete) window.location = "/Profile";
 
   useEffect(
@@ -52,8 +55,14 @@ const Search = () => {
     if (state.lat !== "") updateLocation();
   }, [state, data.uuid]);
 
-  function handleClick() {
-    setMap(!map);
+  function handleClick(value) {
+    if (value === "map") {
+      setMap(!map);
+      setFire(false);
+    } else if (value === "fire") {
+      setMap(false);
+      setFire(!fire);
+    }
   }
 
   // console.log("map", map);
@@ -63,9 +72,11 @@ const Search = () => {
       <UsersProvider>
         <Notifications />
         <div style={{ display: "flex" }}>
-          <Filters onClick={handleClick} map={map} />
+          <Filters onClick={handleClick} map={map} fire={fire} />
         </div>
-        {map ? <UserMap /> : <UserList />}
+        {map && <UserMap />}
+        {fire && <UserMatch />}
+        {!fire && !map && <UserList />}
       </UsersProvider>
     </div>
   );
