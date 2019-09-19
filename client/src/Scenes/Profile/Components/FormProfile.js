@@ -22,8 +22,10 @@ import { ProfileValidation } from "./../../../../src/Components/Navbar/Component
 import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {
-  const { values } = useProfileForm();
+  // const { values } = useProfileForm();
+
   const [, authContext] = useContext(AuthContext);
+  const values = authContext.data;
 
   console.log(values.lookingFor);
   return (
@@ -43,7 +45,7 @@ function FormProfile() {
           "FormProfile retour patch",
           // newData,
           newData.status,
-          newData
+          newData.data
         );
         if (newData.status === 200) {
           authContext.setData(newData.data);

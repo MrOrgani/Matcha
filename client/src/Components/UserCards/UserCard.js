@@ -23,13 +23,13 @@ export default function UserCard() {
   );
   const [socketContext] = useContext(AuthContext);
 
-  // console.log("userInfo", userInfo, socketContext.connectedUsrs);
+  // console.log("userInfo", userInfo);
   return (
     <React.Fragment>
       <Card className="theCard">
         <div
           style={{
-            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP]})`
+            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
           }}
           className="mainCard"
         >
@@ -39,7 +39,7 @@ export default function UserCard() {
             </div>
             <div className="backRect">
               <div>
-                {userInfo.age}, {userInfo.city}.
+                {userInfo.age.low}, {userInfo.city}.
               </div>
               <div>
                 <span role="img" aria-label="trophy">

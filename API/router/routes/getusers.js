@@ -29,24 +29,22 @@ router
   .get("/withhobbies", async function(req, res) {
     try {
       const result = [];
-      const user = await session.run(
-        `MATCH (targ:User {isComplete:true}),
-          (me:User {uuid:'${req.query.uuidSource}'})
-          WHERE targ.uuid <> '${req.query.uuidSource}'
-            AND (targ.lookingFor = '${req.query.gender}' 
-              OR targ.lookingFor = 'both')
-            AND NOT (me)-[:BLOCKED]->(targ)
-          RETURN targ`
-      );
+      let cypher = `MATCH (targ:User {isComplete:true}),
+                    (me:User {uuid:'${req.query.uuidSource}'})
+                    WHERE targ.uuid <> '${req.query.uuidSource}'
+                      AND (targ.lookingFor = '${req.query.gender}' 
+                      OR targ.lookingFor = 'both')`;
+      cypher +=
+        req.query.lookingFor === "both"
+          ? ""
+          : ` AND (targ.gender = '${req.query.lookingFor}')`;
+      cypher += ` AND NOT (me)-[:BLOCKED]->(targ)
+                    RETURN targ`;
+      const user = await session.run(cypher);
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
         const now = new Date();
         oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
-        oneUser.age = oneUser.age.low ? oneUser.age.low : oneUser.age;
-        oneUser.indexOfPP =
-          oneUser.indexOfPP.low === 0
-            ? oneUser.indexOfPP.low
-            : oneUser.indexOfPP;
         result.push(oneUser);
       });
       res.status(200).send(result);
@@ -57,9 +55,6 @@ router
   .get("/matcher", async function(req, res) {
     try {
       const result = [];
-      // if (req.query.lookingFor === "both") {
-      //   req.query.
-      // }
       let cypher = `MATCH (targ:User {isComplete:true}),
                     (me:User {uuid:'${req.query.uuidSource}'})
                     WHERE targ.uuid <> '${req.query.uuidSource}'
@@ -68,27 +63,17 @@ router
       cypher +=
         req.query.lookingFor === "both"
           ? ""
-          : `AND (targ.gender = '${req.query.lookingFor}`;
-      cypher += `AND NOT (me)-[:BLOCKED]->(targ)
+          : ` AND (targ.gender = '${req.query.lookingFor}')`;
+      cypher += ` AND NOT (me)-[:BLOCKED]->(targ)
                       AND NOT (me)-[:LIKED]->(targ)
                     RETURN targ`;
-      console.log(cypher);
+      console.log("CYPER MATCH", cypher);
       const user = await session.run(cypher);
-
-      // ` MATCH (u:User {uuid:'${req.query.uuidSource}')-[rel]-(other:User)
-      //   WITH collect(type(rel)) AS rels, other AS user
-      //   WHERE NOT "LIKED" IN rels
-      //   RETURN user`
 
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
         const now = new Date();
         oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
-        oneUser.age = oneUser.age.low ? oneUser.age.low : oneUser.age;
-        oneUser.indexOfPP =
-          oneUser.indexOfPP.low === 0
-            ? oneUser.indexOfPP.low
-            : oneUser.indexOfPP;
         result.push(oneUser);
       });
       res.status(200).send(result);

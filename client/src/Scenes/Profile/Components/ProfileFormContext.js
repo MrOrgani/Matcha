@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../../AuthContext";
 
 const ProfileFormContext = React.createContext([{}, () => {}]);
 
 const ProfileFormProvider = props => {
-  const data = JSON.parse(sessionStorage.getItem("data"));
+  const [, authContext] = useContext(AuthContext);
+  const data = authContext.data;
+  // console.log("authcontext", authContext, "data", data);
   const [state, setState] = useState({
     firstName: data.firstName,
     lastName: data.lastName,
@@ -14,7 +17,7 @@ const ProfileFormProvider = props => {
     lookingFor: data.lookingFor,
     bio: data.bio,
     pics: data.pics,
-    indexOfPP: data.indexOfPP,
+    indexOfPP: data.indexOfPP.low,
     hobbies: data.hobbies,
     location: [data.location[0], data.location[1]],
     city: data.city,
