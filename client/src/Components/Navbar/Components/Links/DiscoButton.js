@@ -4,13 +4,13 @@ import "../../NavBar.css";
 import { AuthContext } from "../../../../AuthContext";
 
 function DiscoButton() {
-  const [socketContext, authContext] = useContext(AuthContext);
+  const [socketContext] = useContext(AuthContext);
 
   function disconnect() {
-    authContext.setData("");
-    authContext.setIsAuth(0);
-    socketContext.socket.emit("logOut");
+    sessionStorage.data = "";
+    sessionStorage.isAuth = "0";
     window.location = "/";
+    socketContext.socket.emit("logOut");
   }
 
   return (

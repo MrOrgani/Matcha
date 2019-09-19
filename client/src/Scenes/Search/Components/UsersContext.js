@@ -43,7 +43,7 @@ export const UsersProvider = props => {
   const data = authContext.data;
 
   useEffect(() => {
-    console.log("usersContext, useEffect");
+    // console.log("usersContext, useEffect");
     const fetchData = async () => {
       try {
         let [result, resultMatch] = await Promise.all([
@@ -61,7 +61,7 @@ export const UsersProvider = props => {
       }
     };
     fetchData();
-  }, [data.uuid, data.gender, data.sexualOrientation, fire]);
+  }, [data.uuid, data.gender, data.sexualOrientation, data.lookingFor, fire]);
 
   return (
     <UsersContext.Provider value={[usersValue, filtersValue]}>
