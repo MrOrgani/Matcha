@@ -30,13 +30,13 @@ router
     try {
       const result = [];
       const user = await session.run(
-        `MATCH (u:User {isComplete:true}),
-          (t:User {uuid:'${req.query.uuidSource}'})
-          WHERE u.uuid <> '${req.query.uuidSource}'
-            AND (u.lookingFor = '${req.query.gender}' 
-              OR u.lookingFor = 'both')
-            AND NOT (u)-[:BLOCKED]->(t)
-          RETURN u`
+        `MATCH (targ:User {isComplete:true}),
+          (me:User {uuid:'${req.query.uuidSource}'})
+          WHERE targ.uuid <> '${req.query.uuidSource}'
+            AND (targ.lookingFor = '${req.query.gender}' 
+              OR targ.lookingFor = 'both')
+            AND NOT (me)-[:BLOCKED]->(targ)
+          RETURN targ`
       );
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
@@ -57,12 +57,28 @@ router
   .get("/matcher", async function(req, res) {
     try {
       const result = [];
-      const user = await session.run(
-        ` MATCH (u:User {uuid:'${req.query.uuidSource}', isComplete:true})-[rel]-(other:User)
-          WITH collect(type(rel)) AS rels, other AS user
-          WHERE NOT "LIKED" IN rels
-          RETURN user`
-      );
+      // if (req.query.lookingFor === "both") {
+      //   req.query.
+      // }
+      let cypher = `MATCH (targ:User {isComplete:true}),
+                    (me:User {uuid:'${req.query.uuidSource}'})
+                    WHERE targ.uuid <> '${req.query.uuidSource}'
+                      AND (targ.lookingFor = '${req.query.gender}' 
+                      OR targ.lookingFor = 'both')`;
+      cypher +=
+        req.query.lookingFor === "both"
+          ? ""
+          : `AND (targ.gender = '${req.query.lookingFor}`;
+      cypher += `AND NOT (me)-[:BLOCKED]->(targ)
+                      AND NOT (me)-[:LIKED]->(targ)
+                    RETURN targ`;
+      console.log(cypher);
+      const user = await session.run(cypher);
+
+      // ` MATCH (u:User {uuid:'${req.query.uuidSource}')-[rel]-(other:User)
+      //   WITH collect(type(rel)) AS rels, other AS user
+      //   WHERE NOT "LIKED" IN rels
+      //   RETURN user`
 
       user.records.map(record => {
         const oneUser = record._fields[0].properties;
@@ -77,7 +93,7 @@ router
       });
       res.status(200).send(result);
     } catch (err) {
-      console.log("err getuser: ", err, req);
+      console.log("err getuser: ", err, req.query, req.body);
     }
   });
 

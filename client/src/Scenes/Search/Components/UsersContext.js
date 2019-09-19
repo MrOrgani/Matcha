@@ -14,10 +14,12 @@ export const UsersProvider = props => {
   const [sort, setSort] = useState("");
   const [ord, setOrd] = useState(true);
   const [tags, setTags] = useState([]);
+  const [fire, setFire] = useState(false);
   const usersValue = {
     users,
     setUsers,
-    matchUsers
+    matchUsers,
+    setMatchUsers
   };
   const filtersValue = {
     gender,
@@ -33,27 +35,34 @@ export const UsersProvider = props => {
     ord,
     setOrd,
     tags,
-    setTags
+    setTags,
+    fire,
+    setFire
   };
   const [, authContext] = useContext(AuthContext);
   const data = authContext.data;
 
   useEffect(() => {
+    console.log("usersContext, useEffect");
     const fetchData = async () => {
-      let result = await axios(
-        `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}`
-      );
-      await setUsers(result.data);
-      result = await axios(
-        `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}`
-      );
-      // console.log("User with hobbies", result.data);
-      await setMatchUsers(result.data);
+      try {
+        let [result, resultMatch] = await Promise.all([
+          axios(
+            `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
+          ),
+          axios(
+            `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
+          )
+        ]);
+        setUsers(result.data);
+        setMatchUsers(resultMatch.data);
+      } catch (err) {
+        console.log("err", err);
+      }
     };
     fetchData();
-  }, [data.uuid, data.gender, data.sexualOrientation]);
+  }, [data.uuid, data.gender, data.sexualOrientation, fire]);
 
-  // console.log('users', users)
   return (
     <UsersContext.Provider value={[usersValue, filtersValue]}>
       {props.children}
