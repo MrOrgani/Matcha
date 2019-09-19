@@ -38,7 +38,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
       <Card style={{ ...cardStyles, zIndex }}>
         <div
           style={{
-            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP]})`
+            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
           }}
           className="mainCard"
         >
