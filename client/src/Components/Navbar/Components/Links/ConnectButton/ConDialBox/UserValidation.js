@@ -162,11 +162,11 @@ export const ProfileValidation = values => {
   //   errors.pics = "You must upload at least 1 pic";
   // }
 
-  if (!values.sexualOrientation) {
-    errors.sexualOrientation = "Your sexual orientation is required";
+  if (!values.lookingFor) {
+    errors.lookingFor = "What are you looking for ?";
   }
 
-  // console.log("fuking errors", errors);
+  console.log("fuking errors", errors);
   return errors;
 };
 
