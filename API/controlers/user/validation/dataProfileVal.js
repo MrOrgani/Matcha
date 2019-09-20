@@ -102,7 +102,6 @@ module.exports = function dataProfileVal(req, res, next) {
     errors.lookingFor = "What are you looking for ?";
   }
 
-  console.log("dataProfileVal no error", errors);
   for (let x in errors) return res.status(201).send(errors);
   next();
 };
