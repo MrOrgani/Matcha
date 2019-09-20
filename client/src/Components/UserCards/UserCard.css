@@ -12,6 +12,7 @@
   width: 500px;
   background-size: cover;
   background-position: center center;
+  position: relative;
 }
 
 .theDrawer {
