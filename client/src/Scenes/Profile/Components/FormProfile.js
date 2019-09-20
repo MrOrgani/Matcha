@@ -48,6 +48,7 @@ function FormProfile() {
           newData.data
         );
         if (newData.status === 200) {
+          console.log("newData", newData);
           authContext.setData(newData.data);
           notify.show("Your profile has been updated !", "success");
         } else {
