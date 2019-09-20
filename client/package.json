@@ -26,6 +26,7 @@
     "react-native": "^0.60.0",
     "react-navigation": "^3.11.0",
     "react-notify-toast": "^0.5.0",
+    "react-responsive-carousel": "^3.1.50",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-spring": "^8.0.27",
