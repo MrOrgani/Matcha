@@ -15,6 +15,8 @@ import Button from "@material-ui/core/Button";
 import "./UserCard.css";
 import { AuthContext } from "../../AuthContext";
 // import { Spring } from "react-spring/renderprops";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 export default function UserCard() {
   const classes = useStyles();
@@ -27,6 +29,7 @@ export default function UserCard() {
   return (
     <React.Fragment>
       <Card className="theCard">
+      <Carousel>
         <div
           style={{
             backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
@@ -100,6 +103,7 @@ export default function UserCard() {
             </div>
           </div>
         </div>
+      </Carousel>
       </Card>
     </React.Fragment>
   );
