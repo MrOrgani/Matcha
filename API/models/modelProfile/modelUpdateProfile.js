@@ -4,7 +4,12 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  // console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
+  console.log(
+    "values MODELUPDATEPROFILE are",
+    // req.body.values,
+    req.body.values.indexOfPP
+  );
+
   try {
     if (req.body.values.newpassword) {
       // console.log("THE PASSWORD WAS UPDATED", req.body.values);
@@ -74,7 +79,7 @@ async function modelUpdateProfile(req) {
     return userData.records[0]._fields[0].properties;
   } catch (err) {
     delete req.body.pics;
-    console.log("we have an error in model update profile", err);
+    console.log("we have an error in model update profile", err, req);
   }
 }
 

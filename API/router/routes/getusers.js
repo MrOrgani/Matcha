@@ -29,6 +29,7 @@ router
   .get("/withhobbies", async function(req, res) {
     try {
       const result = [];
+      req.query.forEAch(elem => (elem = escape(elem)));
       const user = await session.run(
         `MATCH (targ:User {isComplete:true}),
           (me:User {uuid:'${req.query.uuidSource}'})

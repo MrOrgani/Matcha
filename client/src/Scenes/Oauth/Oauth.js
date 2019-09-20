@@ -18,6 +18,7 @@ const Oauth = () => {
         `http://localhost:9000/api/user/findOne?jwt=${req.jwt}&uuidSource=${req.uuidSource}`
       ).then(res => {
         if (res.status === 200) {
+          console.log("return from req for Oauth", res.data);
           setData(res.data);
           setIsAuth(1);
         }
