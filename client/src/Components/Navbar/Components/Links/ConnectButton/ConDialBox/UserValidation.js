@@ -76,22 +76,6 @@ export const ResetValidation = function(values) {
   return errors;
 };
 
-// age: "";
-// bio: "";
-// city: "";
-// email: "dokatipo@getbreathtaking.com";
-// firstName: "Maxime";
-// gender: "";
-// hobbies: [];
-// indexOfPP: 0;
-// lastName: "Organi";
-// location: (2)[(48.864716, 2.349014)];
-// login: "Morg";
-// newpassword: "";
-// oldpassword: "";
-// pics: [];
-// sexualOrientation: "bi";
-
 export const ProfileValidation = values => {
   // console.log("UserVlaidation Profile values", values);
   let errors = {};

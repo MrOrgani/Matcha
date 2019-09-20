@@ -16,7 +16,7 @@ async function modelCreateUser(req) {
               uuid:{uuid},
               firstName:'',
               lastName:'',
-              age:'',
+              age:0,
               gender:'',
               sexualOrientation:'bi',
               location:['', ''],
@@ -107,23 +107,23 @@ async function getUsers(req, res) {
 async function updateUser(values, res) {
   // console.log("value in MODEL USER", values);
   try {
-    // MODIFICATIO DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
-    session
-      .run(
-        `MATCH (u:User {login: {loginRef}})
-        SET u.firstName = {firstName},
-            u.lastName = {lastName},
-              u.age = {age},
-              u.gender = {gender},
-              u.sexualOrientation = {sexualOrientation},
-              u.login = {login},
-              u.email = {email},
-              u.bio = {bio}
-              RETURN u
-           `,
-        values
-      )
-      .catch(err => console.log(err));
+    // // MODIFICATIO DU PASSWORD A REJOUTER + TELEPHONE + LOCATION
+    // session
+    //   .run(
+    //     `MATCH (u:User {login: {loginRef}})
+    //     SET u.firstName = {firstName},
+    //         u.lastName = {lastName},
+    //           u.age = {age},
+    //           u.gender = {gender},
+    //           u.sexualOrientation = {sexualOrientation},
+    //           u.login = {login},
+    //           u.email = {email},
+    //           u.bio = {bio}
+    //           RETURN u
+    //        `,
+    //     values
+    //   )
+    //   .catch(err => console.log(err));
   } catch (err) {
     res.status(206).send(err);
     console.log(err);

@@ -4,7 +4,7 @@ const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  // console.log("values MODELUPDATEPROFILE are", req.body.values.indexOfPP);
+  console.log("values MODELUPDATEPROFILE are", req.body.values.age);
   try {
     if (req.body.values.newpassword) {
       // console.log("THE PASSWORD WAS UPDATED", req.body.values);
@@ -45,7 +45,7 @@ async function modelUpdateProfile(req) {
         email: req.body.values.email,
         bio: req.body.values.bio,
         pics: req.body.values.pics,
-        indexOfPP: req.body.values.indexOfPP,
+        indexOfPP: req.body.values.indexOfPP.low,
         hobbies: req.body.values.hobbies,
         location: req.body.values.location
       }

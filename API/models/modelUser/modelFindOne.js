@@ -9,11 +9,8 @@ module.exports = async function modelFindOne(value, category, option = "") {
     let cypher = `
     MATCH(u:User)
     WHERE u.${category} = `;
-    if (typeof value === "string") {
-      cypher += `'${value}' ${option} RETURN u`;
-    } else {
-      cypher += `${value} ${option} RETURN u`;
-    }
+    if (typeof value === "string") cypher += `'${value}' ${option} RETURN u`;
+    else cypher += `${value} ${option} RETURN u`;
     const data = await session.run(cypher);
     return data.records;
   } catch (err) {
