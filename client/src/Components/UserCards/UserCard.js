@@ -16,7 +16,7 @@ import "./UserCard.css";
 import { AuthContext } from "../../AuthContext";
 // import { Spring } from "react-spring/renderprops";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from "react-responsive-carousel";
 
 export default function UserCard() {
   const classes = useStyles();
@@ -29,13 +29,19 @@ export default function UserCard() {
   return (
     <React.Fragment>
       <Card className="theCard">
-      <Carousel>
         <div
-          style={{
-            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
-          }}
+          // style={{
+          //   backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
+          // }}
           className="mainCard"
         >
+          <Carousel showThumbs={false}>
+            {userInfo.pics.map(pic => (
+              <>
+                <img src={pic} />
+              </>
+            ))}
+          </Carousel>
           <div className="showHim">
             <div className="userName">
               {userInfo.firstName} {userInfo.lastName[0]}.
@@ -103,7 +109,6 @@ export default function UserCard() {
             </div>
           </div>
         </div>
-      </Carousel>
       </Card>
     </React.Fragment>
   );
