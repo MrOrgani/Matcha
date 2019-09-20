@@ -48,7 +48,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
             </div>
             <div className="backRect">
               <div>
-                {userInfo.age}, {userInfo.city}.
+                {userInfo.age.low}, {userInfo.city}.
               </div>
               <div>
                 <span role="img" aria-label="trophy">

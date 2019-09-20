@@ -17,7 +17,7 @@ const ProfileFormProvider = props => {
     lookingFor: data.lookingFor,
     bio: data.bio,
     pics: data.pics,
-    indexOfPP: data.indexOfPP,
+    indexOfPP: data.indexOfPP.low,
     hobbies: data.hobbies,
     location: [data.location[0], data.location[1]],
     city: data.city,

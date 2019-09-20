@@ -29,15 +29,10 @@ export default function UserCard() {
   return (
     <React.Fragment>
       <Card className="theCard">
-        <div
-          // style={{
-          //   backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
-          // }}
-          className="mainCard"
-        >
+        <div className="mainCard">
           <Carousel showThumbs={false}>
-            {userInfo.pics.map(pic => (
-              <>
+            {userInfo.pics.map((pic, index) => (
+              <div key={index}>
                 <img
                   style={{ marginLeft: "-20%", width: "auto", height: "700px" }}
                   src={pic}
@@ -111,7 +106,7 @@ export default function UserCard() {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))}
           </Carousel>
         </div>

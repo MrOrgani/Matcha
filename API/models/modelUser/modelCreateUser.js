@@ -12,7 +12,7 @@ module.exports = async function modelCreateUser(req) {
               uuid:{uuid},
               firstName:{firstName},
               lastName:{lastName},
-              age:'',
+              age:0,
               gender:'',
               lookingFor:'',
               city: '',

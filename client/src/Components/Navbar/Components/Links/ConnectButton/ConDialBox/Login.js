@@ -39,7 +39,7 @@ function Login() {
                   if (res.status === 200) {
                     setSubmitionCompleted(true);
                     socketContext.socket && socketContext.socket.emit("logOut");
-                    // console.log(res.data);
+                    console.log(res.data);
                     authContext.setData(res.data);
                     authContext.setIsAuth(1);
                   } else {
