@@ -1,3 +1,7 @@
+.slide {
+  overflow: hidden;
+}
+
 .buttonSett {
   /* display: none; */
   position: fixed;
