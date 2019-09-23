@@ -32,12 +32,9 @@ export default function UserMap() {
           : users.filter(user => user.gender === filters[0]);
 
       let filtersfiltered = genderFiltered
+        .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
-          user => user.age.low >= filters[1][0] && user.age.low <= filters[1][1]
-        )
-        .filter(
-          user =>
-            user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
+          user => user.score >= filters[2][0] && user.score <= filters[2][1]
         )
         .filter(
           user =>

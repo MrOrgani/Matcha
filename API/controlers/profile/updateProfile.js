@@ -22,7 +22,7 @@ exports.updateLocation = async (req, res) => {
       `SET u.location = [${req.body.lat}, ${req.body.lon}]`
     );
     // console.log("data ", data);
-    data = cleanUserData(data[0]._fields[0].properties);
+    data = cleanUserData(data);
     // console.log("data after clean ", data);
     res.status(200).send(data);
   } catch (err) {

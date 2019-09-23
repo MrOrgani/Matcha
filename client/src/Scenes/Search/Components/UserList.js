@@ -16,19 +16,17 @@ const UserList = () => {
   useEffect(() => {
     // console.log("useEffect is triggerred");
     const filterUsers = (filters, users) => {
-      console.log(filters, users);
+      console.log("FILTER & USERS ", filters, users);
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
 
+      console.log("GENDER FILTERED", genderFiltered);
       let filtersfiltered = genderFiltered
+        .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
-          user => user.age.low >= filters[1][0] && user.age.low <= filters[1][1]
-        )
-        .filter(
-          user =>
-            user.score.low >= filters[2][0] && user.score.low <= filters[2][1]
+          user => user.score >= filters[2][0] && user.score <= filters[2][1]
         )
         .filter(
           user =>
@@ -40,22 +38,22 @@ const UserList = () => {
           filters[6].every(tag => elem.hobbies.includes(tag))
         );
       }
-
+      console.log("FILTERS FILTERED", filtersfiltered);
       if (filtersValue.sort) {
         if (filters[4] === "age")
           setFilteredUserList(
             filtersfiltered.sort((a, b) =>
               filters[5]
-                ? parseFloat(a.age.low) - parseFloat(b.age.low)
-                : parseFloat(b.age.low) - parseFloat(a.age.low)
+                ? parseFloat(a.age) - parseFloat(b.age)
+                : parseFloat(b.age) - parseFloat(a.age)
             )
           );
         else if (filters[4] === "pop")
           setFilteredUserList(
             filtersfiltered.sort((a, b) =>
               filters[5]
-                ? parseFloat(a.score.low) - parseFloat(b.score.low)
-                : parseFloat(b.score.low) - parseFloat(a.score.low)
+                ? parseFloat(a.score) - parseFloat(b.score)
+                : parseFloat(b.score) - parseFloat(a.score)
             )
           );
         else if (filters[4] === "dist") {
@@ -100,6 +98,7 @@ const UserList = () => {
   return (
     <div className="containerUL">
       {filteredUserList.map(user => {
+        console.log(user);
         return (
           <UserCardProvider
             key={user.user_id || user.uuid}

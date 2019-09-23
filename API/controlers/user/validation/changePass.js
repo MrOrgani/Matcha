@@ -9,7 +9,7 @@ module.exports = async function changePass(req, res, next) {
     // console.log("password is being changed", oldpassword, newpassword);
     try {
       const userData = await modelFindOne(req.query.userSource, "login");
-      const { password } = userData[0]._fields[0].properties;
+      const { password } = userData;
       if (!(await bcrypt.compare(oldpassword, password))) {
         errors.oldpassword = "You old password is incorrect !";
       } else if (!/[A-Z0-9]+/i.test(newpassword)) {

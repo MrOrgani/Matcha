@@ -1,11 +1,13 @@
 const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
+const low = require("../low");
 
 module.exports = async function modelCreateUser(req) {
   const { login, password, email, uuid, firstName, lastName } = req.body;
   try {
-    const data = await session.run(
-      `CREATE(u:User {
+    const data = await session
+      .run(
+        `CREATE(u:User {
               login:{login},
               password:{password},
               email:{email},
@@ -28,16 +30,17 @@ module.exports = async function modelCreateUser(req) {
               isConfirmed: true
             }) 
               RETURN u`,
-      {
-        login: login,
-        password: password,
-        email: email,
-        uuid: uuid,
-        firstName: firstName,
-        lastName: lastName
-      }
-    );
-    return data.records[0]._fields[0].properties;
+        {
+          login: login,
+          password: password,
+          email: email,
+          uuid: uuid,
+          firstName: firstName,
+          lastName: lastName
+        }
+      )
+      .then(elem => low(elem.recors[0]._fields[0].properties));
+    return data;
   } catch (err) {
     console.log(err);
   }

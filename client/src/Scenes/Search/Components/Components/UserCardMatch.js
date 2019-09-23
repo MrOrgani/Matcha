@@ -38,7 +38,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
       <Card style={{ ...cardStyles, zIndex }}>
         <div
           style={{
-            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP.low]})`
+            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP]})`
           }}
           className="mainCard"
         >
@@ -48,13 +48,13 @@ export default function UserCardMatch({ zIndex = 0 }) {
             </div>
             <div className="backRect">
               <div>
-                {userInfo.age.low}, {userInfo.city}.
+                {userInfo.age}, {userInfo.city}.
               </div>
               <div>
                 <span role="img" aria-label="trophy">
                   🏆
                 </span>{" "}
-                {userInfo.score.low}
+                {userInfo.score}
               </div>
             </div>
             <div className="whiteRect">
