@@ -1,5 +1,15 @@
 const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
+const low = require("../low");
+
+const formate = arr => {
+  return arr.records.map(node => {
+    const oneUser = low(node._fields[0].properties);
+    const now = new Date();
+    // oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
+    return oneUser;
+  });
+};
 
 exports.modelChat = async req => {
   try {
@@ -11,8 +21,8 @@ exports.modelChat = async req => {
     cypher += req.t !== "User" ? `{uuid:{uuid}}) RETURN ` : `) RETURN `;
     cypher += `${req.w}`;
 
-    const result = await session.run(cypher, req);
-    return result.records;
+    return await formate(await session.run(cypher, req));
+    // return result.records;
   } catch (err) {
     console.log("error in modelChat", err);
   }

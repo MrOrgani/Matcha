@@ -81,6 +81,8 @@ export const ProfileValidation = values => {
   let errors = {};
   if (!values.age) {
     errors.age = "Age is required";
+  } else if (values.age < 18 || values.age > 100) {
+    errors.age = "You must be between 18 and 100";
   }
 
   if (!values.bio) {
@@ -101,7 +103,7 @@ export const ProfileValidation = values => {
 
   if (!values.firstName) {
     errors.firstName = "A firstname is required";
-  } else if (!/^[A-Z]+$/i.test(values.firstName))
+  } else if (!/^[A-Z -]+$/i.test(values.firstName))
     errors.firstName = "Firstname must only contain letters";
 
   if (!values.gender) {
@@ -114,13 +116,13 @@ export const ProfileValidation = values => {
 
   if (!values.lastName) {
     errors.lastName = "A lastname is required";
-  } else if (!/^[A-Z]+$/i.test(values.lastName))
+  } else if (!/^[A-Z -]+$/i.test(values.lastName))
     errors.lastName = "Lastname must only contain letters";
 
   if (!values.login) {
     errors.login = "A login is required";
-  } else if (!/^[A-Z]+$/i.test(values.login))
-    errors.login = "Login must only contain letters";
+  } else if (!/^[A-Z0-9 -_]+$/i.test(values.login))
+    errors.login = "Login must only contain letters and numbers";
 
   if (values.newpassword && values.oldpassword) {
     if (
