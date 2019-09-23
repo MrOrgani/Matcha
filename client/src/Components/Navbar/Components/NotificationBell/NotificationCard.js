@@ -6,7 +6,7 @@ import "./NotificationBell.css";
 
 export default function NotificationCard(props) {
   const display = {};
-  display.picture = props.notif.source.pics[props.notif.source.indexOfPP.low];
+  display.picture = props.notif.source.pics[props.notif.source.indexOfPP];
 
   display.time = `${props.notif.info.d}:${props.notif.info.h}:${props.notif.info.m}`;
   if (props.notif.info.type === "message") display.type = "sent you a message";

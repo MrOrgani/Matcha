@@ -44,13 +44,13 @@ export default function UserCard() {
                   </div>
                   <div className="backRect">
                     <div>
-                      {userInfo.age.low}, {userInfo.city}.
+                      {userInfo.age}, {userInfo.city}.
                     </div>
                     <div>
                       <span role="img" aria-label="trophy">
                         🏆
                       </span>{" "}
-                      {userInfo.score.low}
+                      {userInfo.score}
                     </div>
                   </div>
                   <div className="whiteRect">

@@ -6,7 +6,7 @@ module.exports = async function findOne(req, res) {
     // console.log("in fondOne", req.query);
     const result = await modelFindOne(req.query.uuidSource, "uuid");
     // console.log("data in findone controller", data[0]._fields[0].properties);
-    const data = await cleanUserData(result[0]._fields[0].properties);
+    const data = await cleanUserData(result);
     delete data.password;
     // console.log("data in findone controller", data);
     res.status(200).send(data);

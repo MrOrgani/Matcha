@@ -13,7 +13,7 @@ const UserInMenu = props => {
   function capFLtr(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  const picture = props.data.pics[props.data.indexOfPP.low];
+  const picture = props.data.pics[props.data.indexOfPP];
 
   //CARD DISPLAY FOR THE USER CARDS
   const [socketContext, authContext] = useContext(AuthContext);

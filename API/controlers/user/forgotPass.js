@@ -8,7 +8,6 @@ module.exports = async function forgotPass(req, res) {
     let userData = await modelFindOne(req.body.email, "email");
     if (userData.length === 0)
       return res.status(201).send("We could not find you");
-    userData = userData[0]._fields[0].properties;
     //envoie mail avec lien pour nouveau password
     sendEmail(req.body.email, true, userData.uuid);
     return res

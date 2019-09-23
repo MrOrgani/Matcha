@@ -57,7 +57,7 @@ const User = () => {
   const [expanded, setExpanded] = React.useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [isLiked, handleLike, , , userInfo] = useContext(UserCardContext);
-
+  console.log(userInfo);
   const [socketContext, authContext] = useContext(AuthContext);
   function handleClick() {
     socketContext.socket.emit("newNotif", {
@@ -85,7 +85,7 @@ const User = () => {
       <div
         className="card"
         style={{
-          backgroundImage: `url('${userInfo.pics[userInfo.indexOfPP.low]}')`
+          backgroundImage: `url('${userInfo.pics[userInfo.indexOfPP]}')`
         }}
       >
         <div className={classes.root}>
