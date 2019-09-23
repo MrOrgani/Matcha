@@ -152,7 +152,7 @@ export const ProfileValidation = values => {
     errors.lookingFor = "What are you looking for ?";
   }
 
-  console.log("fuking errors", errors);
+  // console.log("fuking errors", errors);
   return errors;
 };
 

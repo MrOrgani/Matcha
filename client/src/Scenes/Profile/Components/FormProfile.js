@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import useProfileForm from "./useProfileForm";
-// import { ProfileFormContext } from "./ProfileFormContext";
+// import useProfileForm from "./useProfileForm";
 import { Formik } from "formik";
 import "./FormProfile.css";
 import axios from "axios";
@@ -22,21 +21,15 @@ import { ProfileValidation } from "./../../../../src/Components/Navbar/Component
 import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {
-  // const { values } = useProfileForm();
-
   const [, authContext] = useContext(AuthContext);
   const values = authContext.data;
 
-  // console.log(values.lookingFor);
   return (
     <Formik
       initialValues={values}
       onSubmit={async values => {
         const userValues = authContext.data;
-        // console.log("userValues", userValues);
-
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        // console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
@@ -61,7 +54,7 @@ function FormProfile() {
         setFieldValue,
         handleSubmit
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form className="formProfile" onSubmit={handleSubmit}>
           <Notifications />
           <div className="containerFormProfile">
             <div className="box name">
