@@ -26,7 +26,7 @@ async function setLike(req, res) {
       modelSetLike(req.body);
       if (await modelIsLiked(invertReq)) {
         // ==> MATCH
-        modelChangeScore(req.body, 15);
+        modelChangeScore(req.body, 10);
         modelSetMatched(req.body);
         notify({
           targetUuid: req.body.target,
@@ -52,7 +52,7 @@ async function setLike(req, res) {
           type: "unmatched"
         });
         unmatchEvent(req.body);
-        modelChangeScore(req.body, -15);
+        modelChangeScore(req.body, -10);
         modelSetUnMatched(req.body);
         if (!req.blocked)
           return res.status(200).json({ liked: false, blocked: false });
