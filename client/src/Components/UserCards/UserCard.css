@@ -1,5 +1,7 @@
 .slide {
   overflow: hidden;
+  display: grid;
+  justify-content: center;
 }
 
 .buttonSett {

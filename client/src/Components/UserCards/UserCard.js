@@ -33,10 +33,7 @@ export default function UserCard() {
           <Carousel showThumbs={false}>
             {userInfo.pics.map((pic, index) => (
               <div key={index}>
-                <img
-                  style={{ marginLeft: "-20%", width: "auto", height: "700px" }}
-                  src={pic}
-                />
+                <img style={{ width: "auto", height: "700px" }} src={pic} />
 
                 <div className="showHim">
                   <div className="userName">
@@ -85,7 +82,7 @@ export default function UserCard() {
                       >
                         <HighlightOffIcon />
                       </IconButton>
-                      <Button className={classes.button}>FAKE ACCOUNT</Button>
+                      <button className={classes.button}>FAKE ACCOUNT</button>
                       {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
                         <span
                           role="img"
