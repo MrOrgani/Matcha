@@ -9,7 +9,7 @@ exports.Chat = async (req, res) => {
     //   result.map(item => usersFound.push(item._fields[0].properties));
     // }
 
-    console.log("result", result);
+    // console.log("result", result);
     res.status(200).send(result);
   } catch (err) {
     console.log("in ChatAffinities", err, req.query);

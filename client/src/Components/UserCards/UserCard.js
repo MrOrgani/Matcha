@@ -1,31 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
-// import Typography from "@material-ui/core/Typography";
 import { UserCardContext } from "./UserCardContext";
-// import CardHeader from "@material-ui/core/CardHeader";
-// import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import "./UserCard.css";
 import { AuthContext } from "../../AuthContext";
-// import { Spring } from "react-spring/renderprops";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { Spin, Icon } from "antd";
 
 export default function UserCard() {
   const classes = useStyles();
   const [isLiked, setLiked, isBlocked, setBlocked, userInfo] = useContext(
     UserCardContext
   );
-  const [socketContext] = useContext(AuthContext);
 
-  // console.log("userInfo", userInfo);
+  const [loading, setLoading] = useState(true);
+
+  const [socketContext] = useContext(AuthContext);
+  setTimeout(() => setLoading(false), 1000);
+
+  console.log("socketContext", socketContext);
+  const antIcon = <Icon type="loading" style={{ fontSize: 30 }} spin />;
+
   return (
     <React.Fragment>
       <Card className="theCard">
@@ -33,7 +33,11 @@ export default function UserCard() {
           <Carousel showIndicators={false}>
             {userInfo.pics.map((pic, index) => (
               <div key={index}>
-                <img style={{ width: "auto", height: "700px" }} src={pic} />
+                <img
+                  alt="userPic"
+                  style={{ width: "auto", height: "700px" }}
+                  src={pic}
+                />
 
                 <div className="showHim">
                   <div className="userName">
@@ -83,23 +87,27 @@ export default function UserCard() {
                         <HighlightOffIcon />
                       </IconButton>
                       <button className={classes.button}>FAKE ACCOUNT</button>
-                      {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
-                        <span
-                          role="img"
-                          aria-label="connected"
-                          style={{ color: "green" }}
-                        >
-                          ✅ Connected
-                        </span>
-                      ) : (
-                        <span
-                          role="img"
-                          aria-label="disconnected"
-                          style={{ color: "grey" }}
-                        >
-                          🔴 {userInfo.lastConnection}
-                        </span>
-                      )}
+                      {loading && <Spin indicator={antIcon} />}
+                      {loading &&
+                      socketContext.connectedUsrs.includes(userInfo.uuid)
+                        ? !loading && (
+                            <span
+                              role="img"
+                              aria-label="connected"
+                              style={{ color: "green" }}
+                            >
+                              ✅ Connected
+                            </span>
+                          )
+                        : !loading && (
+                            <span
+                              role="img"
+                              aria-label="disconnected"
+                              style={{ color: "grey" }}
+                            >
+                              🔴 {userInfo.lastConnection}
+                            </span>
+                          )}
                     </div>
                   </div>
                 </div>

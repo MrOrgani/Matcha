@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       }
     });
     // console.log("connect to socket", socket);
+    // socket.connectedUsrs = {};
     socket.on("newConnection", connectedUsrs => {
       socketContext.connectedUsrs = connectedUsrs;
     });

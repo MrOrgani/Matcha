@@ -11,7 +11,7 @@ export const UserCardProvider = props => {
   const [socketContext] = useContext(AuthContext);
 
   const handleLike = async () => {
-    console.log("user has been liked");
+    // console.log("user has been liked");
     await axios
       .post(
         `http://localhost:9000/api/rel/like?uuidSource=${props.session.uuid}&jwt=${props.session.jwt}`,
@@ -47,7 +47,7 @@ export const UserCardProvider = props => {
         jwt: props.session.jwt
       })
       .then(res => {
-        console.log(res.status, res.data);
+        // console.log(res.status, res.data);
         setLiked(false); //long story short, the work is done in the back
         if (res.status === 200 && res.data.blocked) setBlocked(true);
         else setBlocked(false);

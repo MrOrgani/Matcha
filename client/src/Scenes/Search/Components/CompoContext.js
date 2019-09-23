@@ -22,7 +22,7 @@ export default function CompoContext() {
 
   if (!data.isComplete) window.location = "/Profile";
 
-  console.log("uservalues in CompoContext", usersValue);
+  // console.log("uservalues in CompoContext", usersValue);
   useEffect(
     () =>
       navigator.geolocation.getCurrentPosition(

@@ -14,15 +14,12 @@ const UserList = () => {
   const [filteredUserList, setFilteredUserList] = useState([]);
 
   useEffect(() => {
-    // console.log("useEffect is triggerred");
     const filterUsers = (filters, users) => {
-      console.log("FILTER & USERS ", filters, users);
       const genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
 
-      console.log("GENDER FILTERED", genderFiltered);
       let filtersfiltered = genderFiltered
         .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
@@ -38,7 +35,6 @@ const UserList = () => {
           filters[6].every(tag => elem.hobbies.includes(tag))
         );
       }
-      console.log("FILTERS FILTERED", filtersfiltered);
       if (filtersValue.sort) {
         if (filters[4] === "age")
           setFilteredUserList(
@@ -98,7 +94,6 @@ const UserList = () => {
   return (
     <div className="containerUL">
       {filteredUserList.map(user => {
-        console.log(user);
         return (
           <UserCardProvider
             key={user.user_id || user.uuid}
