@@ -31,6 +31,8 @@ module.exports = function dataProfileVal(req, res, next) {
 
   if (!req.body.values.age) {
     errors.age = "Age is required";
+  } else if (req.body.values.age) {
+    errors.age = "You must be between 18 and 100";
   }
 
   if (!req.body.values.bio) {

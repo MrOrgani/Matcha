@@ -6,6 +6,7 @@ export const Age = props => {
     <TextField
       id="filled-number"
       label="Age"
+      name="age"
       value={props.value}
       onChange={props.onChange}
       onBlur={props.onBlur}

@@ -13,6 +13,14 @@
     "l tags sub";
 }
 
+/* .box {
+  color: red;
+}
+
+p {
+  color: darkgrey;
+} */
+
 .name {
   grid-area: n;
   display: flex;

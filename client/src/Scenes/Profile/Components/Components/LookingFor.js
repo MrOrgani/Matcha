@@ -3,10 +3,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
 export const LookingFor = props => {
+  // console.log(props);
   return (
     <TextField
       select
-      label="Sexual Orientation"
+      label="Looking for?"
+      name="lookingFor"
       value={props.value}
       onChange={props.onChange}
       onBlur={props.onBlur}

@@ -9,7 +9,7 @@ export const FirstName = props => {
       label="First Name"
       name="firstName"
       variant="outlined"
-      // required
+      required
       value={props.value}
       onChange={props.onChange}
       onBlur={props.onBlur}
