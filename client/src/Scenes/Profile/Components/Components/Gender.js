@@ -7,10 +7,11 @@ export const Gender = props => {
     <TextField
       select
       label="Select Gender"
-      // required
+      name="gender"
+      required
       value={props.value}
       onChange={props.onChange}
-      // onBlur={props.onBlur}
+      onBlur={props.onBlur}
       helperText={
         props.helperText[0] && props.helperText[1] && props.helperText[2]
       }

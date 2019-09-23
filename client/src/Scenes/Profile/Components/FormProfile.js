@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import useProfileForm from "./useProfileForm";
-// import { ProfileFormContext } from "./ProfileFormContext";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import "./FormProfile.css";
 import axios from "axios";
 import { AuthContext } from "../../../AuthContext";
@@ -22,19 +20,14 @@ import { ProfileValidation } from "./../../../../src/Components/Navbar/Component
 import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {
-  // const { values } = useProfileForm();
-
   const [, authContext] = useContext(AuthContext);
   const values = authContext.data;
 
-  // console.log(values.lookingFor);
   return (
     <Formik
       initialValues={values}
       onSubmit={async values => {
         const userValues = authContext.data;
-        // console.log("userValues", userValues);
-
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
         // console.log("ta maman", values);
         let newData = await axios
@@ -55,131 +48,134 @@ function FormProfile() {
       {({
         values,
         errors,
+        dirty,
         handleBlur,
         touched,
         handleChange,
         setFieldValue,
         handleSubmit
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <Notifications />
-          <div className="containerFormProfile">
-            <div className="box name">
-              <FirstName
-                value={values.firstName}
-                onChange={handleChange("firstName")}
-                onBlur={handleBlur}
-                helperText={[
-                  errors.firstName,
-                  touched.firstName,
-                  errors.firstName
-                ]}
-              />
-              <LastName
-                value={values.lastName}
-                onChange={handleChange("lastName")}
-                onBlur={handleBlur}
-                helperText={[
-                  errors.lastName,
-                  touched.lastName,
-                  errors.lastName
-                ]}
-              />
+      }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <Notifications />
+            <div className="containerFormProfile">
+              <div className="box name">
+                <FirstName
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                  onBlur={handleBlur}
+                  helperText={[
+                    errors.firstName,
+                    touched.firstName,
+                    errors.firstName
+                  ]}
+                />
+                <LastName
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                  onBlur={handleBlur}
+                  helperText={[
+                    errors.lastName,
+                    touched.lastName,
+                    errors.lastName
+                  ]}
+                />
+              </div>
+              <div className="box search">
+                I am a ...
+                <Gender
+                  value={values.gender}
+                  onChange={handleChange("gender")}
+                  onBlur={handleBlur}
+                  helperText={[errors.gender, touched.gender, errors.gender]}
+                />
+                I want to date
+                <LookingFor
+                  value={values.lookingFor}
+                  onChange={handleChange("lookingFor")}
+                  helperText={[
+                    errors.lookingFor,
+                    touched.lookingFor,
+                    errors.lookingFor
+                  ]}
+                />
+              </div>
+              <div className="mapDiv">
+                <ProfileMap
+                  setFieldValue={setFieldValue}
+                  onChange={handleChange("city")}
+                  value={values.city}
+                />
+              </div>
+              <div className="box login">
+                <Login
+                  value={values.login}
+                  onChange={handleChange("login")}
+                  onBlur={handleBlur}
+                  helperText={[errors.login, touched.login, errors.login]}
+                />
+                <Age
+                  value={values.age}
+                  onChange={handleChange("age")}
+                  onBlur={handleBlur}
+                  helperText={[errors.age, touched.age, errors.age]}
+                />
+              </div>
+              <div className="box mail">
+                <Email
+                  value={values.email}
+                  onChange={handleChange("email")}
+                  onBlur={handleBlur}
+                  helperText={[errors.email, touched.email, errors.email]}
+                />
+                <Passwords
+                  value={[values.oldpassword, values.newpassword]}
+                  onChange={[
+                    handleChange("oldpassword"),
+                    handleChange("newpassword")
+                  ]}
+                  onBlur={handleBlur}
+                  helperText={[
+                    errors.newpassword,
+                    touched.newpassword,
+                    errors.newpassword
+                  ]}
+                />
+              </div>
+              <div className="box bio">
+                Tell us something about you :
+                <Bio
+                  value={values.bio}
+                  onChange={handleChange("bio")}
+                  onBlur={handleBlur}
+                  helperText={[errors.bio, touched.bio, errors.bio]}
+                />
+              </div>
+              <div className="box photos">
+                Your photos
+                <Photo setFieldValue={setFieldValue} />
+                {errors.pics
+                  ? notify.show("You must upload at least 1 picture", "error")
+                  : null}
+              </div>
+              <div className="box tags">
+                {errors.hobbies
+                  ? notify.show("You must choose at least 5 tags", "error")
+                  : null}
+                <Tags
+                  value={values.hobbies}
+                  // onClick={handleTags}
+                  // onChange={handleChange("hobbies")}
+                  setFieldValue={setFieldValue}
+                />
+              </div>
+              <div className="submit">
+                <Submit />
+              </div>
             </div>
-            <div className="box search">
-              I am a ...
-              <Gender
-                value={values.gender}
-                onChange={handleChange("gender")}
-                onBlur={handleBlur}
-                helperText={[errors.gender, touched.gender, errors.gender]}
-              />
-              I want to date
-              <LookingFor
-                value={values.lookingFor}
-                onChange={handleChange("lookingFor")}
-                helperText={[
-                  errors.lookingFor,
-                  touched.lookingFor,
-                  errors.lookingFor
-                ]}
-              />
-            </div>
-            <div className="mapDiv">
-              <ProfileMap
-                setFieldValue={setFieldValue}
-                onChange={handleChange("city")}
-                value={values.city}
-              />
-            </div>
-            <div className="box login">
-              <Login
-                value={values.login}
-                onChange={handleChange("login")}
-                onBlur={handleBlur}
-                helperText={[errors.login, touched.login, errors.login]}
-              />
-              <Age
-                value={values.age}
-                onChange={handleChange("age")}
-                onBlur={handleBlur}
-                helperText={[errors.age, touched.age, errors.age]}
-              />
-            </div>
-            <div className="box mail">
-              <Email
-                value={values.email}
-                onChange={handleChange("email")}
-                onBlur={handleBlur}
-                helperText={[errors.email, touched.email, errors.email]}
-              />
-              <Passwords
-                value={[values.oldpassword, values.newpassword]}
-                onChange={[
-                  handleChange("oldpassword"),
-                  handleChange("newpassword")
-                ]}
-                onBlur={handleBlur}
-                helperText={[
-                  errors.newpassword,
-                  touched.newpassword,
-                  errors.newpassword
-                ]}
-              />
-            </div>
-            <div className="box bio">
-              Tell us something about you :
-              <Bio
-                value={values.bio}
-                onChange={handleChange("bio")}
-                onBlur={handleBlur}
-                helperText={[errors.bio, touched.bio, errors.bio]}
-              />
-            </div>
-            <div className="box photos">
-              Your photos
-              <Photo setFieldValue={setFieldValue} />
-              {errors.pics
-                ? notify.show("You must upload at least 1 picture", "error")
-                : null}
-            </div>
-            <div className="box tags">
-              {errors.hobbies
-                ? notify.show("You must choose at least 5 tags", "error")
-                : null}
-              <Tags
-                value={values.hobbies}
-                // onClick={handleTags}
-                // onChange={handleChange("hobbies")}
-                setFieldValue={setFieldValue}
-              />
-            </div>
-            <div className="submit">
-              <Submit />
-            </div>
-          </div>
-        </form>
-      )}
+          </form>
+        );
+      }}
     </Formik>
   );
 }
