@@ -1,3 +1,10 @@
+.slide {
+  overflow: hidden;
+}
+/* .carroussel > div > div > ul > li {
+  overflow: hidden;
+} */
+
 .buttonSett {
   /* display: none; */
   position: fixed;

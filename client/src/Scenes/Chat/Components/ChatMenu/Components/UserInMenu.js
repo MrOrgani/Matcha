@@ -14,6 +14,7 @@ const UserInMenu = props => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   const picture = props.data.pics[props.data.indexOfPP];
+  console.log("picture UserInMenu", props.data);
 
   //CARD DISPLAY FOR THE USER CARDS
   const [socketContext, authContext] = useContext(AuthContext);
@@ -52,17 +53,6 @@ const UserInMenu = props => {
           } else handleExpandCard();
         }}
       >
-        {/* <div
-        style={{
-          width: "10px",
-          height: "10px",
-          marginTop: "14%",
-          marginLeft: "-5%",
-          background: "red",
-          borderRadius: "50%",
-          border: "solid grey 2px"
-        }}
-      /> */}
         <AugmentedAvatar targetUuid={props.data.uuid} src={picture} />
         {capFLtr(props.data.firstName || "Unknown User")}{" "}
         {capFLtr((props.data.lastName && props.data.lastName[0]) || "  ")}

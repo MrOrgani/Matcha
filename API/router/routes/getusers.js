@@ -41,7 +41,7 @@ router
       const result = [];
       let cypher = `MATCH (targ:User {isComplete:true}),
                     (me:User {uuid:'${req.query.uuidSource}'})
-                    WHERE targ.uuid <> '${req.query.uuidSource}'
+                    WHERE targ.uuid = '${req.query.uuidSource}'
                       AND (targ.lookingFor = '${req.query.gender}' 
                       OR targ.lookingFor = 'both')`;
       cypher +=

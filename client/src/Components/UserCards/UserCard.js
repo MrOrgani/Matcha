@@ -25,12 +25,12 @@ export default function UserCard() {
   );
   const [socketContext] = useContext(AuthContext);
 
-  // console.log("userInfo", userInfo);
+  console.log("userInfo", userInfo);
   return (
     <React.Fragment>
       <Card className="theCard">
         <div className="mainCard">
-          <Carousel showThumbs={false}>
+          <Carousel className="carroussel" showThumbs={false}>
             {userInfo.pics.map((pic, index) => (
               <div key={index}>
                 <img
@@ -85,7 +85,7 @@ export default function UserCard() {
                       >
                         <HighlightOffIcon />
                       </IconButton>
-                      <Button className={classes.button}>FAKE ACCOUNT</Button>
+                      <button className={classes.button}>FAKE ACCOUNT</button>
                       {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
                         <span
                           role="img"

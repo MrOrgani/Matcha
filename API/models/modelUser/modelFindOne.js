@@ -13,9 +13,13 @@ module.exports = async function modelFindOne(value, category, option = "") {
     WHERE u.${category} = `;
     if (typeof value === "string") cypher += `'${value}' ${option} RETURN u`;
     else cypher += `${value} ${option} RETURN u`;
-    const data = await session
-      .run(cypher)
-      .then(elem => low(elem.records[0]._fields[0].properties));
+    // console.log("cypher", cypher);
+    const data = await session.run(cypher).then(elem => {
+      return elem.records.length > 0
+        ? low(elem.records[0]._fields[0].properties)
+        : [];
+    });
+
     return data;
   } catch (err) {
     console.log(err, "in model findOne");

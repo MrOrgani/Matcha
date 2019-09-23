@@ -5,15 +5,14 @@ const low = require("../low");
 module.exports = async function modelCreateUser(req) {
   const { login, password, email, uuid, firstName, lastName } = req.body;
   try {
-    const data = await session
-      .run(
-        `CREATE(u:User {
-              login:{login},
-              password:{password},
-              email:{email},
-              uuid:{uuid},
-              firstName:{firstName},
-              lastName:{lastName},
+    let data = await session.run(
+      `CREATE(u:User {
+              login: '${login}',
+              password: '${password}',
+              email: '${email}',
+              uuid: '${uuid}',
+              firstName: '${firstName}',
+              lastName: '${lastName}',
               age:0,
               gender:'',
               lookingFor:'',
@@ -29,18 +28,9 @@ module.exports = async function modelCreateUser(req) {
               isComplete: false,
               isConfirmed: true
             }) 
-              RETURN u`,
-        {
-          login: login,
-          password: password,
-          email: email,
-          uuid: uuid,
-          firstName: firstName,
-          lastName: lastName
-        }
-      )
-      .then(elem => low(elem.recors[0]._fields[0].properties));
-    return data;
+              RETURN u`
+    );
+    return low(data.records[0]._fields[0].properties);
   } catch (err) {
     console.log(err);
   }
