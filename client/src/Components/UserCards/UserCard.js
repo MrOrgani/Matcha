@@ -30,7 +30,7 @@ export default function UserCard() {
     <React.Fragment>
       <Card className="theCard">
         <div className="mainCard">
-          <Carousel showThumbs={false}>
+          <Carousel showIndicators={false}>
             {userInfo.pics.map((pic, index) => (
               <div key={index}>
                 <img style={{ width: "auto", height: "700px" }} src={pic} />
@@ -146,9 +146,9 @@ const useStyles = makeStyles(theme => ({
     height: 60
   },
   button: {
-    background: "transparent",
-    boxShadow: "0px 0px 0px 0px",
-    color: "primary",
+    // background: "transparent",
+    // boxShadow: "0px 0px 0px 0px",
+    color: "DarkGrey",
     "&:hover": {
       backgroundColor: "red",
       color: "white"
