@@ -6,7 +6,6 @@ import { ProfileFormContext } from "./../ProfileFormContext";
 
 export const Photo = props => {
   const [state, setState] = useContext(ProfileFormContext);
-  console.log(state);
   const { pics } = state;
   const handleChange = event => {
     const file = event.target.files[0];

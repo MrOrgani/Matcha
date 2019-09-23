@@ -27,28 +27,21 @@ function FormProfile() {
   const [, authContext] = useContext(AuthContext);
   const values = authContext.data;
 
-  console.log(values.lookingFor);
+  // console.log(values.lookingFor);
   return (
     <Formik
       initialValues={values}
       onSubmit={async values => {
         const userValues = authContext.data;
-        console.log("userValues", userValues);
+        // console.log("userValues", userValues);
 
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        console.log("ta maman", values);
+        // console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
 
-        console.log(
-          "FormProfile retour patch",
-          // newData,
-          newData.status,
-          newData.data
-        );
         if (newData.status === 200) {
-          console.log("newData", newData);
           authContext.setData(newData.data);
           notify.show("Your profile has been updated !", "success");
         } else {

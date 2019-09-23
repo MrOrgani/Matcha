@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   const [data, setData] = useState(JSON.parse(sessionStorage.data || null));
 
   useEffect(() => {
-    console.log("useEffect triggered");
     sessionStorage.isAuth = JSON.stringify(isAuth);
     sessionStorage.data = data ? JSON.stringify(data) : "";
   }, [isAuth, data]);
