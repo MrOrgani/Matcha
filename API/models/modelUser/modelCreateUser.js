@@ -27,7 +27,7 @@ module.exports = async function modelCreateUser(req) {
               indexOfPP: 0,
               score: 50,
               isComplete: false,
-              isConfirmed: true
+              isConfirmed: false
             }) 
               RETURN u`,
         {
@@ -40,10 +40,6 @@ module.exports = async function modelCreateUser(req) {
         }
       )
       .then(elem => {
-        // console.log(
-        //   "in modelcreate User",
-        //   low(elem.records[0]._fields[0].properties)
-        // );
         return low(elem.records[0]._fields[0].properties);
       });
     return data;

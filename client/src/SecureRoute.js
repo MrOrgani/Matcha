@@ -14,7 +14,7 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
     if (!result) setSecureAuth(false);
     await Conditions.forEach(condition => {
       if (result.data[condition] !== true) {
-        setSecureAuth(false);
+        secureAuth && setSecureAuth(false);
       }
     });
   };

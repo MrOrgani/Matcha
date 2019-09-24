@@ -2,7 +2,9 @@ const modelFindOne = require("./../../models/modelUser/modelFindOne");
 
 module.exports = async function confirmEmail(req, res) {
   const resFindOne = await modelFindOne(req.params.id, "uuid");
-  if (!resFindOne.length) {
+  console.log("POURQUOI CA MARCHE PAS confirmemail", req.params, resFindOne);
+
+  if (!resFindOne.lastName) {
     res.status(203).json({ msg: "we could not find you" });
   } else {
     const { isConfirmed } = resFindOne;

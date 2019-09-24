@@ -2,14 +2,16 @@ export const RegisterValidation = function(values) {
   let errors = {};
   if (!values.firstName) {
     errors.firstName = "A firstname is required";
-  } else if (!/^[A-Z]+$/i.test(values.firstName))
+  } else if (!/^[A-Z -]+$/i.test(values.firstName))
     errors.firstName = "Firstname must only contain letters";
   if (!values.lastName) {
     errors.lastName = "A lastname is required";
-  } else if (!/^[A-Z]+$/i.test(values.lastName))
+  } else if (!/^[A-Z -]+$/i.test(values.lastName))
     errors.lastName = "Lastname must only contain letters";
   if (!values.login) {
     errors.login = "A login is required";
+  } else if (!/^[A-Z0-9 _-]+$/i.test(values.login)) {
+    errors.login = "login can only contain letters and Numbers";
   }
   if (!values.email) {
     errors.email = "Required";
