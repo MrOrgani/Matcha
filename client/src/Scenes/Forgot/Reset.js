@@ -21,15 +21,12 @@ export default function Reset(props) {
     password: "",
     confNewPass: ""
   };
-  console.log("reset");
   return (
     <React.Fragment>
       {!isSubmitionCompleted ? (
         <Formik
           initialValues={initialValues}
           onSubmit={async values => {
-            console.log("here");
-            console.log("values", values);
             const { id } = props.match.params;
             const api = `http://localhost:9000/api/user/forgot/${id}`;
             const resConf = await axios
@@ -37,10 +34,6 @@ export default function Reset(props) {
               .catch(err => console.log(err));
             if (resConf.status === 200) {
               setSubmitionCompleted(true);
-              // socketContext.socket && socketContext.socket.emit("logOut");
-              console.log(resConf.data);
-              // authContext.setData(resConf.data);
-              // authContext.setIsAuth(1);
             } else {
               let errorStr = "";
               setSubmitionCompleted(true);
@@ -63,7 +56,6 @@ export default function Reset(props) {
             handleBlur,
             touched,
             handleChange,
-            // setFieldValue,
             handleSubmit
           }) => (
             <form
@@ -76,8 +68,6 @@ export default function Reset(props) {
               }}
               className="backg"
             >
-              {/* <div className="containerFormProfile"> */}
-              {/* <div className="box name"> */}
               <TextField
                 className="input"
                 type="text"
@@ -91,7 +81,6 @@ export default function Reset(props) {
                   errors.password && touched.password && errors.password
                 }
               />
-              {/* New password */}
               <TextField
                 className="input"
                 type="text"
@@ -107,7 +96,6 @@ export default function Reset(props) {
                   errors.confNewPass
                 }
               />
-              {/* </div> */}
               <div className="submit">
                 <Button
                   variant="contained"
@@ -125,7 +113,6 @@ export default function Reset(props) {
                   Save
                 </Button>
               </div>
-              {/* </div> */}
             </form>
           )}
         </Formik>

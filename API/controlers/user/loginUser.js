@@ -6,14 +6,6 @@ module.exports = async function loginUser(req, res) {
   try {
     let userData = await modelFindOne(req.body.login, "login");
     if (userData.length === 0) return res.status(201).send("Invalid username");
-    // console.log(
-    //   "WHEN LOGIING IN ",
-    //   userData.indexOfPP,
-    //   userData.age,
-    //   userData.score
-    // );
-    // userData.indexOfPP = userData.indexOfPP.low; // When Logging in you have to rearrange the `indexOfPP: {low:0 , high:0}` for real users
-    // console.log("login user userData", req.body.password, userData.password);
     if (!(await bcrypt.compare(req.body.password, userData.password)))
       return res.status(206).send("Invalid password");
     if (!userData.isConfirmed)

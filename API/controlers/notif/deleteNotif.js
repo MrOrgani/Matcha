@@ -4,7 +4,6 @@ const {
 
 exports.deleteNotif = async (req, res) => {
   try {
-    // console.log("coucou");
     const result = await modelDeleteNotif(req.body);
     res.status(200).send(result);
   } catch (err) {

@@ -6,7 +6,6 @@ module.exports = async function changePass(req, res, next) {
   const { oldpassword, newpassword } = req.body.values;
   // Si oldpassword et newpassword
   if (oldpassword && newpassword) {
-    // console.log("password is being changed", oldpassword, newpassword);
     try {
       const userData = await modelFindOne(req.query.userSource, "login");
       const { password } = userData;
@@ -22,10 +21,8 @@ module.exports = async function changePass(req, res, next) {
     } catch (err) {
       console.log(err);
     }
-    console.log("errors Change pass", errors);
+    // console.log("errors Change pass", errors);
     for (let x in errors) return res.status(201).json(errors);
   }
-  // if (req.body.values.oldpassword) delete req.body.values.oldpassword;
-  // console.log("Changedpass ?", !req.body.values.newpassword);
   next();
 };

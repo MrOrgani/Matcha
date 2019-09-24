@@ -39,7 +39,6 @@ function Login() {
                   if (res.status === 200) {
                     setSubmitionCompleted(true);
                     socketContext.socket && socketContext.socket.emit("logOut");
-                    console.log(res.data);
                     authContext.setData(res.data);
                     authContext.setIsAuth(1);
                   } else {
@@ -60,7 +59,6 @@ function Login() {
                   console.log("Error while loging: ", err.response)
                 );
             }}
-            // validate={LoginValidation}
           >
             {props => {
               const {
@@ -109,7 +107,6 @@ function Login() {
                     <Button type="submit" disabled={isSubmitting}>
                       Submit
                     </Button>
-                    {/* <DisplayFormikState {...props} /> */}
                   </DialogActions>
                 </form>
               );

@@ -37,20 +37,16 @@ function Register() {
           <Formik
             initialValues={initialState}
             onSubmit={(values, { setSubmitting }) => {
-              // console.log("values", values);
               setSubmitting(true);
               axios
                 .post("http://localhost:9000/api/user/register", values, {
                   headers: {
-                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
                   }
                 })
                 .then(res => {
-                  // console.log("response de l'API", res);
                   if (res.status === 200) setSubmitionCompleted(true);
                   else {
-                    // console.log("erreure recue lors de l'enregistrement");
                     let errorStr = "";
                     setSubmitionCompleted(true);
                     setValid(false);
@@ -87,7 +83,6 @@ function Register() {
                   <TextField
                     label="firstname"
                     name="firstName"
-                    // className={textField}
                     value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -99,7 +94,6 @@ function Register() {
                   <TextField
                     label="lastname"
                     name="lastName"
-                    // className={textField}
                     value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -111,7 +105,6 @@ function Register() {
                   <TextField
                     label="login"
                     name="login"
-                    // className={textField}
                     value={values.login}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -122,7 +115,6 @@ function Register() {
                     error={errors.email && touched.email}
                     label="email"
                     name="email"
-                    // className={classes.textField}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -133,7 +125,6 @@ function Register() {
                     error={errors.password && touched.password}
                     label="password"
                     name="password"
-                    // className={classes.textField}
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -154,7 +145,6 @@ function Register() {
                     <Button type="submit" disabled={isSubmitting}>
                       Submit
                     </Button>
-                    {/* <DisplayFormikState {...props} /> */}
                   </DialogActions>
                 </form>
               );

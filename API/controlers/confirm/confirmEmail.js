@@ -6,7 +6,6 @@ module.exports = async function confirmEmail(req, res) {
     res.status(203).json({ msg: "we could not find you" });
   } else {
     const { isConfirmed } = resFindOne;
-    // console.log("isAuth", isAuth);
     if (!isConfirmed) {
       modelFindOne(req.params.id, "uuid", "SET u.isConfirmed = true");
       res.json({ msg: "Your account has been validated" });

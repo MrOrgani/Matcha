@@ -7,7 +7,6 @@ async function modelUpdateProfile(req) {
   console.log("values MODELUPDATEPROFILE are", req.body.values.age);
   try {
     if (req.body.values.newpassword) {
-      // console.log("THE PASSWORD WAS UPDATED", req.body.values);
       await session.run(
         `MATCH (u:User {uuid: {uuidSource}})
           SET u.password = {newpassword}`,
@@ -52,25 +51,14 @@ async function modelUpdateProfile(req) {
     );
 
     await handlePracticeHobbies(req);
-    // console.log(
-    //   "THE NEW USER DATA",
-    //   userData.records[0]._fields[0].properties.indexOfPP
-    // );
-
     //// ********************* JWT auth token
     const token = jwt.sign(
       { uuid: userData.records[0]._fields[0].properties.uuid },
       process.env.TOKEN_SECRET
     );
     delete userData.records[0]._fields[0].properties.password;
-    // delete userData.records[0]._fields[0].properties.uuid;
     userData.records[0]._fields[0].properties.jwt = token;
     // ------------------------------------
-
-    // console.log(
-    //   "value in MODEL USER",
-    //   userData.records[0]._fields[0].properties
-    // );
     return userData.records[0]._fields[0].properties;
   } catch (err) {
     delete req.body.pics;
@@ -89,7 +77,6 @@ async function handlePracticeHobbies(req) {
     )
     .catch(err => console.log("err on delete practice: ", err));
   req.body.values.hobbies.map(async hobby => {
-    // console.log("hobby is ", hobby);
     await session
       .run(
         `MATCH (u:User {uuid: {uuidSource}}),(h:Hobby {name:{hobby}})

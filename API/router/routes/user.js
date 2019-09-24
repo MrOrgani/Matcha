@@ -70,15 +70,11 @@ router
   .patch(userVerif, changePass, dataProfileVal, cryptNObject, (req, res) => {
     updateProfile(req, res);
   })
-  .put(
-    // userVerif,
-    (req, res) => {
-      updateLocation(req, res);
-    }
-  );
+  .put((req, res) => {
+    updateLocation(req, res);
+  });
 
 router.route("/findOne").get(userVerif, (req, res) => {
-  // console.log("starting find one with succesfull userVerif", req.query);
   findOne(req, res);
 });
 

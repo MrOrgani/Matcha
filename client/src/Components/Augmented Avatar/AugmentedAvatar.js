@@ -8,7 +8,6 @@ const AugmentedAvatar = props => {
   const [dot, setDot] = useState("redDot");
 
   useEffect(() => {
-    // console.log("useEffect in the AugmentedAvatar component");
     setDot(
       socketContext.connectedUsrs.includes(props.targetUuid)
         ? "greenDot"

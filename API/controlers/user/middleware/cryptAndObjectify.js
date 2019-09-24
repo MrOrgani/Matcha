@@ -12,9 +12,7 @@ module.exports = async function cryptNObject(req, res, next) {
       const hashPassword = await bcrypt.hash(password, salt);
       req.body.values.newpassword = hashPassword;
       delete req.body.values.oldpassword;
-      console.log("cryptandObjectify NEWPASS AND CONFNEW EXIST");
     }
-    // console.log("crypt wht are in req", req.body);
     if (req.body.password) {
       password = req.body.password;
       const hashPassword = await bcrypt.hash(password, salt);
@@ -23,7 +21,7 @@ module.exports = async function cryptNObject(req, res, next) {
     }
     next();
   } catch (err) {
-    console.log(err);
+    console.log("error in crypt N Objectify", err);
     res.status(400).send(err);
   }
 };

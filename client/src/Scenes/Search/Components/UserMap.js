@@ -22,8 +22,6 @@ export default function UserMap() {
   const [, authContext] = useContext(AuthContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
 
-  //   console.log("authcontext", authContext);
-
   useEffect(() => {
     const filterUsers = (filters, users) => {
       const genderFiltered =

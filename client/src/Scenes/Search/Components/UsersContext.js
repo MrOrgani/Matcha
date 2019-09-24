@@ -43,7 +43,6 @@ export const UsersProvider = props => {
   const data = authContext.data;
 
   useEffect(() => {
-    // console.log("usersContext, useEffect");
     const fetchData = async () => {
       try {
         let [result, resultMatch] = await Promise.all([

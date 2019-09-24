@@ -9,7 +9,6 @@ const Oauth = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    // console.log("useEffect wa triggered");
     const req = {};
     (async () => {
       req.jwt = await urlParams.get("jwt");

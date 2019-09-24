@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
         uuid: data.uuid
       }
     });
-    // console.log("connect to socket", socket);
     socket.on("newConnection", connectedUsrs => {
       socketContext.connectedUsrs = connectedUsrs;
     });

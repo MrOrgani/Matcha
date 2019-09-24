@@ -21,9 +21,7 @@ exports.updateLocation = async (req, res) => {
       "uuid",
       `SET u.location = [${req.body.lat}, ${req.body.lon}]`
     );
-    // console.log("data ", data);
     data = cleanUserData(data);
-    // console.log("data after clean ", data);
     res.status(200).send(data);
   } catch (err) {
     res.status(400).send(err);

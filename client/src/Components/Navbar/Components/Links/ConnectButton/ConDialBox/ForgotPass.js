@@ -58,12 +58,10 @@ export default function ForgotPass() {
                 values,
                 touched,
                 errors,
-                //   dirty,
                 isSubmitting,
                 handleChange,
                 handleBlur,
                 handleSubmit
-                //   handleReset
               } = props;
               return (
                 <form onSubmit={handleSubmit} className="registerBlock">
@@ -71,7 +69,6 @@ export default function ForgotPass() {
                     error={errors.email && touched.email}
                     label="email"
                     name="email"
-                    // className={classes.textField}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}

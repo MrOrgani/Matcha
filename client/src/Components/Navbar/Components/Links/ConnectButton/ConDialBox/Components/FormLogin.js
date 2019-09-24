@@ -1,33 +1,17 @@
 import React, { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
-// import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { LoginValidation } from "../UserValidation";
 import { AuthContext } from "../../../../../../../../src/AuthContext";
-// import { AuthContext } from "../../../../AuthContext";
-// import { socket } from "../../../../Components/Navbar/NavBar";
 import "../../../../../NavBar.css";
-import { ConnectButtonContext } from "../../ConnectButtonContext";
-import { Spin, Icon } from "antd";
-import {
-  Result
-  //  Button
-} from "antd";
+import { Result } from "antd";
 
-export default function FormLogin(props) {
-  // const [state, setState] = useContext(ConnectButtonContext);
-  // const [state, setState] = props.value;
+export default function FormLogin() {
   const [socketContext, authContext] = useContext(AuthContext);
-  // const antIcon = <Icon type="loading" style={{ fontSize: 70 }} spin />;
-  // console.log("state Form", state);
-
-  const [open, setOpen] = useState(false);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
@@ -52,18 +36,12 @@ export default function FormLogin(props) {
                   }
                 })
                 .then(res => {
-                  // console.log("response de l'API", res.data);
                   if (res.status === 200) {
                     setSubmitionCompleted(true);
                     socketContext.socket && socketContext.socket.emit("logOut");
-                    // sessionStorage.data = JSON.stringify(res.data);
-                    console.log(res.data);
                     authContext.setData(res.data);
                     authContext.setIsAuth(1);
-                    // sessionStorage.isAuth = 1;
-                    // socketContext.socket.emit("login", res.data.login);
                   } else {
-                    console.log(res);
                     let errorStr = "";
                     setSubmitionCompleted(true);
                     setValid(false);
@@ -130,7 +108,6 @@ export default function FormLogin(props) {
                     <Button type="submit" disabled={isSubmitting}>
                       Submit
                     </Button>
-                    {/* <DisplayFormikState {...props} /> */}
                   </DialogActions>
                 </form>
               );

@@ -16,33 +16,11 @@ async function addHobbies(json) {
       element.hobbies = [...new Set(hobbyUser)];
       element.index = index;
     });
-    console.log(json.results);
     return json;
   } catch (error) {
-    console.log(error);
+    console.log("error in addhobbies and city", error);
   }
 }
-
-// async function addImg(json) {
-//   try {
-//     for (let element of json.results) {
-//       // https://api.unsplash.com/photos/random/?client_id=3961c46062fb50998b300c64ab95f4470b1b4c7f79f23969fa55cc68bda7e109&query=girl
-//       const dataUnSplash = await fetch(
-//         `https://api.unsplash.com/photos/random/?client_id=${
-//           process.env.US_ACCKEY
-//         }&query=${element.gender === "male" ? "guy" : "girl"}`
-//       ).catch(err => console.log("err add img", err));
-//       const dataUS_json = await dataUnSplash.json();
-
-//       element.picture.large = dataUS_json.urls.regular;
-//       element.picture.medium = dataUS_json.urls.small;
-//       element.picture.thumbnail = dataUS_json.urls.thumb;
-//     }
-//     return json;
-//   } catch (err) {
-//     console.log("err is", err);
-//   }
-// }
 
 async function addCityCoords(json) {
   try {
@@ -79,7 +57,6 @@ async function addTagNCity(req, res) {
   const json = await response.json();
 
   const usersWithHobbies = await addHobbies(json);
-  // const usersWithImg = await addImg(usersWithHobbies);
   const usersWithCoord = await addCityCoords(usersWithHobbies); // AMODIFIER POUR UNSPLASH
   res.send(usersWithCoord);
 }

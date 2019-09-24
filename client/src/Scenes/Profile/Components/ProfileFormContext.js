@@ -6,7 +6,6 @@ const ProfileFormContext = React.createContext([{}, () => {}]);
 const ProfileFormProvider = props => {
   const [, authContext] = useContext(AuthContext);
   const data = authContext.data;
-  // console.log("authcontext", authContext, "data", data);
   const [state, setState] = useState({
     firstName: data.firstName,
     lastName: data.lastName,
