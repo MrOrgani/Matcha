@@ -47,7 +47,7 @@ app.use("/", router);
 const connectionEmit = require("./Sockets/connectedUsers");
 const connectedUsrs = {};
 
-io.sockets.on("connect", socket => {
+io.sockets.on("connect", async socket => {
   const disconnectUser = _ => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
     connectionEmit(io, connectedUsrs);
@@ -57,5 +57,7 @@ io.sockets.on("connect", socket => {
   require("./Sockets/onChatMessage")(socket, io);
   require("./Sockets/newNotif").newNotifListener(socket, io);
   connectionEmit(io, connectedUsrs);
-  socket.on("logOut", disconnectUser).on("disconnect", disconnectUser);
+  socket
+    .on("logOut", await disconnectUser)
+    .on("disconnect", await disconnectUser);
 });

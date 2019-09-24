@@ -5,6 +5,7 @@ export const Email = props => {
   return (
     <TextField
       className="input"
+      required
       type="email"
       label="Email"
       name="email"

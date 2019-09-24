@@ -1,20 +1,13 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import CardContent from "@material-ui/core/CardContent";
-import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
-// import Typography from "@material-ui/core/Typography";
+import { AuthContext } from "../../AuthContext";
 import { UserCardContext } from "./UserCardContext";
-// import CardHeader from "@material-ui/core/CardHeader";
-// import Avatar from "@material-ui/core/Avatar";
+import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import Button from "@material-ui/core/Button";
 import "./UserCard.css";
-import { AuthContext } from "../../AuthContext";
-// import { Spring } from "react-spring/renderprops";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
@@ -25,7 +18,6 @@ export default function UserCard() {
   );
   const [socketContext] = useContext(AuthContext);
 
-  // console.log("userInfo", userInfo);
   return (
     <React.Fragment>
       <Card className="theCard">

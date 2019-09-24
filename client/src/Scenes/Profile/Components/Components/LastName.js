@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 export const LastName = props => {
   return (
     <TextField
+      required
       className="input"
       type="text"
       name="lastName"

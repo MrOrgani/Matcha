@@ -42,6 +42,8 @@ export default function CompoContext() {
     []
   );
 
+  const { setData } = authContext;
+
   useEffect(() => {
     async function updateLocation() {
       const userData = await axios
@@ -50,10 +52,10 @@ export default function CompoContext() {
           state
         )
         .catch(err => console.log(err));
-      authContext.setData(userData.data);
+      setData(userData.data);
     }
     if (state.lat !== "") updateLocation();
-  }, [state, data.uuid, authContext]);
+  }, [state, data.uuid, setData]);
 
   function handleClick(value) {
     if (value === "map") {

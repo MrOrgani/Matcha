@@ -3,7 +3,7 @@ module.exports = function dataProfileVal(req, res, next) {
 
   if (!req.body.values.age) {
     errors.age = "Age is required";
-  } else if (req.body.values.age) {
+  } else if (req.body.values.age < 18 && req.body.values.age > 100) {
     errors.age = "You must be between 18 and 100";
   }
 
@@ -45,8 +45,7 @@ module.exports = function dataProfileVal(req, res, next) {
 
   if (!req.body.values.login) {
     errors.login = "A login is required";
-  } else if (!/^[A-Z]+$/i.test(req.body.values.login))
-    errors.login = "Login must only contain letters";
+  }
 
   if (req.body.values.newpassword && req.body.values.oldpassword) {
     if (

@@ -5,6 +5,7 @@ export const Age = props => {
   return (
     <TextField
       id="filled-number"
+      required
       label="Age"
       name="age"
       value={props.value}

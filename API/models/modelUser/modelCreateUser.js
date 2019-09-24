@@ -39,9 +39,15 @@ module.exports = async function modelCreateUser(req) {
           lastName: lastName
         }
       )
-      .then(elem => low(elem.recors[0]._fields[0].properties));
+      .then(elem => {
+        // console.log(
+        //   "in modelcreate User",
+        //   low(elem.records[0]._fields[0].properties)
+        // );
+        return low(elem.records[0]._fields[0].properties);
+      });
     return data;
   } catch (err) {
-    console.log(err);
+    console.log("error in modelCreateUser", err, req.body);
   }
 };

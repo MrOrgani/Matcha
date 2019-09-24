@@ -6,6 +6,7 @@ export const LookingFor = props => {
   return (
     <TextField
       select
+      required
       label="Looking for?"
       name="lookingFor"
       value={props.value}

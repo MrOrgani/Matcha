@@ -4,20 +4,15 @@ import React, {
 } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
-// import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import { Formik } from "formik";
 import { RegisterValidation } from "./UserValidation";
-// import { AuthContext } from "../../../../../../AuthContext";
 import "../../../../NavBar.css";
 import { Result } from "antd";
 
 function Register() {
-  // const [socketContext, authContext] = useContext(AuthContext);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");

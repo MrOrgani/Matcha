@@ -6,6 +6,7 @@ const cleanUserData = require("../user/cleanUserData");
 
 // UPDATE INFOS  FROM PROFILE PAGE
 exports.updateProfile = async (req, res) => {
+  // console.log(req.body, req.query);
   try {
     const data = await modelUpdateProfile(req);
     res.status(200).send(data);
