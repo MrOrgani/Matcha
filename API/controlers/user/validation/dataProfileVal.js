@@ -28,15 +28,6 @@ module.exports = function dataProfileVal(req, res, next) {
     errors.email = "Invalid email address !";
   }
 
-  //PICTURE
-  reader = new FileReader();
-  // req.body.values.pics.forEach(pic => {
-  //   console.log(pic.type, isImage(pic));
-  //   console.log(reader.readAsDataURL(pic));
-  //   // if (!isImage(pic)) errors.pics = "one image is not valid";
-  // });
-  // if (!isImage(req.body.pics))
-
   if (!req.body.values.firstName) {
     errors.firstName = "A firstname is required";
   } else if (!/^[A-Z -]+$/i.test(req.body.values.firstName))

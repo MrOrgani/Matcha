@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import UserList from "./UserList";
-// import { UsersProvider } from "./Components/UsersContext";
 import "../public/stylesheet/style.css";
 import Filters from "./Filters";
 import axios from "axios";
@@ -19,7 +18,7 @@ export default function CompoContext() {
   const { data } = authContext;
   const [usersValue, filtersValue] = useContext(UsersContext);
 
-  if (!data.isComplete) window.location = "/Profile";
+  // if (!data.isComplete) window.location = "/Profile";
 
   useEffect(
     () =>
