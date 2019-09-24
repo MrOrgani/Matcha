@@ -7,14 +7,20 @@ import { ProfileFormContext } from "./../ProfileFormContext";
 export const Photo = props => {
   const [state, setState] = useContext(ProfileFormContext);
   const { pics } = state;
+
   const handleChange = event => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = function() {
+      // console.log(reader.readAsDataURL(file));
       const allFiles = [...pics, reader.result];
       setState({ ...state, pics: allFiles });
       props.setFieldValue("pics", allFiles);
     };
+    reader.onerror = err => {
+      console.log(err);
+    };
+
     reader.readAsDataURL(file);
   };
 
@@ -81,6 +87,7 @@ export const Photo = props => {
             id="ppt"
             className="uploadButton"
             type="file"
+            accept="image/png, image/jpeg"
             onChange={handleChange}
           />
           <label htmlFor="ppt" style={{ border: "1px solid black" }}>

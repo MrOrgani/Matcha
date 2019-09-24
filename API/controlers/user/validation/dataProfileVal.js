@@ -1,3 +1,6 @@
+const isImage = require("is-image");
+const FileReader = require("filereader");
+
 module.exports = function dataProfileVal(req, res, next) {
   let errors = {};
 
@@ -25,9 +28,18 @@ module.exports = function dataProfileVal(req, res, next) {
     errors.email = "Invalid email address !";
   }
 
+  //PICTURE
+  reader = new FileReader();
+  // req.body.values.pics.forEach(pic => {
+  //   console.log(pic.type, isImage(pic));
+  //   console.log(reader.readAsDataURL(pic));
+  //   // if (!isImage(pic)) errors.pics = "one image is not valid";
+  // });
+  // if (!isImage(req.body.pics))
+
   if (!req.body.values.firstName) {
     errors.firstName = "A firstname is required";
-  } else if (!/^[A-Z]+$/i.test(req.body.values.firstName))
+  } else if (!/^[A-Z -]+$/i.test(req.body.values.firstName))
     errors.firstName = "Firstname must only contain letters";
 
   if (!req.body.values.gender) {
@@ -40,11 +52,13 @@ module.exports = function dataProfileVal(req, res, next) {
 
   if (!req.body.values.lastName) {
     errors.lastName = "A lastname is required";
-  } else if (!/^[A-Z]+$/i.test(req.body.values.lastName))
+  } else if (!/^[A-Z -]+$/i.test(req.body.values.lastName))
     errors.lastName = "Lastname must only contain letters";
 
   if (!req.body.values.login) {
     errors.login = "A login is required";
+  } else if (!/^[A-Z0-9 _-]+$/i.test(req.body.values.login)) {
+    errors.login = "login can only contain letters and Numbers";
   }
 
   if (req.body.values.newpassword && req.body.values.oldpassword) {

@@ -36,7 +36,8 @@ module.exports = async function passportSuccess(req, res) {
         "uuid",
         `SET u.IdDuoQuadra=${id},
             u.lastName= '${last_name}',
-            u.pics = ['${image_url}']`
+            u.pics = ['${image_url}'],
+            u.isConfirmed = true`
       );
       newUser.body.jwt = await cleanUserData(newUser.body).jwt;
 

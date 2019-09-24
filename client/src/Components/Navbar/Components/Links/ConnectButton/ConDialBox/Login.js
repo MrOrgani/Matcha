@@ -86,6 +86,7 @@ function Login() {
                   <TextField
                     error={errors.password && touched.password}
                     label="password"
+                    type="password"
                     name="password"
                     value={values.password}
                     onChange={handleChange}
