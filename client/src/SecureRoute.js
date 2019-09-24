@@ -18,7 +18,7 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
       }
     });
   };
-  if (Conditions) fetchData(authContext.data);
+  if (Conditions && authContext.data) fetchData(authContext.data);
 
   return (
     <Route

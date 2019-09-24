@@ -58,6 +58,7 @@ const User = () => {
   const [openCard, setOpenCard] = useState(false);
   const [isLiked, handleLike, , , userInfo] = useContext(UserCardContext);
   const [socketContext, authContext] = useContext(AuthContext);
+
   function handleClick() {
     socketContext.socket.emit("newNotif", {
       uuidSource: authContext.data.uuid,

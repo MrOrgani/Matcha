@@ -2,8 +2,6 @@ const { modelUserVerif } = require("../../../models/modelUser/modelUserVerif");
 
 module.exports = async function userVerif(req, res, next) {
   try {
-    // console.log("in userverif controller", req.query, req.body);
-
     if (req.query.jwt && req.query.uuidSource && modelUserVerif(req.query)) {
       return next();
     }

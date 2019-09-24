@@ -142,16 +142,10 @@ export const ProfileValidation = values => {
     }
   }
 
-  // if (!values.pics || values.pics.length < 1) {
-  //   errors.pics = "You must upload at least 1 pic";
-  // }
-
   if (!values.lookingFor) {
     errors.lookingFor = "What are you looking for ?";
   }
 
-  console.log("fuking errors", errors);
+  // console.log("fuking errors", errors);
   return errors;
 };
-
-// export default { RegisterValidation, LoginValidation };

@@ -1,10 +1,8 @@
 const { initNeo4j } = require("../initNeo4j");
-const neo4j = require("neo4j-driver").v1;
 const session = initNeo4j();
 const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
-  console.log("values MODELUPDATEPROFILE are", req.body.values.age);
   try {
     if (req.body.values.newpassword) {
       await session.run(

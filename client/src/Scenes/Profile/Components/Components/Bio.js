@@ -5,6 +5,7 @@ export const Bio = props => {
   return (
     <TextField
       className="input"
+      required
       type="text"
       label="Bio"
       name="bio"
