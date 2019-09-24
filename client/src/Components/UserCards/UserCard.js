@@ -82,7 +82,7 @@ export default function UserCard() {
                       >
                         <HighlightOffIcon />
                       </IconButton>
-                      <button className={classes.button}>FAKE ACCOUNT</button>
+                      <Button className={classes.button}>FAKE ACCOUNT</Button>
                       {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
                         <span
                           role="img"

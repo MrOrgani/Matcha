@@ -9,7 +9,6 @@ module.exports = async function passportSuccess(req, res) {
   const { emails, id, username } = req.user;
   const { first_name, last_name, image_url } = req.user._json;
   const result = await modelFindOne(parseInt(id), "IdDuoQuadra");
-  console.log("in passportSuccess", result);
   if (result.length !== 0) {
     //ON REPREND LES INFOS SI ON A TROUVE UN USER
     const newUser = cleanUserData(result);
@@ -42,7 +41,6 @@ module.exports = async function passportSuccess(req, res) {
       newUser.body.jwt = await cleanUserData(newUser.body).jwt;
 
       // ON RENVOIE A UNE PAGE FRONT
-      // console.log("created the 42 user", newUser.body);
       res.redirect(
         `http://localhost:3000/Oauth?jwt=${newUser.body.jwt}&uuid=${newUser.body.uuid}`
       );
