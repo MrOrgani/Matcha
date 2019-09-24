@@ -16,20 +16,25 @@ export default function UserCard() {
   const [isLiked, setLiked, isBlocked, setBlocked, userInfo] = useContext(
     UserCardContext
   );
+
   const [socketContext] = useContext(AuthContext);
+
+  function capFLtr(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <React.Fragment>
       <Card className="theCard">
         <div className="mainCard">
-          <Carousel showIndicators={false}>
+          <Carousel showIndicators={false} showThumbs={false}>
             {userInfo.pics.map((pic, index) => (
               <div key={index}>
-                <img style={{ width: "auto", height: "700px" }} src={pic} />
+                <img alt="userPic" className="userPic" src={pic} />
 
                 <div className="showHim">
                   <div className="userName">
-                    {userInfo.firstName} {userInfo.lastName[0]}.
+                    {capFLtr(userInfo.firstName)} {userInfo.lastName[0]}.
                   </div>
                   <div className="backRect">
                     <div>
