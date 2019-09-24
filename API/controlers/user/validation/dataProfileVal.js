@@ -1,5 +1,5 @@
-const isImage = require("is-image");
-const FileReader = require("filereader");
+// const isImage = require("is-image");
+// const FileReader = require("filereader");
 
 module.exports = function dataProfileVal(req, res, next) {
   let errors = {};
@@ -29,7 +29,7 @@ module.exports = function dataProfileVal(req, res, next) {
   }
 
   //PICTURE
-  reader = new FileReader();
+  // reader = new FileReader();
   // req.body.values.pics.forEach(pic => {
   //   console.log(pic.type, isImage(pic));
   //   console.log(reader.readAsDataURL(pic));
