@@ -135,6 +135,8 @@
 .theCard {
   display: block;
   border-radius: 100px;
+  width: 500px;
+  height: 700px;
 }
 
 .theCardMatch {
@@ -161,6 +163,11 @@
   margin: 3vh;
 } */
 
+.userPic {
+  width: auto;
+  height: 700px;
+}
+
 @media (max-width: 500px) {
   /* .filterLarge {
     display: none;
@@ -168,6 +175,10 @@
   .filterSmall {
     display: block;
   } */
+  .userPic {
+    width: auto;
+    height: 700px;
+  }
   .mainCard {
     background-repeat: no-repeat;
     height: 100%;
