@@ -2,7 +2,6 @@ const { initNeo4j } = require("../../initNeo4j");
 const session = initNeo4j();
 
 async function modelIsLiked(req) {
-  // console.log("in model is Liked", req);
   try {
     const data = await session.run(
       `MATCH (u:User {uuid:{uuidSource}})-[r:LIKED]->(n:User {uuid:{

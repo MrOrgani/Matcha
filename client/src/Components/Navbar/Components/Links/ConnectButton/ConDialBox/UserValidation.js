@@ -1,5 +1,4 @@
 export const RegisterValidation = function(values) {
-  // console.log(values);
   let errors = {};
   if (!values.firstName) {
     errors.firstName = "A firstname is required";
@@ -77,7 +76,6 @@ export const ResetValidation = function(values) {
 };
 
 export const ProfileValidation = values => {
-  // console.log("UserVlaidation Profile values", values);
   let errors = {};
   if (!values.age) {
     errors.age = "Age is required";

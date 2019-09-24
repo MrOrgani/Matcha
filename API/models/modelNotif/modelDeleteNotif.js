@@ -8,7 +8,6 @@ async function modelDeleteNotif(req) {
       SET u.notifs = []`,
       req
     );
-    // console.log(data.records);
     return data.records;
   } catch (err) {
     console.log("modelDeleteNotif", err, req);

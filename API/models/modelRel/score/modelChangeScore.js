@@ -4,7 +4,6 @@ const session = initNeo4j();
 //scoreChange : +2 Visit, +5 like, -20 block, -5 unlike
 //ScoreChange is done in each model
 exports.modelChangeScore = async (req, scoreChange) => {
-  // console.log("in model change Score", req, scoreChange);
   const cypher =
     scoreChange >= 0
       ? "MATCH (s:User {uuid:$target}) SET s.score = CASE WHEN s.score + $scoreChange > 100 THEN 100 ELSE s.score + $scoreChange END"

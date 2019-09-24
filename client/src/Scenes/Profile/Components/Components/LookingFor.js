@@ -3,7 +3,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
 export const LookingFor = props => {
-  // console.log(props);
   return (
     <TextField
       select

@@ -8,7 +8,6 @@ const AuthRequired = props => {
   // check for token with request to back
   const isAuth = { verif: true };
 
-  // useEffect(_ => {
   const fetchData = async () => {
     const data = JSON.parse(sessionStorage.getItem("data"));
     axios
@@ -17,7 +16,6 @@ const AuthRequired = props => {
         userSource: data.login
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           isAuth.verif = true;
         } else {
@@ -26,16 +24,10 @@ const AuthRequired = props => {
       });
   };
   fetchData();
-  // });
 
-  console.log(isAuth.verif);
   if (isAuth.verif) {
-    console.log("ici baby");
     return props.orRender;
   } else return <Redirect to="/" />;
-  // return (
-  //   {isAuth.verif ? props.orRender : <Redirect to="/"}
-  // )
 };
 
-export default AuthRequired;
+// export default AuthRequired;

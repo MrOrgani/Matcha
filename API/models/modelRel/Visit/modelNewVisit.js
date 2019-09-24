@@ -3,7 +3,6 @@ const session = initNeo4j();
 
 async function modelNewVisit(req) {
   try {
-    // console.log("req modelNewVisit", req);
     await session.run(
       `MATCH (s:User {uuid:{uuidSource}}), (t:User {uuid:{target}})
     MERGE (s)-[r:VISITED]->(t)`,

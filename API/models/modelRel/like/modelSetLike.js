@@ -6,7 +6,6 @@ const session = initNeo4j();
 
 async function modelSetLike(req) {
   try {
-    // console.log("req model SetLike", req);
     if (
       await (() => {
         session.run(

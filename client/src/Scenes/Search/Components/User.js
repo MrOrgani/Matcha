@@ -57,7 +57,6 @@ const User = () => {
   const [expanded, setExpanded] = React.useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [isLiked, handleLike, , , userInfo] = useContext(UserCardContext);
-  console.log(userInfo);
   const [socketContext, authContext] = useContext(AuthContext);
   function handleClick() {
     socketContext.socket.emit("newNotif", {

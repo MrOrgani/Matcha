@@ -2,7 +2,6 @@ const { initNeo4j } = require("../../initNeo4j");
 const session = initNeo4j();
 
 async function modelIsMatched(req) {
-  // console.log("im model is matched", req);
   try {
     const data = await session.run(
       `MATCH (u:User {uuid:"${req.uuidSource}"})

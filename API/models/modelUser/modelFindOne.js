@@ -6,7 +6,6 @@ const low = require("../low");
 module.exports = async function modelFindOne(value, category, option = "") {
   // FINDING ONE NODE AND RETURNING ITS PROPERTIES
   // QUERY NEEDS '' IF IT IS MATCHING A STRING
-  // console.log("in modelf FindOne", value, category, option);
   try {
     let cypher = `
     MATCH(u:User)

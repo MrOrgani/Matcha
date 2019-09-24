@@ -2,9 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 export const Passwords = props => {
-  //   console.log("props", props.value[0]);
   return (
-    //Old password
     <React.Fragment>
       <TextField
         className="input"
@@ -15,11 +13,7 @@ export const Passwords = props => {
         value={props.value[0]}
         onChange={props.onChange[0]}
         onBlur={props.onBlur}
-        // helperText={
-        //   props.helperText[0] && props.helperText[1] && props.helperText[2]
-        // }
       />
-      {/* New password */}
       <TextField
         className="input"
         type="text"

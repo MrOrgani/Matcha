@@ -16,13 +16,11 @@ export default function CompoContext() {
     lon: ""
   });
   const [map, setMap] = useState(false);
-  //   const [fire, setFire] = useState(false);
   const { data } = authContext;
   const [usersValue, filtersValue] = useContext(UsersContext);
 
   if (!data.isComplete) window.location = "/Profile";
 
-  console.log("uservalues in CompoContext", usersValue);
   useEffect(
     () =>
       navigator.geolocation.getCurrentPosition(
@@ -45,7 +43,6 @@ export default function CompoContext() {
   );
 
   useEffect(() => {
-    console.log("update location useEffect");
     async function updateLocation() {
       const userData = await axios
         .put(

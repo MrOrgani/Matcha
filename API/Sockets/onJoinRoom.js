@@ -8,7 +8,6 @@ module.exports = function(socket) {
       socket.chatTarget.uuid > userSourceUuid
         ? socket.chatTarget.uuid.concat(userSourceUuid)
         : userSourceUuid.concat(socket.chatTarget.uuid);
-    // console.log("joining room", roomID);
     socket.join(roomID);
   });
 };

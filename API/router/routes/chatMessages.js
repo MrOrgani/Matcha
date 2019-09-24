@@ -10,7 +10,6 @@ const { getMessages } = require("../../controlers/chat/getMessages");
 router
   .route("/")
   .post(userVerif, (req, res) => {
-    // console.log("coucou");
     newMessages(req, res);
   })
   .get(userVerif, (req, res) => {
