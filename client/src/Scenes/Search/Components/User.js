@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Dialog from "@material-ui/core/Dialog";
-// import CardMedia from "@material-ui/core/CardMedia";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -22,14 +21,6 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: "150%" // 16:9
   },
-  // root: {
-  //   display: "flex",
-  //   backgroundSize: "cover",
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundPosition: "center",
-  //   justifyContent: "center",
-  //   alignItems: "flex-end"
-  // },
   isNotLikedColor: {
     color: "white",
     "&:hover": {
@@ -79,7 +70,6 @@ const User = () => {
     setOpenCard(false);
   }
 
-  // console.log("userinfo", userInfo);
   return (
     <React.Fragment>
       <div

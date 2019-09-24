@@ -9,6 +9,7 @@ import { notify } from "react-notify-toast";
 export default function Profile() {
   const [, authContext] = useContext(AuthContext);
   const userData = authContext.data;
+
   useEffect(() => {
     if (!userData.isComplete)
       notify.show("You must complete your profile", "error");
