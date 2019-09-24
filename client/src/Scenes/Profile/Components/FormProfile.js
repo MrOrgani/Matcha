@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import "./FormProfile.css";
 import axios from "axios";
 import { AuthContext } from "../../../AuthContext";
@@ -29,7 +29,6 @@ function FormProfile() {
       onSubmit={async values => {
         const userValues = authContext.data;
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        // console.log("ta maman", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
@@ -48,7 +47,6 @@ function FormProfile() {
       {({
         values,
         errors,
-        dirty,
         handleBlur,
         touched,
         handleChange,
@@ -162,12 +160,7 @@ function FormProfile() {
                 {errors.hobbies
                   ? notify.show("You must choose at least 5 tags", "error")
                   : null}
-                <Tags
-                  value={values.hobbies}
-                  // onClick={handleTags}
-                  // onChange={handleChange("hobbies")}
-                  setFieldValue={setFieldValue}
-                />
+                <Tags value={values.hobbies} setFieldValue={setFieldValue} />
               </div>
               <div className="submit">
                 <Submit />
