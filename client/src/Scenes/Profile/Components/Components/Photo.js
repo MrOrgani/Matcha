@@ -12,15 +12,10 @@ export const Photo = props => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = function() {
-      // console.log(reader.readAsDataURL(file));
       const allFiles = [...pics, reader.result];
       setState({ ...state, pics: allFiles });
       props.setFieldValue("pics", allFiles);
     };
-    reader.onerror = err => {
-      console.log(err);
-    };
-
     reader.readAsDataURL(file);
   };
 

@@ -116,39 +116,36 @@ const useStyles = makeStyles(theme => ({
   isNotLikedColor: {
     color: "DarkGrey",
     "&:hover": {
-      backgroundColor: "HotPink",
-      color: "white"
+      backgroundColor: "#FE6B8B",
+      color: "#f5f5f5"
     }
   },
   isLikedColor: {
-    color: "HotPink"
+    color: "#FE6B8B"
   },
   isNotBlockedColor: {
     color: "darkGrey",
     "&:hover": {
-      backgroundColor: "red",
-      color: "white"
+      backgroundColor: "#FF8E53",
+      color: "#f5f5f5"
     }
   },
   isBlockedColor: {
-    color: "red"
+    color: "#FF8E53"
   },
   media: {
     height: 0,
     paddingTop: "56.25%" // 16:9
   },
   avatarPicture: {
-    // margin: 10,
     width: 60,
     height: 60
   },
   button: {
-    // background: "transparent",
-    // boxShadow: "0px 0px 0px 0px",
     color: "DarkGrey",
     "&:hover": {
-      backgroundColor: "red",
-      color: "white"
+      backgroundColor: "#FF8E53",
+      color: "#f5f5f5"
     }
   }
 }));

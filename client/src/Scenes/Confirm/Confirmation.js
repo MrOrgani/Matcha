@@ -17,7 +17,6 @@ export default function Confirmation(props) {
       setTimeout(
         () =>
           setState({
-            // ...state,
             confirming: false,
             status: resConf.status
           }),

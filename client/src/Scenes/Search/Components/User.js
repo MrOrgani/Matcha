@@ -22,14 +22,14 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "150%" // 16:9
   },
   isNotLikedColor: {
-    color: "white",
+    color: "#f5f5f5",
     "&:hover": {
-      backgroundColor: "HotPink",
-      color: "white"
+      backgroundColor: "#FE6B8B",
+      color: "#f5f5f5"
     }
   },
   isLikedColor: {
-    color: "HotPink"
+    color: "#FE6B8B"
   },
   expand: {
     transform: "rotate(0deg)",

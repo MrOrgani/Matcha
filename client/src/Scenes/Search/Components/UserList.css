@@ -5,6 +5,8 @@
   padding-left: 5vw;
   padding-right: 5vw;
   justify-items: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .card {

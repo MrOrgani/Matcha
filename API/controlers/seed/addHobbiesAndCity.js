@@ -51,7 +51,7 @@ async function addCityCoords(json) {
   }
 }
 
-const url = "https://randomuser.me/api/?results=10&nat=FR";
+const url = "https://randomuser.me/api/?results=100&nat=FR";
 async function addTagNCity(req, res) {
   const response = await fetch(url);
   const json = await response.json();
