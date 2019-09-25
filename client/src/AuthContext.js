@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 
 //HOW TO USE WHEN IMPORT
 // WE EXPORT 2 OBJECTS authContext (isauth. data ....) and socketContext
-//-->  const [socketContext, authContext] = useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   // ISAUTH IS IN CONTEXT TO MAKE THE CONTEXT REFRESH

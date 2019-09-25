@@ -4,6 +4,5 @@ module.exports = function low(arr) {
     typeof arr.indexOfPP === "number" ? arr.indexOfPP : arr.indexOfPP.low;
   arr.score = typeof arr.score === "number" ? arr.score : arr.score.low;
   if (arr.IdDuoQuadra) arr.IdDuoQuadra = arr.IdDuoQuadra.low;
-  // console.log("LOW LOW LOW", arr);
   return arr;
 };

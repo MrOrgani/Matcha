@@ -1,4 +1,3 @@
-// const { session } = require("./modelUser");
 const { initNeo4j } = require("../initNeo4j");
 const session = initNeo4j();
 
