@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -44,6 +45,30 @@ export const AuthProvider = ({ children }) => {
       socketContext.connectedUsrs = connectedUsrs;
     });
     socketContext.socket = socket;
+  }
+
+  //LOCATION UPDATE
+  if (data && isAuth > 0) {
+    (async () => {
+      await navigator.geolocation.getCurrentPosition(
+        position => {
+          data.location[0] = position.coords.latitude;
+          data.location[1] = position.coords.longitude;
+        },
+        async () => {
+          const api = await fetch("https://ipapi.co/json");
+          const api_json = await api.json();
+          data.location[0] = api_json.latitude;
+          data.location[1] = api_json.longitude;
+        }
+      );
+      axios
+        .put(`http://localhost:9000/api/user/profile?uuidSource=${data.uuid}`, {
+          lat: data.location[0],
+          lon: data.location[1]
+        })
+        .catch(err => console.log(err));
+    })();
   }
 
   return (
