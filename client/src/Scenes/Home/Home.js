@@ -1,15 +1,55 @@
-import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
+import React, {useContext, useEffect, useState} from "react";
 import "./Home.css";
-// import background from "./img/couple.jpeg";
-// import Button from "@material-ui/core/Button";
-// import Register from "../Home/Components/Register/Register";
-// import Login from "../Home/Components/Login/Login";
+import axios from "axios";
+import { AuthContext } from "../../AuthContext";
 
 function HomeHeader() {
-  // const classes = useStyles();
+  const [, authContext] = useContext(AuthContext);
+  console.log('authcontext', authContext)
 
-  var images = [
+    const [state, setState] = useState({
+      lat: "",
+      lon: ""
+    });
+    const { data, setData } = authContext;
+
+  useEffect(
+    () =>
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setState({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          });
+        },
+        async () => {
+          const api = await fetch("https://ipapi.co/json");
+          const api_json = await api.json();
+          setState({
+            lat: api_json.latitude,
+            lon: api_json.longitude
+          });
+        }
+      ),
+    []
+  );
+
+
+  useEffect(() => {
+    async function updateLocation() {
+      const userData = await axios
+        .put(
+          `http://localhost:9000/api/user/profile?uuidSource=${data.uuid}`,
+          state
+        )
+        .catch(err => console.log(err));
+      setData(userData.data);
+    }
+    if (state.lat !== "" && data.uuid) updateLocation();
+  }, [state, data.uuid, setData]);
+
+
+  const images = [
     "https://media.giphy.com/media/26BRED0APH6fRa1sk/giphy.gif",
     "http://giphygifs.s3.amazonaws.com/media/6dS4pm53kOgtG/giphy.gif",
     "https://media.giphy.com/media/Zu6ZytLn1y42k/giphy.gif",
@@ -19,14 +59,9 @@ function HomeHeader() {
 
   return (
     <div className="backg">
-      {/* <div className="root"> */}
-      {/* <DrawerNavigator /> */}
       <div className="tittleLove">
         <span>Let's find </span>love.
       </div>
-      {/* <p>
-        Life is an adventure which you must chose who you will share it with?
-      </p> */}
       <div
         className="gifBox"
         style={{
@@ -34,27 +69,8 @@ function HomeHeader() {
             "url(" + images[Math.floor(Math.random() * images.length)] + ")"
         }}
       >
-        {/* <img src={images[Math.floor(Math.random() * images.length)]} /> */}
       </div>
-      {/* <div className="buttonContainer">
-        <Register />
-        <Login />
-      </div> */}
-      {/* </div> */}
     </div>
-    // <div style={{ textAlign: "center" }}>
-    //   <div className="root">
-    //     {/* <DrawerNavigator /> */}
-    //     <h1 className="back">Are you ready for Love?</h1>
-    //     <p>
-    //       Life is an adventure which you must chose who you will share it with?
-    //     </p>
-    //     <div className="buttonContainer">
-    //       <Register />
-    //       <Login />
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 
