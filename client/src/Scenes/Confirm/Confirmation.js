@@ -56,7 +56,9 @@ export default function Confirmation(props) {
       }
     />
   );
-  const antIcon = <Icon type="loading" style={{ fontSize: 70 }} spin />;
+  const antIcon = (
+    <Icon type="loading" style={{ fontSize: 70, color: "#ff8e53" }} spin />
+  );
 
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>

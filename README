@@ -1,92 +1,18 @@
+To start the program, please run these commands from the root folder:
+  - npm run instal
+  - npm run dev
 
+To populate the databse, feel free to add or delete users from the handleUsers page
 
-MORGANI   
+please enter these lines as well as a secret token (jwt) in a .env file
+to ensure correct functiunality:
+  DB_LOGIN=neo4j
+  DB_PWD=2j54A%
 
-[x] : Recoder controlller/user
-https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725
-[x] : mail de confirmation
-    [x] : installation de nodemailer
-    [x] : creation  d'un compte ethreal
-    [x] : envoi de l'email au nouvel utilisateur
----------> Pour l'auth de l'utilisateur, je mets le uuid en attendant, mais ce ne sera pas la cle finale, a determiner
-    [x] : envoie du mail avec un link vers le site web et un id qui lui correspond
-
-
-[x] : Revoir Validation du mots de passe, etc.
-
-[x] : Mail de reinitialisation
-    [x] : refonte de la dialogue box
-        [x] : dialoge ou j'importe register/Login/Init MDP
-            [x]: register
-            [x] : Login
-            [x] : init MDP
-    [x] : verifier le chemin
-    [x] : verifier le mdp en back
-    [x] : chiffrer
-    [x] : mette les infos dans la database
-
-
-[x] : deconnexion du site en un clic
-
-[x] : finir front navbar
-
-[x]: Enregistrement Nom Prenom + Validation des inputs
-
-[x] : Verrifeir poiur les photos
-
-[x] : Creer les lien Practice sur les activites a la modifiction des tags dans le profile
-    [x] : supprimer les liens existant
-    [x] : en creer de nouveau
-
-[x] : Empecher le user d'acceder au site si compte non comfirmé
-
-[x] : empeche le user de naviguer si le profile nest pas complet
-
-[x] : Verifier les infos en back
-    [x] : confirmer le remplissage des infos
-    [x] : mettre l'affchage de la barre rouge sur profile en conditionnel
-
-[] : Jai remis en place le uuid, a verifier si on en a besoin ans modelUpateProfile
-
-[] : MEttre typ  password a tous les inputs parssword
-
-[x] : Rajouter la detection de la localisation qunad l'utilisateur se connecte
-
-[x] : Rajouter le filtre de distance
-
-[x] : Un compte bloque ne doit plus apparaitre dans les res de recherche
-
-[] : erreurs chelous dans le form d'update du profil
-
-[x] : Verifier que les activites ne soient pas choisies en double lors de la creation de la seed
-
-[] : voir pour les distances
-
-VAL
-
-[x] : score de popularité
-
-[x] : revoir le tri (froont ou back) pour inclure tous les criteres + le block 
-
-[x] : ameliorer les infos sur le profil
-
-
-
-
-BONUS
-
-[] : matcheur
-
-[x] : Oauth
-
-[x] : Design
-
-[x] : Animations (Pour le switch des photos, pour les nouvelles notifications)
-
-[x] : Carte interactive
-
-
-
-
-
-TEST DE SECURITE
+Note for 42 computers to install neo4j please follow these steps:
+  - Managed Software Center, install JDK8
+  - Check for updates in the MSC and install them
+  - brew install neo4j
+  - neo4j start --> you can now access the server from browser on localhost:7474
+  - connect to the browser and connect to with
+    - username: neo4j
