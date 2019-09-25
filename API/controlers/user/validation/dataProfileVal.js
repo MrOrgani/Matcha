@@ -1,5 +1,5 @@
-const isImage = require("is-image");
-const FileReader = require("filereader");
+// const isImage = require("is-image");
+// const FileReader = require("filereader");
 
 module.exports = function dataProfileVal(req, res, next) {
   let errors = {};
