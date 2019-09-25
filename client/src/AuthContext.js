@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   //LOCATION UPDATE
-  if (data && isAuth > 0) {
+  if (data && isAuth > 0 && data.city === "") {
     (async () => {
       await navigator.geolocation.getCurrentPosition(
         position => {

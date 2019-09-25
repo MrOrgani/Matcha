@@ -1,3 +1,14 @@
+.theCardFull {
+  display: block;
+  border-radius: 100px;
+  width: 500px;
+  height: 700px;
+}
+
+.theCardSmall {
+  display: none;
+}
+
 .slide {
   overflow: hidden;
   display: grid;
@@ -132,13 +143,6 @@
   opacity: 1;
 }
 
-.theCard {
-  display: block;
-  border-radius: 100px;
-  width: 500px;
-  height: 700px;
-}
-
 .theCardMatch {
   background: whitesmoke;
   border-radius: 3;
@@ -168,102 +172,78 @@
   height: 700px;
 }
 
-@media (max-width: 500px) {
-  /* .filterLarge {
+@media (max-width: 600px) {
+  .theCardFull {
     display: none;
   }
-  .filterSmall {
+
+  .theCardSmall {
     display: block;
-  } */
-  .userPic {
-    width: auto;
-    height: 700px;
   }
+
   .mainCard {
     background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
+    height: 570px;
+    width: 280px;
     background-size: cover;
     background-position: center center;
+    position: relative;
   }
-  .link {
-    display: none;
-  }
-  .showHim {
-    opacity: 0.2;
-    width: fit-content;
-    height: initial;
-    /* display: flex; */
-    flex-direction: column;
-    justify-content: flex-end;
-    text-align: center;
-    align-items: center;
-    -webkit-transition: opacity 500ms;
-    transition: opacity 500ms;
-    /* transition: opacity 1s; */
+
+  .userPic {
+    height: 570px;
   }
 
   .backRect {
-    position: relative;
-    width: 75vw;
-    height: 90vh;
-    background: linear-gradient(
-      124.3deg,
-      rgba(254, 107, 139, 0.73) 0%,
-      #ff8e53 100%
-    );
-    border-radius: 39px 39px 0px 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: xx-large;
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-top: 1%;
-    color: white;
+    display: inline;
+    /* margin-top: 30%; */
+    width: -webkit-fill-available;
+    height: 39vh;
   }
-  .backRect > div {
-    font-size: 2vh;
-    padding-top: 3%;
-  }
+
   .whiteRect {
-    position: absolute;
-    width: 96%;
-    height: 84vh;
+    position: fixed;
+    width: -webkit-fill-available;
+    height: 34vh;
     background: #ffffff;
     padding-left: 3%;
-    padding-right: 2%;
+    padding-right: 1%;
     padding-top: 4%;
+    padding-bottom: 20%;
+    /* margin-top: 40%; */
     border-radius: 39px 39px 0px 0px;
   }
+
   .userBio {
+    margin-top: 9%;
     overflow: auto;
-    height: 83%;
+    height: 26vh;
+  }
+
+  .backRect > div {
+    font-size: 15px;
+    padding-top: 6%;
+  }
+  .spans {
+    display: flex;
+    justify-content: space-between;
+  }
+  .interButt {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
   }
   .userName {
-    display: none;
-    font-size: 80px;
+    font-size: 44px;
     mix-blend-mode: normal;
     position: absolute;
-    top: 30%;
+    top: 16%;
     background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
       sans-serif;
-  }
-  .interButt {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  .formControlLarge {
-    display: none;
-  }
-
-  .slider {
-    width: 45vw;
   }
 }
