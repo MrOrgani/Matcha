@@ -2,14 +2,12 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  /* flex-grow: 1; */
 }
 
 .duoQuadraButton {
   margin-right: 2vw;
   margin-left: 2vw;
   color: white;
-  /* display: none; */
 }
 
 .Oauth42 {
@@ -18,7 +16,6 @@
 
 .bar {
   display: flex;
-  /* background: transparent; */
   box-shadow: none;
   text-align: center;
   background-color: white;
@@ -27,7 +24,6 @@
 }
 
 .menuItems {
-  /* width: 21%; */
   justify-content: space-around;
   margin-left: auto;
   display: flex;
@@ -48,7 +44,6 @@
   display: flex;
   text-decoration: none;
   justify-content: center;
-  /* opacity: 0.54; */
   color: black;
   width: 100px;
   height: 50px;

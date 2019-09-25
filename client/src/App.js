@@ -24,7 +24,6 @@ export function App() {
           <Route path="/Oauth" component={Oauth} />
           <Route path="/api/user/confirm/:id" component={Confirm} />
           <Route path="/api/user/reset/:id" component={Reset} />
-          {/* <Route path="/Login" component={Login} /> */}
           <SecureRoute
             path="/Search"
             component={Search}
@@ -50,5 +49,3 @@ export function App() {
     </AuthProvider>
   );
 }
-
-// export App;

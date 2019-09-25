@@ -8,8 +8,6 @@ import theme from "./theme";
 import { CookiesProvider } from "react-cookie";
 import "antd/dist/antd.css";
 
-// console.log(theme);
-
 ReactDOM.render(
   <CookiesProvider>
     <MuiThemeProvider theme={theme}>
