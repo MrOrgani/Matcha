@@ -52,12 +52,11 @@ io.sockets.on("connect", async socket => {
     if (connectedUsrs[socket.id]) delete connectedUsrs[socket.id];
     connectionEmit(io, connectedUsrs);
   };
+
   connectedUsrs[socket.id] = socket.handshake.query;
   require("./Sockets/onJoinRoom")(socket);
   require("./Sockets/onChatMessage")(socket, io);
   require("./Sockets/newNotif").newNotifListener(socket, io);
   connectionEmit(io, connectedUsrs);
-  socket
-    .on("logOut", await disconnectUser)
-    .on("disconnect", await disconnectUser);
+  socket.on("logOut", disconnectUser).on("disconnect", await disconnectUser);
 });
