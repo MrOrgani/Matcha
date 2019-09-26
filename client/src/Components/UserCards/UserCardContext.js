@@ -50,7 +50,7 @@ export const UserCardProvider = props => {
         if (res.status === 200 && res.data.blocked) setBlocked(true);
         else setBlocked(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("error in the axios", err));
   };
 
   useEffect(() => {
