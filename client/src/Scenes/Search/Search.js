@@ -1,6 +1,6 @@
 import React from "react";
 import { UsersProvider } from "./Components/UsersContext";
-import CompoContext from "./Components/CompoContext";
+import CompoContext from "./CompoContext";
 
 const Search = () => {
   return (
