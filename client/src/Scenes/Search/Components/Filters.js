@@ -135,11 +135,19 @@ export default function Filters(props) {
           >
             <FormControlLabel
               value="female"
-              control={<Radio />}
+              control={<Radio color="primary" />}
               label="Female"
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="both" control={<Radio />} label="Both" />
+            <FormControlLabel
+              value="male"
+              control={<Radio color="primary" />}
+              label="Male"
+            />
+            <FormControlLabel
+              value="both"
+              control={<Radio color="primary" />}
+              label="Both"
+            />
           </RadioGroup>
         </FormControl>
         {/* )} */}

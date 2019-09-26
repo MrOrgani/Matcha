@@ -29,12 +29,14 @@ export default function CompoContext() {
 
   return (
     <>
+      {/* <context> */}
       <div style={{ display: "flex" }}>
         <Filters onClick={handleClick} map={map} fire={filtersValue.fire} />
       </div>
       {map && <UserMap />}
       {filtersValue.fire && <UserMatch />}
       {!filtersValue.fire && !map && <UserList />}
+      {/* <context> */}
     </>
   );
 }
