@@ -1,7 +1,7 @@
 .root {
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -30,31 +30,19 @@ h1 {
 }
 
 .paper {
-  /* margin: theme.spacing(8, 4); */
   display: "flex";
   flex-direction: "column";
   align-items: "center";
 }
 
 .avatar {
-  /* margin: theme.spacing(1); */
   background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)";
 }
 
 .form {
   width: "100%";
-  /* marginTop: theme.spacing(1) */
 }
-/* 
-.submit {
-  /* margin: theme.spacing(3, 0, 2) 
-} */
 
 .gallery {
   width: "50%";
 }
-/* 
-.textField {
-  /* marginLeft: theme.spacing(1),
-	  marginRight: theme.spacing(1) 
-}*/
