@@ -45,7 +45,6 @@ export default function Filters(props) {
   const [, filtersValue] = useContext(UsersContext);
   const [, authContext] = useContext(AuthContext);
   const classes = useStyles();
-  // console.log(filtersValue.gender);
   const handleGenderChange = (e, value) => {
     filtersValue.setGender(value);
   };

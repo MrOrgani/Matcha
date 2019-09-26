@@ -147,7 +147,5 @@ export const ProfileValidation = values => {
   if (!values.lookingFor) {
     errors.lookingFor = "What are you looking for ?";
   }
-
-  // console.log("fuking errors", errors);
   return errors;
 };

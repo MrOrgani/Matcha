@@ -70,7 +70,6 @@ const ChatMenuProvider = props => {
   // Why does it fire 4 times
   useEffect(() => {
     socketContext.socket.on("unmatched", () => {
-      // console.log("unmatched");
       getIMatched();
       chatAppContext.setChatTarget({});
     });

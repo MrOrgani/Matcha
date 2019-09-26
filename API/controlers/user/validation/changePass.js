@@ -21,7 +21,6 @@ module.exports = async function changePass(req, res, next) {
     } catch (err) {
       console.log(err);
     }
-    // console.log("errors Change pass", errors);
     for (let x in errors) return res.status(201).json(errors);
   }
   next();
