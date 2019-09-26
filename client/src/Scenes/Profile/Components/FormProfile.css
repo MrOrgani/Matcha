@@ -13,14 +13,6 @@
     "l tags sub";
 }
 
-/* .box {
-  color: red;
-}
-
-p {
-  color: darkgrey;
-} */
-
 .name {
   grid-area: n;
   display: flex;
@@ -113,7 +105,8 @@ p {
   .containerFormProfile {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    /* width: 500px; */
+    width: 80vw;
   }
   .containerFormProfile > div {
     margin-top: 1vh;
