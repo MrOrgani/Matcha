@@ -110,10 +110,6 @@ export const ProfileValidation = values => {
     errors.gender = "Gender is required";
   }
 
-  // if (!values.hobbies || values.hobbies.length < 5) {
-  //   errors.hobbies = "You must select at least 5 hobbies";
-  // }
-
   if (!values.lastName) {
     errors.lastName = "A lastname is required";
   } else if (!/^[A-Z -]+$/i.test(values.lastName))

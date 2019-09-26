@@ -25,43 +25,6 @@ export default function UserMap() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    //   const filterUsers = (filters, users) => {
-    //     const genderFiltered =
-    //       !filters[0] || filters[0] === "both"
-    //         ? users
-    //         : users.filter(user => user.gender === filters[0]);
-
-    //     let filtersfiltered = genderFiltered
-    //       .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
-    //       .filter(
-    //         user => user.score >= filters[2][0] && user.score <= filters[2][1]
-    //       )
-    //       .filter(
-    //         user =>
-    //           distFrom(authContext.data.location).to(user.location).distance.v <=
-    //           filters[3]
-    //       );
-    //     if (filters[6].length > 0) {
-    //       setFilteredUserList(
-    //         filtersfiltered.filter(elem =>
-    //           filters[6].every(tag => elem.hobbies.includes(tag))
-    //         )
-    //       );
-    //     } else setFilteredUserList(filtersfiltered);
-    //   };
-    //   filterUsers(
-    //     [
-    //       filtersValue.gender,
-    //       filtersValue.age,
-    //       filtersValue.pop,
-    //       filtersValue.dist,
-    //       filtersValue.sort,
-    //       filtersValue.ord,
-    //       filtersValue.tags
-    //     ],
-    //     usersValue.users
-    //   );
-    // }, [filtersValue, usersValue, authContext.data.location]);
     const filterUsers = async (filters, users) => {
       await (() => {
         const genderFiltered =

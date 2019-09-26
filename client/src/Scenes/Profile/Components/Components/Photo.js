@@ -57,20 +57,16 @@ export const Photo = props => {
               src={file}
             />
             <div className="iconsImages">
-              {/* <a href="#"> */}
               <FontAwesomeIcon
                 icon={faTrash}
                 size="2x"
                 onClick={() => handleDelete(index)}
               />
-              {/* </a> */}
-              {/* <a href="#"> */}
               <FontAwesomeIcon
                 icon={faStar}
                 size="2x"
                 onClick={() => handleFav(index)}
               />
-              {/* </a> */}
             </div>
           </div>
         ))}

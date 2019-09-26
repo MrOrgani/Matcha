@@ -1,12 +1,9 @@
-const sendEmail = require("./sendEmail");
-const bcrypt = require("bcryptjs");
 const modelFindOne = require("./../../models/modelUser/modelFindOne");
-const cleanUserData = require("./cleanUserData");
 
 module.exports = async function resetPass(req, res) {
   try {
     const resFindOne = await modelFindOne(req.params.id, "uuid");
-    if (!resFindOne.length) {
+    if (!resFindOne.uuid) {
       res.status(203).send("We could not find you");
     } else {
       modelFindOne(
