@@ -19,7 +19,8 @@ exports.updateLocation = async (req, res) => {
     let data = await modelFindOne(
       req.query.uuidSource,
       "uuid",
-      `SET u.location = [${req.body.lat}, ${req.body.lon}]`
+      `SET u.location = [${req.body.lat}, ${req.body.lon}],
+           u.city = '${req.body.city}'`
     );
     data = cleanUserData(data);
     res.status(200).send(data);

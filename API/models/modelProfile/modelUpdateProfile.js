@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
   try {
+    // ********* UPDATE PASSWORD
     if (req.body.values.newpassword) {
       await session.run(
         `MATCH (u:User {uuid: {uuidSource}})
@@ -14,6 +15,10 @@ async function modelUpdateProfile(req) {
         }
       );
     }
+    // ************* HANDLE FAVORITE PIC
+    changeOrderOfPics(req);
+    // ************* SET INTO DB
+
     const userData = await session.run(
       `MATCH (u:User {uuid: {uuidSource}})
           SET u.firstName = {firstName},
@@ -48,6 +53,7 @@ async function modelUpdateProfile(req) {
       }
     );
 
+    /// *********** UPDATE HOBBY **********
     await handlePracticeHobbies(req);
     //// ********************* JWT auth token
     const token = jwt.sign(
@@ -86,6 +92,15 @@ async function handlePracticeHobbies(req) {
       )
       .catch(err => console.log("err on create practice: ", err));
   });
+}
+
+function changeOrderOfPics(req) {
+  const nArray = [];
+  nArray.push(req.body.values.pics[req.body.values.indexOfPP]);
+  req.body.values.pics.splice(req.body.values.indexOfPP, 1);
+  req.body.values.pics.map(pic => nArray.push(pic));
+  req.body.values.pics = nArray;
+  req.body.values.indexOfPP = 0;
 }
 
 module.exports = {
