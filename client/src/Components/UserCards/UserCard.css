@@ -19,7 +19,7 @@
   position: fixed;
   bottom: 2em;
   right: 2em;
-  z-index: 999;
+  z-index: 999999;
 }
 
 .mainCard {
@@ -203,7 +203,7 @@
 
   .whiteRect {
     position: fixed;
-    width: -webkit-fill-available;
+    width: 282px;
     height: 354px;
     background: #ffffff;
     padding-left: 3%;
