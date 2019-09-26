@@ -69,13 +69,17 @@ ChatMenu {
 } */
 
 .message-body {
-  max-width: 80%;
-  display: inline-block;
+  word-wrap: break-word;
+  white-space: normal;
+  /* max-width: 7%; */
+  width: 57vw;
+  /* display: inline-block; */
   padding: 8px;
   background-color: #fe6b8b;
   border: 1px;
   border-radius: 5px;
   padding-right: 50px;
+  /* width: 411px;
 }
 
 .username {

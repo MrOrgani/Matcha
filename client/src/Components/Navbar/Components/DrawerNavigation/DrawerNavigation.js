@@ -7,7 +7,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import CloseIcon from "@material-ui/icons/Close";
-import Divider from "@material-ui/core/Divider";
 import { AuthContext } from "../../../../AuthContext";
 import IconsAndLinks from "./IconsAndLinks";
 
@@ -59,12 +58,6 @@ export default function TemporaryDrawer() {
           {menuItems.map(menuItem => (
             <IconsAndLinks key={menuItem.text} param={menuItem} />
           ))}
-          {/* <Divider />
-          {["About us"].map((text, index) => (
-            <ListItem button key={index}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))} */}
         </List>
       </div>
     );
