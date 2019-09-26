@@ -1,10 +1,14 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../AuthContext";
+import { ChatContext } from "./ChatContext";
+
 const ChatMenuContext = React.createContext([{}, () => {}]);
 
 const ChatMenuProvider = props => {
+  const [chatAppContext] = useContext(ChatContext);
   const [socketContext] = useContext(AuthContext);
+
   const [iMatched, setIMatched] = useState([]);
   const [likedMe, setLikedMe] = useState([]);
   const [iLiked, setILiked] = useState([]);
@@ -63,11 +67,14 @@ const ChatMenuProvider = props => {
   ]);
 
   //in case of block update the list and re render the elements
+  // Why does it fire 4 times
   useEffect(() => {
     socketContext.socket.on("unmatched", () => {
+      // console.log("unmatched");
       getIMatched();
+      chatAppContext.setChatTarget({});
     });
-  }, [socketContext.socket, getIMatched]);
+  }, [socketContext.socket, getIMatched, chatAppContext]);
 
   const MenuContext = {
     iMatched,

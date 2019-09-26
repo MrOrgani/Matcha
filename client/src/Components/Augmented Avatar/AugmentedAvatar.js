@@ -14,6 +14,7 @@ const AugmentedAvatar = props => {
         : "redDot"
     );
     socketContext.socket.on("newConnection", connectedUsrs => {
+      socketContext.connectedUsrs = connectedUsrs;
       setDot(connectedUsrs.includes(props.targetUuid) ? "greenDot" : "redDot");
     });
     return () => socketContext.socket.off("newConnection");
