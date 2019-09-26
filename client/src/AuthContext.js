@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   //LOCATION UPDATE
-  if (data && isAuth > 0) {
+  if (data && isAuth > 0 && data.city === "") {
     (async () => {
       await navigator.geolocation.getCurrentPosition(
         position => {
@@ -61,12 +61,25 @@ export const AuthProvider = ({ children }) => {
           data.location[1] = api_json.longitude;
         }
       );
-      axios
+      // Get user city from his location
+      const cityQuery = encodeURI(
+        `http://nominatim.openstreetmap.org/search?q=${data.location[0]},${
+          data.location[1]
+        }&limit=1&countrycodes=fr&format=json&addressdetails=1`
+      );
+
+      const locat = await fetch(cityQuery);
+      const locat_json = await locat.json();
+      console.log("cityquery", locat_json[0].address.city);
+
+      const userData = await axios
         .put(`http://localhost:9000/api/user/profile?uuidSource=${data.uuid}`, {
           lat: data.location[0],
-          lon: data.location[1]
+          lon: data.location[1],
+          city: locat_json[0].address.city
         })
         .catch(err => console.log(err));
+      setData(userData.data);
     })();
   }
 
