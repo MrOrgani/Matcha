@@ -1,8 +1,10 @@
 .theCardFull {
   display: block;
   border-radius: 100px;
-  width: 500px;
-  height: 700px;
+  width: 72vh;
+  height: 80vh;
+  max-height: 700px;
+  max-width: 500px;
 }
 
 .theCardSmall {
@@ -76,8 +78,8 @@
 
 .backRect {
   position: absolute;
-  width: 420px;
-  height: 370px;
+  width: 60vw;
+  height: 58vh;
 
   background: linear-gradient(
     124.3deg,
@@ -94,6 +96,8 @@
   padding-right: 6%;
   padding-top: 1%;
   color: white;
+  max-width: 420px;
+  max-height: 510px;
 }
 
 .whiteRect {
@@ -106,6 +110,9 @@
   padding-right: 1%;
   padding-top: 4%;
   border-radius: 39px 39px 0px 0px;
+  max-width: 400px;
+  height: 50vh;
+  max-height: 450px;
 }
 
 .userBio {
@@ -168,8 +175,9 @@
 } */
 
 .userPic {
+  height: 80vh;
   width: auto;
-  height: 700px;
+  max-height: 700px;
 }
 
 @media (max-width: 600px) {
@@ -196,14 +204,14 @@
 
   .backRect {
     display: inline;
-    /* margin-top: 30%; */
     width: -webkit-fill-available;
     height: 400px;
+    width: 70vw;
   }
 
   .whiteRect {
     position: fixed;
-    width: 282px;
+    width: 45vw;
     height: 354px;
     background: #ffffff;
     padding-left: 3%;
@@ -220,6 +228,14 @@
     height: 266px;
   }
 
+  .carousel .slide {
+    min-width: auto;
+    margin: 0;
+    position: relative;
+    text-align: center;
+    background: #000;
+  }
+
   .backRect > div {
     font-size: 15px;
     padding-top: 6%;
@@ -233,6 +249,7 @@
     justify-content: space-evenly;
     align-items: center;
     position: fixed;
+    width: 45vw;
   }
   .userName {
     font-size: 220%;
