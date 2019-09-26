@@ -64,8 +64,6 @@ export default function UserMatch() {
     setState(usersValue.matchUsers);
   }, [usersValue.matchUsers]);
 
-  // console.log("users in state", state);
-
   function remove() {
     const leftCards = state.slice(1, state.length);
     setState(leftCards);

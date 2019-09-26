@@ -7,7 +7,6 @@ const Message = props => {
   const [chatAppContext] = useContext(ChatContext);
   let fromMe = "";
   let displayName = "";
-  // console.log(props);
   if (props.uuidViewer === props.uuidSource) fromMe = "from-me";
   else displayName = chatAppContext.chatTarget.displayName;
 

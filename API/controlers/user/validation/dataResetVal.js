@@ -1,5 +1,4 @@
 module.exports = function dataResetValidation(req, res, next) {
-  // console.log("dataReset");
   let errors = {};
   if (!req.body.password) {
     errors.password = "Password is Required";

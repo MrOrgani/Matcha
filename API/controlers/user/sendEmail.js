@@ -13,7 +13,6 @@ module.exports = async function sendMail(email, np = false, key) {
       pass: "S6PVnQW3zn8bXDUkEu"
     }
   });
-  // console.log("key email user", key);
   await transporter.sendMail({
     from: "ValentinLePigeon@matcha.com",
     to: email,
