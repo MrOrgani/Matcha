@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
-import UserList from "./UserList";
-import "../public/stylesheet/style.css";
-import Filters from "./Filters";
+import UserList from "./Components/UserList";
+import "./public/stylesheet/style.css";
+import Filters from "./Components/Filters";
 
-import UserMap from "./UserMap";
-import UserMatch from "./UserMatch";
-import { UsersContext } from "./UsersContext";
-import { AuthContext } from "../../../AuthContext";
+import UserMap from "./Components/UserMap";
+import UserMatch from "./Components/UserMatch";
+import { UsersContext } from "./Components/UsersContext";
+import { AuthContext } from "../../AuthContext";
 
 export default function CompoContext() {
   const [map, setMap] = useState(false);

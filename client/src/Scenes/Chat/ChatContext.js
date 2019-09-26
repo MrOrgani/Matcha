@@ -42,8 +42,6 @@ const ChatProvider = props => {
     setMessages
   };
 
-  // console.log("ChatAppContext", chatAppContext);
-
   return (
     <ChatContext.Provider value={[chatAppContext]}>
       {props.children}
