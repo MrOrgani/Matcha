@@ -5,8 +5,9 @@ async function modelSetMatched(req) {
   try {
     session.run(
       `MATCH (s:User {uuid:{uuidSource}}), (t:User {uuid:{target}})
-        CREATE (s)-[:MATCHED]->(t),
-          (s)-[:MESSAGED {history: []}]->(t)
+        CREATE (s)-[:MATCHED]->(t)
+        MERGE (s)-[r:MESSAGED]-(t)
+        ON CREATE set r.history = []
         `,
       req
     );
