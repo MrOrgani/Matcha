@@ -3,14 +3,13 @@ import { AuthContext } from "../../AuthContext";
 import Axios from "axios";
 
 const Oauth = () => {
-  const [socketContext, authContext] = useContext(AuthContext);
+  const [, authContext] = useContext(AuthContext);
   const { setData, setIsAuth } = authContext; //DESTRUCTURING TO AVOID RERENDERS IN USEEFFECT
-  socketContext.socket && socketContext.socket.emit("logOut");
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const req = {};
     (async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const req = {};
       req.jwt = await urlParams.get("jwt");
       req.uuidSource = await urlParams.get("uuid");
       Axios.get(

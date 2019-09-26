@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   // SOCKET MANAGEMENT
   const socketContext = {};
+
   if (data && isAuth > 0) {
     // Websocket or polling: https://stackoverflow.com/questions/28238628/socket-io-1-x-use-websockets-only#targetText=There%20are%20two%20types%20of,actually%20initiate%20a%20webSocket%20connection.
     const socket = socketIOClient.connect("http://localhost:9000", {
