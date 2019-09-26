@@ -234,10 +234,12 @@ const useStyles = makeStyles(theme => ({
     height: 60
   },
   button: {
-    color: "DarkGrey",
+    background: "transparent",
+    boxShadow: "0px 0px 0px 0px",
+    color: "primary",
     "&:hover": {
-      backgroundColor: "#FF8E53",
-      color: "#f5f5f5"
+      backgroundColor: "red",
+      color: "white"
     }
   }
 }));

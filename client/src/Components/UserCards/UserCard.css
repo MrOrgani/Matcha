@@ -114,10 +114,10 @@
 }
 
 .userName {
-  font-size: 80px;
+  font-size: 356%;
   mix-blend-mode: normal;
   position: absolute;
-  top: 30%;
+  top: 36%;
   background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
   -webkit-background-clip: text;
   background-clip: text;
@@ -235,10 +235,10 @@
     position: fixed;
   }
   .userName {
-    font-size: 44px;
+    font-size: 220%;
     mix-blend-mode: normal;
     position: absolute;
-    top: 16%;
+    top: 21%;
     background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
     -webkit-background-clip: text;
     background-clip: text;
