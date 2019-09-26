@@ -59,12 +59,12 @@ export default function TemporaryDrawer() {
           {menuItems.map(menuItem => (
             <IconsAndLinks key={menuItem.text} param={menuItem} />
           ))}
-          <Divider />
+          {/* <Divider />
           {["About us"].map((text, index) => (
             <ListItem button key={index}>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))} */}
         </List>
       </div>
     );
