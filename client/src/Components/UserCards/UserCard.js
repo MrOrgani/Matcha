@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "../../AuthContext";
 import { UserCardContext } from "./UserCardContext";
@@ -23,91 +23,95 @@ export default function UserCard() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  const [state, setState] = useState({
+    index: 0,
+    pics: []
+  });
+
+  useEffect(() => setState({ ...state, pics: userInfo.pics }), [userInfo.pics]);
   return (
     <React.Fragment>
       <Card className="theCardFull">
         <div className="mainCard">
-          <Carousel showIndicators={false} showThumbs={false}>
-            {userInfo.pics.map((pic, index) => (
-              <div key={index}>
-                <img
-                  alt="userPic"
-                  className="userPic"
-                  style={{ width: "auto" }}
-                  src={pic}
-                />
+          {/* <Carousel showIndicators={false} showThumbs={false}> */}
+          {/* {userInfo.pics.map((pic, index) => ( */}
+          {/* <div> */}
+          <img
+            alt="userPic"
+            // className="userPic"
+            // style={{ width: "auto" }}
+            src={state.pics[state.index]}
+          />
 
-                <div className="showHim">
-                  <div className="userName">
-                    {capFLtr(userInfo.firstName)} {userInfo.lastName[0]}.
-                  </div>
-                  <div className="backRect">
-                    <div>
-                      {userInfo.age}, {userInfo.city}.
+          <div className="showHim">
+            <div className="userName">
+              {capFLtr(userInfo.firstName)} {userInfo.lastName[0]}.
+            </div>
+            <div className="backRect">
+              <div style={{ height: "40px" }}>
+                {userInfo.age}, {userInfo.city}.
+              </div>
+              <div style={{ height: "40px" }}>
+                <span role="img" aria-label="trophy">
+                  🏆
+                </span>{" "}
+                {userInfo.score}
+              </div>
+            </div>
+            <div className="whiteRect">
+              <div className="userBio">
+                {userInfo.bio}
+                <div>
+                  {userInfo.hobbies.map((hobby, index) => (
+                    <div key={hobby + index} className="tag">
+                      <label>{hobby}</label>
                     </div>
-                    <div>
-                      <span role="img" aria-label="trophy">
-                        🏆
-                      </span>{" "}
-                      {userInfo.score}
-                    </div>
-                  </div>
-                  <div className="whiteRect">
-                    <div className="userBio">
-                      {userInfo.bio}
-                      <div>
-                        {userInfo.hobbies.map((hobby, index) => (
-                          <div key={hobby + index} className="tag">
-                            <label>{hobby}</label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="interButt">
-                      <IconButton
-                        onClick={setLiked}
-                        className={
-                          !isLiked
-                            ? classes.isNotLikedColor
-                            : classes.isLikedColor
-                        }
-                      >
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton
-                        onClick={setBlocked}
-                        className={
-                          !isBlocked
-                            ? classes.isNotBlockedColor
-                            : classes.isBlockedColor
-                        }
-                      >
-                        <HighlightOffIcon />
-                      </IconButton>
-                      <Button className={classes.button}>FAKE ACCOUNT</Button>
-                      {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
-                        <span
-                          role="img"
-                          aria-label="connected"
-                          style={{ color: "green" }}
-                        >
-                          ✅ Connected
-                        </span>
-                      ) : (
-                        <span
-                          role="img"
-                          aria-label="disconnected"
-                          style={{ color: "grey" }}
-                        >
-                          🔴 {userInfo.lastConnection}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </Carousel>
+              <div className="interButt">
+                <IconButton
+                  onClick={setLiked}
+                  className={
+                    !isLiked ? classes.isNotLikedColor : classes.isLikedColor
+                  }
+                >
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton
+                  onClick={setBlocked}
+                  className={
+                    !isBlocked
+                      ? classes.isNotBlockedColor
+                      : classes.isBlockedColor
+                  }
+                >
+                  <HighlightOffIcon />
+                </IconButton>
+                <Button className={classes.button}>FAKE ACCOUNT</Button>
+                {socketContext.connectedUsrs.includes(userInfo.uuid) ? (
+                  <span
+                    role="img"
+                    aria-label="connected"
+                    style={{ color: "green" }}
+                  >
+                    ✅ Connected
+                  </span>
+                ) : (
+                  <span
+                    role="img"
+                    aria-label="disconnected"
+                    style={{ color: "grey" }}
+                  >
+                    🔴 {userInfo.lastConnection}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* </div> */}
+          {/* ))} */}
+          {/* </Carousel> */}
         </div>
       </Card>
       <Card className="theCardSmall">
