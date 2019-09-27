@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Dialog from "@material-ui/core/Dialog";
+// import Dialog from "@material-ui/core/Dialog";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -9,6 +9,7 @@ import UserCard from "../../../Components/UserCards/UserCard";
 import { AuthContext } from "../../../AuthContext";
 import { UserCardContext } from "../../../Components/UserCards/UserCardContext";
 import axios from "axios";
+import { Modal } from "antd";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -66,9 +67,9 @@ const User = () => {
     setOpenCard(true);
   }
 
-  function handleCloseCard() {
+  const handleCancel = e => {
     setOpenCard(false);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -100,9 +101,15 @@ const User = () => {
           </IconButton>
         </div>
       </div>
-      <Dialog open={openCard} onClose={handleCloseCard}>
+      <Modal
+        visible={openCard}
+        onCancel={handleCancel}
+        centered={true}
+        footer={null}
+        wrapClassName="modalContainer"
+      >
         <UserCard />
-      </Dialog>
+      </Modal>
     </React.Fragment>
   );
 };
