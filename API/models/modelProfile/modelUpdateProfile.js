@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 async function modelUpdateProfile(req) {
   // delete req.body.values.pics;
-  console.log("model updata profile", req.body.values);
+  // console.log("model updata profile", req.body.values);
 
   try {
     // ********* UPDATE PASSWORD

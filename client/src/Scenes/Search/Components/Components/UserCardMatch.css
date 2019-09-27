@@ -12,3 +12,14 @@
   display: flex;
   justify-content: center;
 }
+
+.divCardsMatch {
+  /* display: none; */
+  /* width: 85vw; */
+}
+
+@media (max-width: 500px) {
+  .divCardsMatch {
+    width: 85vw;
+  }
+}

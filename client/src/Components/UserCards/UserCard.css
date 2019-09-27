@@ -1,8 +1,23 @@
+.modalContainer {
+  /* display: none; */
+  /* width: 500px; */
+}
+
+.ant-modal-content {
+  width: 550px;
+  height: 550px;
+}
+
+.ant-modal-body {
+  /* height: 600px; */
+  /* width: 600px; */
+}
+
 .theCardFull {
   display: block;
   border-radius: 100px;
   width: 72vh;
-  height: 80vh;
+  height: 39vh;
   max-height: 700px;
   max-width: 500px;
 }
@@ -26,7 +41,7 @@
 
 .mainCard {
   background-repeat: no-repeat;
-  height: 700px;
+  height: 500px;
   width: 500px;
   background-size: cover;
   background-position: center center;
@@ -79,15 +94,13 @@
 .backRect {
   position: absolute;
   width: 60vw;
-  height: 58vh;
-
+  height: 70%;
   background: linear-gradient(
     124.3deg,
     rgba(254, 107, 139, 0.73) 0%,
     #ff8e53 100%
   );
   border-radius: 39px 39px 0px 0px;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -104,14 +117,13 @@
   position: absolute;
   width: 400px;
   height: 310px;
-
   background: #ffffff;
   padding-left: 3%;
   padding-right: 1%;
   padding-top: 4%;
   border-radius: 39px 39px 0px 0px;
   max-width: 400px;
-  height: 50vh;
+  height: 60%;
   max-height: 450px;
 }
 
@@ -121,10 +133,17 @@
 }
 
 .userName {
-  font-size: 356%;
-  mix-blend-mode: normal;
+  opacity: 1;
+  transition: opacity 500ms;
+  font-size: 248%;
+  right: 9px;
   position: absolute;
-  top: 36%;
+  z-index: 9;
+  mix-blend-mode: normal;
+  /* position: absolute; */
+  /* top: 5%; */
+  /* bottom: 0; */
+  /* text-align: center; */
   background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
   -webkit-background-clip: text;
   background-clip: text;
@@ -133,21 +152,25 @@
 }
 
 .showHim {
-  opacity: 0.2;
+  opacity: 0;
   width: inherit;
-  height: inherit;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   text-align: center;
   align-items: center;
-  -webkit-transition: opacity 500ms;
   transition: opacity 500ms;
-  /* transition: opacity 1s; */
+  transition: opacity 1s;
+  position: fixed;
 }
 
 .mainCard:hover .showHim {
   opacity: 1;
+}
+
+.mainCard:hover .userName {
+  opacity: 0;
 }
 
 .theCardMatch {
@@ -170,97 +193,67 @@
   align-items: center;
 }
 
-/* .formControlLarge {
-  margin: 3vh;
-} */
-
-.userPic {
-  height: 80vh;
-  width: auto;
-  max-height: 700px;
+.arrows {
+  z-index: 999;
+  position: fixed;
+  top: 50%;
+  display: flex;
+  width: inherit;
+  justify-content: space-between;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
-@media (max-width: 600px) {
-  .theCardFull {
-    display: none;
-  }
+.userPic {
+  /* height: 80vh; */
+  width: inherit;
+  /* max-height: 700px; */
+  position: absolute;
+}
 
-  .theCardSmall {
-    display: block;
+@media (max-width: 500px) {
+  .ant-modal-content {
+    width: 100%;
+    height: 100%;
   }
-
   .mainCard {
     background-repeat: no-repeat;
-    height: 570px;
-    width: 280px;
+    width: 101%;
     background-size: cover;
     background-position: center center;
     position: relative;
   }
-
-  .userPic {
-    height: 570px;
-  }
-
-  .backRect {
-    display: inline;
-    width: -webkit-fill-available;
-    height: 400px;
-    width: 70vw;
-  }
-
-  .whiteRect {
-    position: fixed;
-    width: 45vw;
-    height: 354px;
-    background: #ffffff;
-    padding-left: 3%;
-    padding-right: 1%;
-    padding-top: 4%;
-    bottom: 0%;
-    /* margin-top: 40%; */
-    border-radius: 39px 39px 0px 0px;
-  }
-
-  .userBio {
-    margin-top: 9%;
-    overflow: auto;
-    height: 266px;
-  }
-
-  .carousel .slide {
-    min-width: auto;
-    margin: 0;
-    position: relative;
+  .showHim {
+    opacity: 0;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     text-align: center;
-    background: #000;
-  }
-
-  .backRect > div {
-    font-size: 15px;
-    padding-top: 6%;
-  }
-  .spans {
-    display: flex;
-    justify-content: space-between;
-  }
-  .interButt {
-    display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    transition: opacity 500ms;
+    transition: opacity 1s;
     position: fixed;
-    width: 45vw;
+    width: 85vw;
+    height: inherit;
   }
-  .userName {
-    font-size: 220%;
-    mix-blend-mode: normal;
+  .backRect {
     position: absolute;
-    top: 21%;
-    background: -webkit-linear-gradient(#fe6b8b, #ff8e53);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-      sans-serif;
+    width: 79vw;
+    height: 70%;
+  }
+  .backRect {
+    position: absolute;
+    width: inherit;
+    height: 70%;
+  }
+  .whiteRect {
+    position: absolute;
+    width: auto;
+  }
+  .arrows {
+    width: auto;
+    right: 10px;
+    left: 10px;
   }
 }
