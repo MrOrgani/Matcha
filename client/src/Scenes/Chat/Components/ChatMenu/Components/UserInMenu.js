@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import "./UserInMenu.css";
 import { ChatContext } from "../../../ChatContext";
 import { UserCardProvider } from "../../../../../Components/UserCards/UserCardContext";
-import Dialog from "@material-ui/core/Dialog";
+// import Dialog from "@material-ui/core/Dialog";
 import UserCard from "../../../../../Components/UserCards/UserCard";
 import { AuthContext } from "../../../../../AuthContext";
 import AugmentedAvatar from "../../../../../Components/Augmented Avatar/AugmentedAvatar";
+import { Modal } from "antd";
 
 const UserInMenu = props => {
   //BASIC DISPLAY fOR THE USER NAME AND PIC
@@ -30,10 +31,9 @@ const UserInMenu = props => {
     setExpanded(!expanded);
     setOpenCard(true);
   }
-  function handleCloseCard() {
+  const handleCancel = e => {
     setOpenCard(false);
-  }
-
+  };
   return (
     <>
       <div
@@ -59,9 +59,18 @@ const UserInMenu = props => {
       <div>
         {!props.matched ? (
           <UserCardProvider user={props.data} session={authContext.data}>
-            <Dialog open={openCard} onClose={handleCloseCard}>
+            {/* <Dialog open={openCard} onClose={handleCloseCard}>
               <UserCard />
-            </Dialog>
+            </Dialog> */}
+            <Modal
+              visible={openCard}
+              onCancel={handleCancel}
+              centered={true}
+              footer={null}
+              wrapClassName="modalContainer"
+            >
+              <UserCard />
+            </Modal>
           </UserCardProvider>
         ) : null}
       </div>

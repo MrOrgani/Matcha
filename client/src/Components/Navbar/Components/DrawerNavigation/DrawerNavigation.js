@@ -68,14 +68,12 @@ export default function TemporaryDrawer() {
       {authContext.isAuth && (
         <div
           className="drawerButton"
-          // style={{ display: authContext.isAuth === 1 ? "block" : "none" }}
         >
           <div onClick={toggleDrawer("left", true)} className={classes.icon}>
             <MenuIcon />
           </div>
           <Drawer
             open={state.left}
-            // onClose={toggleDrawer("left", false)}
           >
             {sideList("left")}
           </Drawer>

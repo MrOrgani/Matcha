@@ -17,17 +17,16 @@ const { CheckableTag } = Tag;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    textAlign: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    marginLeft: "5%",
-    marginBottom: "2%",
-    marginRight: "5%",
-    marginTop: "1%",
-    borderRadius: "20px",
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
+    color: "#e91e63",
+    maxWidth: "19vw",
+    cursor: "pointer",
+    height: "2px",
+    display: "inline-block",
+    padding: "11px 0",
+    position: "relative",
+    boxSizing: "content-box",
+    touchAction: "none",
+    width: "15vw"
   },
   formControl: {
     margin: theme.spacing(3)
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     display: "inline"
   },
   slider: {
-    width: "30vw"
+    width: "15vw"
   }
 }));
 
@@ -97,8 +96,7 @@ export default function Filters(props) {
         closable={true}
         onClose={onClose}
         visible={state.visible}
-        // className="inDrawer"
-        width="75vw"
+        width="50%"
       >
         <span
           role="img"

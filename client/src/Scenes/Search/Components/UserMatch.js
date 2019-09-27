@@ -73,7 +73,7 @@ export default function UserMatch() {
     <div className="wrapperMatch">
       <div className="wrapperStyles">
         {state.length > 0 ? (
-          <div>
+          <div className="divCardsMatch">
             <UserCardProvider
               key={state[0].user_id || state[0].uuid}
               user={state[0]}
