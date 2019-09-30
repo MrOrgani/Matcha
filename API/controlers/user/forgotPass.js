@@ -1,12 +1,14 @@
 const sendEmail = require("./sendEmail");
-const bcrypt = require("bcryptjs");
 const modelFindOne = require("./../../models/modelUser/modelFindOne");
-const cleanUserData = require("./cleanUserData");
 
 module.exports = async function forgotPass(req, res) {
   try {
-    let userData = await modelFindOne(req.body.email, "email");
-    if (userData.length === 0)
+    let userData = await modelFindOne(
+      req.body.email,
+      "email",
+      "AND NOT EXISTS(u.IdDuoQuadra)"
+    );
+    if (!userData.firstName)
       return res.status(201).send("We could not find you");
     //envoie mail avec lien pour nouveau password
     sendEmail(req.body.email, true, userData.uuid);

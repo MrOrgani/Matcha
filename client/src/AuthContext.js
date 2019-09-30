@@ -71,7 +71,6 @@ export const AuthProvider = ({ children }) => {
 
       const locat = await fetch(cityQuery);
       const locat_json = await locat.json();
-      console.log("cityquery", locat_json[0].address.city);
 
       const userData = await axios
         .put(`http://localhost:9000/api/user/profile?uuidSource=${data.uuid}`, {

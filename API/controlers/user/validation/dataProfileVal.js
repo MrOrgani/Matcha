@@ -1,5 +1,9 @@
-module.exports = function dataProfileVal(req, res, next) {
+const modelFindOne = require("../../../models/modelUser/modelFindOne");
+
+module.exports = async function dataProfileVal(req, res, next) {
   let errors = {};
+
+  const userData = await modelFindOne(req.body.values.uuid, "uuid");
 
   if (!req.body.values.age) {
     errors.age = "Age is required";
@@ -47,6 +51,9 @@ module.exports = function dataProfileVal(req, res, next) {
     errors.login = "A login is required";
   } else if (!/^[A-Z0-9 _-]+$/i.test(req.body.values.login)) {
     errors.login = "login can only contain letters and Numbers";
+  } else if (userData.login !== req.body.values.login) {
+    const logTaken = await modelFindOne(req.body.values.login, "login");
+    if (logTaken.login) errors.login = "This login is already taken.";
   }
 
   if (req.body.values.newpassword && req.body.values.oldpassword) {

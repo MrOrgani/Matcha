@@ -4,8 +4,12 @@ const cleanUserData = require("./cleanUserData");
 
 module.exports = async function loginUser(req, res) {
   try {
-    let userData = await modelFindOne(req.body.login, "login");
-    if (userData.length === 0) return res.status(201).send("Invalid username");
+    let userData = await modelFindOne(
+      req.body.login,
+      "login",
+      "AND NOT EXISTS(u.IdDuoQuadra)"
+    );
+    if (!userData.login) return res.status(201).send("Invalid username");
     if (!(await bcrypt.compare(req.body.password, userData.password)))
       return res.status(206).send("Invalid password");
     if (!userData.isConfirmed)

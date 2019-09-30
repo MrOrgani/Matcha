@@ -25,7 +25,6 @@ const ChatProvider = props => {
         const result = await axios(
           `http://localhost:9000/api/chatMessages?uuidSource=${authContext.data.uuid}&target=${chatTarget.uuid}&jwt=${authContext.data.jwt}`
         );
-        // console.log("result fetch messages", result);
         return result.data ? result.data : [basicContent];
       };
       chatTarget.uuid && fetchMsg().then(setMessages);

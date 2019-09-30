@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-
 import { UsersContext } from "./UsersContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import "./UserList.css";
@@ -15,10 +14,8 @@ export default function UserMatch() {
   const [, authContext] = useContext(AuthContext);
   const [state, setState] = useState([]);
   const [usersValue, filtersValue] = useContext(UsersContext);
-  console.log(usersValue.users);
 
   useEffect(() => {
-    console.log("starting the main useEffect");
     const filterUsers = async (filters, users) => {
       let genderFiltered =
         !filters[0] || filters[0] === "both"
@@ -53,7 +50,6 @@ export default function UserMatch() {
       await setState(genderFiltered);
     };
     (async () => {
-      console.log(usersValue);
       if (usersValue.matchUsers[0] === "noResult") {
         await filterUsers(
           [
@@ -67,7 +63,6 @@ export default function UserMatch() {
           ],
           usersValue.matchUsers
         );
-        console.log("setting loading to false", state);
         if (usersValue.matchUsers.length) setLoading(false);
       } else setLoading(false);
     })();
@@ -84,7 +79,6 @@ export default function UserMatch() {
       style={{
         fontSize: 170,
         color: "#ff8e53"
-        // color: "#fe6b8b"
       }}
       className="spinspin"
       spin
@@ -92,19 +86,14 @@ export default function UserMatch() {
   );
 
   useEffect(() => {
-    console.log("starting the 2nd useEffect");
-    (async () => {
-      await setState(usersValue.matchUsers);
-    })();
-  }, [usersValue.matchUsers, setLoading]);
-
-  // console.log("users in state", state);
+    setState(usersValue.matchUsers);
+  }, [usersValue.matchUsers]);
 
   function remove() {
     const leftCards = state.slice(1, state.length);
     setState(leftCards);
   }
-  console.log(state.length);
+
   return (
     <div className="wrapperMatch">
       <div className="wrapperStyles">

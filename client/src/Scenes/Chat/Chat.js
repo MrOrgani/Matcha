@@ -8,7 +8,6 @@ import { AuthContext } from "../../AuthContext";
 
 const Chat = () => {
   const [, authContext] = useContext(AuthContext);
-  // console.log(authContext.data);
   if (!authContext.data.isComplete) window.location = "/Profile";
 
   return (

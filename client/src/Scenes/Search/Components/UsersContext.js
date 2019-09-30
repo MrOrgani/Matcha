@@ -53,14 +53,9 @@ export const UsersProvider = props => {
             `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
           )
         ]);
-        console.log(result.data);
-        // result.data ? setUsers(result.data) : setUsers([]);
         resultMatch.data.length > 0
           ? setUsers(result.data)
           : setUsers(["noResult"]);
-        // resultMatch.data ? setMatchUsers(resultMatch.data) : setMatchUsers([]);
-        // if (result.data) setUsers(result.data);
-        // if (resultMatch.data) setMatchUsers(resultMatch.data);
         resultMatch.data.length > 0
           ? setMatchUsers(resultMatch.data)
           : setMatchUsers(["noResult"]);
