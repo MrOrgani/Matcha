@@ -98,7 +98,7 @@ function NotificationBell() {
   };
 
   return (
-    <div>
+    <div style={{ zIndex: "999" }}>
       <ClickAwayListener onClickAway={handleClickAway}>
         <IconButton onClick={handleNotif} className="BellIcon">
           <Badge badgeContent={nbNotif} className="NotifBadge">
