@@ -29,7 +29,6 @@ function FormProfile() {
       onSubmit={async values => {
         const userValues = authContext.data;
         const api = `http://localhost:9000/api/user/profile?uuidSource=${userValues.uuid}&jwt=${userValues.jwt}`;
-        console.log("FormProfile values", values);
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
