@@ -53,7 +53,8 @@ export default function UserMatch() {
       await setState(genderFiltered);
     };
     (async () => {
-      if (usersValue.matchUsers) {
+      console.log(usersValue);
+      if (usersValue.matchUsers[0] === "noResult") {
         await filterUsers(
           [
             filtersValue.gender,
@@ -103,12 +104,18 @@ export default function UserMatch() {
     const leftCards = state.slice(1, state.length);
     setState(leftCards);
   }
-
+  console.log(state.length);
   return (
     <div className="wrapperMatch">
       <div className="wrapperStyles">
         {!loading ? (
-          state.length > 0 ? (
+          state.length === 0 || usersValue.matchUsers[0] === "noResult" ? (
+            <img
+              alt="sold out"
+              style={{ marginTop: "10px" }}
+              src="https://media.giphy.com/media/l3V0C9CT3UFAQ49Jm/giphy.gif"
+            />
+          ) : (
             <div className="divCardsMatch">
               <UserCardProvider
                 key={state[0].user_id || state[0].uuid}
@@ -118,12 +125,6 @@ export default function UserMatch() {
                 <FakeSwipComposant remove={remove} />
               </UserCardProvider>
             </div>
-          ) : (
-            <img
-              alt="sold out"
-              style={{ marginTop: "10px" }}
-              src="https://media.giphy.com/media/l3V0C9CT3UFAQ49Jm/giphy.gif"
-            />
           )
         ) : (
           <Spin indicator={antIcon} className="spinspin" />

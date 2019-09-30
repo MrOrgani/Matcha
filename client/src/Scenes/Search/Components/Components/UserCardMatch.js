@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+// import Card from "@material-ui/core/Card";
 import { UserCardContext } from "./../../../../Components/UserCards/UserCardContext";
 import "./../../../../Components/UserCards/UserCard.css";
 import { AuthContext } from "../../../../AuthContext";
@@ -8,7 +9,6 @@ export default function UserCardMatch({ zIndex = 0 }) {
   const [, , , , userInfo] = useContext(UserCardContext);
   const [socketContext, authContext] = useContext(AuthContext);
 
-  //VISIT SECTION
   socketContext.socket.emit("newNotif", {
     uuidSource: authContext.data.uuid,
     targetUuid: userInfo.uuid,
@@ -25,11 +25,11 @@ export default function UserCardMatch({ zIndex = 0 }) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  // PICTURE SECTION
   const [state, setState] = useState({
     index: 0,
     pics: []
   });
+
   const changePic = dir => {
     if (dir === "left") {
       if (state.pics[state.index - 1]) {
@@ -50,43 +50,51 @@ export default function UserCardMatch({ zIndex = 0 }) {
 
   return (
     <React.Fragment>
-      <Card style={{ ...cardStyles, zIndex }}>
-        <div
-          style={{
-            backgroundImage: `url(${userInfo.pics[userInfo.indexOfPP]})`
-          }}
-          className="mainCard"
-        >
-          <div className="showHim">
-            <div className="userName">
-              {userInfo.firstName} {userInfo.lastName[0]}.
+      <div
+        className="mainCard"
+        style={{ backgroundImage: `url('${state.pics[state.index]}')` }}
+      >
+        <div className="userName">
+          {capFLtr(userInfo.firstName)} {userInfo.lastName[0]}.
+        </div>
+        <div className="arrows">
+          <span role="img" aria-label="left" onClick={() => changePic("left")}>
+            ◀️
+          </span>
+          <span
+            role="img"
+            aria-label="right"
+            onClick={() => changePic("right")}
+          >
+            ▶️
+          </span>
+        </div>
+        <div className="showHim">
+          <div className="backRect">
+            <div style={{ height: "40px" }}>
+              {userInfo.age}, {userInfo.city}.
             </div>
-            <div className="backRect">
-              <div>
-                {userInfo.age}, {userInfo.city}.
-              </div>
-              <div>
-                <span role="img" aria-label="trophy">
-                  🏆
-                </span>{" "}
-                {userInfo.score}
-              </div>
+            <div style={{ height: "40px" }}>
+              <span role="img" aria-label="trophy">
+                🏆
+              </span>{" "}
+              {userInfo.score}
             </div>
-            <div className="whiteRect">
-              <div className="userBio">
-                {userInfo.bio}
-                <div>
-                  {userInfo.hobbies.map((hobby, index) => (
-                    <div key={hobby + index} className="tag">
-                      <label>{hobby}</label>
-                    </div>
-                  ))}
-                </div>
+          </div>
+          <div className="whiteRect">
+            <div className="userBio">
+              {userInfo.bio}
+              <div>
+                {userInfo.hobbies.map((hobby, index) => (
+                  <div key={hobby + index} className="tag">
+                    <label>{hobby}</label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </React.Fragment>
   );
 }
