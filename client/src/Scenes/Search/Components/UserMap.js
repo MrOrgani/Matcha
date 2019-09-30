@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
-// import { Button } from "antd";
 import "leaflet/dist/leaflet.css";
 import { UsersContext } from "./UsersContext";
 import { AuthContext } from "../../../AuthContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import User from "./User";
-import { Spin, Icon } from "antd";
 const distFrom = require("distance-from");
 
 const myIcon = L.icon({
@@ -22,7 +20,6 @@ export default function UserMap() {
   const [usersValue, filtersValue] = useContext(UsersContext);
   const [, authContext] = useContext(AuthContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const filterUsers = async (filters, users) => {
@@ -52,8 +49,6 @@ export default function UserMap() {
         }
         setFilteredUserList(filtersfiltered);
       })();
-
-      filteredUserList.length > 0 && setLoading(false);
     };
     filterUsers(
       [
@@ -96,18 +91,6 @@ export default function UserMap() {
   }, [usersValue.users]);
 
   const position = [state.location.lat, state.location.long];
-  const antIcon = (
-    <Icon
-      type="loading"
-      style={{
-        fontSize: 170,
-        color: "#ff8e53"
-        // color: "#fe6b8b"
-      }}
-      className="spinspin"
-      spin
-    />
-  );
   return (
     <div
       style={{
@@ -117,15 +100,24 @@ export default function UserMap() {
         marginTop: "3vh"
       }}
     >
-      <Map center={position} zoom={state.zoom} style={{ gridColumnStart: "2" }}>
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {loading ? (
-          <Spin indicator={antIcon} className="spinspin" />
-        ) : (
-          filteredUserList.map((user, index) => {
+      {usersValue.users[0] === "noResult" ? (
+        <div className="containerUL">
+          <p>
+            This functionnality is not effective as there are no users in the
+            database
+          </p>
+        </div>
+      ) : (
+        <Map
+          center={position}
+          zoom={state.zoom}
+          style={{ gridColumnStart: "2" }}
+        >
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {filteredUserList.map((user, index) => {
             return (
               <Marker key={index} position={user.location} icon={myIcon}>
                 <Popup>
@@ -139,9 +131,9 @@ export default function UserMap() {
                 </Popup>
               </Marker>
             );
-          })
-        )}
-      </Map>
+          })}
+        </Map>
+      )}
     </div>
   );
 }

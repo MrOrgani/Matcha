@@ -4,6 +4,6 @@ li {
 
 .Menu {
   width: 30%; /* DONT'T KNOW WHY BUT DOES noT APPLY tO THECOMP --> inline Style */
-  height: 93vh;
+  height: 90vh;
   border-right: 0px;
 }
