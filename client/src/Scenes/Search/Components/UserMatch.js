@@ -6,22 +6,32 @@ import "./UserList.css";
 import { AuthContext } from "../../../AuthContext";
 import "./Components/UserCardMatch.css";
 import FakeSwipComposant from "./Components/FakeSwipComposant";
+import { Spin, Icon } from "antd";
 
 const distFrom = require("distance-from");
 
 export default function UserMatch() {
+  const [loading, setLoading] = useState(true);
   const [, authContext] = useContext(AuthContext);
-  const [usersValue, filtersValue] = useContext(UsersContext);
   const [state, setState] = useState([]);
+  const [usersValue, filtersValue] = useContext(UsersContext);
+  console.log(usersValue.users);
 
   useEffect(() => {
-    const filterUsers = (filters, users) => {
+    console.log("starting the main useEffect");
+    const filterUsers = async (filters, users) => {
       let genderFiltered =
         !filters[0] || filters[0] === "both"
           ? users
           : users.filter(user => user.gender === filters[0]);
 
-      genderFiltered = genderFiltered
+      if (filtersValue.tags.length > 0) {
+        genderFiltered = await genderFiltered.filter(elem =>
+          filters[6].every(tag => elem.hobbies.includes(tag))
+        );
+      }
+
+      genderFiltered = await genderFiltered
         .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
         .filter(
           user => user.score >= filters[2][0] && user.score <= filters[2][1]
@@ -37,32 +47,55 @@ export default function UserMatch() {
             distFrom(authContext.data.location).to(a.location).distance.v -
             b.score * 0.6 +
             distFrom(authContext.data.location).to(b.location).distance.v
-        );
-      if (filtersValue.tags.length > 0) {
-        genderFiltered = genderFiltered.filter(elem =>
-          filters[6].every(tag => elem.hobbies.includes(tag))
-        );
-      }
+        )
+        .slice(0, 30);
 
-      setState(genderFiltered);
+      await setState(genderFiltered);
     };
-    filterUsers(
-      [
-        filtersValue.gender,
-        filtersValue.age,
-        filtersValue.pop,
-        filtersValue.dist,
-        filtersValue.sort,
-        filtersValue.ord,
-        filtersValue.tags
-      ],
-      usersValue.matchUsers
-    );
-  }, [filtersValue, authContext.data.location, usersValue.matchUsers]);
+    (async () => {
+      if (usersValue.matchUsers) {
+        await filterUsers(
+          [
+            filtersValue.gender,
+            filtersValue.age,
+            filtersValue.pop,
+            filtersValue.dist,
+            filtersValue.sort,
+            filtersValue.ord,
+            filtersValue.tags
+          ],
+          usersValue.matchUsers
+        );
+        console.log("setting loading to false", state);
+        if (usersValue.matchUsers.length) setLoading(false);
+      } else setLoading(false);
+    })();
+  }, [
+    filtersValue,
+    authContext.data.location,
+    usersValue.matchUsers,
+    setLoading
+  ]);
+
+  const antIcon = (
+    <Icon
+      type="loading"
+      style={{
+        fontSize: 170,
+        color: "#ff8e53"
+        // color: "#fe6b8b"
+      }}
+      className="spinspin"
+      spin
+    />
+  );
 
   useEffect(() => {
-    setState(usersValue.matchUsers);
-  }, [usersValue.matchUsers]);
+    console.log("starting the 2nd useEffect");
+    (async () => {
+      await setState(usersValue.matchUsers);
+    })();
+  }, [usersValue.matchUsers, setLoading]);
 
   // console.log("users in state", state);
 
@@ -74,22 +107,26 @@ export default function UserMatch() {
   return (
     <div className="wrapperMatch">
       <div className="wrapperStyles">
-        {state.length > 0 ? (
-          <div>
-            <UserCardProvider
-              key={state[0].user_id || state[0].uuid}
-              user={state[0]}
-              session={authContext.data}
-            >
-              <FakeSwipComposant remove={remove} />
-            </UserCardProvider>
-          </div>
+        {!loading ? (
+          state.length > 0 ? (
+            <div className="divCardsMatch">
+              <UserCardProvider
+                key={state[0].user_id || state[0].uuid}
+                user={state[0]}
+                session={authContext.data}
+              >
+                <FakeSwipComposant remove={remove} />
+              </UserCardProvider>
+            </div>
+          ) : (
+            <img
+              alt="sold out"
+              style={{ marginTop: "10px" }}
+              src="https://media.giphy.com/media/l3V0C9CT3UFAQ49Jm/giphy.gif"
+            />
+          )
         ) : (
-          <img
-            alt="sold out"
-            style={{ marginTop: "10px" }}
-            src="https://media.giphy.com/media/l3V0C9CT3UFAQ49Jm/giphy.gif"
-          />
+          <Spin indicator={antIcon} className="spinspin" />
         )}
       </div>
     </div>
