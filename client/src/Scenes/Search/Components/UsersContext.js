@@ -54,7 +54,9 @@ export const UsersProvider = props => {
           )
         ]);
         setUsers(result.data);
-        setMatchUsers(resultMatch.data);
+        resultMatch.data
+          ? setMatchUsers(resultMatch.data)
+          : setMatchUsers(null);
       } catch (err) {
         console.log("err", err);
       }

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import Card from "@material-ui/core/Card";
+import React, { useContext, useEffect, useState } from "react";
 import { UserCardContext } from "./../../../../Components/UserCards/UserCardContext";
 import "./../../../../Components/UserCards/UserCard.css";
 import { AuthContext } from "../../../../AuthContext";
@@ -9,18 +8,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
   const [, , , , userInfo] = useContext(UserCardContext);
   const [socketContext, authContext] = useContext(AuthContext);
 
-  const cardStyles = {
-    background: "whitesmoke",
-    borderRadius: 3,
-    cursor: "pointer",
-    userSelect: "none",
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    top: 0
-  };
-
+  //VISIT SECTION
   socketContext.socket.emit("newNotif", {
     uuidSource: authContext.data.uuid,
     targetUuid: userInfo.uuid,
@@ -32,6 +20,33 @@ export default function UserCardMatch({ zIndex = 0 }) {
     uuidSource: authContext.data.uuid,
     target: userInfo.uuid
   });
+
+  function capFLtr(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  // PICTURE SECTION
+  const [state, setState] = useState({
+    index: 0,
+    pics: []
+  });
+  const changePic = dir => {
+    if (dir === "left") {
+      if (state.pics[state.index - 1]) {
+        setState({ ...state, index: state.index - 1 });
+      }
+    }
+    if (dir === "right") {
+      if (state.pics[state.index + 1]) {
+        setState({ ...state, index: state.index + 1 });
+      }
+    }
+  };
+
+  useEffect(() => setState({ index: state.index, pics: userInfo.pics }), [
+    userInfo.pics,
+    state.index
+  ]);
 
   return (
     <React.Fragment>
