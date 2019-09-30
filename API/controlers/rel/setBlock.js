@@ -23,13 +23,13 @@ async function setBlock(req, res) {
         })();
         return (result = await modelSetBlock(req.body));
       }
-      // blockEvent({ targetUuid: req.body.target });
       result = await modelSetBlock(req.body);
     } else {
       // ==> UNBLOCK
       modelChangeScore(req.body, 10);
       result = await modelSetUnblock(req.body);
     }
+
     return result.records.length > 0
       ? res.status(200).send(JSON.stringify({ blocked: true, liked: false }))
       : res.status(200).end(JSON.stringify({ blocked: false, liked: false }));

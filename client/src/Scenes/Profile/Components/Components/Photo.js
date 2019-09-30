@@ -8,6 +8,7 @@ export const Photo = props => {
   const [state, setState] = useContext(ProfileFormContext);
   const { pics } = state;
 
+  // console.log("state = ", state);
   const handleChange = event => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -19,21 +20,20 @@ export const Photo = props => {
     reader.readAsDataURL(file);
   };
 
-  function handleDelete(index) {
-    const notDeletedPhotos = pics.filter(file => pics.indexOf(file) !== index);
+  async function handleDelete(index) {
+    pics.splice(index, 1);
+    const notDeletedPhotos = pics;
+    // filter(file => pics.indexOf(file) !== index);
     if (index <= state.indexOfPP) {
-      setState({
+      await setState({
         ...state,
         pics: notDeletedPhotos,
-        indexOfPP: state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
+        indexOfPP: state.indexOfPP <= 0 ? 0 : state.indexOfPP - 1
       });
-      props.setFieldValue("pics", notDeletedPhotos);
-      props.setFieldValue(
-        "indexOfPP",
-        state.indexOfPP < 0 ? 0 : state.indexOfPP - 1
-      );
+      await props.setFieldValue("pics", notDeletedPhotos);
+      await props.setFieldValue("indexOfPP", state.indexOfPP);
     } else {
-      setState({ ...state, pics: notDeletedPhotos });
+      await setState({ ...state, pics: notDeletedPhotos });
       props.setFieldValue("pics", notDeletedPhotos);
     }
   }
@@ -42,7 +42,6 @@ export const Photo = props => {
     setState({ ...state, indexOfPP: index });
     props.setFieldValue("indexOfPP", index);
   }
-  // console.log("state length", state, pics.length, state.indexOfPP);
   return (
     <React.Fragment>
       <div className="gridPhotos">
@@ -58,20 +57,16 @@ export const Photo = props => {
               src={file}
             />
             <div className="iconsImages">
-              {/* <a href="#"> */}
               <FontAwesomeIcon
                 icon={faTrash}
                 size="2x"
                 onClick={() => handleDelete(index)}
               />
-              {/* </a> */}
-              {/* <a href="#"> */}
               <FontAwesomeIcon
                 icon={faStar}
                 size="2x"
                 onClick={() => handleFav(index)}
               />
-              {/* </a> */}
             </div>
           </div>
         ))}

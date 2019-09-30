@@ -118,10 +118,8 @@ const UserList = () => {
       spin
     />
   );
-  console.log("usersValue in userList =", usersValue);
   return (
     <div className="containerUL">
-      {/* {filteredUserList.map(user => { */}
       {loading ? (
         usersValue.users[0] === "noResult" ? (
           <p>

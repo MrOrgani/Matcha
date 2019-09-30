@@ -26,14 +26,14 @@
 }
 
 .tittleLove {
-  /* margin-top: 80px; */
   position: absolute;
   color: white;
-  font-size: 150px;
+  font-size: 14vh;
   font-family: -webkit-pictograph;
   margin-top: 14%;
   margin-left: 19%;
   z-index: 5;
+  width: auto;
 }
 
 .gifBox {
@@ -60,4 +60,13 @@
 
 .tittleLove > span {
   color: black;
+}
+
+@media (max-width: 400px) {
+  .gifBox {
+    margin-top: 84%;
+    margin-left: 14%;
+    height: 37%;
+    width: 80%;
+  }
 }

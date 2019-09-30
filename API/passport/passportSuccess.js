@@ -9,7 +9,7 @@ module.exports = async function passportSuccess(req, res) {
   const { emails, id, username } = req.user;
   const { first_name, last_name, image_url } = req.user._json;
   const result = await modelFindOne(parseInt(id), "IdDuoQuadra");
-  if (result.length !== 0) {
+  if (result.uuid) {
     //ON REPREND LES INFOS SI ON A TROUVE UN USER
     const newUser = cleanUserData(result);
     res.redirect(

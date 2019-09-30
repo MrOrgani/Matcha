@@ -19,6 +19,5 @@ module.exports = function dataRegisterValidation(req, res, next) {
       "Password must at least contain one of the following !@#$%^&*()";
   }
   for (let x in errors) return res.status(400).send(errors);
-  // console.log("dataRegister");
   next();
 };

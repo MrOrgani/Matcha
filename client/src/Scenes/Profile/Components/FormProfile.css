@@ -107,6 +107,8 @@
     flex-direction: column;
     /* width: 500px; */
     width: 80vw;
+    margin-left: 0;
+    margin-right: 0;
   }
   .containerFormProfile > div {
     margin-top: 1vh;

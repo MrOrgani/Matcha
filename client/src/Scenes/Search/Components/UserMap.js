@@ -7,6 +7,7 @@ import { UsersContext } from "./UsersContext";
 import { AuthContext } from "../../../AuthContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import User from "./User";
+import { Spin, Icon } from "antd";
 const distFrom = require("distance-from");
 
 const myIcon = L.icon({
@@ -21,31 +22,38 @@ export default function UserMap() {
   const [usersValue, filtersValue] = useContext(UsersContext);
   const [, authContext] = useContext(AuthContext);
   const [filteredUserList, setFilteredUserList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const filterUsers = (filters, users) => {
-      const genderFiltered =
-        !filters[0] || filters[0] === "both"
-          ? users
-          : users.filter(user => user.gender === filters[0]);
+    const filterUsers = async (filters, users) => {
+      await (() => {
+        const genderFiltered =
+          !filters[0] || filters[0] === "both"
+            ? users
+            : users.filter(user => user.gender === filters[0]);
 
-      let filtersfiltered = genderFiltered
-        .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
-        .filter(
-          user => user.score >= filters[2][0] && user.score <= filters[2][1]
-        )
-        .filter(
-          user =>
-            distFrom(authContext.data.location).to(user.location).distance.v <=
-            filters[3]
-        );
-      if (filters[6].length > 0) {
-        setFilteredUserList(
-          filtersfiltered.filter(elem =>
-            filters[6].every(tag => elem.hobbies.includes(tag))
+        let filtersfiltered = genderFiltered
+          .filter(
+            user => user.age >= filters[1][0] && user.age <= filters[1][1]
           )
-        );
-      } else setFilteredUserList(filtersfiltered);
+          .filter(
+            user => user.score >= filters[2][0] && user.score <= filters[2][1]
+          )
+          .filter(
+            user =>
+              distFrom(authContext.data.location).to(user.location).distance
+                .v <= filters[3]
+          );
+
+        if (filtersValue.tags.length > 0) {
+          filtersfiltered = filtersfiltered.filter(elem =>
+            filters[6].every(tag => elem.hobbies.includes(tag))
+          );
+        }
+        setFilteredUserList(filtersfiltered);
+      })();
+
+      filteredUserList.length > 0 && setLoading(false);
     };
     filterUsers(
       [
@@ -59,7 +67,12 @@ export default function UserMap() {
       ],
       usersValue.users
     );
-  }, [filtersValue, usersValue, authContext.data.location]);
+  }, [
+    filtersValue,
+    usersValue,
+    authContext.data.location,
+    filteredUserList.length
+  ]);
 
   const state = {
     location: {
@@ -74,8 +87,6 @@ export default function UserMap() {
     const restructureData = async () => {
       const tempArray = await Promise.all(
         usersValue.users.map(user => {
-          //   const { firstName, lastName, location, pics } = user;
-          //   return { firstName, lastName, location, pics };
           return user;
         })
       );
@@ -85,6 +96,18 @@ export default function UserMap() {
   }, [usersValue.users]);
 
   const position = [state.location.lat, state.location.long];
+  const antIcon = (
+    <Icon
+      type="loading"
+      style={{
+        fontSize: 170,
+        color: "#ff8e53"
+        // color: "#fe6b8b"
+      }}
+      className="spinspin"
+      spin
+    />
+  );
   return (
     <div
       style={{
@@ -99,31 +122,25 @@ export default function UserMap() {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {filteredUserList.map((user, index) => {
-          return (
-            <Marker key={index} position={user.location} icon={myIcon}>
-              <Popup>
-                {/* <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    textAlign: "center"
-                  }}
-                >
-                  {user.firstName} {user.lastName}
-                  <img alt={index} src={user.pics[0]} /> */}
-                <UserCardProvider
-                  key={user.user_id || user.uuid}
-                  user={user}
-                  session={authContext.data}
-                >
-                  <User />
-                </UserCardProvider>
-                {/* </div> */}
-              </Popup>
-            </Marker>
-          );
-        })}
+        {loading ? (
+          <Spin indicator={antIcon} className="spinspin" />
+        ) : (
+          filteredUserList.map((user, index) => {
+            return (
+              <Marker key={index} position={user.location} icon={myIcon}>
+                <Popup>
+                  <UserCardProvider
+                    key={user.user_id || user.uuid}
+                    user={user}
+                    session={authContext.data}
+                  >
+                    <User />
+                  </UserCardProvider>
+                </Popup>
+              </Marker>
+            );
+          })
+        )}
       </Map>
     </div>
   );
