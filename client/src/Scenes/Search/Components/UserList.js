@@ -118,11 +118,19 @@ const UserList = () => {
       spin
     />
   );
+  console.log("usersValue in userList =", usersValue);
   return (
     <div className="containerUL">
       {/* {filteredUserList.map(user => { */}
       {loading ? (
-        <Spin indicator={antIcon} className="spinspin" />
+        usersValue.users[0] === "noResult" ? (
+          <p>
+            This functionnality is not effective as there are no users in the
+            database
+          </p>
+        ) : (
+          <Spin indicator={antIcon} className="spinspin" />
+        )
       ) : (
         filteredUserList.slice(0, 28).map(user => {
           return (
