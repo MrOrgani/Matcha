@@ -97,7 +97,8 @@ export default function UserMap() {
         display: "grid",
         gridTemplateColumns: "5% auto 5%",
         height: "85vh",
-        marginTop: "3vh"
+        marginTop: "3vh",
+        zIndex: "1"
       }}
     >
       {usersValue.users[0] === "noResult" ? (

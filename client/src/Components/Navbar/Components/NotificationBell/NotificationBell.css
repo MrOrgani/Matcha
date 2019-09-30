@@ -5,6 +5,7 @@
 
 .popper:hover {
   clip-path: circle(75%);
+  z-index: 999;
 }
 
 .noDisplay {
