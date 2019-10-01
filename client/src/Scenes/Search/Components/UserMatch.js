@@ -6,8 +6,7 @@ import { AuthContext } from "../../../AuthContext";
 import "./Components/UserCardMatch.css";
 import FakeSwipComposant from "./Components/FakeSwipComposant";
 import { Spin, Icon } from "antd";
-
-const distFrom = require("distance-from");
+const { filterUsers } = require("./filters/filterUsers");
 
 export default function UserMatch() {
   const [loading, setLoading] = useState(true);
@@ -16,39 +15,6 @@ export default function UserMatch() {
   const [usersValue, filtersValue] = useContext(UsersContext);
 
   useEffect(() => {
-    const filterUsers = async (filters, users) => {
-      let genderFiltered =
-        !filters[0] || filters[0] === "both"
-          ? users
-          : users.filter(user => user.gender === filters[0]);
-
-      if (filtersValue.tags.length > 0) {
-        genderFiltered = await genderFiltered.filter(elem =>
-          filters[6].every(tag => elem.hobbies.includes(tag))
-        );
-      }
-
-      genderFiltered = await genderFiltered
-        .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
-        .filter(
-          user => user.score >= filters[2][0] && user.score <= filters[2][1]
-        )
-        .filter(
-          user =>
-            distFrom(authContext.data.location).to(user.location).distance.v <=
-            filters[3]
-        )
-        .sort(
-          (a, b) =>
-            a.score * 0.6 +
-            distFrom(authContext.data.location).to(a.location).distance.v -
-            b.score * 0.6 +
-            distFrom(authContext.data.location).to(b.location).distance.v
-        )
-        .slice(0, 30);
-
-      await setState(genderFiltered);
-    };
     (async () => {
       if (usersValue.matchUsers[0] === "noResult") {
         await filterUsers(
@@ -61,7 +27,8 @@ export default function UserMatch() {
             filtersValue.ord,
             filtersValue.tags
           ],
-          usersValue.matchUsers
+          usersValue.matchUsers,
+          authContext.data.location
         );
         if (usersValue.matchUsers.length) setLoading(false);
       } else setLoading(false);
