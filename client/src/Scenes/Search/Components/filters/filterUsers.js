@@ -50,3 +50,23 @@ export async function sortUsers(filteredUsers, filters, authLocation) {
     }
   } else return filteredUsers;
 }
+//Si fonctionComparaison(a, b) est inférieur à 0,
+//on trie a avec un indice inférieur à b (a sera classé avant b)
+export function sortMatchUsers(filteredUsers, authLocation) {
+  // console.log(filteredUsers, authLocation);
+  // filteredUsers[0] &&
+  //   // console.log(
+  //   filteredUsers[0].similarityScore,
+  //   filteredUsers[0].score,
+  //   distFrom(authLocation).to(filteredUsers[0].location).distance.v
+  // );
+  return filteredUsers.sort(
+    (a, b) =>
+      b.score * 0.2 +
+      b.similarityScore * 0 +
+      distFrom(authLocation).to(b.location).distance.v -
+      (a.score * 0.2 +
+        a.similarityScore * 0 +
+        distFrom(authLocation).to(a.location).distance.v)
+  );
+}
