@@ -10,13 +10,48 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 // "MIDLEWARE FUNCTIONS"
-const formate = arr => {
-  return arr.records.map(node => {
+const formate = async (arr, hobbiesSource = false) => {
+  const acc = [];
+  await arr.records.forEach(async node => {
     const oneUser = low(node._fields[0].properties);
     const now = new Date();
     oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
-    return oneUser;
-  });
+    if (hobbiesSource) {
+      await (async () => {
+        oneUser.similarityScore = await oneUser.hobbies.reduce(
+          (accumulator, hobbyOneUser) => {
+            if (hobbiesSource.includes(hobbyOneUser)) return accumulator + 1;
+            else return accumulator;
+          },
+          0
+        );
+      })();
+    }
+    acc.push(oneUser);
+    // return await accumulator.concat(oneUser);
+  }, []);
+  console.log(hobbiesSource);
+  return acc;
+
+  return arr.records.reduce(async (accumulator, node) => {
+    console.log(accumulator, node);
+    const oneUser = low(node._fields[0].properties);
+    const now = new Date();
+    oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
+    if (hobbiesSource) {
+      await (async () => {
+        oneUser.similarityScore = await oneUser.hobbies.reduce(
+          (accumulator, hobbyOneUser) => {
+            if (hobbiesSource.includes(hobbyOneUser)) return accumulator + 1;
+            else return accumulator;
+          },
+          0
+        );
+      })();
+    }
+    return await accumulator.concat(oneUser);
+  }, []);
+  console.log([]);
 };
 
 const createCypher = req => {
@@ -45,14 +80,17 @@ router
     }
   })
   .get("/matcher", async function(req, res) {
+    const hobbiesSource = JSON.parse(req.query.hobbies);
     try {
       let cypher = createCypher(req);
       cypher += ` AND NOT (me)-[:BLOCKED]->(targ)
                       AND NOT (me)-[:LIKED]->(targ)
                     RETURN targ`;
-      res.status(200).send(await formate(await session.run(cypher)));
+      res
+        .status(200)
+        .send(await formate(await session.run(cypher), hobbiesSource));
     } catch (err) {
-      console.log("err getuser: ", err, req.query, req.body);
+      console.log("err getuser: ", err, req.query);
     }
   });
 

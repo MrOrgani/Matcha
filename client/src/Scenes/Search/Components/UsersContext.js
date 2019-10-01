@@ -45,12 +45,13 @@ export const UsersProvider = props => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const hobbiesSource = await JSON.stringify(data.hobbies);
         let [result, resultMatch] = await Promise.all([
           axios(
             `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
           ),
           axios(
-            `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
+            `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}&hobbies=${hobbiesSource}`
           )
         ]);
         resultMatch.data.length > 0

@@ -6,7 +6,8 @@ import { AuthContext } from "../../../AuthContext";
 import "./Components/UserCardMatch.css";
 import FakeSwipComposant from "./Components/FakeSwipComposant";
 import { Spin, Icon } from "antd";
-const { filterUsers } = require("./filters/filterUsers");
+const { filterUsers, sortMatchUsers } = require("./filters/filterUsers");
+const distFrom = require("distance-from");
 
 export default function UserMatch() {
   const [loading, setLoading] = useState(true);
@@ -15,21 +16,51 @@ export default function UserMatch() {
   const [usersValue, filtersValue] = useContext(UsersContext);
 
   useEffect(() => {
+    // const filterUsers = async (filters, users) => {
+    //   let genderFiltered =
+    //     !filters[0] || filters[0] === "both"
+    //       ? users
+    //       : users.filter(user => user.gender === filters[0]);
+
+    //   if (filtersValue.tags.length > 0) {
+    //     genderFiltered = await genderFiltered.filter(elem =>
+    //       filters[6].every(tag => elem.hobbies.includes(tag))
+    //     );
+    //   }
+
+    //   genderFiltered = await genderFiltered
+    //     .filter(user => user.age >= filters[1][0] && user.age <= filters[1][1])
+    //     .filter(
+    //       user => user.score >= filters[2][0] && user.score <= filters[2][1]
+    //     )
+    //     .filter(
+    //       user =>
+    //         distFrom(authContext.data.location).to(user.location).distance.v <=
+    //         filters[3]
+    //     )
+
+    //     .slice(0, 30);
+
+    //   await setState(genderFiltered);
+    // };
     (async () => {
-      if (usersValue.matchUsers[0] === "noResult") {
-        await filterUsers(
-          [
-            filtersValue.gender,
-            filtersValue.age,
-            filtersValue.pop,
-            filtersValue.dist,
-            filtersValue.sort,
-            filtersValue.ord,
-            filtersValue.tags
-          ],
-          usersValue.matchUsers,
-          authContext.data.location
+      if (usersValue.matchUsers[0] !== "noResult") {
+        await setState(
+          await sortMatchUsers(
+            await filterUsers(
+              filtersValue,
+              usersValue.matchUsers,
+              authContext.data.location
+            ),
+            authContext.data.location
+          )
         );
+        console.log(state);
+        // console.log(
+        //   state[0].similarityScore,
+        //   state[0].score,
+        //   distFrom(authContext.data.location).to(state[0].location).distance.v
+        // );
         if (usersValue.matchUsers.length) setLoading(false);
       } else setLoading(false);
     })();
