@@ -8,15 +8,19 @@ module.exports = async function passportSuccess(req, res) {
   // CREER UN COMPTE EN BACK
   const { emails, id, username } = req.user;
   const { first_name, last_name, image_url } = req.user._json;
-  const result = await modelFindOne(parseInt(id), "IdDuoQuadra");
-  if (result.uuid) {
-    //ON REPREND LES INFOS SI ON A TROUVE UN USER
-    const newUser = cleanUserData(result);
-    res.redirect(
-      `http://localhost:3000/Oauth?jwt=${newUser.jwt}&uuid=${newUser.uuid}`
-    );
-  } else {
-    try {
+  try {
+    if (!id) {
+      throw "token expired";
+      return;
+    }
+    const result = await modelFindOne(parseInt(id), "IdDuoQuadra");
+    if (result.uuid) {
+      //ON REPREND LES INFOS SI ON A TROUVE UN USER
+      const newUser = cleanUserData(result);
+      res.redirect(
+        `http://localhost:3000/Oauth?jwt=${newUser.jwt}&uuid=${newUser.uuid}`
+      );
+    } else {
       //CREATE A NEW 42 USER
       const newUser = {
         body: {
@@ -45,9 +49,9 @@ module.exports = async function passportSuccess(req, res) {
       res.redirect(
         `http://localhost:3000/Oauth?jwt=${newUser.body.jwt}&uuid=${newUser.body.uuid}`
       );
-    } catch (err) {
-      console.log("error creating / finding 42 profile", err);
-      res.redirect(`http://localhost:3000`);
     }
+  } catch (err) {
+    console.log("error creating / finding 42 profile", err);
+    res.redirect(`http://localhost:3000`);
   }
 };

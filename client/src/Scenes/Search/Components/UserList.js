@@ -5,8 +5,8 @@ import { UserCardProvider } from "../../../Components/UserCards/UserCardContext"
 import "./UserList.css";
 import { AuthContext } from "../../../AuthContext";
 import { Spin, Icon } from "antd";
+import { filterUsers, sortUsers } from "./filters/filterUsers";
 
-const distFrom = require("distance-from");
 // ICI quand on passe en async opur filterUsers on a un bug etrange lie au
 // fait qu'on attende la reponse de l'api dans UsersContext;
 const UserList = () => {
@@ -16,94 +16,20 @@ const UserList = () => {
   const [filteredUserList, setFilteredUserList] = useState([]);
 
   useEffect(() => {
-    const filterUsers = async (filters, users) => {
-      await (() => {
-        const genderFiltered =
-          !filters[0] || filters[0] === "both"
-            ? users
-            : users.filter(user => user.gender === filters[0]);
-
-        let filtersfiltered = genderFiltered
-          .filter(
-            user => user.age >= filters[1][0] && user.age <= filters[1][1]
-          )
-          .filter(
-            user => user.score >= filters[2][0] && user.score <= filters[2][1]
-          )
-          .filter(
-            user =>
-              distFrom(authContext.data.location).to(user.location).distance
-                .v <= filters[3]
-          );
-
-        if (filtersValue.tags.length > 0) {
-          filtersfiltered = filtersfiltered.filter(elem =>
-            filters[6].every(tag => elem.hobbies.includes(tag))
-          );
-        }
-        if (filtersValue.sort) {
-          if (filters[4] === "age")
-            setFilteredUserList(
-              filtersfiltered.sort((a, b) =>
-                filters[5]
-                  ? parseFloat(a.age) - parseFloat(b.age)
-                  : parseFloat(b.age) - parseFloat(a.age)
-              )
-            );
-          else if (filters[4] === "pop")
-            setFilteredUserList(
-              filtersfiltered.sort((a, b) =>
-                filters[5]
-                  ? parseFloat(a.score) - parseFloat(b.score)
-                  : parseFloat(b.score) - parseFloat(a.score)
-              )
-            );
-          else if (filters[4] === "dist") {
-            setFilteredUserList(
-              filtersfiltered.sort((a, b) =>
-                filters[5]
-                  ? parseFloat(
-                      distFrom(authContext.data.location).to(a.location)
-                        .distance.v
-                    ) -
-                    parseFloat(
-                      distFrom(authContext.data.location).to(b.location)
-                        .distance.v
-                    )
-                  : parseFloat(
-                      distFrom(authContext.data.location).to(b.location)
-                        .distance.v
-                    ) -
-                    parseFloat(
-                      distFrom(authContext.data.location).to(a.location)
-                        .distance.v
-                    )
-              )
-            );
-          }
-        } else setFilteredUserList(filtersfiltered);
-      })();
-
-      filteredUserList.length > 0 && setLoading(false);
-    };
-    filterUsers(
-      [
-        filtersValue.gender,
-        filtersValue.age,
-        filtersValue.pop,
-        filtersValue.dist,
-        filtersValue.sort,
-        filtersValue.ord,
-        filtersValue.tags
-      ],
-      usersValue.users
-    );
-  }, [
-    filtersValue,
-    usersValue,
-    authContext.data.location,
-    filteredUserList.length
-  ]);
+    (async () => {
+      const result = await sortUsers(
+        await filterUsers(
+          filtersValue,
+          usersValue.users,
+          authContext.data.location
+        ),
+        filtersValue,
+        authContext.data.location
+      );
+      setFilteredUserList(result);
+      result && result.length > 0 && setLoading(false);
+    })();
+  }, [filtersValue, usersValue, authContext.data.location]);
 
   //WE KEEP THE 2 MAPS TO COMPARE OPTIMISATION
   const antIcon = (
@@ -112,7 +38,6 @@ const UserList = () => {
       style={{
         fontSize: 170,
         color: "#ff8e53"
-        // color: "#fe6b8b"
       }}
       className="spinspin"
       spin
@@ -130,17 +55,19 @@ const UserList = () => {
           <Spin indicator={antIcon} className="spinspin" />
         )
       ) : (
-        filteredUserList.slice(0, 28).map(user => {
-          return (
-            <UserCardProvider
-              key={user.user_id || user.uuid}
-              user={user}
-              session={authContext.data}
-            >
-              <User />
-            </UserCardProvider>
-          );
-        })
+        (() => {
+          return filteredUserList.slice(0, 28).map(user => {
+            return (
+              <UserCardProvider
+                key={user.user_id || user.uuid}
+                user={user}
+                session={authContext.data}
+              >
+                <User />
+              </UserCardProvider>
+            );
+          });
+        })()
       )}
     </div>
   );
