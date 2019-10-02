@@ -28,30 +28,8 @@ const formate = async (arr, hobbiesSource = false) => {
       })();
     }
     acc.push(oneUser);
-    // return await accumulator.concat(oneUser);
   }, []);
-  console.log(hobbiesSource);
   return acc;
-
-  return arr.records.reduce(async (accumulator, node) => {
-    console.log(accumulator, node);
-    const oneUser = low(node._fields[0].properties);
-    const now = new Date();
-    oneUser.lastConnection = date.format(now, "ddd MMM DD YYYY");
-    if (hobbiesSource) {
-      await (async () => {
-        oneUser.similarityScore = await oneUser.hobbies.reduce(
-          (accumulator, hobbyOneUser) => {
-            if (hobbiesSource.includes(hobbyOneUser)) return accumulator + 1;
-            else return accumulator;
-          },
-          0
-        );
-      })();
-    }
-    return await accumulator.concat(oneUser);
-  }, []);
-  console.log([]);
 };
 
 const createCypher = req => {
