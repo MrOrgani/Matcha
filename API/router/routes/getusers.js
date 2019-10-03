@@ -60,10 +60,13 @@ router
   .get("/matcher", async function(req, res) {
     const hobbiesSource = JSON.parse(req.query.hobbies);
     try {
-      let cypher = createCypher(req);
-      cypher += ` AND NOT (me)-[:BLOCKED]->(targ)
-                      AND NOT (me)-[:LIKED]->(targ)
-                    RETURN targ`;
+      let cypher = `MATCH (n:User {uuid:'${req.query.uuidSource}'})-[:LIKED]->(crush)<-[:LIKED]-(rival)-[:LIKED]->(other)
+      WHERE other <> n AND other <> crush
+      AND (other.lookingFor = '${req.query.gender}' 
+    OR other.lookingFor = 'both')`;
+      cypher += ` AND NOT (n)-[:BLOCKED]->(other)
+                      AND NOT (n)-[:LIKED]->(other)
+                    RETURN DISTINCT other`;
       res
         .status(200)
         .send(await formate(await session.run(cypher), hobbiesSource));

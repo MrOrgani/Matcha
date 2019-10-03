@@ -12,12 +12,14 @@ export const Photo = props => {
   const handleChange = event => {
     const file = event.target.files[0];
     const reader = new FileReader();
+    if (file && file.type.match("image.*")) {
+      reader.readAsDataURL(file);
+    }
     reader.onloadend = function() {
       const allFiles = [...pics, reader.result];
       setState({ ...state, pics: allFiles });
       props.setFieldValue("pics", allFiles);
     };
-    reader.readAsDataURL(file);
   };
 
   async function handleDelete(index) {
