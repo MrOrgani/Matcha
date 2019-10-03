@@ -65,7 +65,14 @@ export const UsersProvider = props => {
       }
     };
     fetchData();
-  }, [data.uuid, data.gender, data.sexualOrientation, data.lookingFor, fire]);
+  }, [
+    data.uuid,
+    data.gender,
+    data.sexualOrientation,
+    data.lookingFor,
+    fire,
+    data.hobbies
+  ]);
 
   return (
     <UsersContext.Provider value={[usersValue, filtersValue]}>
