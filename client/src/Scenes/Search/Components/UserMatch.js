@@ -7,7 +7,7 @@ import "./Components/UserCardMatch.css";
 import FakeSwipComposant from "./Components/FakeSwipComposant";
 import { Spin, Icon } from "antd";
 const { filterUsers, sortMatchUsers } = require("./filters/filterUsers");
-const distFrom = require("distance-from");
+// const distFrom = require("distance-from");
 
 export default function UserMatch() {
   const [loading, setLoading] = useState(true);
@@ -55,7 +55,7 @@ export default function UserMatch() {
             authContext.data.location
           )
         );
-        console.log(state);
+        // console.log(state);
         // console.log(
         //   state[0].similarityScore,
         //   state[0].score,
