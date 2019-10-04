@@ -102,7 +102,10 @@ export default function Filters(props) {
           role="img"
           aria-label="wordlmap"
           style={{ fontSize: "60px", cursor: "pointer" }}
-          onClick={() => props.onClick("map")}
+          onClick={() => {
+            props.onClick("map");
+            onClose();
+          }}
         >
           🌍
         </span>
@@ -110,7 +113,10 @@ export default function Filters(props) {
           role="img"
           aria-label="fire"
           style={{ fontSize: "60px", cursor: "pointer" }}
-          onClick={() => props.onClick("fire")}
+          onClick={() => {
+            props.onClick("fire");
+            onClose();
+          }}
         >
           🔥
         </span>
