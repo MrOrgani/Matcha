@@ -87,7 +87,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
               <div>
                 {userInfo.hobbies.map((hobby, index) => (
                   <div key={hobby + index} className="tag">
-                    <label>{hobby}</label>
+                    <label>#{hobby}</label>
                   </div>
                 ))}
               </div>
