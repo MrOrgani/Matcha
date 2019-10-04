@@ -42,6 +42,7 @@ const createCypher = req => {
     req.query.lookingFor === "both"
       ? ""
       : ` AND (targ.gender = '${req.query.lookingFor}')`;
+  // console.log(cypher);
   return cypher;
 };
 
