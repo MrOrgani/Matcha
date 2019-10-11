@@ -58,12 +58,12 @@ router
       console.log("err getuser: ", err);
     }
   })
-  .get("/matcher", async function(req, res) {
-    const hobbiesSource = JSON.parse(req.query.hobbies);
+  .post("/matcher", async function(req, res) {
+    const hobbiesSource = JSON.parse(req.body.hobbies);
     try {
-      let cypher = `MATCH (n:User {uuid:'${req.query.uuidSource}'})-[:LIKED]->(crush)<-[:LIKED]-(rival)-[:LIKED]->(other)
+      let cypher = `MATCH (n:User {uuid:'${req.body.uuidSource}'})-[:LIKED]->(crush)<-[:LIKED]-(rival)-[:LIKED]->(other)
       WHERE other <> n AND other <> crush
-      AND (other.lookingFor = '${req.query.gender}' 
+      AND (other.lookingFor = '${req.body.gender}' 
     OR other.lookingFor = 'both')`;
       cypher += ` AND NOT (n)-[:BLOCKED]->(other)
                       AND NOT (n)-[:LIKED]->(other)
@@ -72,7 +72,7 @@ router
         .status(200)
         .send(await formate(await session.run(cypher), hobbiesSource));
     } catch (err) {
-      console.log("err getuser: ", err, req.query);
+      console.log("err getuser: ", err, req.body);
     }
   });
 

@@ -50,13 +50,14 @@ export const UsersProvider = props => {
           axios(
             `http://localhost:9000/api/getusers/withhobbies?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}`
           ),
-          axios(
-            `http://localhost:9000/api/getusers/matcher?uuidSource=${data.uuid}&gender=${data.gender}&lookingFor=${data.lookingFor}&hobbies=${hobbiesSource}`
-          )
+          axios.post(`http://localhost:9000/api/getusers/matcher`, {
+            uuidSource: data.uuid,
+            gender: data.gender,
+            lookingFor: data.lookingFor,
+            hobbies: hobbiesSource
+          })
         ]);
-        resultMatch.data.length > 0
-          ? setUsers(result.data)
-          : setUsers(["noResult"]);
+        result.data.length > 0 ? setUsers(result.data) : setUsers(["noResult"]);
         resultMatch.data.length > 0
           ? setMatchUsers(resultMatch.data)
           : setMatchUsers(["noResult"]);
