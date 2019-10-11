@@ -14,6 +14,7 @@ const dataProfileVal = require(`./${ctrlUsr}/validation/dataProfileVal`);
 const dataRegisterVal = require(`./${ctrlUsr}/validation/dataRegisterVal`);
 const dataResetVal = require(`./${ctrlUsr}/validation/dataResetVal`);
 const dataLoginVal = require(`./${ctrlUsr}/validation/dataLoginVal`);
+// const fileValidation = require(`./${ctrlUsr}/validation/fileValidation`);
 const changePass = require(`./${ctrlUsr}/validation/changePass`);
 
 // FUNCTIONS
@@ -67,9 +68,16 @@ router
 
 router
   .route("/profile")
-  .patch(userVerif, changePass, dataProfileVal, cryptNObject, (req, res) => {
-    updateProfile(req, res);
-  })
+  .patch(
+    userVerif,
+    changePass,
+    dataProfileVal,
+    // fileValidation,
+    cryptNObject,
+    (req, res) => {
+      updateProfile(req, res);
+    }
+  )
   .put((req, res) => {
     updateLocation(req, res);
   });

@@ -55,8 +55,6 @@ const hobbiesList = [
   "#La randonnée"
 ];
 
-// const hobbiesList = [...hobbiesListSet];
-
 export const Tags = props => {
   const [state, setState] = useContext(ProfileFormContext);
   const tagsFromServer = hobbiesList;

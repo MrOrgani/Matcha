@@ -10,7 +10,7 @@ async function addHobbies(json) {
       let hobbyUser = [];
       for (let y = 0; y < 6; y++) {
         hobbyUser.push(
-          hobbiesExample[Math.floor(Math.random() * (49 - 0 + 1))]
+          "#" + hobbiesExample[Math.floor(Math.random() * (49 - 0 + 1))]
         );
       }
       element.hobbies = [...new Set(hobbyUser)];
