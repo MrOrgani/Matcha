@@ -25,7 +25,11 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
       {...rest}
       render={props => {
         if (authContext.isAuth && secureAuth) return <Component {...props} />;
-        else return <Redirect to="/" />;
+        else if (authContext.isAuth) {
+          window.location = "/Profile";
+          return <Redirect to="/Profile" />;
+        }
+        // else return <Redirect to="/" />;
       }}
     />
   );
