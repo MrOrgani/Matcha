@@ -34,14 +34,14 @@ const formate = async (arr, hobbiesSource = false) => {
 
 const createCypher = req => {
   let cypher = `MATCH (targ:User {isComplete:true}),
-  (me:User {uuid:'${req.query.uuidSource}'})
-  WHERE targ.uuid <> '${req.query.uuidSource}'
-    AND (targ.lookingFor = '${req.query.gender}' 
+  (me:User {uuid:'${escape(req.query.uuidSource)}'})
+  WHERE targ.uuid <> '${escape(req.query.uuidSource)}'
+    AND (targ.lookingFor = '${escape(req.query.gender)}' 
     OR targ.lookingFor = 'both')`;
   cypher +=
     req.query.lookingFor === "both"
       ? ""
-      : ` AND (targ.gender = '${req.query.lookingFor}')`;
+      : ` AND (targ.gender = '${escape(req.query.lookingFor)}')`;
   // console.log(cypher);
   return cypher;
 };
@@ -60,14 +60,25 @@ router
   })
   .post("/matcher", async function(req, res) {
     const hobbiesSource = JSON.parse(req.body.hobbies);
+    (() => {
+      req.body.gender = escape(req.body.gender);
+      req.body.uuidSource = escape(req.body.uuidSource);
+    })();
     try {
-      let cypher = `MATCH (n:User {uuid:'${req.body.uuidSource}'})-[:LIKED]->(crush)<-[:LIKED]-(rival)-[:LIKED]->(other)
+      let cypher = `MATCH (n:User {uuid:'${escape(
+        req.body.uuidSource
+      )}'})-[:LIKED]->(crush)<-[:LIKED]-(rival)-[:LIKED]->(other)
       WHERE other <> n AND other <> crush
-      AND (other.lookingFor = '${req.body.gender}' 
+      AND (other.lookingFor = '${escape(req.body.gender)}' 
     OR other.lookingFor = 'both')`;
+      cypher +=
+        req.body.lookingFor === "both"
+          ? ""
+          : ` AND (other.gender = '${escape(req.body.lookingFor)}')`;
       cypher += ` AND NOT (n)-[:BLOCKED]->(other)
                       AND NOT (n)-[:LIKED]->(other)
                     RETURN DISTINCT other`;
+      // console.log("get user cypher", cypher);
       res
         .status(200)
         .send(await formate(await session.run(cypher), hobbiesSource));

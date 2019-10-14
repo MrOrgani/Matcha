@@ -89,6 +89,8 @@ export const ProfileValidation = values => {
     errors.bio = "A bio is required";
   } else if (!/^[A-Z ,.!?0-9\t\r\n]+$/i.test(values.bio))
     errors.bio = "Your bio can only contain letters and numbers";
+  else if (values.bio.length < 2 || values.bio.length > 100)
+    errors.bio = "Firstname must contain between 2 and 100 chars";
   if (!values.gender) {
     errors.gender = "Gender is required";
   }
@@ -105,6 +107,8 @@ export const ProfileValidation = values => {
     errors.firstName = "A firstname is required";
   } else if (!/^[A-Z -]+$/i.test(values.firstName))
     errors.firstName = "Firstname must only contain letters";
+  else if (values.firstName.length < 2 || values.firstName.length > 30)
+    errors.firstName = "Firstname must contain between 2 and 30 chars";
 
   if (!values.gender) {
     errors.gender = "Gender is required";
@@ -114,6 +118,8 @@ export const ProfileValidation = values => {
     errors.lastName = "A lastname is required";
   } else if (!/^[A-Z -]+$/i.test(values.lastName))
     errors.lastName = "Lastname must only contain letters";
+  else if (values.lastName.length < 2 || values.lastName.length > 30)
+    errors.lastName = "Lastname must contain between 2 and 30 chars";
 
   if (!values.login) {
     errors.login = "A login is required";
