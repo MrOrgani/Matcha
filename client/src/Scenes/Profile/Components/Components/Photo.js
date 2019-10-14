@@ -45,7 +45,6 @@ export const Photo = props => {
         reader.readAsDataURL(file);
         reader.onloadend = function() {
           const filesToShow = [...pics, reader.result];
-          console.log(file);
           setState({ ...state, pics: filesToShow });
           props.setFieldValue("pics", filesToShow);
 
@@ -55,7 +54,7 @@ export const Photo = props => {
         };
       }
     };
-    readerProof.readAsArrayBuffer(file.slice(0, 4)); //createa blob of the first 4 bytes
+    file && readerProof.readAsArrayBuffer(file.slice(0, 4)); //createa blob of the first 4 bytes
   };
 
   async function handleDelete(index) {
