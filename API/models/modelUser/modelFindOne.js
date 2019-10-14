@@ -8,7 +8,6 @@ module.exports = async function modelFindOne(value, category, option = "") {
   let Vstring = typeof value === "string" ? true : false;
   await (() => {
     value = escape(value);
-    option = escape(option);
     category = escape(category);
   })();
   try {
