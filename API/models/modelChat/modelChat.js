@@ -11,6 +11,10 @@ const formate = arr => {
 };
 
 exports.modelChat = async req => {
+  await (() => {
+    req.r = escape(req.r);
+    req.w = escape(req.w);
+  })();
   try {
     let cypher = `MATCH (s:User `;
     cypher += req.s !== "User" ? `{uuid:{uuidSource}})-` : `)-`;
