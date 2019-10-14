@@ -26,7 +26,8 @@ const UserList = () => {
         filtersValue,
         authContext.data.location
       );
-      setFilteredUserList(result);
+      // console.log("window lov userList", window.location);
+      window.location.pathname === "/Search" && setFilteredUserList(result);
       result && result.length > 0 && setLoading(false);
     })();
   }, [filtersValue, usersValue, authContext.data.location]);
