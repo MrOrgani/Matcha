@@ -4,8 +4,7 @@ const session = initNeo4j();
 async function modelIsMatched(req) {
   try {
     const data = await session.run(
-      `MATCH (u:User {uuid:"uuidSource"})
-        -[r:MATCHED]-(n:User {uuid:"target"})
+      `MATCH (u:User {uuid:"uuidSource"})-[r:MATCHED]-(n:User {uuid:"target"})
         RETURN r`,
       req
     );
