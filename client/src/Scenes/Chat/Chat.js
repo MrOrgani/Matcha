@@ -8,18 +8,19 @@ import { AuthContext } from "../../AuthContext";
 
 const Chat = () => {
   const [, authContext] = useContext(AuthContext);
-  if (!authContext.data.isComplete) window.location = "/Profile";
 
-  return (
-    <div className="ChatContainer">
-      <ChatProvider>
-        <ChatMenuProvider source={authContext.data}>
-          <ChatMenu />
-        </ChatMenuProvider>
-        <ChatApp id="chatApp" />
-      </ChatProvider>
-    </div>
-  );
+  if (authContext.data.isComplete)
+    return (
+      <div className="ChatContainer">
+        <ChatProvider>
+          <ChatMenuProvider source={authContext.data}>
+            <ChatMenu />
+          </ChatMenuProvider>
+          <ChatApp id="chatApp" />
+        </ChatProvider>
+      </div>
+    );
+  else return <div />;
 };
 
 export default Chat;

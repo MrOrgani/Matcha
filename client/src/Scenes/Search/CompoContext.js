@@ -27,14 +27,16 @@ export default function CompoContext() {
     }
   }
 
-  return (
-    <>
-      <div style={{ display: "flex" }}>
-        <Filters onClick={handleClick} map={map} fire={filtersValue.fire} />
-      </div>
-      {map && <UserMap />}
-      {filtersValue.fire && <UserMatch />}
-      {!filtersValue.fire && !map && <UserList />}
-    </>
-  );
+  if (!authContext.data.isComplete) return <div />;
+  else
+    return (
+      <>
+        <div style={{ display: "flex" }}>
+          <Filters onClick={handleClick} map={map} fire={filtersValue.fire} />
+        </div>
+        {map && <UserMap />}
+        {filtersValue.fire && <UserMatch />}
+        {!filtersValue.fire && !map && <UserList />}
+      </>
+    );
 }
