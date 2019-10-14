@@ -14,7 +14,10 @@ module.exports = async function dataProfileVal(req, res, next) {
   if (!req.body.values.bio) {
     errors.bio = "A bio is required";
   } else if (!/^[A-Z ,.!?0-9\t\r\n]+$/i.test(req.body.values.bio))
-    errors.firstName = "Your bio can only contain letters and numbers";
+    errors.bio = "Your bio can only contain letters and numbers";
+  else if (req.body.values.bio.length < 5 || req.body.values.bio.length > 100)
+    errors.bio = "Your bio must length between 5 and 100 chars";
+
   if (!req.body.values.gender) {
     errors.gender = "Gender is required";
   }
@@ -33,7 +36,11 @@ module.exports = async function dataProfileVal(req, res, next) {
     errors.firstName = "A firstname is required";
   } else if (!/^[A-Z -]+$/i.test(req.body.values.firstName))
     errors.firstName = "Firstname must only contain letters";
-
+  else if (
+    req.body.values.firstName.length < 2 ||
+    req.body.values.firstName.length > 30
+  )
+    errors.firstName = "Your first name must length between 2 and 30 chars";
   if (!req.body.values.gender) {
     errors.gender = "Gender is required";
   }
@@ -46,7 +53,11 @@ module.exports = async function dataProfileVal(req, res, next) {
     errors.lastName = "A lastname is required";
   } else if (!/^[A-Z -]+$/i.test(req.body.values.lastName))
     errors.lastName = "Lastname must only contain letters";
-
+  else if (
+    req.body.values.lastName.length < 2 ||
+    req.body.values.lastName.length > 30
+  )
+    errors.lastName = "Your last name must length between 2 and 30 chars";
   if (!req.body.values.login) {
     errors.login = "A login is required";
   } else if (!/^[A-Z0-9 _-]+$/i.test(req.body.values.login)) {
