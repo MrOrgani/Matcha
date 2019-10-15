@@ -51,12 +51,14 @@ const ChatMenuProvider = props => {
   }, [api]);
 
   useEffect(() => {
-    getIMatched();
-    getLikedMe();
-    getILiked();
-    getVisitedMe();
-    getIVisited();
-    getIBlocked();
+    let isSubscribed = false;
+    getIMatched(isSubscribed);
+    getLikedMe(isSubscribed);
+    getILiked(isSubscribed);
+    getVisitedMe(isSubscribed);
+    getIVisited(isSubscribed);
+    getIBlocked(isSubscribed);
+    return () => (isSubscribed = false);
   }, [
     getIMatched,
     getLikedMe,
