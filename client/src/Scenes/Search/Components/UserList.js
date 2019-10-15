@@ -16,8 +16,7 @@ const UserList = () => {
   const [filteredUserList, setFilteredUserList] = useState([]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    let isSubscribed = true;
     (async () => {
       const result = await sortUsers(
         await filterUsers(
@@ -28,14 +27,11 @@ const UserList = () => {
         filtersValue,
         authContext.data.location
       );
-      console.log(signal);
-      if (signal.aborted) return;
-      // console.log("window lov userList", window.location);
-      // window.location.pathname === "/Search" && setFilteredUserList(result);
+      if (!isSubscribed) return;
       setFilteredUserList(result);
       result && result.length > 0 && setLoading(false);
-      return controller.abort();
-    })({ signal });
+    })();
+    return () => (isSubscribed = false);
   }, [filtersValue, usersValue, authContext.data.location]);
 
   //WE KEEP THE 2 MAPS TO COMPARE OPTIMISATION
