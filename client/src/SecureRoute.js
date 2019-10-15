@@ -29,7 +29,7 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
           window.location = "/Profile";
           return <Redirect to="/Profile" />;
         }
-        // else return <Redirect to="/" />;
+        else return <Redirect to="/" />;
       }}
     />
   );
