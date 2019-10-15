@@ -54,21 +54,23 @@ export const UserCardProvider = props => {
   };
 
   useEffect(() => {
+    let isSubscribed = true;
     const api1 = `http://localhost:9000/api/rel/`;
     const api2 = `?uuidSource=${props.session.uuid}&target=${userInfo.uuid}&jwt=${props.session.jwt}`;
 
     const getLike = async () => {
       const result = await axios.get(`${api1}like${api2}`);
-      if (result.data) setLiked(true);
+      if (result.data && isSubscribed) setLiked(true);
     };
 
     const getBlock = async () => {
       const result = await axios.get(`${api1}block${api2}`);
-      if (result.data) setBlocked(true);
+      if (result.data && isSubscribed) setBlocked(true);
     };
 
     getBlock();
     getLike();
+    return () => (isSubscribed = false);
   }, [props.session, userInfo.uuid]);
 
   return (
