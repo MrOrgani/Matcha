@@ -20,64 +20,43 @@ const ChatMenuProvider = props => {
   // *** BEAUTIFULL CODE INCOMMIIIIING LIST UPDATE VARIABLES *** //
   const api = `http://localhost:9000/api/chat/affinities?uuidSource=${props.source.uuid}&jwt=${props.source.jwt}&`;
 
-  const getIMatched = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
-      console.log(isSubscribed);
-      isSubscribed && setIMatched(result.data);
-    },
-    [api]
-  );
+  const getIMatched = useCallback(async () => {
+    const result = await axios.get(`${api}s=Me&r=MATCHED&t=User&w=t`);
+    if (window.location.pathname === "/Chat") setIMatched(result.data);
+  }, [api]);
 
-  const getLikedMe = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=User&r=LIKED&t=me&w=s`);
-      isSubscribed && setLikedMe(result.data);
-    },
-    [api]
-  );
+  const getLikedMe = useCallback(async () => {
+    const result = await axios.get(`${api}s=User&r=LIKED&t=me&w=s`);
+    window.location.pathname === "/Chat" && setLikedMe(result.data);
+  }, [api]);
 
-  const getILiked = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
-      isSubscribed && setILiked(result.data);
-    },
-    [api]
-  );
+  const getILiked = useCallback(async () => {
+    const result = await axios.get(`${api}s=Me&r=LIKED&t=User&w=t`);
+    window.location.pathname === "/Chat" && setILiked(result.data);
+  }, [api]);
 
-  const getVisitedMe = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=User&r=VISITED&t=me&w=s`);
-      isSubscribed && setVisitedMe(result.data);
-    },
-    [api]
-  );
+  const getVisitedMe = useCallback(async () => {
+    const result = await axios.get(`${api}s=User&r=VISITED&t=me&w=s`);
+    window.location.pathname === "/Chat" && setVisitedMe(result.data);
+  }, [api]);
 
-  const getIVisited = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=Me&r=VISITED&t=User&w=t`);
-      isSubscribed && setIVisited(result.data);
-    },
-    [api]
-  );
+  const getIVisited = useCallback(async () => {
+    const result = await axios.get(`${api}s=Me&r=VISITED&t=User&w=t`);
+    window.location.pathname === "/Chat" && setIVisited(result.data);
+  }, [api]);
 
-  const getIBlocked = useCallback(
-    async isSubscribed => {
-      const result = await axios.get(`${api}s=Me&r=BLOCKED&t=User&w=t`);
-      isSubscribed && setIBlocked(result.data);
-    },
-    [api]
-  );
+  const getIBlocked = useCallback(async () => {
+    const result = await axios.get(`${api}s=Me&r=BLOCKED&t=User&w=t`);
+    window.location.pathname === "/Chat" && setIBlocked(result.data);
+  }, [api]);
 
   useEffect(() => {
-    let isSubscribed = true;
-    getIMatched(isSubscribed);
-    getLikedMe(isSubscribed);
-    getILiked(isSubscribed);
-    getVisitedMe(isSubscribed);
-    getIVisited(isSubscribed);
-    getIBlocked(isSubscribed);
-    return () => (isSubscribed = false);
+    getIMatched();
+    getLikedMe();
+    getILiked();
+    getVisitedMe();
+    getIVisited();
+    getIBlocked();
   }, [
     getIMatched,
     getLikedMe,
