@@ -12,6 +12,7 @@ async function modelNewMessages(req) {
   try {
     const data = await session.run(
       `MATCH (s:User {uuid:{uuidSource}})-[r:MESSAGED]-(t:User {uuid:{target}})
+		WHERE NOT (s)-[:BLOCKED]-(t)
       SET r.history = r.history + {newMessage}`,
       req
     );
