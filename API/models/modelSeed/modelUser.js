@@ -14,7 +14,7 @@ async function gUsers() {
               u.gender = user.gender,
               u.lookingFor = 'both',
               u.login = user.login.username,
-              u.password = user.login.password,
+              u.password = user.login.sha256,
               u.cell = user.cell,
               u.pics = [user.picture.large],
               u.indexOfPP = 0,
