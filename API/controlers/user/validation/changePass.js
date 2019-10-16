@@ -4,10 +4,9 @@ const bcrypt = require("bcryptjs");
 module.exports = async function changePass(req, res, next) {
   let errors = {};
   const { oldpassword, newpassword } = req.body.values;
-  // Si oldpassword et newpassword
   if (oldpassword && newpassword) {
     try {
-      const userData = await modelFindOne(req.query.userSource, "login");
+      const userData = await modelFindOne(req.query.uuidSource, "uuid");
       const { password } = userData;
       if (!(await bcrypt.compare(oldpassword, password))) {
         errors.oldpassword = "You old password is incorrect !";
@@ -19,7 +18,7 @@ module.exports = async function changePass(req, res, next) {
           "Your new Password must at least contain one of the following !@#$%^&*()";
       }
     } catch (err) {
-      console.log(err);
+      console.log(err, req.body.values);
     }
     for (let x in errors) return res.status(201).json(errors);
   }

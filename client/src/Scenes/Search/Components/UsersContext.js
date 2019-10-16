@@ -58,8 +58,6 @@ export const UsersProvider = props => {
             hobbies: hobbiesSource
           })
         ]);
-        // console.log(window.location.pathname);
-        // if (window.location.pathname !== "/Search") return;
         if (!isSubscribed) return;
         result.data.length > 0 ? setUsers(result.data) : setUsers(["noResult"]);
         resultMatch.data.length > 0

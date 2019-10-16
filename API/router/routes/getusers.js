@@ -42,7 +42,6 @@ const createCypher = req => {
     req.query.lookingFor === "both"
       ? ""
       : ` AND (targ.gender = '${escape(req.query.lookingFor)}')`;
-  // console.log(cypher);
   return cypher;
 };
 
@@ -78,7 +77,6 @@ router
       cypher += ` AND NOT (n)-[:BLOCKED]->(other)
                       AND NOT (n)-[:LIKED]->(other)
                     RETURN DISTINCT other`;
-      // console.log("get user cypher", cypher);
       res
         .status(200)
         .send(await formate(await session.run(cypher), hobbiesSource));
