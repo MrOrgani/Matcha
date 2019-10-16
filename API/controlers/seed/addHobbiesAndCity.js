@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const hobby = require("../../public/includes/hobbies");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 async function addHobbies(json) {
@@ -57,6 +58,7 @@ async function addTagNCity(req, res) {
   const json = await response.json();
 
   const usersWithHobbies = await addHobbies(json);
+  // const usersHashedPass = await cryptpass(usersWithHobbies);
   const usersWithCoord = await addCityCoords(usersWithHobbies); // AMODIFIER POUR UNSPLASH
   res.send(usersWithCoord);
 }
