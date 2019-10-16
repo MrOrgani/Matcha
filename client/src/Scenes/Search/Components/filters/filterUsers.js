@@ -62,12 +62,5 @@ export function sortMatchUsers(filteredUsers, authLocation) {
         a.similarityScore * 3 +
         10 / distFrom(authLocation).to(a.location).distance.v)
   );
-  // if (test[0])
-  //   console.log(
-  //     test[0].firstName,
-  //     test[0].similarityScore * 2,
-  //     test[0].score / 10,
-  //     10 / distFrom(authLocation).to(test[0].location).distance.v
-  //   );
   return test;
 }

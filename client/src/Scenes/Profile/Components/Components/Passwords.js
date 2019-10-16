@@ -6,7 +6,7 @@ export const Passwords = props => {
     <React.Fragment>
       <TextField
         className="input"
-        type="text"
+        type="password"
         label="Old Password"
         name="oldpassword"
         variant="outlined"
@@ -16,7 +16,7 @@ export const Passwords = props => {
       />
       <TextField
         className="input"
-        type="text"
+        type="password"
         label="New Password"
         name="newpassword"
         variant="outlined"

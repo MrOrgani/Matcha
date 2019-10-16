@@ -55,12 +55,6 @@ export default function UserMatch() {
             authContext.data.location
           )
         );
-        // console.log(state);
-        // console.log(
-        //   state[0].similarityScore,
-        //   state[0].score,
-        //   distFrom(authContext.data.location).to(state[0].location).distance.v
-        // );
         if (usersValue.matchUsers.length) setLoading(false);
       } else setLoading(false);
     })();

@@ -45,10 +45,8 @@ export const Photo = props => {
         reader.readAsDataURL(file);
         reader.onloadend = function() {
           const filesToShow = [...pics, reader.result];
-          // console.log(file);
           setState({ ...state, pics: filesToShow });
           props.setFieldValue("pics", filesToShow);
-
           //A GARDER
           // const filesToUpload = [...pics, JSON.stringify(file)]; // send the original file to the back for similar verifications
           // props.setFieldValue("pics", filesToUpload);

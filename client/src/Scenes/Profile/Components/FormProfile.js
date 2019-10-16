@@ -22,7 +22,8 @@ import Notifications, { notify } from "react-notify-toast";
 function FormProfile() {
   const [, authContext] = useContext(AuthContext);
   const values = authContext.data;
-
+  values.oldpassword = "";
+  values.newpassword = "";
   return (
     <Formik
       initialValues={values}
@@ -32,7 +33,6 @@ function FormProfile() {
         let newData = await axios
           .patch(api, { values })
           .catch(err => console.log(err.response.data));
-        // console.log("retour newData Profile", newData);
         if (newData.status === 200) {
           authContext.setData(newData.data);
           notify.show("Your profile has been updated !", "success");
