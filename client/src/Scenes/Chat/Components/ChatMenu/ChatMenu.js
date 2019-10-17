@@ -11,12 +11,12 @@ const MenuChat = () => {
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
   const onOpenChange = async OKeys => {
-    MenuContext.getIBlocked();
-    MenuContext.getIMatched();
-    MenuContext.getIVisited();
-    MenuContext.getILiked();
-    MenuContext.getLikedMe();
-    MenuContext.getVisitedMe();
+    MenuContext.setIBlocked(await MenuContext.getIBlocked());
+    MenuContext.setIMatched(await MenuContext.getIMatched());
+    MenuContext.setIVisited(await MenuContext.getIVisited());
+    MenuContext.setILiked(await MenuContext.getILiked());
+    MenuContext.setLikedMe(await MenuContext.getLikedMe());
+    MenuContext.setVisitedMe(await MenuContext.getVisitedMe());
     const latestOpenKey = OKeys.find(
       key => MenuContext.openKeys.indexOf(key) === -1
     );
