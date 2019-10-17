@@ -3,10 +3,11 @@ const app = express();
 const server = require("http").Server(app);
 require("dotenv").config(); //STORE PASSWORD AND LOGIN IN .ENV
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
 const formData = require("express-form-data");
+const cors = require("cors");
 global.io = require("socket.io")(server);
 const bodyParser = require("body-parser");
+app.use(cors());
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
@@ -15,7 +16,11 @@ server.listen(9000, () => console.log("listening on 9000"));
 
 //MIDDLEWARE
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
+//BEFORE
+// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+//AFTER
+
 app.use(cookieParser());
 app.use(formData.parse());
 

@@ -64,13 +64,17 @@ export const AuthProvider = ({ children }) => {
       );
       // Get user city from his location
       const cityQuery = encodeURI(
-        `http://nominatim.openstreetmap.org/search?q=${data.location[0]},${
+        `https://nominatim.openstreetmap.org/search?q=${data.location[0]},${
           data.location[1]
         }&limit=1&countrycodes=fr&format=json&addressdetails=1`
       );
 
-      const locat = await fetch(cityQuery);
-      const locat_json = await locat.json();
+      const locat_json = await fetch(cityQuery, {
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }).then(res => res.json());
 
       const userData = await axios
         .put(`http://localhost:9000/api/user/profile?uuidSource=${data.uuid}`, {
