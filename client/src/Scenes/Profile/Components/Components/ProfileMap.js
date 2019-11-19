@@ -25,8 +25,16 @@ export const ProfileMap = props => {
   });
 
   function findUser() {
+    if ("geolocation" in navigator) {
+      console.log("geoloc available");
+      /* geolocation is available */
+    } else {
+      console.log("geoloc NOTNOTNOTNOT available");
+      /* geolocation IS NOT available */
+    }
     navigator.geolocation.getCurrentPosition(
       position => {
+        console.log("in navigator geolocation");
         setState({
           location: {
             lat: position.coords.latitude,
@@ -62,23 +70,6 @@ export const ProfileMap = props => {
   const position = [state.location.lat, state.location.long];
   return (
     <React.Fragment>
-      {/* <div className="textTittle">
-        <TextField
-          className="input"
-          type="text"
-          label="City"
-          name="city"
-          // variant="outlined"
-          // required
-          value={props.value}
-          onChange={props.onChange}
-          onBlur={props.onBlur}
-          // helperText={
-          //   props.helperText[0] && props.helperText[1] && props.helperText[2]
-          // }
-        />
-        <Button type="primary" icon="search" onClick={findCity} />
-      </div> */}
       <div className="button">
         <Button type="primary" icon="environment" onClick={findUser}>
           Find Me !
