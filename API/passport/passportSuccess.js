@@ -10,7 +10,6 @@ module.exports = async function passportSuccess(req, res) {
   const { first_name, last_name, image_url } = req.user._json;
   try {
     if (!id) {
-      // console.log("oulla byour token is no more");
       throw "token expired";
       return;
     }

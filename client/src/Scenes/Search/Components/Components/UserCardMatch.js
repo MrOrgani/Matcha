@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import Card from "@material-ui/core/Card";
 import { UserCardContext } from "./../../../../Components/UserCards/UserCardContext";
 import "./../../../../Components/UserCards/UserCard.css";
 import { AuthContext } from "../../../../AuthContext";
@@ -87,7 +86,7 @@ export default function UserCardMatch({ zIndex = 0 }) {
               <div>
                 {userInfo.hobbies.map((hobby, index) => (
                   <div key={hobby + index} className="tag">
-                    <label>#{hobby}</label>
+                    <label>{hobby}</label>
                   </div>
                 ))}
               </div>
