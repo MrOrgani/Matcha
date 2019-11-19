@@ -22,7 +22,6 @@ exports.modelChat = async req => {
       req.r === "MATCHED" ? `[r:${req.r}]-(t:User ` : `[r:${req.r}]->(t:User `;
     cypher += req.t !== "User" ? `{uuid:{uuid}}) RETURN ` : `) RETURN `;
     cypher += `${req.w}`;
-    console.log("cypher", cypher, req);
     return await formate(await session.run(cypher, req));
   } catch (err) {
     console.log("error in modelChat", err);

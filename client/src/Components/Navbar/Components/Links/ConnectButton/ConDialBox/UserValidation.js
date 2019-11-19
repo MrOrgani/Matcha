@@ -22,10 +22,15 @@ export const RegisterValidation = function(values) {
     errors.password = "Required";
   } else if (!/[A-Z0-9]+/i.test(values.password)) {
     errors.password = "Password must at least contain one letter and one digit";
+  } else if (!/[A-Z]+/.test(values.password)) {
+    errors.password = "Password must at least contain one capital letter";
+  } else if (values.password.length < 6) {
+    errors.password = "Password must contain at least 6 chars";
   } else if (!/[!@#$%^&*()]+/.test(values.password)) {
     errors.password =
       "Password must at least contain one of the following !@#$%^&*()";
   }
+  console.log("errors", errors);
   return errors;
 };
 
