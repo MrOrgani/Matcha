@@ -57,7 +57,7 @@ const ChatMenuProvider = props => {
     socketContext.socket.on("unmatched", async () => {
       let tmp = await getIMatched();
       isSubscribed && setIMatched(tmp);
-      chatAppContext.setChatTarget({});
+      isSubscribed && chatAppContext.setChatTarget({});
     });
     return () => (isSubscribed = false);
   }, [socketContext.socket, getIMatched, chatAppContext]);

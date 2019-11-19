@@ -68,17 +68,12 @@ export const AuthProvider = ({ children }) => {
       );
 
       const locat_json = await fetch(cityQuery, {
-        // mode: "cors",
-        // headers: {
-        //   "Access-Control-Allow-Origin": "*",
-        //   "Set-Cookie": "secure"
-        // }
-      }).then(res => {
-        // res.cookie("cross-site-cookie", "bar", {
-        //   sameSite: "none",
-        //   secure: true
-        // });
-        res.json();
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }).then(async res => {
+        return await res.json();
       });
 
       const userData = await axios

@@ -30,7 +30,6 @@ export const RegisterValidation = function(values) {
     errors.password =
       "Password must at least contain one of the following !@#$%^&*()";
   }
-  console.log("errors", errors);
   return errors;
 };
 

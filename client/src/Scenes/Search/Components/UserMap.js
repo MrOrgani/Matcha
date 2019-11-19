@@ -113,6 +113,7 @@ export default function UserMap() {
           center={position}
           zoom={state.zoom}
           style={{ gridColumnStart: "2" }}
+          maxZoom={12}
         >
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

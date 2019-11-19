@@ -84,7 +84,7 @@ export const ProfileMap = props => {
           Find Me !
         </Button>
       </div>
-      <Map center={position} zoom={state.zoom} className="map">
+      <Map center={position} zoom={state.zoom} className="map" maxZoom={11}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
