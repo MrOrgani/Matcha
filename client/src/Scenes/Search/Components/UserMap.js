@@ -6,6 +6,7 @@ import { UsersContext } from "./UsersContext";
 import { AuthContext } from "../../../AuthContext";
 import { UserCardProvider } from "../../../Components/UserCards/UserCardContext";
 import User from "./User";
+import "./UserMap.css";
 const distFrom = require("distance-from");
 
 const myIcon = L.icon({
@@ -112,7 +113,7 @@ export default function UserMap() {
         <Map
           center={position}
           zoom={state.zoom}
-          style={{ gridColumnStart: "2" }}
+          style={{ gridColumnStart: "2", willChange: "auto !important" }}
           maxZoom={12}
         >
           <TileLayer

@@ -1,0 +1,7 @@
+.leaflet-fade-anim .leaflet-tile {
+  will-change: auto !important;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  will-change: auto !important;
+}
