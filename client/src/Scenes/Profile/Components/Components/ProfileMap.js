@@ -25,13 +25,6 @@ export const ProfileMap = props => {
   });
 
   function findUser() {
-    if ("geolocation" in navigator) {
-      console.log("geoloc available");
-      /* geolocation is available */
-    } else {
-      console.log("geoloc NOTNOTNOTNOT available");
-      /* geolocation IS NOT available */
-    }
     navigator.geolocation.getCurrentPosition(
       position => {
         console.log("in navigator geolocation");
