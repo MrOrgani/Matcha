@@ -12,7 +12,6 @@ const getMimetype = signature => {
 module.exports = async function fileValidation(req, res, next) {
   let errors = {};
   const { pics } = req.body.values;
-  console.log("in fileValidation", pics);
   for (let x in pics) {
     const pic = await JSON.parse(pics[x]);
     const readerProof = new FileReader();
@@ -40,7 +39,6 @@ module.exports = async function fileValidation(req, res, next) {
       };
     }
   }
-  console.log(req.body.values.pics);
 
   for (let x in errors) return res.status(201).send(errors);
   next();
