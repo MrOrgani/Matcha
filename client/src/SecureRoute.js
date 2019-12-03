@@ -14,7 +14,7 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
     if (!result) setSecureAuth(false);
     await Conditions.forEach(condition => {
       if (result.data[condition] !== true) {
-        secureAuth && setSecureAuth(false);
+        setSecureAuth(false);
       }
     });
   };
@@ -28,8 +28,7 @@ export default ({ component: Component, conditions: Conditions, ...rest }) => {
         else if (authContext.isAuth) {
           window.location = "/Profile";
           return <Redirect to="/Profile" />;
-        }
-        else return <Redirect to="/" />;
+        } else return <Redirect to="/" />;
       }}
     />
   );

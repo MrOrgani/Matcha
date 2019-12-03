@@ -65,8 +65,8 @@ function NotificationBell() {
     socketContext.socket.on("newNotif", newNotif => {
       notifArray.push(newNotif);
       setNbNotif(notifArray.length);
+      return () => socketContext.socket.off("newNotif");
     });
-    return () => socketContext.socket.off("newNotif");
   }, [notifArray, socketContext]);
 
   // CLICKS ON AND OUTSIDE THE BELL

@@ -53,13 +53,13 @@ const ChatMenuProvider = props => {
   //in case of block update the list and re render the elements
   // Why does it fire 4 times
   useEffect(() => {
-    let isSubscribed = true;
     socketContext.socket.on("unmatched", async () => {
+      let isSubscribed = true;
+      isSubscribed && chatAppContext.setChatTarget({});
       let tmp = await getIMatched();
       isSubscribed && setIMatched(tmp);
-      isSubscribed && chatAppContext.setChatTarget({});
+      return () => (isSubscribed = false);
     });
-    return () => (isSubscribed = false);
   }, [socketContext.socket, getIMatched, chatAppContext]);
 
   const MenuContext = {

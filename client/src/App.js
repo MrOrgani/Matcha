@@ -39,11 +39,7 @@ export function App() {
             component={Chat}
             conditions={["isComplete", "isConfirmed"]}
           />
-          <Route
-            path="/handleUsers"
-            component={handleUsers}
-            conditions={["isComplete", "isConfirmed"]}
-          />
+          <Route path="/handleUsers" component={handleUsers} />
         </Switch>
       </Router>
     </AuthProvider>
