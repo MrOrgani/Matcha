@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 import Badge from "@material-ui/core/Badge";
 import List from "@material-ui/core/List";
-import { AuthContext } from "../../../../AuthContext";
+import { AuthContext } from "../../AuthContext";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";

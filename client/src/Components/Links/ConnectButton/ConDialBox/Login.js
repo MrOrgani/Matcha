@@ -1,24 +1,24 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import axios from "axios";
 import { Formik } from "formik";
-import { LoginValidation } from "../UserValidation";
-import { AuthContext } from "../../../../../../../../src/AuthContext";
-import "../../../../../NavBar.css";
+import { AuthContext } from "../../../../AuthContext";
+import "../../../Navbar/NavBar.css";
 import { Result } from "antd";
 
-export default function FormLogin() {
+function Login() {
   const [socketContext, authContext] = useContext(AuthContext);
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
-
   const initialState = {
     login: "",
-    password: ""
+    password: "",
+    lat: "",
+    lon: ""
   };
 
   return (
@@ -27,7 +27,7 @@ export default function FormLogin() {
         {!isSubmitionCompleted ? (
           <Formik
             initialValues={initialState}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(true);
               axios
                 .post("http://localhost:9000/api/user/login", values, {
@@ -56,10 +56,9 @@ export default function FormLogin() {
                   }
                 })
                 .catch(err =>
-                  console.log("Error while loging: ", err.response.data)
+                  console.log("Error while loging: ", err.response)
                 );
             }}
-            validate={LoginValidation}
           >
             {props => {
               const {
@@ -87,6 +86,7 @@ export default function FormLogin() {
                   <TextField
                     error={errors.password && touched.password}
                     label="password"
+                    type="password"
                     name="password"
                     value={values.password}
                     onChange={handleChange}
@@ -124,3 +124,5 @@ export default function FormLogin() {
     </React.Fragment>
   );
 }
+
+export default Login;

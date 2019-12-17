@@ -16,7 +16,7 @@ import { ProfileMap } from "./Components/ProfileMap";
 import { LookingFor } from "./Components/LookingFor";
 import { Submit } from "./Components/Submit";
 import { Tags } from "./Components/Tags";
-import { ProfileValidation } from "./../../../../src/Components/Navbar/Components/Links/ConnectButton/ConDialBox/UserValidation";
+import { ProfileValidation } from "../../../utils/FormValidation";
 import Notifications, { notify } from "react-notify-toast";
 
 function FormProfile() {

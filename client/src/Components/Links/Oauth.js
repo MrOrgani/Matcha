@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import "../../NavBar.css";
+import "../Navbar/NavBar.css";
 
 export default function Oauth() {
   return (

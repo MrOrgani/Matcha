@@ -1,16 +1,11 @@
-import React, {
-  useState
-  // useEffect
-} from "react";
+import React, { useState } from "react";
 import axios from "axios";
-// import { Spin, Icon } from "antd";
 import { Result } from "antd";
 import { Button } from "@material-ui/core";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
-// import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import { ResetValidation } from "../../Components/Navbar/Components/Links/ConnectButton/ConDialBox/UserValidation";
+import { ResetValidation } from "../../utils/FormValidation";
 
 export default function Reset(props) {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);

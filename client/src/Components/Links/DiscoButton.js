@@ -1,7 +1,7 @@
 import React, { useContext } from "react"; // useState
 import Button from "@material-ui/core/Button";
-import "../../NavBar.css";
-import { AuthContext } from "../../../../AuthContext";
+import "../Navbar/NavBar.css";
+import { AuthContext } from "../../AuthContext";
 
 function DiscoButton() {
   const [socketContext] = useContext(AuthContext);

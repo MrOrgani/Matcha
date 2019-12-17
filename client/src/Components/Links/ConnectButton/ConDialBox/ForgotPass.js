@@ -1,24 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { Formik } from "formik";
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import axios from "axios";
-import { Formik } from "formik";
-import { AuthContext } from "../../../../../../AuthContext";
-import "../../../../NavBar.css";
+import { ForgotValidation } from "../../../../utils/FormValidation";
 import { Result } from "antd";
 
-function Login() {
-  const [socketContext, authContext] = useContext(AuthContext);
+export default function ForgotPass() {
   const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
   const [isValid, setValid] = useState(true);
   const [textError, setTextError] = useState("");
+
   const initialState = {
-    login: "",
-    password: "",
-    lat: "",
-    lon: ""
+    email: ""
   };
 
   return (
@@ -27,21 +23,17 @@ function Login() {
         {!isSubmitionCompleted ? (
           <Formik
             initialValues={initialState}
-            onSubmit={async (values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
               axios
-                .post("http://localhost:9000/api/user/login", values, {
+                .post("http://localhost:9000/api/user/forgot", values, {
                   headers: {
                     "Content-Type": "application/json"
                   }
                 })
                 .then(res => {
-                  if (res.status === 200) {
-                    setSubmitionCompleted(true);
-                    socketContext.socket && socketContext.socket.emit("logOut");
-                    authContext.setData(res.data);
-                    authContext.setIsAuth(1);
-                  } else {
+                  if (res.status === 200) setSubmitionCompleted(true);
+                  else {
                     let errorStr = "";
                     setSubmitionCompleted(true);
                     setValid(false);
@@ -56,55 +48,34 @@ function Login() {
                   }
                 })
                 .catch(err =>
-                  console.log("Error while loging: ", err.response)
+                  console.log("Error while registering: ", err.response.data)
                 );
             }}
+            validate={ForgotValidation}
           >
             {props => {
               const {
                 values,
                 touched,
                 errors,
-                dirty,
                 isSubmitting,
                 handleChange,
                 handleBlur,
-                handleSubmit,
-                handleReset
+                handleSubmit
               } = props;
               return (
                 <form onSubmit={handleSubmit} className="registerBlock">
                   <TextField
-                    label="login"
-                    name="login"
-                    value={values.login}
+                    error={errors.email && touched.email}
+                    label="email"
+                    name="email"
+                    value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    helperText={errors.login && touched.login && errors.login}
-                    margin="normal"
-                  />
-                  <TextField
-                    error={errors.password && touched.password}
-                    label="password"
-                    type="password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    helperText={
-                      errors.password && touched.password && errors.password
-                    }
+                    helperText={errors.email && touched.email && errors.email}
                     margin="normal"
                   />
                   <DialogActions>
-                    <Button
-                      type="button"
-                      className="outline"
-                      onClick={handleReset}
-                      disabled={!dirty || isSubmitting}
-                    >
-                      Reset
-                    </Button>
                     <Button type="submit" disabled={isSubmitting}>
                       Submit
                     </Button>
@@ -116,13 +87,15 @@ function Login() {
         ) : (
           <Result
             status={isValid ? "success" : "error"}
-            title={isValid ? "Logged in !" : "Error."}
-            subTitle={isValid ? "Enjoy :)" : textError}
+            title={isValid ? "Email sent !" : "Error."}
+            subTitle={
+              isValid
+                ? "An email to reset your password has been sent :)"
+                : textError
+            }
           />
         )}
       </DialogContent>
     </React.Fragment>
   );
 }
-
-export default Login;

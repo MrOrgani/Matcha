@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
-import NotificationBell from "./Components/NotificationBell/NotificationBell";
+import NotificationBell from "../NotificationBell/NotificationBell";
 import "./NavBar.css";
-import ConnectButton from "./Components/Links/ConnectButton/ConnectButton";
-import DiscoButton from "./Components/Links/DiscoButton";
-import DrawerNavigator from "./Components/DrawerNavigation/DrawerNavigation";
+import ConnectButton from "../Links/ConnectButton/ConnectButton";
+import DiscoButton from "../Links/DiscoButton";
+import DrawerNavigator from "../DrawerNavigation/DrawerNavigation";
 import { AuthContext } from "../../AuthContext";
-import LSearch from "./Components/Links/LSearch";
-import Oauth from "./Components/Links/Oauth";
-import LProfile from "./Components/Links/LProfile";
-import LChat from "./Components/Links/LChat";
+import LSearch from "../Links/LSearch";
+import Oauth from "../Links/Oauth";
+import LProfile from "../Links/LProfile";
+import LChat from "../Links/LChat";
 
 function NavBar() {
   const [, authContext] = useContext(AuthContext);

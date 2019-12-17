@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import CloseIcon from "@material-ui/icons/Close";
-import { AuthContext } from "../../../../AuthContext";
+import { AuthContext } from "../../AuthContext";
 import IconsAndLinks from "./IconsAndLinks";
 
 export default function TemporaryDrawer() {
@@ -66,17 +66,11 @@ export default function TemporaryDrawer() {
   return (
     <React.Fragment>
       {authContext.isAuth && (
-        <div
-          className="drawerButton"
-        >
+        <div className="drawerButton">
           <div onClick={toggleDrawer("left", true)} className={classes.icon}>
             <MenuIcon />
           </div>
-          <Drawer
-            open={state.left}
-          >
-            {sideList("left")}
-          </Drawer>
+          <Drawer open={state.left}>{sideList("left")}</Drawer>
         </div>
       )}
     </React.Fragment>
