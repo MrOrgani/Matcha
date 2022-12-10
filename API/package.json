@@ -16,7 +16,7 @@
     "date-and-time": "^0.8.1",
     "debug": "~2.6.9",
     "dotenv": "^8.0.0",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "express-fileupload": "^1.1.5",
     "express-form-data": "^2.0.10",
     "filereader": "^0.10.3",
